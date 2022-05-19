@@ -10,40 +10,35 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME 		= minishell
+NAME 		=	minishell
+LIBFT		= 	libft/libft.a
+SRCS		=	$(addprefix sources/, main.c)
+OBJS		=	$(SRCS:.c=.o)
+DEPS		=	$(SRCS:.c=.d)
+CC 			=	cc
+CFLAGS		=	-Wall -Wextra -Werror -MMD -g3
+READLINE	=	-lreadline 
+INC			=	-I ./includes
 
-SRCS_PATH	= ./sources/
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
 
-SRCS		= $(addprefix $(SRCS_PATH), main.c)
+$(NAME): $(OBJS)
+	$(MAKE) -C libft
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(READLINE) -o $(NAME)
 
-OBJS		= $(SRCS:.c=.o)
+all: $(NAME)
 
-DEPS		= $(SRCS:.c=.d)
+clean:
+	$(MAKE) clean -C libft
+	rm -f $(OBJS) $(DEPS)
 
-CC 			= cc
+fclean: clean
+	${MAKE} fclean -C libft
+	rm -f $(NAME)
 
-CFLAGS		= -MMD -Wall -Wextra -Werror -g 
+re: fclean all
 
-READLINE	= -lreadline 
-
-INC			= -I ./includes
-
-all:		$(NAME)
-
-$(NAME):	$(OBJS)
-		$(CC) $(CFLAGS) -o $(NAME) $(OBJS) $(READLINE)
-
-%.o:		%.c
-		$(CC) $(CFLAGS) -c $< -o $@ $(INC)
-
-clean:		
-		rm -f $(OBJS) $(DEPS)
-
-fclean:		clean
-		rm -f $(NAME)
-
-re:			fclean all
-
-.PHONY:		all re clean fclean
+.PHONY:	all re clean fclean
 
 -include $(DEPS)
