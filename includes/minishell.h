@@ -31,8 +31,8 @@
 // <unistd.h> getcwd chdir isatty ttyname ttyslot
 // <termios.h> tgoto tputs
 
-// minishell.c	0 functions
+// minishell.c	1 functions
 
-// main.c	    1 functions
+// main.c	    3 functions
 
 #endif
