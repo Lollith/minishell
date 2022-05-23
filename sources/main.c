@@ -21,7 +21,6 @@ int	ft_write_fd(char *str, int fd)
 	return (EXIT_SUCCESS);
 }
 
-// going to be useless when adding execve
 int	ft_is_exit(char *s)
 {
 	int		i;
@@ -38,23 +37,36 @@ int	ft_is_exit(char *s)
 	return (0);
 }
 
-int	main(int ac, char **av)
+void	ft_new_prompt(int signum)
+{
+	if (signum == SIGINT)
+	{
+		ft_write_fd("\n",1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
+
+int	main(int ac, char **av, char **env)
 {
 	char	*line;
 
 	(void)av;
 	if (ac != 1)
 		return (ft_write_fd("Usage : ./minishell\n", 1));
+	signal(SIGINT, ft_new_prompt);
 	line = readline("minishell> ");
 	while (line != NULL)
 	{
 		add_history (line);
-		printf("%s\n", line);// minishell function go here
-		ac = ft_is_exit(line);// going to be useless when adding execve
+		minishell(line, env);
+		ac = ft_is_exit(line);
 		free(line);
-		if (ac)// going to be useless when adding execve
-			break ;// going to be useless when adding execve
+		if (ac)
+			break ;
 		line = readline("minishell> ");
 	}
+	rl_clear_history();
 	return (EXIT_SUCCESS);
 }
