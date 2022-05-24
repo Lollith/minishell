@@ -12,21 +12,10 @@
 
 #include "minishell.h"
 
-// faire un choix entre c 2 fct et entre nos retrun EXIT ou failure--------------------------------------------
-
-int	ft_write_fd(char *str, int fd)
+int	ft_msg(char *str, int fd)
 {
-	size_t	i;
-
-	i = ft_strlen(str);
-	write(fd, str, i);
-	return (EXIT_SUCCESS);//0
-}
-
-int	msg_error(char *error)
-{
-	write(STDERR_FILENO, error, ft_strlen (error));
-	return(FAILURE);//0
+	write(fd, str, ft_strlen(str));
+	return (FAILURE);
 }
 
 int	ft_is_exit(char *s)
@@ -45,12 +34,11 @@ int	ft_is_exit(char *s)
 	return (0);
 }
 
-
 void	ft_new_prompt(int signum)
 {
 	if (signum == SIGINT)
 	{
-		ft_write_fd("\n",1);
+		ft_msg("\n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
@@ -59,14 +47,14 @@ void	ft_new_prompt(int signum)
 
 int	check_env(char **envp)
 {
-    int	i;
+	int	i;
 
-  i = 0;
-  while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-    i++;
-  if(!envp[i])
-    return(msg_error("Error: path not found\n"));// 0
-  return (SUCCESS); // 1
+	i = 0;
+	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
+		i++;
+	if (!envp[i])
+		return (ft_msg("Error: path not found\n", 2));
+	return (SUCCESS);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -77,13 +65,13 @@ int	main(int ac, char **av, char **envp)
 	if (!check_env(envp))
 		return (1);
 	if (ac != 1)
-		return (ft_write_fd("Usage : ./minishell\n", 1));
+		return (ft_msg("Usage : ./minishell\n", 1));
 	signal(SIGINT, ft_new_prompt);
 	line = readline("minishell> ");
 	while (line != NULL)
 	{
 		add_history (line);
-		minishell(line, env);
+		minishell(line, envp);
 		ac = ft_is_exit(line);
 		free(line);
 		if (ac)

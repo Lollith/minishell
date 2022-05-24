@@ -12,8 +12,8 @@
 
 #include "minishell.h"
 
-void	minishell(char *line, char **env)
+void	minishell(char *line, char **envp)
 {
 	(void)line;
-	(void)env;
+	(void)envp;
 }

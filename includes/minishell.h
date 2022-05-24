@@ -13,10 +13,6 @@
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# define FAILURE 0
-# define SUCCESS 1
-
-
 # include "../libft/libft.h"
 # include <unistd.h>// write access read close dup dup2 execve fork pipe unlink
 # include <fcntl.h>// open
@@ -35,9 +31,13 @@
 // <unistd.h> getcwd chdir isatty ttyname ttyslot
 // <termios.h> tgoto tputs
 
-// minishell.c	1 functions
-void	minishell(char *line, char **env);
+# define FAILURE 0
+# define SUCCESS 1
 
-// main.c	    4 functions
+// minishell.c	1 functions
+void	minishell(char *line, char **envp);
+
+// main.c	    5 functions
+int	    ft_msg(char *str, int fd);
 
 #endif
