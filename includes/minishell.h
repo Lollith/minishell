@@ -34,10 +34,10 @@
 # define FAILURE 0
 # define SUCCESS 1
 
-// minishell.c	1 functions
+// minishell.c	2 functions
 void	minishell(char *line, char **envp);
 
-// main.c	    5 functions
-int	    ft_msg(char *str, int fd);
+// main.c	    4 functions
+int		ft_msg(char *str, int fd);
 
 #endif

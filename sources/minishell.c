@@ -12,8 +12,30 @@
 
 #include "minishell.h"
 
+void	ft_free_split(char **str)
+{
+	int	i;
+
+	if (!str)
+		return ;
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		i++;
+	}
+	free(str);
+}
+
 void	minishell(char *line, char **envp)
 {
-	(void)line;
+	int		i;
+	char	**str;
+
 	(void)envp;
+	str = ft_split(line, ';');
+	i = -1;
+	while (str[++i])
+		printf("%s\n", str[i]);
+	ft_free_split(str);
 }
