@@ -11,3 +11,9 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	minishell(char *line, char **env)
+{
+	(void)line;
+	(void)env;
+}

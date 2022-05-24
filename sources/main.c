@@ -29,12 +29,6 @@ int	msg_error(char *error)
 	return(FAILURE);//0
 }
 
-//-------------------------------------------------------------------
-
-
-
-
-// going to be useless when adding execve
 int	ft_is_exit(char *s)
 {
 	int		i;
@@ -51,17 +45,28 @@ int	ft_is_exit(char *s)
 	return (0);
 }
 
-// check si la variable PATH existe//
+
+void	ft_new_prompt(int signum)
+{
+	if (signum == SIGINT)
+	{
+		ft_write_fd("\n",1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		rl_redisplay();
+	}
+}
+
 int	check_env(char **envp)
 {
-	int	i;
+    int	i;
 
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-		i++;
-	if(!envp[i])
-		return(msg_error("Error: path not found\n"));// 0
-	return (SUCCESS); // 1
+  i = 0;
+  while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
+    i++;
+  if(!envp[i])
+    return(msg_error("Error: path not found\n"));// 0
+  return (SUCCESS); // 1
 }
 
 int	main(int ac, char **av, char **envp)
@@ -73,17 +78,18 @@ int	main(int ac, char **av, char **envp)
 		return (1);
 	if (ac != 1)
 		return (ft_write_fd("Usage : ./minishell\n", 1));
-	
+	signal(SIGINT, ft_new_prompt);
 	line = readline("minishell> ");
 	while (line != NULL)
 	{
 		add_history (line);
-		printf("%s\n", line);// minishell function go here
-		ac = ft_is_exit(line);// going to be useless when adding execve
+		minishell(line, env);
+		ac = ft_is_exit(line);
 		free(line);
-		if (ac)// going to be useless when adding execve
-			break ;// going to be useless when adding execve
+		if (ac)
+			break ;
 		line = readline("minishell> ");
 	}
+	rl_clear_history();
 	return (EXIT_SUCCESS);
 }

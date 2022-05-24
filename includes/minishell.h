@@ -36,6 +36,7 @@
 // <termios.h> tgoto tputs
 
 // minishell.c	1 functions
+void	minishell(char *line, char **env);
 
 // main.c	    4 functions
 
