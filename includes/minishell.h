@@ -37,7 +37,7 @@
 // minishell.c	1 functions
 void	minishell(char *line, char **envp);
 
-// main.c	    5 functions
+// main.c	    4 functions
 int	    ft_msg(char *str, int fd);
 
 #endif
