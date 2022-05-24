@@ -43,17 +43,16 @@ int	check_env(char **envp)
 	return (SUCCESS);
 }
 
-char 	**lexer (char *line)
+char	**lexer(char *line)
 {
 	char	**token;
 
 	token = ft_split (line, ' ');
 	if (!token)
 		return (NULL);
-	
-	return (token); // a free
-
+	return (token);
 }
+
 char	**get_paths(char **envp)
 {
 	int		i;
@@ -65,50 +64,44 @@ char	**get_paths(char **envp)
 		i++;
 	path = envp[i] + 5;
 	paths = ft_split(path, ':');
-	return (paths);  // a free
+	return (paths);
+}
+
+void	ft_free_pa(char **paths, char *path_cmd, char *path_slash, char **token)
+{
+	free(path_cmd);
+	free(paths);
+	free(token);
+	free(path_slash);
 }
 
 int	ft_exec(char **envp, char **token)
 {
+	int		i;
 	char	**paths;
 	char	*path_cmd;
 	char	*path_slash;
-	int		i;
 
 	i = 0;
 	paths = get_paths(envp);
 	while (paths[i])
 	{
 		path_slash = ft_strjoin(paths[i], "/");
-		path_cmd = ft_strjoin(path_slash, token[0]); // 0 car pour une seule commande pour le moment
-		if(access(path_cmd, F_OK) == 0) // si commande  existe
+		path_cmd = ft_strjoin(path_slash, token[0]);
+		if (access(path_cmd, F_OK) == 0 && execve(path_cmd, token, envp))
 		{
-			if (execve(path_cmd, token, envp)) // si exceve >  0 =na  pas marcher
-			{
-				free(path_cmd);
-				free(paths);
-				free(token);
-				free(path_slash);
-				return (FAILURE);
-			}
-		}	
+			ft_free_pa(paths, path_cmd, path_slash, token);
+			return (FAILURE);
+		}
 		i++;
 	}
-	free(path_cmd);
-	free(paths);
-	free(token);
-	free(path_slash);
+	ft_free_pa(paths, path_cmd, path_slash, token);
 	return (ft_msg("Erreur: CMD\n", 1));
 }
-//ft fork pour que chaque commande soit ouverte ds un enfant  et ne pas quiter le shell
-//void ft_fork
-
-
-//void	look_for_operator(char **taken, char **av, char **envp)
 
 int	main(int ac, char **av, char **envp)
 {
-	char	**token;// pour test
+	char	**token;
 	char	*line;
 
 	(void)av;
@@ -125,7 +118,6 @@ int	main(int ac, char **av, char **envp)
 		minishell(line, envp);
 		token = lexer(line);
 		ft_exec(envp, token);
-		ac = ft_is_exit(line);
 		free(line);
 		line = readline("minishell> ");
 	}
