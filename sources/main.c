@@ -28,7 +28,7 @@ void	ft_new_prompt(int signum)
 		rl_redisplay();
 	}
 	else if (signum == SIGQUIT)
-		ft_msg("\b\b", 1);
+		ft_msg("\b\b  \b\b", 1);
 }
 
 int	check_env(char **envp)
