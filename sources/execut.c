@@ -28,37 +28,54 @@ char	**get_paths(char **envp)
 	return (paths);
 }
 
-void	ft_free_pa(char **paths, char *path_cmd, char *path_slash, char **token)
+void	ft_free_pa(char **paths, char *path_cmd, char **token)
 {
-	free(path_cmd);
-	free(paths);
-	free(token);
-	free(path_slash);
+	if (paths)
+		free(paths);
+	if (path_cmd)
+		free(path_cmd);
+	if (token)
+		free(token);
+}
+
+void	ft_child(char **paths, char *path_cmd, char **token, char **envp)
+{
+	pid_t	child;
+	int		wstatus;
+
+	child = fork();
+	if (child < 0)
+		return ;
+	if (!child)
+	{
+		execve(path_cmd, token, envp);
+		ft_free_pa(paths, path_cmd, token);
+		exit(EXIT_FAILURE);
+	}
+	wait(&wstatus);
 }
 
 // execute une seule commande pour le moment token[0]
 // access = 0 => check si une commande existe
 // si exceve > 0 => n a pas marchee
-int	ft_exec(char **envp, char **token)
+void	ft_exec(char **envp, char **token)
 {
 	int		i;
 	char	**paths;
 	char	*path_cmd;
-	char	*path_slash;
 
-	i = 0;
 	paths = get_paths(envp);
-	while (paths[i])
+	path_cmd = NULL;
+	i = -1;
+	while (paths[++i])
 	{
-		path_slash = ft_strjoin(paths[i], "/");
-		path_cmd = ft_strjoin(path_slash, token[0]);
-		if (access(path_cmd, F_OK) == 0 && execve(path_cmd, token, envp))
+		path_cmd = ft_strjoin(paths[i], "/");
+		path_cmd = ft_strjoin_free(path_cmd, token[0]);
+		if (access(path_cmd, F_OK) == 0)
 		{
-			ft_free_pa(paths, path_cmd, path_slash, token);
-			return (FAILURE);
+			ft_child(paths, path_cmd, token, envp);
+			break ;
 		}
-		i++;
 	}
-	ft_free_pa(paths, path_cmd, path_slash, token);
-	return (ft_msg("Erreur: CMD\n", 1));
+	ft_free_pa(paths, path_cmd, token);
 }

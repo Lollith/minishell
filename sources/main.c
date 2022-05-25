@@ -18,6 +18,25 @@ int	ft_msg(char *str, int fd)
 	return (FAILURE);
 }
 
+int	ft_is_exit(char *line)
+{
+	int		i;
+	char	*exit;
+
+	if (ft_strlen(line) != 4)
+		return (0);
+	exit = "exit";
+	i = 0;
+	while (exit[i] && line[i] == exit[i])
+		i++;
+	if (!exit[i] && !line[i])
+	{
+		free(line);
+		return (1);
+	}
+	return (0);
+}
+
 void	ft_new_prompt(int signum)
 {
 	if (signum == SIGINT)
@@ -59,6 +78,8 @@ int	main(int ac, char **av, char **envp)
 	while (line != NULL)
 	{
 		add_history (line);
+		if (ft_is_exit(line))
+			break ;
 		minishell(line, envp);
 		token = lexer(line);
 		ft_exec(envp, token);

@@ -12,7 +12,8 @@
 
 NAME 		=	minishell
 LIBFT		= 	libft/libft.a
-SRCS		=	$(addprefix sources/, minishell.c main.c)
+SRCS		=	$(addprefix sources/, execut.c minishell_split.c parsing.c \
+				minishell.c main.c)
 OBJS		=	$(SRCS:.c=.o)
 DEPS		=	$(SRCS:.c=.d)
 CC 			=	cc

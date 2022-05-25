@@ -35,7 +35,5 @@ void	minishell(char *line, char **envp)
 	(void)envp;
 	str = ft_split(line, ';');
 	i = -1;
-	while (str[++i])
-		printf("%s\n", str[i]);
 	ft_free_split(str);
 }
