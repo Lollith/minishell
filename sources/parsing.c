@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-//fct qui cree les "mots" en fct des espaces
+// fct qui cree les "mots" en fct des espaces
 // token a free
 // a modifier => gerer les ; "" ''
 char	**lexer(char *line)

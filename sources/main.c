@@ -31,8 +31,7 @@ void	ft_new_prompt(int signum)
 		ft_msg("\b\b  \b\b", 1);
 }
 
-int	:wq
-check_env(char **envp)
+int	check_env(char **envp)
 {
 	int	i;
 
@@ -43,7 +42,6 @@ check_env(char **envp)
 		return (ft_msg("Error: path not found\n", 2));
 	return (SUCCESS);
 }
-
 
 int	main(int ac, char **av, char **envp)
 {

@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-//recup le chemin dune commande
+// recup le chemin dune commande
 // paths a free
 char	**get_paths(char **envp)
 {
@@ -36,8 +36,8 @@ void	ft_free_pa(char **paths, char *path_cmd, char *path_slash, char **token)
 	free(path_slash);
 }
 
-//execute une seule commande pour le moment token[0]
-//access = 0 => check si une commande existe
+// execute une seule commande pour le moment token[0]
+// access = 0 => check si une commande existe
 // si exceve > 0 => n a pas marchee
 int	ft_exec(char **envp, char **token)
 {
