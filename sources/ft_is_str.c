@@ -1,26 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   ft_is_str.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/05/25 10:16:57 by agouet           ###   ########.fr       */
+/*   Created: 2022/05/26 13:21:57 by frrusso           #+#    #+#             */
+/*   Updated: 2022/05/26 13:22:01 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// fct qui cree les "mots" en fct des espaces
-// token a free
-// a modifier => gerer les ; "" ''
-char	**lexer(char *line)
+int	ft_is_str(char *line, char *str)
 {
-	char	**token;
+	int		i;
 
-	token = minishell_split(line, " \t\n\v\f\r");
-	if (!token)
-		return (NULL);
-	return (token);
+	if (ft_strlen(line) != ft_strlen(str))
+		return (0);
+	i = 0;
+	while (str[i] && line[i] == str[i])
+		i++;
+	if (!str[i] && !line[i])
+		return (1);
+	return (0);
 }
