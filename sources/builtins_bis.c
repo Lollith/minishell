@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_str.c                                        :+:      :+:    :+:   */
+/*   builtins_bis.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 13:21:57 by frrusso           #+#    #+#             */
-/*   Updated: 2022/05/26 13:22:01 by frrusso          ###   ########.fr       */
+/*   Created: 2022/05/27 17:14:24 by frrusso           #+#    #+#             */
+/*   Updated: 2022/05/27 17:14:26 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_str(char *line, char *str)
+int	ft_env(char **envp)
 {
-	int		i;
+	ft_print_string_of_string(envp);
+	return (1);
+}
 
-	if (!line || !str)
-		return (0);
-	if (ft_strlen(line) != ft_strlen(str))
-		return (0);
-	i = 0;
-	while (str[i] && line[i] == str[i])
-		i++;
-	if (!str[i] && !line[i])
-		return (1);
-	return (0);
+int	ft_exit(void)
+{
+	ft_msg("exit", 1);
+	return (2);
 }

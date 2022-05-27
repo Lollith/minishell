@@ -30,22 +30,22 @@ void	ft_free_split(char **str)
 // 0 in not a builtins
 // 1 is a builtins
 // 2 exit
-int	ft_builtins(char *line)
+int	ft_builtins(char **line, char **envp)
 {
-	if (ft_is_str(line, "echo"))
-		return (1);
-	if (ft_is_str(line, "cd"))
-		return (1);
-	if (ft_is_str(line, "pwd"))
-		return (1);
-	if (ft_is_str(line, "export"))
-		return (1);
-	if (ft_is_str(line, "unset"))
-		return (1);
-	if (ft_is_str(line, "env"))
-		return (1);
-	if (ft_is_str(line, "exit"))
-		return (2);
+	if (ft_is_str(line[0], "echo"))
+		return (ft_echo(line));
+	if (ft_is_str(line[0], "cd"))
+		return (ft_cd());
+	if (ft_is_str(line[0], "pwd"))
+		return (ft_pwd());
+	if (ft_is_str(line[0], "export"))
+		return (ft_export());
+	if (ft_is_str(line[0], "unset"))
+		return (ft_unset());
+	if (ft_is_str(line[0], "env"))
+		return (ft_env(envp));
+	if (ft_is_str(line[0], "exit"))
+		return (ft_exit());
 	return (0);
 }
 
@@ -60,20 +60,20 @@ int	minishell(char *line, char **envp)
 	if (!cmd)
 		return (0);
 	in = 0;
+	token = NULL;
 	i = -1;
 	while (cmd[++i] && in != 2)
 	{
+		ft_free_split(token);
 		token = lexer(cmd[i]);
 		if (!token)
 			break ;
-		in = ft_builtins(token[0]);
+		in = ft_builtins(token, envp);
 		if (in > 0)
 			continue ;
 		ft_exec(envp, token);
-		ft_free_split(token);
 	}
-	if (in == 2)
-		ft_free_split(token);
+	ft_free_split(token);
 	ft_free_split(cmd);
 	return (in);
 }

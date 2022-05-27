@@ -1,29 +1,50 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_is_str.c                                        :+:      :+:    :+:   */
+/*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 13:21:57 by frrusso           #+#    #+#             */
-/*   Updated: 2022/05/26 13:22:01 by frrusso          ###   ########.fr       */
+/*   Created: 2022/05/27 13:44:51 by frrusso           #+#    #+#             */
+/*   Updated: 2022/05/27 13:44:54 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_is_str(char *line, char *str)
+int	ft_echo(char **line)
 {
-	int		i;
+	int	i;
 
-	if (!line || !str)
-		return (0);
-	if (ft_strlen(line) != ft_strlen(str))
-		return (0);
-	i = 0;
-	while (str[i] && line[i] == str[i])
+	i = 1;
+	if (ft_is_str(line[1], "-n"))
 		i++;
-	if (!str[i] && !line[i])
-		return (1);
-	return (0);
+	while (line[i])
+	{
+		printf("%s", line[i]);
+		i++;
+	}
+	if (!ft_is_str(line[1], "-n"))
+		printf("\n");
+	return (1);
+}
+
+int	ft_cd(void)
+{
+	return (1);
+}
+
+int	ft_pwd(void)
+{
+	return (1);
+}
+
+int	ft_export(void)
+{
+	return (1);
+}
+
+int	ft_unset(void)
+{
+	return (1);
 }

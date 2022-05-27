@@ -37,8 +37,24 @@
 # define FALSE 0
 
 /* ************************************************************************** */
-/*                             debug.c 0 functions                            */
+/*                             debug.c 1 functions                            */
 /* ************************************************************************** */
+void	ft_print_string_of_string(char **tab);
+
+/* ************************************************************************** */
+/*                           builtins.c 5 functions                           */
+/* ************************************************************************** */
+int		ft_echo(char **line);
+int		ft_cd(void);
+int		ft_pwd(void);
+int		ft_export(void);
+int		ft_unset(void);
+
+/* ************************************************************************** */
+/*                         builtins_bis.c 2 functions                         */
+/* ************************************************************************** */
+int		ft_env(char **envp);
+int		ft_exit(void);
 
 /* ************************************************************************** */
 /*                           ft_is_str.c 1 functions                          */
@@ -51,7 +67,7 @@ int		ft_is_str(char *line, char *str);
 char	**minishell_split(char *str, char *space);
 
 /* ************************************************************************** */
-/*                           minishell.c 2 functions                          */
+/*                           minishell.c 3 functions                          */
 /* ************************************************************************** */
 void	ft_free_split(char **str);
 int		minishell(char *line, char **envp);

@@ -11,3 +11,15 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	ft_print_string_of_string(char **tab)
+{
+	int	i;
+
+	i = 0;
+	while (tab[i])
+	{
+		printf("%s\n", tab[i]);
+		i++;
+	}
+}

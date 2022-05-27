@@ -12,22 +12,6 @@
 
 #include "minishell.h"
 
-// recup le chemin dune commande
-// paths a free
-char	**get_paths(char **envp)
-{
-	int		i;
-	char	*path;
-	char	**paths;
-
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-		i++;
-	path = envp[i] + 5;
-	paths = ft_split(path, ':');
-	return (paths);
-}
-
 void	ft_free_pa(char **paths, char *path_cmd, char **token)
 {
 	if (paths)
@@ -55,6 +39,22 @@ void	ft_child(char **paths, char *path_cmd, char **token, char **envp)
 	wait(&wstatus);
 }
 
+// recup le chemin dune commande
+// paths a free
+char	**get_paths(char **envp)
+{
+	int		i;
+	char	*path;
+	char	**paths;
+
+	i = 0;
+	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
+		i++;
+	path = envp[i] + 5;
+	paths = ft_split(path, ':');
+	return (paths);
+}
+
 // execute une seule commande pour le moment token[0]
 // access = 0 => check si une commande existe
 // si exceve > 0 => n a pas marchee
@@ -66,8 +66,8 @@ void	ft_exec(char **envp, char **token)
 
 	paths = get_paths(envp);
 	path_cmd = NULL;
-	i = -1;
-	while (paths[++i])
+	i = 0;
+	while (paths[i])
 	{
 		path_cmd = ft_strjoin(paths[i], "/");
 		path_cmd = ft_strjoin_free(path_cmd, token[0]);
@@ -76,6 +76,7 @@ void	ft_exec(char **envp, char **token)
 			ft_child(paths, path_cmd, token, envp);
 			break ;
 		}
+		i++;
 	}
 	ft_free_pa(paths, path_cmd, token);
 }

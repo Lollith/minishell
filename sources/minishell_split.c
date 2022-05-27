@@ -82,11 +82,13 @@ char	**minishell_split(char *str, char *space)
 	int		c;
 	char	**res;
 
-	i = 0;
+	if (!str)
+		return (NULL);
 	res = malloc(sizeof(char *) * ft_count_word(str, space) + 1);
 	if (!res)
 		return (NULL);
 	c = 0;
+	i = 0;
 	while (str[i])
 	{
 		while (str[i] && ft_strstr(str[i], space) == 1)
