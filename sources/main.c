@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/05/25 10:21:20 by agouet           ###   ########.fr       */
+/*   Updated: 2022/05/30 10:25:09 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,26 @@ int	check_env(char **envp)
 	return (SUCCESS);
 }
 
-int	main(int ac, char **av, char **envp)
+// fct qui cree les "mots" en fct des espaces
+// token a free
+// a modifier => gerer les ; "" ''
+char	**lexer(char *line)
 {
 	char	**token;
-	char	*line;
 
+	token = ft_split (line, ' ');
+	if (!token)
+		return (NULL);
+	return (token);
+}
+
+int	main(int ac, char **av, char **envp)
+{
+	char	*line;
+	t_list	*l_token;
+	t_list	*tmp_token;
+
+	l_token = NULL;
 	(void)av;
 	if (!check_env(envp))
 		return (1);
@@ -60,8 +75,11 @@ int	main(int ac, char **av, char **envp)
 	{
 		add_history (line);
 		minishell(line, envp);
-		token = lexer(line);
-		ft_exec(envp, token);
+		if (!list_token(&l_token, line))
+			return (1);
+		tmp_token = l_token;
+		monitoring_line(tmp_token, envp);
+		ft_lstclear2(&l_token);
 		free(line);
 		line = readline("minishell> ");
 	}

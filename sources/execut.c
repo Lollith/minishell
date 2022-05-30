@@ -6,14 +6,12 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/05/25 10:21:16 by agouet           ###   ########.fr       */
+/*   Updated: 2022/05/30 10:14:52 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// recup le chemin dune commande
-// paths a free
 char	**get_paths(char **envp)
 {
 	int		i;
@@ -28,37 +26,71 @@ char	**get_paths(char **envp)
 	return (paths);
 }
 
-void	ft_free_pa(char **paths, char *path_cmd, char *path_slash, char **token)
+void	ft_free_pa(char **paths, char *path_cmd, char **new_token_exec)
 {
-	free(path_cmd);
-	free(paths);
-	free(token);
-	free(path_slash);
+	if (paths)
+		free(paths);
+	if (path_cmd)
+		free(path_cmd);
+	if (new_token_exec)
+		free(new_token_exec);
 }
 
-// execute une seule commande pour le moment token[0]
+int	ft_child(char **paths, char *path_cmd, char **new_token_exec, char **envp)
+{
+	pid_t	child;
+	int		wstatus;
+
+	child = fork();
+	if (child < 0)
+		return (FAILURE);
+	if (!child)
+	{
+		execve(path_cmd, new_token_exec, envp);
+		ft_free_pa(paths, path_cmd, new_token_exec);
+		return (FAILURE);
+	}
+	wait(&wstatus);
+	return (SUCCESS);
+}
+
+//cette fonction permet de creer un touble tableau de char cmd+NULL 
+// pour que execve ne confonde pas le && pour le flag
+// a faire : gerer les flags
+char	**create_token_exec(char *cmd)
+{
+	char	**new_token_exec;
+
+	new_token_exec = (char **) malloc(sizeof(char *) * 2);
+	if (!new_token_exec)
+		return (FAILURE);
+	new_token_exec[0] = cmd;
+	new_token_exec[1] = NULL;
+	return (new_token_exec);
+}
+
 // access = 0 => check si une commande existe
 // si exceve > 0 => n a pas marchee
-int	ft_exec(char **envp, char **token)
+int	ft_exec(char **envp, char *cmd, char **new_token_exec) // modif sur la version de la branche francois, com a sup
 {
 	int		i;
 	char	**paths;
 	char	*path_cmd;
-	char	*path_slash;
 
-	i = 0;
 	paths = get_paths(envp);
+	path_cmd = NULL;
+	i = 0;
 	while (paths[i])
 	{
-		path_slash = ft_strjoin(paths[i], "/");
-		path_cmd = ft_strjoin(path_slash, token[0]);
-		if (access(path_cmd, F_OK) == 0 && execve(path_cmd, token, envp))
+		path_cmd = ft_strjoin(paths[i], "/"); // a free??  // com  a sup
+		path_cmd = ft_strjoin(path_cmd, cmd);
+		if (access(path_cmd, F_OK) == 0)
 		{
-			ft_free_pa(paths, path_cmd, path_slash, token);
-			return (FAILURE);
+			if (ft_child(paths, path_cmd, new_token_exec, envp))
+				return (SUCCESS);
 		}
 		i++;
 	}
-	ft_free_pa(paths, path_cmd, path_slash, token);
-	return (ft_msg("Erreur: CMD\n", 1));
+	ft_free_pa(paths, path_cmd, new_token_exec);
+	return (FAILURE);
 }
