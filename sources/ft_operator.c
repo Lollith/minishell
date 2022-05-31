@@ -35,7 +35,7 @@ int	ft_eperluet(t_list *tmp_token, char **envp)
 	return (FAILURE);
 }
 
-//fct non operationnelle
+// fct non operationnelle
 // tester si 1er commande fail => doit lancer 2 eme commande
 int	ft_ou(t_list *tmp_token, char **envp)
 {

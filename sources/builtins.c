@@ -29,8 +29,11 @@ int	ft_echo(char **line)
 	return (1);
 }
 
-int	ft_cd(void)
+// need to add relative path
+int	ft_cd(char **line)
 {
+	if (line[1])
+		chdir(line[1]);
 	return (1);
 }
 

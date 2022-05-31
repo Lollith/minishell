@@ -45,7 +45,7 @@ void	ft_print_string_of_string(char **tab);
 /*                           builtins.c 4 functions                           */
 /* ************************************************************************** */
 int		ft_echo(char **line);
-int		ft_cd(void);
+int	    ft_cd(char **line);
 int		ft_pwd(void);
 int		ft_export(void);
 
@@ -87,13 +87,13 @@ char	**create_token_exec(char *cmd);
 int		ft_exec(char **envp, char *cmd, char **new_token_exec);
 
 /* ************************************************************************** */
-/*                          list_token.c 0 functions                          */
+/*                          list_token.c 2 functions                          */
 /* ************************************************************************** */
 int		list_token(t_list	**l_token, char *line);
 void	ft_lstclear2(t_list **l_token);
 
 /* ************************************************************************** */
-/*                         ft_operator.c 0 functions                          */
+/*                         ft_operator.c 3 functions                          */
 /* ************************************************************************** */
 void	monitoring_line(t_list *tmp_token, char **envp);
 int		ft_eperluet( t_list *l_token, char **envp);
