@@ -43,35 +43,35 @@ int	check_env(char **envp)
 	return (SUCCESS);
 }
 
-int	main(int ac, char **av, char **envp)
-{
-	char	*line;
-	t_list	*l_token;
-	t_list	*tmp_token;
+// int	main(int ac, char **av, char **envp)
+// {
+// 	char	*line;
+// 	t_list	*l_token;
+// 	t_list	*tmp_token;
 
-	l_token = NULL;
-	(void)av;
-	if (!check_env(envp))
-		return (1);
-	if (ac != 1)
-		return (ft_msg("Usage : ./minishell\n", 1));
-	signal(SIGINT, ft_new_prompt);
-	signal(SIGQUIT, ft_new_prompt);
-	line = readline("minishell> ");
-	while (line != NULL)
-	{
-		add_history (line);
-		ac = minishell(line, envp);
-		if (!list_token(&l_token, line))
-			return (1);
-		tmp_token = l_token;
-		monitoring_line(tmp_token, envp);
-		ft_lstclear2(&l_token);
-		free(line);
-		if (ac == 2)
-			break ;
-		line = readline("minishell> ");
-	}
-	rl_clear_history();
-	return (ft_msg("\n", 1));
-}
+// 	l_token = NULL;
+// 	(void)av;
+// 	if (!check_env(envp))
+// 		return (1);
+// 	if (ac != 1)
+// 		return (ft_msg("Usage : ./minishell\n", 1));
+// 	signal(SIGINT, ft_new_prompt);
+// 	signal(SIGQUIT, ft_new_prompt);
+// 	line = readline("minishell> ");
+// 	while (line != NULL)
+// 	{
+// 		add_history (line);
+// 		ac = minishell(line, envp);
+// 		if (!list_token(&l_token, line))
+// 			return (1);
+// 		tmp_token = l_token;
+// 		monitoring_line(tmp_token, envp);
+// 		ft_lstclear2(&l_token);
+// 		free(line);
+// 		if (ac == 2)
+// 			break ;
+// 		line = readline("minishell> ");
+// 	}
+// 	rl_clear_history();
+// 	return (ft_msg("\n", 1));
+// }

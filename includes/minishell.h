@@ -82,7 +82,7 @@ char	**lexer(char *line);
 /* ************************************************************************** */
 char	**get_paths(char **envp);
 void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
-int     ft_child(char **paths, char *path_cmd, char **token, char **envp);
+int		ft_child(char **paths, char *path_cmd, char **token, char **envp);
 char	**create_token_exec(char *cmd);
 int		ft_exec(char **envp, char *cmd, char **new_token_exec);
 
