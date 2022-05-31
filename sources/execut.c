@@ -12,6 +12,18 @@
 
 #include "minishell.h"
 
+void	ft_free_pa(char **paths, char *path_cmd, char **token)
+{
+	if (paths)
+		free(paths);
+	if (path_cmd)
+		free(path_cmd);
+	if (token)
+		free(token);
+}
+
+// recup le chemin dune commande
+// paths a free
 char	**get_paths(char **envp)
 {
 	int		i;
@@ -24,16 +36,6 @@ char	**get_paths(char **envp)
 	path = envp[i] + 5;
 	paths = ft_split(path, ':');
 	return (paths);
-}
-
-void	ft_free_pa(char **paths, char *path_cmd, char **new_token_exec)
-{
-	if (paths)
-		free(paths);
-	if (path_cmd)
-		free(path_cmd);
-	if (new_token_exec)
-		free(new_token_exec);
 }
 
 int	ft_child(char **paths, char *path_cmd, char **new_token_exec, char **envp)
@@ -54,7 +56,7 @@ int	ft_child(char **paths, char *path_cmd, char **new_token_exec, char **envp)
 	return (SUCCESS);
 }
 
-//cette fonction permet de creer un touble tableau de char cmd+NULL 
+// cette fonction permet de creer un touble tableau de char cmd+NULL 
 // pour que execve ne confonde pas le && pour le flag
 // a faire : gerer les flags
 char	**create_token_exec(char *cmd)
@@ -71,7 +73,7 @@ char	**create_token_exec(char *cmd)
 
 // access = 0 => check si une commande existe
 // si exceve > 0 => n a pas marchee
-int	ft_exec(char **envp, char *cmd, char **new_token_exec) // modif sur la version de la branche francois, com a sup
+int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 {
 	int		i;
 	char	**paths;
@@ -82,8 +84,8 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec) // modif sur la versi
 	i = 0;
 	while (paths[i])
 	{
-		path_cmd = ft_strjoin(paths[i], "/"); // a free??  // com  a sup
-		path_cmd = ft_strjoin(path_cmd, cmd);
+		path_cmd = ft_strjoin(paths[i], "/");
+		path_cmd = ft_strjoin_free(path_cmd, cmd);
 		if (access(path_cmd, F_OK) == 0)
 		{
 			if (ft_child(paths, path_cmd, new_token_exec, envp))

@@ -12,7 +12,19 @@
 
 NAME 		=	minishell
 LIBFT		= 	libft/libft.a
-SRCS		=	$(addprefix sources/, minishell.c main.c ft_operator.c execut.c list_token.c)
+SRCS		=	$(addprefix sources/, \
+					builtins.c \
+					builtins_bis.c \
+					execut.c \
+					ft_operator.c \
+					list_token.c \
+					ft_is_str.c \
+					minishell_split.c \
+					parsing.c \
+					minishell.c \
+					main.c \
+					debug.c \
+				)
 OBJS		=	$(SRCS:.c=.o)
 DEPS		=	$(SRCS:.c=.d)
 CC 			=	cc
