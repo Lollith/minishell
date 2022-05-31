@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/05/25 10:11:13 by agouet           ###   ########.fr       */
+/*   Updated: 2022/05/30 10:06:14 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,26 @@ char	**lexer(char *line);
 /*                            execut.c 4 functions                            */
 /* ************************************************************************** */
 char	**get_paths(char **envp);
-void	ft_exec(char **envp, char **token);
+void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
+int     ft_child(char **paths, char *path_cmd, char **token, char **envp);
+char	**create_token_exec(char *cmd);
+int		ft_exec(char **envp, char *cmd, char **new_token_exec);
 
 /* ************************************************************************** */
-/*                             main.c 4 functions                             */
+/*                          list_token.c 0 functions                          */
+/* ************************************************************************** */
+int		list_token(t_list	**l_token, char *line);
+void	ft_lstclear2(t_list **l_token);
+
+/* ************************************************************************** */
+/*                         ft_operator.c 0 functions                          */
+/* ************************************************************************** */
+void	monitoring_line(t_list *tmp_token, char **envp);
+int		ft_eperluet( t_list *l_token, char **envp);
+int		ft_ou(t_list *tmp_token, char **envp);
+
+/* ************************************************************************** */
+/*                             main.c 3 functions                             */
 /* ************************************************************************** */
 int		ft_msg(char *str, int fd);
 void	ft_new_prompt(int signum);

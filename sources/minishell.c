@@ -71,7 +71,7 @@ int	minishell(char *line, char **envp)
 		in = ft_builtins(token, envp);
 		if (in > 0)
 			continue ;
-		ft_exec(envp, token);
+		ft_exec(envp, cmd[i], create_token_exec(cmd[i]));
 	}
 	ft_free_split(token);
 	ft_free_split(cmd);

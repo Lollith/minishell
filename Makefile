@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: agouet <marvin@42.fr>                      +#+  +:+       +#+         #
+#    By: agouet <agouet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/20 16:34:58 by agouet            #+#    #+#              #
-#    Updated: 2022/04/20 16:47:22 by agouet           ###   ########.fr        #
+#    Updated: 2022/05/30 10:31:15 by agouet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,6 +16,8 @@ SRCS		=	$(addprefix sources/, \
 					builtins.c \
 					builtins_bis.c \
 					execut.c \
+					ft_operator.c \
+					list_token.c \
 					ft_is_str.c \
 					minishell_split.c \
 					parsing.c \
