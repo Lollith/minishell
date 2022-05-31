@@ -12,95 +12,104 @@
 
 #include "minishell.h"
 
-int	ft_strstr(char c, char *to_find)
-{
-	int	n;
+// char	**ft_split_free(char **str)
+// {
+// 	int	i;
 
-	n = 0;
-	if (to_find[0] == '\0')
-		return (0);
-	while (to_find[n])
-	{
-		if (c == to_find[n])
-			return (1);
-		n++;
-	}
-	return (0);
-}
+// 	if (!str)
+// 		return (NULL);
+// 	i = 0;
+// 	while (str[i])
+// 	{
+// 		free(str[i]);
+// 		i++;
+// 	}
+// 	free(str);
+// 	return (NULL);
+// }
 
-int	ft_count_word(char *str, char *space)
-{
-	int	i;
-	int	res;
+// int	ft_split_count(char const *s, char c)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	r;
 
-	i = 0;
-	res = 1;
-	while (str[i])
-	{
-		if (ft_strstr(str[i], space) != 0)
-			res++;
-		while (str[i] && ft_strstr(str[i], space) != 0)
-			i++;
-		i++;
-	}
-	return (res);
-}
+// 	i = 0;
+// 	j = 1;
+// 	r = 0;
+// 	while (s[i])
+// 	{
+// 		if (j && s[i] != c)
+// 		{
+// 			j = 0;
+// 			r++;
+// 		}
+// 		if (!j && s[i] == c)
+// 			j = 1;
+// 		i++;
+// 	}
+// 	return (r);
+// }
 
-int	ft_len_word(char *str, char *space, int i)
-{
-	int	j;
+// int	ft_split_len(char const *s, char c, int i)
+// {
+// 	int	j;
 
-	j = 0;
-	while (str[i])
-	{
-		if (ft_strstr(str[i], space) != 0)
-			return (j);
-		i++;
-		j++;
-	}
-	return (j);
-}
+// 	j = 0;
+// 	while (s[i])
+// 	{
+// 		if (s[i] == c)
+// 			return (j);
+// 		i++;
+// 		j++;
+// 	}
+// 	return (j);
+// }
 
-char	*ft_input_word(char *str, char *space, int i)
-{
-	char	*word;
-	int		k;
+// char	*ft_split_input(char const *s, char c, int i)
+// {
+// 	int		j;
+// 	char	*res;
 
-	k = 0;
-	word = malloc(sizeof(char) * (ft_len_word(str, space, i) + 1));
-	if (!word)
-		return (NULL);
-	while (str[i] && ft_strstr(str[i], space) == 0)
-		word[k++] = str[i++];
-	word[k] = '\0';
-	return (word);
-}
+// 	res = malloc(sizeof(char) * (ft_split_len(s, c, i) + 1));
+// 	if (!res)
+// 		return (NULL);
+// 	j = 0;
+// 	while (s[i] && s[i] != c)
+// 	{
+// 		res[j] = s[i];
+// 		i++;
+// 		j++;
+// 	}
+// 	res[j] = '\0';
+// 	return (res);
+// }
 
-char	**minishell_split(char *str, char *space)
-{
-	int		i;
-	int		c;
-	char	**res;
+// char	**minishell_split(char const *s, char c)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	**res;
 
-	if (!str)
-		return (NULL);
-	res = malloc(sizeof(char *) * ft_count_word(str, space) + 1);
-	if (!res)
-		return (NULL);
-	c = 0;
-	i = 0;
-	while (str[i])
-	{
-		while (str[i] && ft_strstr(str[i], space) == 1)
-			i++;
-		if (str[i])
-			res[c] = ft_input_word(str, space, i);
-		else
-			res[c] = 0;
-		while (str[i] && ft_strstr(str[i], space) == 0)
-			i++;
-		c++;
-	}
-	res[c] = NULL;
-	return (res);
-}
+// 	res = malloc(sizeof(char *) * (ft_split_count(s, c) + 1));
+// 	if (!res)
+// 		return (NULL);
+// 	j = 0;
+// 	i = 0;
+// 	while (s[i])
+// 	{
+// 		while (s[i] == c)
+// 			i++;
+// 		if (s[i])
+// 			res[j] = ft_split_input(s, c, i);
+// 		else
+// 			break ;
+// 		if (!res[j])
+// 			return (ft_split_free(res));
+// 		while (s[i] && s[i] != c)
+// 			i++;
+// 		j++;
+// 	}
+// 	res[j] = NULL;
+// 	return (res);
+// }

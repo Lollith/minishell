@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+int	ft_unset(void)
+{
+	return (1);
+}
+
 int	ft_env(char **envp)
 {
 	ft_print_string_of_string(envp);
