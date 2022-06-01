@@ -29,11 +29,27 @@ int	ft_echo(char **line)
 	return (1);
 }
 
-// need to add relative path
-int	ft_cd(char **line)
+char	*get_home(char **envp)
 {
+	int		i;
+	char	*home;
+
+	i = 0;
+	while (envp[i] && ft_strncmp(envp[i], "HOME=", 5))
+		i++;
+	home = envp[i] + 5;
+	return (home);
+}
+
+int	ft_cd(char **line, char **envp)
+{
+	char	*home;
+
+	home = get_home(envp);
 	if (line[1])
 		chdir(line[1]);
+	else
+		chdir(home);
 	return (1);
 }
 
@@ -45,10 +61,5 @@ int	ft_pwd(void)
 		perror("getcwd() error");
 	else
 		printf("%s\n", cwd);
-	return (1);
-}
-
-int	ft_export(void)
-{
 	return (1);
 }

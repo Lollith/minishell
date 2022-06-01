@@ -12,6 +12,11 @@
 
 #include "minishell.h"
 
+int	ft_export(void)
+{
+	return (1);
+}
+
 int	ft_unset(void)
 {
 	return (1);

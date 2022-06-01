@@ -16,6 +16,7 @@
 // token est free dans minishell par ft_free_split
 // a modifier => gerer les ; "" ''
 // a modifier => gerer tous les espaces " \t\n\v\f\r"
+// token = minishell_split(line, " \t\n\v\f\r");
 char	**lexer(char *line)
 {
 	char	**token;

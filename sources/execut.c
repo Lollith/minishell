@@ -63,7 +63,7 @@ char	**create_token_exec(char *cmd)
 {
 	char	**new_token_exec;
 
-	new_token_exec = (char **) malloc(sizeof(char *) * 2);
+	new_token_exec = (char **)malloc(sizeof(char *) * 2);
 	if (!new_token_exec)
 		return (FAILURE);
 	new_token_exec[0] = cmd;

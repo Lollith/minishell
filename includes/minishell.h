@@ -45,13 +45,14 @@ void	ft_print_string_of_string(char **tab);
 /*                           builtins.c 4 functions                           */
 /* ************************************************************************** */
 int		ft_echo(char **line);
-int	    ft_cd(char **line);
+char	*get_home(char **envp);
+int		ft_cd(char **line, char **envp);
 int		ft_pwd(void);
-int		ft_export(void);
 
 /* ************************************************************************** */
-/*                         builtins_bis.c 3 functions                         */
+/*                         builtins_bis.c 4 functions                         */
 /* ************************************************************************** */
+int		ft_export(void);
 int		ft_unset(void);
 int		ft_env(char **envp);
 int		ft_exit(void);

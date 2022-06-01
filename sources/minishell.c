@@ -35,7 +35,7 @@ int	ft_builtins(char **line, char **envp)
 	if (ft_is_str(line[0], "echo"))
 		return (ft_echo(line));
 	if (ft_is_str(line[0], "cd"))
-		return (ft_cd(line));
+		return (ft_cd(line, envp));
 	if (ft_is_str(line[0], "pwd"))
 		return (ft_pwd());
 	if (ft_is_str(line[0], "export"))

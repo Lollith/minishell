@@ -85,11 +85,11 @@
 // 	return (res);
 // }
 
-char	**minishell_split(char const *s, char *space)
-{
-	int		i;
-	int		j;
-	char	**res;
+// char	**minishell_split(char const *s, char *space)
+// {
+// 	int		i;
+// 	int		j;
+// 	char	**res;
 
 // 	res = malloc(sizeof(char *) * (ft_split_count(s, c) + 1));
 // 	if (!res)
@@ -111,5 +111,5 @@ char	**minishell_split(char const *s, char *space)
 // 		j++;
 // 	}
 // 	res[j] = NULL;
-	return (res);
-}
+// 	return (res);
+// }
