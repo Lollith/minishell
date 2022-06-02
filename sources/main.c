@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/02 10:11:51 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/02 11:48:13 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,13 +67,11 @@ int	main(int ac, char **av, char **envp)
 	while (line != NULL)
 	{
 		add_history (line);
-		ac = minishell(line, envp);
+	//	ac = minishell(line, envp);
 		if (!list_token(&l_token, line))
 			return (1);
 		tmp_token = l_token;
-		ft_eperluet(tmp_token, envp);
-		ft_ou(tmp_token, envp);
-		ft_redir_out(tmp_token, envp);
+		monitoring_line(tmp_token, envp);
 		ft_lstclear2(&l_token);
 		free(line);
 		if (ac == 2)

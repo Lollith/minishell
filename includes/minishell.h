@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/02 10:03:25 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/02 12:06:22 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,10 +96,11 @@ void	ft_lstclear2(t_list **l_token);
 /* ************************************************************************** */
 /*                         ft_operator.c 3 functions                          */
 /* ************************************************************************** */
-void	monitoring_line(t_list *tmp_token, char **envp);
-int		ft_eperluet( t_list *l_token, char **envp);
-int		ft_ou(t_list *tmp_token, char **envp);
-int		ft_redir_out(t_list *l_token, char **envp);
+int		monitoring_line(t_list *tmp_token, char **envp);
+int		ft_eperluet( t_list *l_token, char **new_token_exec, char **envp);
+int		ft_ou(t_list *tmp_token, char **new_token_exec, char **envp);
+int		ft_redir_out(t_list *l_token, char **new_token_exec, char **envp);
+
 /* ************************************************************************** */
 /*                             main.c 3 functions                             */
 /* ************************************************************************** */
