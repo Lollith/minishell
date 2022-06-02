@@ -37,8 +37,10 @@
 # define FALSE 0
 
 /* ************************************************************************** */
-/*                            debug.c 1 functions                             */
+/*                            debug.c 3 functions                             */
 /* ************************************************************************** */
+int		ft_msg(char *str, int fd);
+int		msg_perror(char *origin);
 void	ft_print_string_of_string(char **tab);
 
 /* ************************************************************************** */
@@ -102,11 +104,7 @@ int		ft_ou(t_list *tmp_token, char **new_token_exec, char **envp);
 int		ft_redir_out(t_list *l_token, char **new_token_exec, char **envp);
 
 /* ************************************************************************** */
-/*                             main.c 3 functions                             */
+/*                             main.c 4 functions                             */
 /* ************************************************************************** */
-int		ft_msg(char *str, int fd);
-int		msg_perror(char *origin);
-void	ft_new_prompt(int signum);
-int		check_env(char **envp);
 
 #endif

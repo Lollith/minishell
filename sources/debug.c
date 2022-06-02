@@ -12,6 +12,18 @@
 
 #include "minishell.h"
 
+int	ft_msg(char *str, int fd)
+{
+	write(fd, str, ft_strlen(str));
+	return (FAILURE);
+}
+
+int	msg_perror(char *origin)
+{
+	perror(origin);
+	exit(FAILURE);
+}
+
 void	ft_print_string_of_string(char **tab)
 {
 	int	i;
