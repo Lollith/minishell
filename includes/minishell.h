@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/05/30 10:06:14 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/02 10:03:25 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,12 @@ void	ft_lstclear2(t_list **l_token);
 void	monitoring_line(t_list *tmp_token, char **envp);
 int		ft_eperluet( t_list *l_token, char **envp);
 int		ft_ou(t_list *tmp_token, char **envp);
-
+int		ft_redir_out(t_list *l_token, char **envp);
 /* ************************************************************************** */
 /*                             main.c 3 functions                             */
 /* ************************************************************************** */
 int		ft_msg(char *str, int fd);
+int		msg_perror(char *origin);
 void	ft_new_prompt(int signum);
 int		check_env(char **envp);
 
