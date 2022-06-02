@@ -3,28 +3,26 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:44:51 by frrusso           #+#    #+#             */
-/*   Updated: 2022/05/27 13:44:54 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/06/02 14:10:47 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_echo(char **line)
+int	ft_echo(t_list *l_token)
 {
-	int	i;
 
-	i = 1;
-	if (ft_is_str(line[1], "-n"))
-		i++;
-	while (line[i])
+//	if (ft_is_str(l_token->next->content, "-n"))
+//		l_token = l_token->next;
+	while (l_token->next)
 	{
-		printf("%s", line[i]);
-		i++;
+		printf("%s",(char *) l_token->next->content);
+		l_token = l_token->next;
 	}
-	if (!ft_is_str(line[1], "-n"))
+	//if (!ft_is_str(l_token->next->content, "-n"))
 		printf("\n");
 	return (1);
 }

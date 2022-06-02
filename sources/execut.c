@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/02 10:08:45 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/02 15:25:10 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,25 @@ int	ft_child(char **paths, char *path_cmd, char **new_token_exec, char **envp)
 // cette fonction permet de creer un touble tableau de char cmd+NULL 
 // pour que execve ne confonde pas le && pour le flag
 // a faire : gerer les flags
-char	**create_token_exec(char *cmd)
+char	**create_token_exec(t_list *l_token)
 {
 	char	**new_token_exec;
+	int		i;
+	char	*cmd;
 
-	new_token_exec = (char **)malloc(sizeof(char *) * 2);
+	cmd = l_token->content;
+	i = 0;
+	new_token_exec = (char **)malloc(sizeof(char *) * 3);
 	if (!new_token_exec)
 		return (FAILURE);
-	new_token_exec[0] = cmd;
-	new_token_exec[1] = NULL;
+	new_token_exec[i] = cmd;
+	if (l_token->next->content && ft_strchr(l_token->next->content, '-'))
+	{
+		new_token_exec[i + 1] = l_token->next->content; 
+		i++;
+	}
+	new_token_exec[i + 1] = NULL;
+
 	return (new_token_exec);
 }
 

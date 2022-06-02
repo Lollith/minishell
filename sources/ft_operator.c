@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/02 12:34:19 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/02 15:25:29 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	monitoring_line(t_list *l_token, char **envp)
 {
 	char	**new_token_exec;
 
-	new_token_exec = create_token_exec(l_token->content);
+	new_token_exec = create_token_exec(l_token);
 	if (l_token->next)
 	{
 		if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
