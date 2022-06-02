@@ -10,45 +10,69 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+// #include "minishell.h"
 
-// char	**ft_split_free(char **str)
+// int	ft_strstr(char c, char *find)
 // {
 // 	int	i;
 
-// 	if (!str)
-// 		return (NULL);
 // 	i = 0;
-// 	while (str[i])
+// 	while (find[i])
 // 	{
-// 		free(str[i]);
+// 		if (c == find[i])
+// 			return (TRUE);
 // 		i++;
 // 	}
-// 	free(str);
-// 	return (NULL);
+// 	return (FALSE);
 // }
 
-// int	ft_split_count(char const *s, char c)
+// int	minishell_quote(char const *str, int i)
+// {
+// 	if (str[i] == '\"')
+// 	{
+// 		i++;
+// 		while (str[i] != '\"')
+// 		{
+// 			if (str[i] == '\\')
+// 				i++;
+// 			i++;
+// 		}
+// 	}
+// 	if (str[i] == '\'')
+// 	{
+// 		i++;
+// 		if (str[i] != '\'')
+// 		{
+// 			if (str[i] == '\\')
+// 				i++;
+// 			i++;
+// 		}
+// 	}
+// 	return (i);
+// }
+
+// int	minishell_count(char const *str, char *space)
 // {
 // 	int	i;
 // 	int	j;
-// 	int	r;
+// 	int	res;
 
 // 	i = 0;
-// 	j = 1;
-// 	r = 0;
-// 	while (s[i])
+// 	j = FALSE;
+// 	res = 0;
+// 	while (str[i])
 // 	{
-// 		if (j && s[i] != c)
+// 		i = minishell_quote(str, i);
+// 		if (!j && !ft_strstr(str[i], space))
+// 			j = TRUE;
+// 		if (j && ft_strstr(str[i], space))
 // 		{
-// 			j = 0;
-// 			r++;
+// 			j = FALSE;
+// 			res++;
 // 		}
-// 		if (!j && s[i] == c)
-// 			j = 1;
 // 		i++;
 // 	}
-// 	return (r);
+// 	return (res);
 // }
 
 // int	ft_split_len(char const *s, char c, int i)
@@ -85,18 +109,18 @@
 // 	return (res);
 // }
 
-// char	**minishell_split(char const *s, char *space)
+// char	**minishell_split(char const *str, char *space)
 // {
 // 	int		i;
 // 	int		j;
 // 	char	**res;
 
-// 	res = malloc(sizeof(char *) * (ft_split_count(s, c) + 1));
+// 	res = malloc(sizeof(char *) * (minishell_count(str, space) + 1));
 // 	if (!res)
 // 		return (NULL);
 // 	j = 0;
 // 	i = 0;
-// 	while (s[i])
+// 	while (str[i])
 // 	{
 // 		while (s[i] == c)
 // 			i++;
@@ -105,7 +129,7 @@
 // 		else
 // 			break ;
 // 		if (!res[j])
-// 			return (ft_split_free(res));
+// 			return (ft_free_split(res));
 // 		while (s[i] && s[i] != c)
 // 			i++;
 // 		j++;

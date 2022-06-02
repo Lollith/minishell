@@ -12,13 +12,17 @@
 
 #include "minishell.h"
 
-int	ft_export(void)
+int	ft_export(char **line, char **envp)
 {
+	printf("%p\n", line[0]);
+	printf("%p\n", envp);
 	return (1);
 }
 
-int	ft_unset(void)
+int	ft_unset(char **line, char **envp)
 {
+	printf("%p\n", line[0]);
+	printf("%p\n", envp);
 	return (1);
 }
 

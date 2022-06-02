@@ -52,8 +52,8 @@ int		ft_pwd(void);
 /* ************************************************************************** */
 /*                         builtins_bis.c 4 functions                         */
 /* ************************************************************************** */
-int		ft_export(void);
-int		ft_unset(void);
+int		ft_export(char **line, char **envp);
+int		ft_unset(char **line, char **envp);
 int		ft_env(char **envp);
 int		ft_exit(void);
 
@@ -65,7 +65,7 @@ int		ft_is_str(char *line, char *str);
 /* ************************************************************************** */
 /*                       minishell_split.c 5 functions                        */
 /* ************************************************************************** */
-char	**minishell_split(char *str, char *space);
+char	**minishell_split(char const *s, char *space);
 
 /* ************************************************************************** */
 /*                          minishell.c 5 functions                           */
