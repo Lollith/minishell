@@ -64,14 +64,14 @@ int	minishell(char *line, char **envp)
 	i = -1;
 	while (cmd[++i] && in != 2)
 	{
-		ft_free_split(token);// recup ma list chainee list_token ici (cf main) + recup flag
+		ft_free_split(token);
 		token = lexer(cmd[i]);
 		if (!token)
 			break ;
-		in = ft_builtins(token, envp);// rajouter ma recherche && || >
+		in = ft_builtins(token, envp);
 		if (in > 0)
 			continue ;
-		ft_exec(envp, cmd[i], create_token_exec(cmd[i]));// modifier sur mon modele darbre binaire
+		ft_exec(envp, cmd[i], create_token_exec(cmd[i]));
 	}
 	ft_free_split(token);
 	ft_free_split(cmd);
