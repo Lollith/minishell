@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:25:45 by frrusso           #+#    #+#             */
-/*   Updated: 2022/05/23 13:25:51 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/06/02 09:41:37 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,14 +64,14 @@ int	minishell(char *line, char **envp)
 	i = -1;
 	while (cmd[++i] && in != 2)
 	{
-		ft_free_split(token);
+		ft_free_split(token);// recup ma list chainee list_token ici (cf main) + recup flag
 		token = lexer(cmd[i]);
 		if (!token)
 			break ;
-		in = ft_builtins(token, envp);
+		in = ft_builtins(token, envp);// rajouter ma recherche && || >
 		if (in > 0)
 			continue ;
-		ft_exec(envp, cmd[i], create_token_exec(cmd[i]));
+		ft_exec(envp, cmd[i], create_token_exec(cmd[i]));// modifier sur mon modele darbre binaire
 	}
 	ft_free_split(token);
 	ft_free_split(cmd);

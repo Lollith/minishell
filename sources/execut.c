@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/05/30 10:14:52 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/02 10:08:45 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ int	ft_child(char **paths, char *path_cmd, char **new_token_exec, char **envp)
 		return (FAILURE);
 	}
 	wait(&wstatus);
-	return (SUCCESS);
+	return (wstatus);
 }
 
 // cette fonction permet de creer un touble tableau de char cmd+NULL 
@@ -88,11 +88,12 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 		path_cmd = ft_strjoin_free(path_cmd, cmd);
 		if (access(path_cmd, F_OK) == 0)
 		{
-			if (ft_child(paths, path_cmd, new_token_exec, envp))
+			if (ft_child(paths, path_cmd, new_token_exec, envp) >= 0)
 				return (SUCCESS);
 		}
 		i++;
 	}
 	ft_free_pa(paths, path_cmd, new_token_exec);
-	return (FAILURE);
+	ft_msg(cmd, 1);
+	return (ft_msg(": Command not found.\n", 1));
 }
