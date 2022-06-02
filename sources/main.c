@@ -6,23 +6,11 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/02 10:11:51 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/02 11:48:13 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_msg(char *str, int fd)
-{
-	write(fd, str, ft_strlen(str));
-	return (FAILURE);
-}
-
-int	msg_perror(char *origin)
-{
-	perror(origin);
-	exit(FAILURE);
-}
 
 void	ft_new_prompt(int signum)
 {
@@ -49,20 +37,33 @@ int	check_env(char **envp)
 	return (SUCCESS);
 }
 
+int	ft_main(int ac, char **av, char **envp)
+{
+	(void)av;
+	if (!check_env(envp))
+	{
+		ft_msg("No environment found\n", 1);
+		return (1);
+	}
+	if (ac != 1)
+	{
+		ft_msg("Usage : ./minishell\n", 1);
+		return (1);
+	}
+	signal(SIGINT, ft_new_prompt);
+	signal(SIGQUIT, ft_new_prompt);
+	return (0);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
 	t_list	*l_token;
 	t_list	*tmp_token;
 
-	l_token = NULL;
-	(void)av;
-	if (!check_env(envp))
+	if (ft_main(ac, av, envp))
 		return (1);
-	if (ac != 1)
-		return (ft_msg("Usage : ./minishell\n", 1));
-	signal(SIGINT, ft_new_prompt);
-	signal(SIGQUIT, ft_new_prompt);
+	l_token = NULL;
 	line = readline("minishell> ");
 	while (line != NULL)
 	{
@@ -71,9 +72,7 @@ int	main(int ac, char **av, char **envp)
 		if (!list_token(&l_token, line))
 			return (1);
 		tmp_token = l_token;
-		ft_eperluet(tmp_token, envp);
-		ft_ou(tmp_token, envp);
-		ft_redir_out(tmp_token, envp);
+		monitoring_line(tmp_token, envp);
 		ft_lstclear2(&l_token);
 		free(line);
 		if (ac == 2)
