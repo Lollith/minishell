@@ -66,15 +66,17 @@ char	**create_token_exec(t_list *l_token)
 	char	*cmd;
 
 	cmd = l_token->content;
+
 	i = 0;
 	new_token_exec = (char **)malloc(sizeof(char *) * 3);
 	if (!new_token_exec)
 		return (FAILURE);
 	new_token_exec[i] = cmd;
-	if (l_token->next->content && ft_strchr(l_token->next->content, '-'))
+	if (l_token->next && ft_strchr(l_token->next->content, '-'))
 	{
 		new_token_exec[i + 1] = l_token->next->content; 
 		i++;
+		ft_l_delete (l_token);
 	}
 	new_token_exec[i + 1] = NULL;
 

@@ -21,7 +21,7 @@ int	list_token(t_list	**l_token, char *line)
 	i = 0;
 	token = lexer(line);
 	while (token[i])
-	{
+	{	
 		l_new_token = ft_lstnew(token[i]);
 		if (!l_new_token)
 			return (FAILURE);
@@ -30,6 +30,21 @@ int	list_token(t_list	**l_token, char *line)
 	}
 	return (SUCCESS);
 }
+
+void	ft_l_delete( t_list *l_token)
+{
+	t_list	*tmp;
+	
+	tmp = l_token->next;
+	if (l_token->next->next)
+		l_token->next = l_token->next->next;
+	else
+		l_token->next->content= NULL; // pb ici
+	free(tmp);
+
+
+}
+
 
 void	ft_lstclear2(t_list **l_token)
 {

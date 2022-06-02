@@ -72,7 +72,7 @@ int	main(int ac, char **av, char **envp)
 		tmp_token = l_token;
 		//ac = minishell(tmp_token, envp);
 		
-		ft_builtins(tmp_token, envp);
+		//ft_builtins(tmp_token, envp);
 		monitoring_line(tmp_token, envp);
 		ft_lstclear2(&l_token);
 		free(line);

@@ -17,6 +17,7 @@ int	monitoring_line(t_list *l_token, char **envp)
 	char	**new_token_exec;
 
 	new_token_exec = create_token_exec(l_token);
+
 	if (l_token->next)
 	{
 		if (ft_strncmp(l_token->next->content, "&&", 2) == 0)

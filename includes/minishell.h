@@ -93,6 +93,7 @@ int		ft_exec(char **envp, char *cmd, char **new_token_exec);
 /* ************************************************************************** */
 int		list_token(t_list	**l_token, char *line);
 void	ft_lstclear2(t_list **l_token);
+void	ft_l_delete( t_list *delete);
 
 /* ************************************************************************** */
 /*                         ft_operator.c 3 functions                          */
