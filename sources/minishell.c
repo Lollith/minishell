@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:25:45 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/02 09:41:37 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/02 14:04:10 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,18 @@ int	ft_builtins(char **line, char **envp)
 	if (ft_is_str(line[0], "exit"))
 		return (ft_exit());
 	return (0);
+}
+
+char	**create_token_exec(char *cmd)
+{
+	char	**new_token_exec;
+
+	new_token_exec = (char **)malloc(sizeof(char *) * 2);
+	if (!new_token_exec)
+		return (FAILURE);
+	new_token_exec[0] = cmd;
+	new_token_exec[1] = NULL;
+	return (new_token_exec);
 }
 
 int	minishell(char *line, char **envp)

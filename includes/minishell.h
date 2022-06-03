@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/02 12:06:22 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/02 15:19:24 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	ft_print_string_of_string(char **tab);
 /* ************************************************************************** */
 /*                           builtins.c 4 functions                           */
 /* ************************************************************************** */
-int		ft_echo(char **line);
+int     ft_echo(char **line);
 char	*get_home(char **envp);
 int		ft_cd(char **line, char **envp);
 int		ft_pwd(void);
@@ -73,7 +73,9 @@ char	**minishell_split(char *str, char *space);
 /*                          minishell.c 5 functions                           */
 /* ************************************************************************** */
 void	ft_free_split(char **str);
-int		minishell(char *line, char **envp);
+int     minishell(char *line, char **envp);
+int     ft_builtins(char **line, char **envp);
+char	**create_token_exec(char *cmd);
 
 /* ************************************************************************** */
 /*                           parsing.c 1 functions                            */
@@ -86,7 +88,7 @@ char	**lexer(char *line);
 char	**get_paths(char **envp);
 void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
 int		ft_child(char **paths, char *path_cmd, char **token, char **envp);
-char	**create_token_exec(char *cmd);
+char	**ft_is_flag(t_list *l_token);
 int		ft_exec(char **envp, char *cmd, char **new_token_exec);
 
 /* ************************************************************************** */
@@ -94,6 +96,7 @@ int		ft_exec(char **envp, char *cmd, char **new_token_exec);
 /* ************************************************************************** */
 int		list_token(t_list	**l_token, char *line);
 void	ft_lstclear2(t_list **l_token);
+void	ft_l_delete( t_list *delete);
 
 /* ************************************************************************** */
 /*                         ft_operator.c 3 functions                          */
@@ -102,6 +105,13 @@ int		monitoring_line(t_list *tmp_token, char **envp);
 int		ft_eperluet( t_list *l_token, char **new_token_exec, char **envp);
 int		ft_ou(t_list *tmp_token, char **new_token_exec, char **envp);
 int		ft_redir_out(t_list *l_token, char **new_token_exec, char **envp);
+
+/* ************************************************************************** */
+/*                         minishell_pipe.c 3 functions                          */
+/* ************************************************************************** */
+int     ft_pipex(t_list *l_token,char **new_token_exec, char **envp);
+int     ft_link_fd1(int *pipefd);
+int     ft_link_fd2(int *pipefd);
 
 /* ************************************************************************** */
 /*                             main.c 4 functions                             */

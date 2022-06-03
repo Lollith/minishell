@@ -3,15 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   builtins.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:44:51 by frrusso           #+#    #+#             */
-/*   Updated: 2022/05/27 13:44:54 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/06/02 14:10:47 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
 int	ft_echo(char **line)
 {
 	int	i;
