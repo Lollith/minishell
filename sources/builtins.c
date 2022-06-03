@@ -11,18 +11,19 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_echo(t_list *l_token)
+int	ft_echo(char **line)
 {
+	int	i;
 
-//	if (ft_is_str(l_token->next->content, "-n"))
-//		l_token = l_token->next;
-	while (l_token->next)
+	i = 1;
+	if (ft_is_str(line[1], "-n"))
+		i++;
+	while (line[i])
 	{
-		printf("%s",(char *) l_token->next->content);
-		l_token = l_token->next;
+		printf("%s", line[i]);
+		i++;
 	}
-	//if (!ft_is_str(l_token->next->content, "-n"))
+	if (!ft_is_str(line[1], "-n"))
 		printf("\n");
 	return (1);
 }

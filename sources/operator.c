@@ -16,14 +16,15 @@ int	monitoring_line(t_list *l_token, char **envp)
 {
 	char	**new_token_exec;
 
-	new_token_exec = create_token_exec(l_token);
-
+	new_token_exec = ft_is_flag(l_token);
 	if (l_token->next)
 	{
 		if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
 			ft_eperluet(l_token, new_token_exec, envp);
 		else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
 			ft_ou(l_token, new_token_exec, envp);
+		//else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
+		//	ft_pipex(l_token, new_token_exec, envp);
 		else if (ft_strncmp(l_token->next->content, ">", 1) == 0
 			|| ft_strncmp(l_token->next->content, ">|", 2) == 0)
 			ft_redir_out(l_token, new_token_exec, envp);
@@ -58,11 +59,11 @@ int	ft_redir_out(t_list *l_token, char **new_token_exec, char **envp)
 {
 	int		fd;
 	int		fd_tmp;
-	char	*cmd;
+	char	*file;
 
-	cmd = l_token->next->next->content;
+	file = l_token->next->next->content;
 	fd_tmp = dup(STDOUT_FILENO);
-	fd = open (cmd, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+	fd = open (file, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd < 0)
 		return (msg_perror("open "));
 	if (dup2(fd, STDOUT_FILENO) == -1)
@@ -71,7 +72,8 @@ int	ft_redir_out(t_list *l_token, char **new_token_exec, char **envp)
 		return (FAILURE);
 	if (close(fd) < 0)
 		return (msg_perror("fd "));
-	dup2(fd_tmp, STDOUT_FILENO);
+	if (dup2(fd_tmp, STDOUT_FILENO) == -1)
+		return (msg_perror("dup2 "));
 	if (l_token->next->next->next)
 		monitoring_line(l_token->next->next->next, envp);
 	return (SUCCESS);

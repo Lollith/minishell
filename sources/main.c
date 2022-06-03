@@ -55,6 +55,7 @@ int	main(int ac, char **av, char **envp)
 	t_list	*l_token;
 	t_list	*tmp_token;
 
+
 	l_token = NULL;
 	(void)av;
 	if (!check_env(envp))
@@ -70,9 +71,8 @@ int	main(int ac, char **av, char **envp)
 		if (!list_token(&l_token, line))
 			return (1);
 		tmp_token = l_token;
-		//ac = minishell(tmp_token, envp);
+		ac = minishell(line, envp);
 		
-		//ft_builtins(tmp_token, envp);
 		monitoring_line(tmp_token, envp);
 		ft_lstclear2(&l_token);
 		free(line);

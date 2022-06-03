@@ -36,13 +36,8 @@ void	ft_l_delete( t_list *l_token)
 	t_list	*tmp;
 	
 	tmp = l_token->next;
-	if (l_token->next->next)
-		l_token->next = l_token->next->next;
-	else
-		l_token->next->content= NULL; // pb ici
+	l_token->next = l_token->next->next;
 	free(tmp);
-
-
 }
 
 
