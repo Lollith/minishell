@@ -12,18 +12,6 @@
 
 #include "minishell.h"
 
-int	ft_msg(char *str, int fd)
-{
-	write(fd, str, ft_strlen(str));
-	return (FAILURE);
-}
-
-int	msg_perror(char *origin)
-{
-	perror(origin);
-	exit(FAILURE);
-}
-
 void	ft_new_prompt(int signum)
 {
 	if (signum == SIGINT)
@@ -49,25 +37,43 @@ int	check_env(char **envp)
 	return (SUCCESS);
 }
 
+int	ft_main(int ac, char **av, char **envp)
+{
+	char	*line;
+	t_list	*l_token;
+	t_list	*tmp_token;
+
+	l_token = NULL;
+	(void)av;
+	if (!check_env(envp))
+	{
+		ft_msg("No environment found\n", 1);
+		return (1);
+	}
+	if (ac != 1)
+	{
+		ft_msg("Usage : ./minishell\n", 1);
+		return (1);
+	}
+	signal(SIGINT, ft_new_prompt);
+	signal(SIGQUIT, ft_new_prompt);
+	return (0);
+}
+
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
 	t_list	*l_token;
 	t_list	*tmp_token;
 
-
-	l_token = NULL;
-	(void)av;
-	if (!check_env(envp))
+	if (ft_main(ac, av, envp))
 		return (1);
-	if (ac != 1)
-		return (ft_msg("Usage : ./minishell\n", 1));
-	signal(SIGINT, ft_new_prompt);
-	signal(SIGQUIT, ft_new_prompt);
+	l_token = NULL;
 	line = readline("minishell> ");
 	while (line != NULL)
 	{
 		add_history (line);
+		ac = minishell(line, envp);
 		if (!list_token(&l_token, line))
 			return (1);
 		tmp_token = l_token;
