@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/02 15:25:10 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/06 10:10:26 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,17 +61,16 @@ char	**ft_is_flag(t_list *l_token)
 	int		size;
 
 	cmd = l_token->content;
-
 	if (l_token->next && ft_strchr(l_token->next->content, '-'))
 		size = 3;
-	else 
+	else
 		size = 2;
 	new_token_exec = (char **)malloc(sizeof(char *) * size);
 	if (!new_token_exec)
 		return (FAILURE);
 	new_token_exec[0] = cmd;
 	if (size == 3)
-		new_token_exec[1] = l_token->next->content; 
+		new_token_exec[1] = l_token->next->content;
 	if (l_token->next && ft_strchr(l_token->next->content, '-'))
 		ft_l_delete (l_token);
 	new_token_exec[size - 1] = NULL;
@@ -85,7 +84,6 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 	int		i;
 	char	**paths;
 	char	*path_cmd;
-
 
 	paths = get_paths(envp);
 	path_cmd = NULL;
