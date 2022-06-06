@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/06 10:10:26 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/06 15:35:59 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,27 +54,35 @@ int	ft_child(char **paths, char *path_cmd, char **new_token_exec, char **envp)
 	return (wstatus);
 }
 
-char	**ft_is_flag(t_list *l_token)
+char	**ft_is_arg(t_list *l_token) // too long
 {
-	char	**new_token_exec;
-	char	*cmd;
-	int		size;
+	char		**args_exec;
+	int			size;
+	struct stat	info;
+	int			i;
+	t_list		*tmp_token;
 
-	cmd = l_token->content;
-	if (l_token->next && ft_strchr(l_token->next->content, '-'))
-		size = 3;
-	else
-		size = 2;
-	new_token_exec = (char **)malloc(sizeof(char *) * size);
-	if (!new_token_exec)
+	tmp_token = l_token;
+	i = 1;
+	size = 2;
+	while ((tmp_token->next && (ft_strchr(tmp_token->next->content, '-')
+				|| (stat(tmp_token->next->content, &info) == 0))))
+	{
+		size++;
+		tmp_token = tmp_token->next;
+	}
+	args_exec = (char **)malloc(sizeof(char *) * size);
+	if (!args_exec)
 		return (FAILURE);
-	new_token_exec[0] = cmd;
-	if (size == 3)
-		new_token_exec[1] = l_token->next->content;
-	if (l_token->next && ft_strchr(l_token->next->content, '-'))
+	args_exec[0] = l_token->content;
+	while (l_token && i < size - 1)
+	{
+		args_exec[i] = l_token->next->content;
+		i++;
 		ft_l_delete (l_token);
-	new_token_exec[size - 1] = NULL;
-	return (new_token_exec);
+	}
+	args_exec[size - 1] = NULL;
+	return (args_exec);
 }
 
 // access = 0 => check si une commande existe

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_operator.c                                      :+:      :+:    :+:   */
+/*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/02 15:25:29 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/06 15:21:21 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,24 @@
 
 int	monitoring_line(t_list *l_token, char **envp)
 {
-	char	**new_token_exec;
+	char	**args_exec;
 
-	new_token_exec = ft_is_flag(l_token);
+	args_exec = ft_is_arg(l_token);
 	if (l_token->next)
 	{
 		if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
-			ft_eperluet(l_token, new_token_exec, envp);
+			ft_eperluet(l_token, args_exec, envp);
 		else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
-			ft_ou(l_token, new_token_exec, envp);
+			ft_ou(l_token, args_exec, envp);
 		//else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
 		//	ft_pipex(l_token, new_token_exec, envp);
 		else if (ft_strncmp(l_token->next->content, ">", 1) == 0
 			|| ft_strncmp(l_token->next->content, ">|", 2) == 0)
-			ft_redir_out(l_token, new_token_exec, envp);
+			ft_redir_out(l_token, args_exec, envp);
 	}
 	else
 	{
-		if (ft_exec(envp, l_token->content, new_token_exec) == 0)
+		if (ft_exec(envp, l_token->content, args_exec) == 0)
 			return (FAILURE);
 	}
 	return (SUCCESS);

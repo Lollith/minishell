@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/02 15:19:24 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/06 11:57:57 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**lexer(char *line);
 char	**get_paths(char **envp);
 void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
 int		ft_child(char **paths, char *path_cmd, char **token, char **envp);
-char	**ft_is_flag(t_list *l_token);
+char	**ft_is_arg(t_list *l_token);
 int		ft_exec(char **envp, char *cmd, char **new_token_exec);
 
 /* ************************************************************************** */

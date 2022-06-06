@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/06 10:04:23 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/06 10:22:35 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,6 @@ int	check_env(char **envp)
 
 int	ft_main(int ac, char **av, char **envp)
 {
-	char	*line;
-	t_list	*l_token;
-	t_list	*tmp_token;
-
-	l_token = NULL;
 	(void)av;
 	if (!check_env(envp))
 	{
@@ -73,11 +68,10 @@ int	main(int ac, char **av, char **envp)
 	while (line != NULL)
 	{
 		add_history (line);
-		ac = minishell(line, envp);
+		//ac = minishell(line, envp);
 		if (!list_token(&l_token, line))
 			return (1);
 		tmp_token = l_token;
-		ac = minishell(line, envp);
 		monitoring_line(tmp_token, envp);
 		ft_lstclear2(&l_token);
 		free(line);

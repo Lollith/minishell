@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/06 10:07:58 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/06 10:13:54 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 // if ! child => if pipefd [0] existe => ft_link
 // structure de pipefd
 // rm file => a gerer
+// path
 /*
 
 int ft_pipex(t_list *l_token,char **new_token_exec, char **envp)
