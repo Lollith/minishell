@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/06 11:57:57 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/07 15:43:39 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,15 +81,17 @@ char	**create_token_exec(char *cmd);
 /*                           parsing.c 1 functions                            */
 /* ************************************************************************** */
 char	**lexer(char *line);
+int		size_args(t_list *l_token);
+char	**ft_is_arg(t_list *l_token);
 
 /* ************************************************************************** */
 /*                            execut.c 4 functions                            */
 /* ************************************************************************** */
 char	**get_paths(char **envp);
 void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
-int		ft_child(char **paths, char *path_cmd, char **token, char **envp);
-char	**ft_is_arg(t_list *l_token);
+//int		ft_child(char **paths, char *path_cmd, char **token, char **envp);
 int		ft_exec(char **envp, char *cmd, char **new_token_exec);
+int	ft_child(char **new_token_exec, char **envp, t_list *l_token);
 
 /* ************************************************************************** */
 /*                          list_token.c 2 functions                          */

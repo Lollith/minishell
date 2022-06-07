@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/06 15:21:21 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/07 15:47:49 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,15 @@ int	monitoring_line(t_list *l_token, char **envp)
 			ft_eperluet(l_token, args_exec, envp);
 		else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
 			ft_ou(l_token, args_exec, envp);
-		//else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
-		//	ft_pipex(l_token, new_token_exec, envp);
+		else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
+			ft_pipex(l_token, args_exec, envp);
 		else if (ft_strncmp(l_token->next->content, ">", 1) == 0
 			|| ft_strncmp(l_token->next->content, ">|", 2) == 0)
 			ft_redir_out(l_token, args_exec, envp);
 	}
 	else
 	{
-		if (ft_exec(envp, l_token->content, args_exec) == 0)
+		if (ft_child(args_exec,envp, l_token) < 0)
 			return (FAILURE);
 	}
 	return (SUCCESS);
@@ -39,7 +39,7 @@ int	monitoring_line(t_list *l_token, char **envp)
 
 int	ft_eperluet(t_list *l_token, char **new_token_exec, char **envp)
 {
-	if (ft_exec(envp, l_token->content, new_token_exec) == 0)
+	if (ft_child(new_token_exec,envp, l_token) < 0)
 		return (FAILURE);
 	else
 		monitoring_line(l_token->next->next, envp);
@@ -48,7 +48,7 @@ int	ft_eperluet(t_list *l_token, char **new_token_exec, char **envp)
 
 int	ft_ou(t_list *l_token, char **new_token_exec, char **envp)
 {
-	if (ft_exec(envp, l_token->content, new_token_exec) == 1)
+	if (ft_child(new_token_exec,envp, l_token) >= 0)
 		return (SUCCESS);
 	else
 		monitoring_line(l_token->next->next, envp);
