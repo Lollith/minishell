@@ -39,11 +39,6 @@ int	check_env(char **envp)
 
 int	ft_main(int ac, char **av, char **envp)
 {
-	char	*line;
-	t_list	*l_token;
-	t_list	*tmp_token;
-
-	l_token = NULL;
 	(void)av;
 	if (!check_env(envp))
 	{

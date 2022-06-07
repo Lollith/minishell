@@ -65,6 +65,12 @@ int		ft_exit(void);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
+/*                       minishell_split.c 2 functions                        */
+/* ************************************************************************** */
+int		ft_is_space(char c, char *space);
+int		minishell_quote(char const *str, int i);
+
+/* ************************************************************************** */
 /*                       minishell_split.c 5 functions                        */
 /* ************************************************************************** */
 char	**minishell_split(char const *s, char *space);

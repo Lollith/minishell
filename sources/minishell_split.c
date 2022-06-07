@@ -12,45 +12,6 @@
 
 #include "minishell.h"
 
-int	ft_is_space(char c, char *space)
-{
-	int	i;
-
-	i = 0;
-	while (space[i])
-	{
-		if (c == space[i])
-			return (TRUE);
-		i++;
-	}
-	return (FALSE);
-}
-
-int	minishell_quote(char const *str, int i)
-{
-	if (str[i] == '\"')
-	{
-		i++;
-		while (str[i] != '\"')
-		{
-			if (str[i] == '\\')
-				i++;
-			i++;
-		}
-	}
-	if (str[i] == '\'')
-	{
-		i++;
-		if (str[i] != '\'')
-		{
-			if (str[i] == '\\')
-				i++;
-			i++;
-		}
-	}
-	return (i);
-}
-
 int	minishell_count(char const *str, char *space)
 {
 	int	i;
@@ -72,41 +33,61 @@ int	minishell_count(char const *str, char *space)
 			j = FALSE;
 		i++;
 	}
+	printf("[count=%i]\n", res);
 	return (res);
 }
 
 int	minishell_len(char const *str, char *space, int i)
 {
 	int	j;
+	int	tmp;
 
-	j = 0;
+	j = 1;
 	while (str[i])
 	{
+		tmp = minishell_quote(str, i);
+		j += tmp - i;
+		i = tmp;
 		if (ft_is_space(str[i], space))
+		{
+			printf("[len=%i]", j);
 			return (j);
+		}
 		i++;
 		j++;
 	}
+	printf("[len=%i]", j);
 	return (j);
 }
 
 char	*minishell_input(char const *str, char *space, int i)
 {
 	int		j;
+	int		len;
 	char	*res;
 
-	res = malloc(sizeof(char) * (minishell_len(str, space, i) + 1));
+	len = minishell_len(str, space, i);
+	res = malloc(sizeof(char) * len);
 	if (!res)
 		return (NULL);
 	j = 0;
-	while (str[i] && !ft_is_space(str[i], space))
+	while (--len)
 	{
 		res[j] = str[i];
 		i++;
 		j++;
 	}
 	res[j] = '\0';
+	printf("[input=%s]\n", res);
 	return (res);
+}
+
+int	minishell_post_input(char const *str, char *space, int i, char *res)
+{
+	i += ft_strlen(res);
+	while (str[i] && !ft_is_space(str[i], space))
+		i++;
+	return (i);
 }
 
 char	**minishell_split(char const *str, char *space)
@@ -130,10 +111,20 @@ char	**minishell_split(char const *str, char *space)
 			break ;
 		if (!res[j])
 			return (ft_split_free(res));
-		while (str[i] && !ft_is_space(str[i], space))
-			i++;
+		i = minishell_post_input(str, space, i, res[j]);
 		j++;
 	}
 	res[j] = NULL;
 	return (res);
 }
+
+// int	main(void)
+// {
+// 	char	**token;
+
+// 	token = minishell_split("Bonjour \" Bonsoir\\n \" ", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	token = minishell_split(" \" Bonsoir\\n \" Bonjour les ami", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	return (0);
+// }
