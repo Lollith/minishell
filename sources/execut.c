@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/02 10:08:45 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/06 10:10:26 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,6 @@ void	ft_free_pa(char **paths, char *path_cmd, char **token)
 		free(token);
 }
 
-// recup le chemin dune commande
-// paths a free
 char	**get_paths(char **envp)
 {
 	int		i;
@@ -56,18 +54,26 @@ int	ft_child(char **paths, char *path_cmd, char **new_token_exec, char **envp)
 	return (wstatus);
 }
 
-// cette fonction permet de creer un touble tableau de char cmd+NULL 
-// pour que execve ne confonde pas le && pour le flag
-// a faire : gerer les flags
-char	**create_token_exec(char *cmd)
+char	**ft_is_flag(t_list *l_token)
 {
 	char	**new_token_exec;
+	char	*cmd;
+	int		size;
 
-	new_token_exec = (char **)malloc(sizeof(char *) * 2);
+	cmd = l_token->content;
+	if (l_token->next && ft_strchr(l_token->next->content, '-'))
+		size = 3;
+	else
+		size = 2;
+	new_token_exec = (char **)malloc(sizeof(char *) * size);
 	if (!new_token_exec)
 		return (FAILURE);
 	new_token_exec[0] = cmd;
-	new_token_exec[1] = NULL;
+	if (size == 3)
+		new_token_exec[1] = l_token->next->content;
+	if (l_token->next && ft_strchr(l_token->next->content, '-'))
+		ft_l_delete (l_token);
+	new_token_exec[size - 1] = NULL;
 	return (new_token_exec);
 }
 

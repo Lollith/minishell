@@ -16,10 +16,11 @@ SRCS		=	$(addprefix sources/, \
 					builtins.c \
 					builtins_bis.c \
 					execut.c \
-					ft_operator.c \
+					operator.c \
 					list_token.c \
 					ft_is_str.c \
 					minishell_split.c \
+					minishell_pipe.c \
 					parsing.c \
 					minishell.c \
 					main.c \
