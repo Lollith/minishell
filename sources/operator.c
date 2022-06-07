@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+// else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
+// 	ft_pipex(l_token, new_token_exec, envp);
 int	monitoring_line(t_list *l_token, char **envp)
 {
 	char	**new_token_exec;
@@ -23,8 +25,6 @@ int	monitoring_line(t_list *l_token, char **envp)
 			ft_eperluet(l_token, new_token_exec, envp);
 		else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
 			ft_ou(l_token, new_token_exec, envp);
-		//else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
-		//	ft_pipex(l_token, new_token_exec, envp);
 		else if (ft_strncmp(l_token->next->content, ">", 1) == 0
 			|| ft_strncmp(l_token->next->content, ">|", 2) == 0)
 			ft_redir_out(l_token, new_token_exec, envp);

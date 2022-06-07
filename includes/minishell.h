@@ -46,7 +46,7 @@ void	ft_print_string_of_string(char **tab);
 /* ************************************************************************** */
 /*                           builtins.c 4 functions                           */
 /* ************************************************************************** */
-int     ft_echo(char **line);
+int		ft_echo(char **line);
 char	*get_home(char **envp);
 int		ft_cd(char **line, char **envp);
 int		ft_pwd(void);
@@ -73,8 +73,8 @@ char	**minishell_split(char *str, char *space);
 /*                          minishell.c 5 functions                           */
 /* ************************************************************************** */
 void	ft_free_split(char **str);
-int     minishell(char *line, char **envp);
-int     ft_builtins(char **line, char **envp);
+int		minishell(char *line, char **envp);
+int		ft_builtins(char **line, char **envp);
 char	**create_token_exec(char *cmd);
 
 /* ************************************************************************** */
@@ -107,11 +107,11 @@ int		ft_ou(t_list *tmp_token, char **new_token_exec, char **envp);
 int		ft_redir_out(t_list *l_token, char **new_token_exec, char **envp);
 
 /* ************************************************************************** */
-/*                         minishell_pipe.c 3 functions                          */
+/*                        minishell_pipe.c 3 functions                        */
 /* ************************************************************************** */
-int     ft_pipex(t_list *l_token,char **new_token_exec, char **envp);
-int     ft_link_fd1(int *pipefd);
-int     ft_link_fd2(int *pipefd);
+int		ft_pipex(t_list *l_token, char **new_token_exec, char **envp);
+int		ft_link_fd1(int *pipefd);
+int		ft_link_fd2(int *pipefd);
 
 /* ************************************************************************** */
 /*                             main.c 4 functions                             */
