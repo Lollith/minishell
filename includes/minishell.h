@@ -16,7 +16,7 @@
 # include "../libft/libft.h"
 # include <unistd.h>// write access read close dup dup2 execve fork pipe unlink
 # include <fcntl.h>// open
-# include <stdlib.h>// malloc free getenv
+# include <stdlib.h>// malloc free
 # include <stdio.h>// printf exit perror
 # include <string.h>// strerror
 # include <dirent.h>// opendir readdir closedir
