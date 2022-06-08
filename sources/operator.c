@@ -6,56 +6,56 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/07 15:47:49 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/08 16:14:33 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	monitoring_line(t_list *l_token, char **envp)
+int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 {
-	char	**args_exec;
+	char	**args_exec ;
 
 	args_exec = ft_is_arg(l_token);
 	if (l_token->next)
 	{
 		if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
-			ft_eperluet(l_token, args_exec, envp);
+			ft_eperluet(l_token, args_exec, envp, pipex);
 		else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
-			ft_ou(l_token, args_exec, envp);
+			ft_ou(l_token, args_exec, envp, pipex);
 		else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
-			ft_pipex(l_token, args_exec, envp);
+			(ft_pipex(l_token, args_exec, envp, pipex));
 		else if (ft_strncmp(l_token->next->content, ">", 1) == 0
 			|| ft_strncmp(l_token->next->content, ">|", 2) == 0)
-			ft_redir_out(l_token, args_exec, envp);
+			ft_redir_out(l_token, args_exec, envp, pipex);
 	}
 	else
 	{
-		if (ft_child(args_exec,envp, l_token) < 0)
-			return (FAILURE);
+		if (ft_child(args_exec, envp, l_token, pipex) >= 0)
+			return (SUCCESS);
 	}
 	return (SUCCESS);
 }
 
-int	ft_eperluet(t_list *l_token, char **new_token_exec, char **envp)
+int	ft_eperluet(t_list *l_token, char **new_token_exec, char **envp, t_pipe pipex)
 {
-	if (ft_child(new_token_exec,envp, l_token) < 0)
+	if (ft_child(new_token_exec,envp, l_token, pipex) < 0)
 		return (FAILURE);
 	else
-		monitoring_line(l_token->next->next, envp);
+		monitoring_line(l_token->next->next, envp, pipex);
 	return (SUCCESS);
 }
 
-int	ft_ou(t_list *l_token, char **new_token_exec, char **envp)
+int	ft_ou(t_list *l_token, char **new_token_exec, char **envp, t_pipe pipex)
 {
-	if (ft_child(new_token_exec,envp, l_token) >= 0)
+	if (ft_child(new_token_exec,envp, l_token, pipex) >= 0)
 		return (SUCCESS);
 	else
-		monitoring_line(l_token->next->next, envp);
+		monitoring_line(l_token->next->next, envp, pipex);
 	return (SUCCESS);
 }
 
-int	ft_redir_out(t_list *l_token, char **new_token_exec, char **envp)
+int	ft_redir_out(t_list *l_token, char **new_token_exec, char **envp, t_pipe pipex)
 {
 	int		fd;
 	int		fd_tmp;
@@ -75,6 +75,6 @@ int	ft_redir_out(t_list *l_token, char **new_token_exec, char **envp)
 	if (dup2(fd_tmp, STDOUT_FILENO) == -1)
 		return (msg_perror("dup2 "));
 	if (l_token->next->next->next)
-		monitoring_line(l_token->next->next->next, envp);
+		monitoring_line(l_token->next->next->next, envp, pipex);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/07 15:43:23 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/08 16:59:28 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,19 +36,40 @@ char	**get_paths(char **envp)
 	return (paths);
 }
 
-int	ft_child(char **new_token_exec, char **envp, t_list *l_token)
+int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 {
 	pid_t	child;
 	int		wstatus;
+	int fdin_tmp;
+	int fdout_tmp;
+	
 
+  	fdout_tmp = dup(STDOUT_FILENO);
+  	fdin_tmp = dup(STDIN_FILENO);
 	child = fork();
 	if (child < 0)
 		return (FAILURE);
 	if (!child)
 	{
-		ft_exec(envp,  l_token->content, new_token_exec);
-	//	ft_free_pa(paths, path_cmd, new_token_exec);
+		if (pipex.ctrl == 1)
+   	 	  	ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
+		if (pipex.ctrl == 0 && pipex.pipefd[0])
+  		  	ft_link_fd(pipex.pipefd[0], pipex.pipefd[1], STDOUT_FILENO);
+		ft_exec(envp, l_token->content, new_token_exec);
+		free(new_token_exec);
 		return (FAILURE);
+	}
+	if (pipex.ctrl == 1)
+	{
+ 			 if (close(pipex.pipefd[0]) < 0) // mettre ds une fct
+			    return (msg_perror("pipefd0.1 "));
+			if (close(pipex.pipefd[1]) < 0)
+			    return (msg_perror("pipefd1.1 "));
+  			if (dup2(fdin_tmp, STDIN_FILENO) == -1)
+    			return (msg_perror("dup2 "));
+  			if (dup2(fdout_tmp, STDOUT_FILENO) == -1)
+ 			   return (msg_perror("dup2 "));
+			pipex.ctrl = 0;
 	}
 	wait(&wstatus);
 	return (wstatus);
