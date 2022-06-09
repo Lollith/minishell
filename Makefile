@@ -15,6 +15,7 @@ LIBFT		= 	libft/libft.a
 SRCS		=	$(addprefix sources/, \
 					builtins.c \
 					builtins_bis.c \
+					environment.c \
 					execut.c \
 					operator.c \
 					list_token.c \

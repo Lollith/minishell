@@ -37,27 +37,33 @@
 # define FALSE 0
 
 /* ************************************************************************** */
-/*                            debug.c 3 functions                             */
+/*                            debug.c 4 functions                             */
 /* ************************************************************************** */
 int		ft_msg(char *str, int fd);
 int		msg_perror(char *origin);
+int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
 
 /* ************************************************************************** */
-/*                           builtins.c 4 functions                           */
+/*                         environment.c 0 functions                          */
 /* ************************************************************************** */
-int		ft_echo(char **line);
-char	*get_home(char **envp);
-int		ft_cd(char **line, char **envp);
-int		ft_pwd(void);
 
 /* ************************************************************************** */
 /*                         builtins_bis.c 4 functions                         */
 /* ************************************************************************** */
+char	**ft_realloc_envp(char **envp);
 int		ft_export(char **line, char **envp);
 int		ft_unset(char **line, char **envp);
 int		ft_env(char **envp);
+
+/* ************************************************************************** */
+/*                           builtins.c 5 functions                           */
+/* ************************************************************************** */
 int		ft_exit(void);
+int		ft_echo(char **line);
+char	*get_home(char **envp);
+int		ft_cd(char **line, char **envp);
+int		ft_pwd(void);
 
 /* ************************************************************************** */
 /*                          ft_is_str.c 1 functions                           */
@@ -65,10 +71,11 @@ int		ft_exit(void);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
-/*                       minishell_split.c 2 functions                        */
+/*                       minishell_split.c 3 functions                        */
 /* ************************************************************************** */
 int		ft_is_space(char c, char *space);
 int		minishell_quote(char const *str, int i);
+int		minishell_len_quote(char const *str, int i, int *j);
 
 /* ************************************************************************** */
 /*                       minishell_split.c 5 functions                        */

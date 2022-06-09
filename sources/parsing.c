@@ -12,16 +12,39 @@
 
 #include "minishell.h"
 
+int	ft_quote(char *line)
+{
+	int	i;
+	int	two;
+	int	one;
+
+	if (!line)
+		return (FALSE);
+	two = 0;
+	one = 0;
+	i = 0;
+	while (line[i])
+	{
+		if (line[i] == '\"')
+			two++;
+		if (line[i] == '\'')
+			one++;
+		i++;
+	}
+	if (two % 2 == 1 || one % 2 == 1)
+		return (FALSE);
+	return (TRUE);
+}
+
 // fonction qui cree les "mots" en fonction des espaces
 // token est free dans minishell par ft_free_split
-// a modifier => gerer les ; "" ''
-// a modifier => gerer tous les espaces " \t\n\v\f\r"
-// token = minishell_split(line, " \t\n\v\f\r");
 char	**lexer(char *line)
 {
 	char	**token;
 
-	token = ft_split(line, ' ');
+	if (!ft_quote(line))
+		return (NULL);
+	token = minishell_split(line, " \t\n\v\f\r");
 	if (!token)
 		return (NULL);
 	return (token);

@@ -32,21 +32,38 @@ int	minishell_quote(char const *str, int i)
 	{
 		i++;
 		while (str[i] != '\"')
-		{
-			if (str[i] == '\\')
-				i++;
 			i++;
-		}
 	}
 	if (str[i] == '\'')
 	{
 		i++;
-		if (str[i] != '\'')
-		{
-			if (str[i] == '\\')
-				i++;
+		while (str[i] != '\'')
 			i++;
+	}
+	return (i);
+}
+
+int	minishell_len_quote(char const *str, int i, int *j)
+{
+	if (str[i] == '\"')
+	{
+		i++;
+		while (str[i] != '\"')
+		{
+			i++;
+			*j += 1;
 		}
+		i++;
+	}
+	if (str[i] == '\'')
+	{
+		i++;
+		while (str[i] != '\'')
+		{
+			i++;
+			*j += 1;
+		}
+		i++;
 	}
 	return (i);
 }

@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+int	ft_exit(void)
+{
+	ft_msg("exit", 1);
+	return (2);
+}
+
 int	ft_echo(char **line)
 {
 	int	i;
