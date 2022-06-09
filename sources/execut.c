@@ -56,7 +56,7 @@ int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 		if (pipex.ctrl == 0 && pipex.pipefd[0])
   		  	ft_link_fd(pipex.pipefd[0], pipex.pipefd[1], STDOUT_FILENO);
 		ft_exec(envp, l_token->content, new_token_exec);
-		free(new_token_exec);
+		//free(new_token_exec);
 		return (FAILURE);
 	}
 	if (pipex.ctrl == 1)
@@ -72,7 +72,7 @@ int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 			pipex.ctrl = 0;
 	}
 	wait(&wstatus);
-	return (wstatus);
+	return (SUCCESS);
 }
 
 // access = 0 => check si une commande existe
@@ -89,16 +89,18 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 	while (paths[i])
 	{
 		path_cmd = ft_strjoin(paths[i], "/");
-		path_cmd = ft_strjoin_free(path_cmd, cmd);
+		path_cmd = ft_strjoin_free(path_cmd, cmd);// attention leaks
 		if (access(path_cmd, F_OK) == 0)
 		{
 			 execve(path_cmd, new_token_exec, envp);
-			 ft_free_pa(paths, path_cmd, new_token_exec);
+			free(paths);
+			free(path_cmd);
 			return (FAILURE);
 		}
 		i++;
 	}
-	ft_free_pa(paths, path_cmd, new_token_exec);
+	free(paths);
+	free(path_cmd);
 	ft_msg(cmd, 1);
 	return (ft_msg(": Command not found.\n", 1));
 }

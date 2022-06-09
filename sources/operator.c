@@ -32,24 +32,33 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 	else
 	{
 		if (ft_child(args_exec, envp, l_token, pipex) >= 0)
+		{
+			free(args_exec);
 			return (SUCCESS);
+		}
 	}
-	return (SUCCESS);
+	free(args_exec);
+	return (FAILURE);
 }
 
 int	ft_eperluet(t_list *l_token, char **new_token_exec, char **envp, t_pipe pipex)
 {
-	if (ft_child(new_token_exec,envp, l_token, pipex) < 0)
-		return (FAILURE);
+	if (!ft_child(new_token_exec,envp, l_token, pipex))
+		{
+			return (FAILURE);
+		}
 	else
+	{	
+		free(new_token_exec);
 		monitoring_line(l_token->next->next, envp, pipex);
+	}
 	return (SUCCESS);
 }
 
 int	ft_ou(t_list *l_token, char **new_token_exec, char **envp, t_pipe pipex)
 {
-	if (ft_child(new_token_exec,envp, l_token, pipex) >= 0)
-		return (SUCCESS);
+	if (ft_child(new_token_exec,envp, l_token, pipex))
+		return(SUCCESS);
 	else
 		monitoring_line(l_token->next->next, envp, pipex);
 	return (SUCCESS);
@@ -68,7 +77,7 @@ int	ft_redir_out(t_list *l_token, char **new_token_exec, char **envp, t_pipe pip
 		return (msg_perror("open "));
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		return (msg_perror("dup2 "));
-	if (ft_exec(envp, l_token->content, new_token_exec) == 0)
+	if (ft_child(new_token_exec, envp, l_token, pipex)== 0)
 		return (FAILURE);
 	if (close(fd) < 0)
 		return (msg_perror("fd "));
