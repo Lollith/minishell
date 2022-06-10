@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/08 17:00:13 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/10 16:48:28 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int ft_pipex(t_list *l_token, char **new_token_exec, char **envp, t_pipe pipex)
 {
   //pid_t pid1;
   int status;
-	if (pipex.ctrl == 1)
+  if (pipex.ctrl == 1) // avant pipe
      ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
   if (pipe(pipex.pipefd) < 0)
 	  return (msg_perror("pipe"));
@@ -36,8 +36,11 @@ int ft_pipex(t_list *l_token, char **new_token_exec, char **envp, t_pipe pipex)
   
   else
   {
-      pipex.ctrl = 1;
-      monitoring_line(l_token->next->next, envp, pipex);
+     if (pipex.ctrl == 0) 
+        pipex.ctrl = 1; // 2eme pipe
+     if (pipex.ctrl == 1) 
+        pipex.ctrl = 0; // 2eme pipe
+    monitoring_line(l_token->next->next, envp, pipex);
   }
 
   wait( &status);

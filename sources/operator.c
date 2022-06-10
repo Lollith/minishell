@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/08 16:14:33 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/10 13:38:29 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,13 +24,15 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 		else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
 			ft_ou(l_token, args_exec, envp, pipex);
 		else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
-			(ft_pipex(l_token, args_exec, envp, pipex));
+			ft_pipex(l_token, args_exec, envp, pipex);
 		else if (ft_strncmp(l_token->next->content, ">", 1) == 0
 			|| ft_strncmp(l_token->next->content, ">|", 2) == 0)
 			ft_redir_out(l_token, args_exec, envp, pipex);
 	}
 	else
 	{
+      pipex.ctrl =-1;
+
 		if (ft_child(args_exec, envp, l_token, pipex) >= 0)
 		{
 			free(args_exec);
@@ -44,9 +46,7 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 int	ft_eperluet(t_list *l_token, char **new_token_exec, char **envp, t_pipe pipex)
 {
 	if (!ft_child(new_token_exec,envp, l_token, pipex))
-		{
 			return (FAILURE);
-		}
 	else
 	{	
 		free(new_token_exec);
