@@ -16,7 +16,7 @@
 # include "../libft/libft.h"
 # include <unistd.h>// write access read close dup dup2 execve fork pipe unlink
 # include <fcntl.h>// open
-# include <stdlib.h>// malloc free
+# include <stdlib.h>// malloc free getenv
 # include <stdio.h>// printf exit perror
 # include <string.h>// strerror
 # include <dirent.h>// opendir readdir closedir
@@ -45,15 +45,16 @@ int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
 
 /* ************************************************************************** */
-/*                         environment.c 0 functions                          */
+/*                         environment.c 1 functions                          */
 /* ************************************************************************** */
+char	**ft_unset_envp(char **line, char **envp);
 
 /* ************************************************************************** */
-/*                         builtins_bis.c 4 functions                         */
+/*                         builtins_bis.c 5 functions                         */
 /* ************************************************************************** */
 char	**ft_realloc_envp(char **envp);
 int		ft_export(char **line, char **envp);
-int		ft_unset(char **line, char **envp);
+int		ft_unset(char **line, char ***envp);
 int		ft_env(char **envp);
 
 /* ************************************************************************** */

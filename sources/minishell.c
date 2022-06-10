@@ -41,7 +41,7 @@ int	ft_builtins(char **line, char **envp)
 	if (ft_is_str(line[0], "export"))
 		return (ft_export(line, envp));
 	if (ft_is_str(line[0], "unset"))
-		return (ft_unset(line, envp));
+		return (ft_unset(line, &envp));
 	if (ft_is_str(line[0], "env"))
 		return (ft_env(envp));
 	if (ft_is_str(line[0], "exit"))

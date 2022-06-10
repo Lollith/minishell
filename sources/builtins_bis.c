@@ -26,7 +26,7 @@ char	**ft_realloc_envp(char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		res[i] = malloc(sizeof(char) * (ft_strlen(envp[i] + 1)));
+		res[i] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
 		if (!res[i])
 			return (NULL);
 		j = 0;
@@ -42,15 +42,51 @@ char	**ft_realloc_envp(char **envp)
 
 int	ft_export(char **line, char **envp)
 {
-	printf("%p\n", line[0]);
-	printf("%p\n", envp);
+	(void)line;
+	ft_print_string_of_string(envp);
 	return (1);
 }
 
-int	ft_unset(char **line, char **envp)
+int	ft_unset_parsing(char **line)
 {
-	printf("%p\n", line[0]);
-	printf("%p\n", envp);
+	int		i;
+	char	*str;
+
+	if (!line[1])
+		return (1);
+	i = 0;
+	while (line[1][i])
+	{
+		if (line[1][i] == '=')
+		{
+			str = ft_strjoin("minishell: unset: \"", line[1]);
+			str = ft_strjoin_free(str, "\": not a valid identifier");
+			write(1, str, ft_strlen(str));
+			free(str);
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int	ft_unset(char **line, char ***envp)
+{
+	int		i;
+	int		len;
+
+	if (!line || !envp || ft_unset_parsing(line))
+		return (1);
+	len = ft_strlen(line[1]);
+	i = 0;
+	while (envp[0][i] && ft_strncmp(envp[0][i], line[1], len))
+		i++;
+	if (*envp[i])
+	{
+		*envp = ft_unset_envp(line, *envp);
+		if (!*envp)
+			return (2);
+	}
 	return (1);
 }
 
