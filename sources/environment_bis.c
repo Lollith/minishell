@@ -1,49 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   debug.c                                            :+:      :+:    :+:   */
+/*   environment_bis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/26 13:21:33 by frrusso           #+#    #+#             */
-/*   Updated: 2022/05/26 13:21:41 by frrusso          ###   ########.fr       */
+/*   Created: 2022/06/13 16:54:59 by frrusso           #+#    #+#             */
+/*   Updated: 2022/06/13 16:55:02 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-int	ft_msg(char *str, int fd)
-{
-	write(fd, str, ft_strlen(str));
-	return (FAILURE);
-}
-
-int	msg_perror(char *origin)
-{
-	perror(origin);
-	exit(FAILURE);
-}
-
-int	ft_string_of_string_len(char **tab)
-{
-	int	i;
-
-	if (!tab)
-		return (0);
-	i = 0;
-	while (tab[i])
-		i++;
-	return (i + 1);
-}
-
-void	ft_print_string_of_string(char **tab)
-{
-	int	i;
-
-	i = 0;
-	while (tab[i])
-	{
-		printf("%s\n", tab[i]);
-		i++;
-	}
-}

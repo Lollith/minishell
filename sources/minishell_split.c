@@ -12,104 +12,138 @@
 
 #include "minishell.h"
 
-// char	**ft_split_free(char **str)
+int	minishell_count(char const *str, char *space)
+{
+	int	i;
+	int	j;
+	int	res;
+
+	i = 0;
+	j = ft_is_space(str[i], space);
+	res = 2;
+	while (str[i])
+	{
+		i = minishell_quote(str, i);
+		if (!j && ft_is_space(str[i], space))
+		{
+			j = TRUE;
+			res++;
+		}
+		if (j && !ft_is_space(str[i], space))
+			j = FALSE;
+		i++;
+	}
+	return (res);
+}
+
+int	minishell_len(char const *str, char *space, int i)
+{
+	int	j;
+
+	j = 1;
+	while (str[i])
+	{
+		i = minishell_len_quote(str, i, &j);
+		if (ft_is_space(str[i], space) || !str[i])
+			return (j);
+		i++;
+		j++;
+	}
+	return (j);
+}
+
+char	*minishell_input(char const *str, char *space, int i)
+{
+	int		j;
+	int		len;
+	char	*res;
+
+	len = minishell_len(str, space, i);
+	res = malloc(sizeof(char) * len);
+	if (!res)
+		return (NULL);
+	j = 0;
+	while (--len)
+	{
+		while (ft_is_space(str[i], "\"\'"))
+			i++;
+		res[j] = str[i];
+		i++;
+		j++;
+	}
+	res[j] = '\0';
+	return (res);
+}
+
+int	minishell_post_input(char const *str, char *space, int i, char *res)
+{
+	int	input;
+
+	input = ft_strlen(res);
+	while (input)
+	{
+		if (!ft_is_space(str[i], "\"\'"))
+			input--;
+		i++;
+	}
+	while (str[i] && !ft_is_space(str[i], space))
+		i++;
+	return (i);
+}
+
+char	**minishell_split(char const *str, char *space)
+{
+	int		i;
+	int		j;
+	char	**res;
+
+	res = malloc(sizeof(char *) * minishell_count(str, space));
+	if (!res)
+		return (NULL);
+	j = 0;
+	i = 0;
+	while (str[i])
+	{
+		while (ft_is_space(str[i], space))
+			i++;
+		if (str[i])
+			res[j] = minishell_input(str, space, i);
+		else
+			break ;
+		if (!res[j])
+			return (ft_split_free(res));
+		i = minishell_post_input(str, space, i, res[j]);
+		j++;
+	}
+	res[j] = NULL;
+	return (res);
+}
+
+// int	main(void)
 // {
-// 	int	i;
+// 	char	**token;
 
-// 	if (!str)
-// 		return (NULL);
-// 	i = 0;
-// 	while (str[i])
-// 	{
-// 		free(str[i]);
-// 		i++;
-// 	}
-// 	free(str);
-// 	return (NULL);
-// }
-
-// int	ft_split_count(char const *s, char c)
-// {
-// 	int	i;
-// 	int	j;
-// 	int	r;
-
-// 	i = 0;
-// 	j = 1;
-// 	r = 0;
-// 	while (s[i])
-// 	{
-// 		if (j && s[i] != c)
-// 		{
-// 			j = 0;
-// 			r++;
-// 		}
-// 		if (!j && s[i] == c)
-// 			j = 1;
-// 		i++;
-// 	}
-// 	return (r);
-// }
-
-// int	ft_split_len(char const *s, char c, int i)
-// {
-// 	int	j;
-
-// 	j = 0;
-// 	while (s[i])
-// 	{
-// 		if (s[i] == c)
-// 			return (j);
-// 		i++;
-// 		j++;
-// 	}
-// 	return (j);
-// }
-
-// char	*ft_split_input(char const *s, char c, int i)
-// {
-// 	int		j;
-// 	char	*res;
-
-// 	res = malloc(sizeof(char) * (ft_split_len(s, c, i) + 1));
-// 	if (!res)
-// 		return (NULL);
-// 	j = 0;
-// 	while (s[i] && s[i] != c)
-// 	{
-// 		res[j] = s[i];
-// 		i++;
-// 		j++;
-// 	}
-// 	res[j] = '\0';
-// 	return (res);
-// }
-
-// char	**minishell_split(char const *s, char *space)
-// {
-// 	int		i;
-// 	int		j;
-// 	char	**res;
-
-// 	res = malloc(sizeof(char *) * (ft_split_count(s, c) + 1));
-// 	if (!res)
-// 		return (NULL);
-// 	j = 0;
-// 	i = 0;
-// 	while (s[i])
-// 	{
-// 		while (s[i] == c)
-// 			i++;
-// 		if (s[i])
-// 			res[j] = ft_split_input(s, c, i);
-// 		else
-// 			break ;
-// 		if (!res[j])
-// 			return (ft_split_free(res));
-// 		while (s[i] && s[i] != c)
-// 			i++;
-// 		j++;
-// 	}
-// 	res[j] = NULL;
-// 	return (res);
+// 	token = minishell_split("Bonjour \" Bonsoir \"", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	token = minishell_split("\" Bonsoir \" Bonjour les ami", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	token = minishell_split("export A=\" coucou \"", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	token = minishell_split("echo \"\" | cat -e", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	token = minishell_split("echo \"\" a | cat -e", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	token = minishell_split("echo -n a '' b '' c '' d", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	token = minishell_split("e\"ch\"o bonjour", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	token = minishell_split("env -i ./minishell", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	token = minishell_split("echo $ejknfenf hey", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	token = minishell_split("echo \"$ejnzefc\" hey", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	token = minishell_split("mkdir a | cd a | rm -rf ../a", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	return (0);
 // }

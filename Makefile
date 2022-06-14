@@ -15,10 +15,13 @@ LIBFT		= 	libft/libft.a
 SRCS		=	$(addprefix sources/, \
 					builtins.c \
 					builtins_bis.c \
+					environment_bis.c \
+					environment.c \
 					execut.c \
 					operator.c \
 					list_token.c \
 					ft_is_str.c \
+					minishell_split_bis.c \
 					minishell_split.c \
 					minishell_pipe.c \
 					parsing.c \

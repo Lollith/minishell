@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+int	ft_exit(void)
+{
+	ft_msg("exit", 1);
+	return (2);
+}
+
 int	ft_echo(char **line)
 {
 	int	i;
@@ -21,11 +27,13 @@ int	ft_echo(char **line)
 		i++;
 	while (line[i])
 	{
-		printf("%s", line[i]);
+		ft_putstr_fd(line[i], 1);
+		if (line[i + 1] && line[i][0] != '\0')
+			write(1, " ", 1);
 		i++;
 	}
 	if (!ft_is_str(line[1], "-n"))
-		printf("\n");
+		write(1, "\n", 1);
 	return (1);
 }
 
