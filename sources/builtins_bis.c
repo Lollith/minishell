@@ -43,7 +43,7 @@ char	**ft_realloc_envp(char **envp)
 int	ft_export(char **line, char **envp)
 {
 	(void)line;
-	ft_print_string_of_string(envp);
+	(void)envp;
 	return (1);
 }
 
@@ -73,19 +73,21 @@ int	ft_unset_parsing(char **line)
 int	ft_unset(char **line, char ***envp)
 {
 	int		i;
-	int		len;
+	char	**res;
 
-	if (!line || !envp || ft_unset_parsing(line))
+	if (ft_unset_parsing(line))
 		return (1);
-	len = ft_strlen(line[1]);
 	i = 0;
-	while (envp[0][i] && ft_strncmp(envp[0][i], line[1], len))
+	while (envp[0][i] &&
+		ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i])))
 		i++;
-	if (*envp[i])
+	if (envp[0][i])
 	{
-		*envp = ft_unset_envp(line, *envp);
-		if (!*envp)
+		res = ft_unset_envp(line, envp[0]);
+		if (!res)
 			return (2);
+		ft_split_free(envp[0]);
+		envp[0] = res;
 	}
 	return (1);
 }
