@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/06 10:10:26 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/14 10:41:34 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ char	**get_paths(char **envp)
 	return (paths);
 }
 
-int	ft_child(char **paths, char *path_cmd, char **new_token_exec, char **envp)
+int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 {
 	pid_t	child;
 	int		wstatus;
@@ -46,39 +46,24 @@ int	ft_child(char **paths, char *path_cmd, char **new_token_exec, char **envp)
 		return (FAILURE);
 	if (!child)
 	{
-		execve(path_cmd, new_token_exec, envp);
-		ft_free_pa(paths, path_cmd, new_token_exec);
+		if ((pipex.ctrl == 0 || pipex.ctrl == 1) && pipex.pipefd[0])
+			ft_link_fd(pipex.pipefd[0], pipex.pipefd[1], STDOUT_FILENO);
+		if (pipex.pipefd[0] && pipex.ctrl == -1)
+			ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
+		ft_exec(envp, l_token->content, new_token_exec);
 		return (FAILURE);
 	}
+	if (pipex.pipefd[0] && pipex.ctrl == -1)
+	{
+		if (close(pipex.pipefd[0]) < 0)
+			return (msg_perror("pipefd0.1 "));
+		if (close(pipex.pipefd[1]) < 0)
+			return (msg_perror("pipefd1.1 "));
+	}
 	wait(&wstatus);
-	return (wstatus);
+	return (SUCCESS);
 }
 
-char	**ft_is_flag(t_list *l_token)
-{
-	char	**new_token_exec;
-	char	*cmd;
-	int		size;
-
-	cmd = l_token->content;
-	if (l_token->next && ft_strchr(l_token->next->content, '-'))
-		size = 3;
-	else
-		size = 2;
-	new_token_exec = (char **)malloc(sizeof(char *) * size);
-	if (!new_token_exec)
-		return (FAILURE);
-	new_token_exec[0] = cmd;
-	if (size == 3)
-		new_token_exec[1] = l_token->next->content;
-	if (l_token->next && ft_strchr(l_token->next->content, '-'))
-		ft_l_delete (l_token);
-	new_token_exec[size - 1] = NULL;
-	return (new_token_exec);
-}
-
-// access = 0 => check si une commande existe
-// si exceve > 0 => n a pas marchee
 int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 {
 	int		i;
@@ -94,12 +79,15 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 		path_cmd = ft_strjoin_free(path_cmd, cmd);
 		if (access(path_cmd, F_OK) == 0)
 		{
-			if (ft_child(paths, path_cmd, new_token_exec, envp) >= 0)
-				return (SUCCESS);
+			execve(path_cmd, new_token_exec, envp);
+			free(paths);
+			free(path_cmd);
+			return (FAILURE);
 		}
 		i++;
 	}
-	ft_free_pa(paths, path_cmd, new_token_exec);
+	free(paths);
+	free(path_cmd);
 	ft_msg(cmd, 1);
 	return (ft_msg(": Command not found.\n", 1));
 }

@@ -6,77 +6,38 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/06 10:07:58 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/14 10:35:01 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-// a faire -> ds ft_child
-// if ! child => if pipefd [0] existe => ft_link
-// structure de pipefd
-// rm file => a gerer
-/*
-
-int ft_pipex(t_list *l_token,char **new_token_exec, char **envp)
+int	ft_link_fd(int pipefd0, int pipefd1, int std)
 {
+	if (close(pipefd0) < 0)
+		return (msg_perror("pipefd0 "));
+	if (dup2(pipefd1, std) == -1)
+		return (msg_perror("dup2 "));
+	if (close(pipefd1) < 0)
+		return (msg_perror("pipefd1 "));
+	return (SUCCESS);
+}
 
-    int pipefd[2];
-    if (pipe(pipefd) < 0)
+int	ft_pipex(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+{
+	if (pipex.ctrl == 1)
+		ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
+	if (pipe(pipex.pipefd) < 0)
 		return (msg_perror("pipe"));
-    if(ft_exec(envp, l_token->content, new_token_exec) == 0)
-        return (FAILURE);
-    else
-        monitoring_line(l_token->next->next, envp); 
-    if (close(pipefd[0]) < 0)
-		return (msg_perror("pipefd0 "));
-	if (close(pipefd[1]) < 0)
-		return (msg_perror("pipefd1 "));
-	if (dup2(fdout_tmp, STDOUT_FILENO) == -1)
-		return (msg_perror("dup2 "));
-	if (dup2(fdin_tmp, STDOUT_FILENO) == -1)
-		return (msg_perror("dup2 "));
-    return (SUCCESS);
-}   
-
-int ft_link_fd (int pipefd0, int pipefd1, int std) // std in / out
-{
-       
-	int		fdout_tmp;
-    int     fdin_tmp;
-
-	fdout_tmp = dup(STDOUT_FILENO);// utile?
-    fdin_tmp =dup(STDIN_FILENO);
-    if (close(pipefd0) < 0)
-        return (msg_perror("pipefd "));
-    if (dup2(pipefd1, std) == -1)
-		return (msg_perror("dup2 "));
-    if (close(pipefd1) < 0)
-		return (msg_perror("pipefd "));
-    return (SUCCESS);
+	if (ft_child(args_exec, envp, l_token, pipex) <= 0)
+		return (FAILURE);
+	else
+	{
+		if (pipex.ctrl == 0)
+			pipex.ctrl = 1;
+		else
+			pipex.ctrl = 0;
+		monitoring_line(l_token->next->next, envp, pipex);
+	}
+	return (0);
 }
-
-int ft_link_fd1(int *pipefd)
-{
-    if (close(pipefd[0]) < 0)
-        return (msg_perror("pipefd0 "));
-    //printf("1\n");
-    if (dup2(pipefd[1], STDOUT_FILENO) == -1)
-		return (msg_perror("dup2 "));
-    if (close(pipefd[1]) < 0)
-		return (msg_perror("pipefd1 "));
-    return (SUCCESS);
-}
-
-int ft_link_fd2(int *pipefd)
-{
-    printf ("pipe0 %d\n", pipefd[0]);
-    if (close(pipefd[1]) < 0)
-        return (msg_perror("pipefd1. "));
-    if (dup2(pipefd[0], STDIN_FILENO) == -1)
-		return (msg_perror("dup2 "));
-    if (close(pipefd[0]) < 0)
-		return (msg_perror("pipefd0 "));
-    return (SUCCESS);
-}
-*/
