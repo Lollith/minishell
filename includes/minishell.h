@@ -114,10 +114,11 @@ int		ft_ou(t_list *tmp_token, char **arg_exec, char **envp, t_pipe pipex);
 int		ft_redir_out(t_list *l_tok, char **arg_exe, char **envp, t_pipe pipex);
 
 /* ************************************************************************** */
-/*                         minishell_pipe.c 3 functions                       */
+/*                         minishell_pipe.c 2 functions                       */
 /* ************************************************************************** */
 int		ft_pipex(t_list *l_token, char **args_exec, char **envp, t_pipe pipe);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
+
 
 /* ************************************************************************** */
 /*                             main.c 4 functions                             */
