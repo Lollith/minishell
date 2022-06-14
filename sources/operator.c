@@ -14,7 +14,7 @@
 
 int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 {
-	char	**args_exec ;
+	char	**args_exec;
 
 	args_exec = ft_is_arg(l_token);
 	if (l_token->next)
