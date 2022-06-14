@@ -103,7 +103,7 @@ int		ft_builtins(char **line, char **envp);
 char	**create_token_exec(char *cmd);
 
 /* ************************************************************************** */
-/*                           parsing.c 1 functions                            */
+/*                           parsing.c 4 functions                            */
 /* ************************************************************************** */
 char	**lexer(char *line);
 int		size_args(t_list *l_token);
@@ -137,7 +137,6 @@ int		ft_redir_out(t_list *l_tok, char **arg_exe, char **envp, t_pipe pipex);
 /* ************************************************************************** */
 int		ft_pipex(t_list *l_token, char **args_exec, char **envp, t_pipe pipe);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
-
 
 /* ************************************************************************** */
 /*                             main.c 4 functions                             */
