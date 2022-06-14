@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/06 10:04:23 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/14 10:26:53 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,10 @@ int	main(int ac, char **av, char **envp)
 	char	*line;
 	t_list	*l_token;
 	t_list	*tmp_token;
+	t_pipe	pipex;
 
+	pipex.ctrl = 0;
+	pipex.pipefd[0] = 0;
 	if (ft_main(ac, av, &envp))
 		return (1);
 	l_token = NULL;
@@ -75,7 +78,7 @@ int	main(int ac, char **av, char **envp)
 		if (!list_token(&l_token, line))
 			return (1);
 		tmp_token = l_token;
-		monitoring_line(tmp_token, envp);
+		monitoring_line(tmp_token, envp, pipex);
 		ft_lstclear2(&l_token);
 		free(line);
 		if (ac == 2)

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/05/25 10:16:57 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/14 10:42:11 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,4 +48,43 @@ char	**lexer(char *line)
 	if (!token)
 		return (NULL);
 	return (token);
+}
+
+int	size_args(t_list *l_token)
+{
+	int			size;
+	t_list		*tmp_token;
+	struct stat	info;
+
+	tmp_token = l_token;
+	size = 2;
+	while ((tmp_token->next && (ft_strchr(tmp_token->next->content, '-')
+				|| (stat(tmp_token->next->content, &info) == 0))))
+	{
+		size++;
+		tmp_token = tmp_token->next;
+	}
+	return (size);
+}
+
+char	**ft_is_arg(t_list *l_token)
+{
+	char		**args_exec;
+	int			size;
+	int			i;
+
+	size = size_args(l_token);
+	args_exec = (char **)malloc(sizeof(char *) * size);
+	if (!args_exec)
+		return (FAILURE);
+	args_exec[0] = l_token->content;
+	i = 1;
+	while (l_token && i < size - 1)
+	{
+		args_exec[i] = l_token->next->content;
+		i++;
+		ft_l_delete (l_token);
+	}
+	args_exec[size - 1] = NULL;
+	return (args_exec);
 }
