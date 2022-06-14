@@ -95,7 +95,7 @@ int		minishell_len_quote(char const *str, int i, int *j);
 char	**minishell_split(char const *s, char *space);
 
 /* ************************************************************************** */
-/*                          minishell.c 5 functions                           */
+/*                          minishell.c 4 functions                           */
 /* ************************************************************************** */
 void	ft_free_split(char **str);
 int		minishell(char *line, char **envp);
@@ -118,14 +118,14 @@ int		ft_exec(char **envp, char *cmd, char **args_exec);
 int		ft_child(char **args_exe, char **envp, t_list *l_token, t_pipe pipex);
 
 /* ************************************************************************** */
-/*                          list_token.c 2 functions                          */
+/*                          list_token.c 3 functions                          */
 /* ************************************************************************** */
 int		list_token(t_list	**l_token, char *line);
 void	ft_lstclear2(t_list **l_token);
 void	ft_l_delete( t_list *delete);
 
 /* ************************************************************************** */
-/*                         ft_operator.c 3 functions                          */
+/*                         ft_operator.c 4 functions                          */
 /* ************************************************************************** */
 int		monitoring_line(t_list *tmp_token, char **envp, t_pipe pipex);
 int		ft_eperluet(t_list *l_tok, char **arg_exec, char **envp, t_pipe pipex);
