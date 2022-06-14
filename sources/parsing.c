@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/07 11:40:29 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/14 10:42:11 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	size_args(t_list *l_token)
 	return (size);
 }
 
-char	**ft_is_arg(t_list *l_token) // too long
+char	**ft_is_arg(t_list *l_token)
 {
 	char		**args_exec;
 	int			size;

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/10 13:38:29 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/14 10:35:39 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 	}
 	else
 	{
-      pipex.ctrl = -1;
+		pipex.ctrl = -1;
 		if (ft_child(args_exec, envp, l_token, pipex) >= 0)
 		{
 			free(args_exec);
@@ -42,25 +42,25 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 	return (FAILURE);
 }
 
-int	ft_eperluet(t_list *l_token, char **new_token_exec, char **envp, t_pipe pipex)
+int	ft_eperluet(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 {
-	if (!ft_child(new_token_exec,envp, l_token, pipex))
-			return (FAILURE);
+	if (!ft_child(args_exec, envp, l_token, pipex))
+		return (FAILURE);
 	else
 		monitoring_line(l_token->next->next, envp, pipex);
 	return (SUCCESS);
 }
 
-int	ft_ou(t_list *l_token, char **new_token_exec, char **envp, t_pipe pipex)
+int	ft_ou(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 {
-	if (ft_child(new_token_exec,envp, l_token, pipex) > 0)
-		return(SUCCESS);
+	if (ft_child(args_exec, envp, l_token, pipex) > 0)
+		return (SUCCESS);
 	else
 		monitoring_line(l_token->next->next, envp, pipex);
 	return (FAILURE);
 }
 
-int	ft_redir_out(t_list *l_token, char **new_token_exec, char **envp, t_pipe pipex)
+int	ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 {
 	int		fd;
 	int		fd_tmp;
@@ -73,7 +73,7 @@ int	ft_redir_out(t_list *l_token, char **new_token_exec, char **envp, t_pipe pip
 		return (msg_perror("open "));
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		return (msg_perror("dup2 "));
-	if (ft_child(new_token_exec, envp, l_token, pipex) < 0)
+	if (ft_child(args_exec, envp, l_token, pipex) < 0)
 		return (FAILURE);
 	if (close(fd) < 0)
 		return (msg_perror("fd "));
