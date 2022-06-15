@@ -95,9 +95,8 @@ int		minishell_len_quote(char const *str, int i, int *j);
 char	**minishell_split(char const *s, char *space);
 
 /* ************************************************************************** */
-/*                          minishell.c 4 functions                           */
+/*                          minishell.c 3 functions                           */
 /* ************************************************************************** */
-void	ft_free_split(char **str);
 int		minishell(char *line, char **envp);
 int		ft_builtins(char **line, char **envp);
 char	**create_token_exec(char *cmd);
@@ -110,12 +109,13 @@ int		size_args(t_list *l_token);
 char	**ft_is_arg(t_list *l_token);
 
 /* ************************************************************************** */
-/*                            execut.c 4 functions                            */
+/*                            execut.c 5 functions                            */
 /* ************************************************************************** */
 char	**get_paths(char **envp);
 void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
 int		ft_exec(char **envp, char *cmd, char **args_exec);
 int		ft_child(char **args_exe, char **envp, t_list *l_token, t_pipe pipex);
+int		ft_old_child(char **paths, char *path_cmd, char **token, char **envp);
 
 /* ************************************************************************** */
 /*                          list_token.c 3 functions                          */
@@ -125,7 +125,7 @@ void	ft_lstclear2(t_list **l_token);
 void	ft_l_delete( t_list *delete);
 
 /* ************************************************************************** */
-/*                         ft_operator.c 4 functions                          */
+/*                         ft_operator.c 5 functions                          */
 /* ************************************************************************** */
 int		monitoring_line(t_list *tmp_token, char **envp, t_pipe pipex);
 int		ft_eperluet(t_list *l_tok, char **arg_exec, char **envp, t_pipe pipex);

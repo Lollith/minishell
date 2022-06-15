@@ -33,6 +33,8 @@ char	**get_paths(char **envp)
 		i++;
 	path = envp[i] + 5;
 	paths = ft_split(path, ':');
+	if (!paths)
+		return (NULL);
 	return (paths);
 }
 
@@ -64,6 +66,24 @@ int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 	return (SUCCESS);
 }
 
+int	ft_old_child(char **paths, char *path_cmd, char **token, char **envp)
+{
+	pid_t	child;
+	int		wstatus;
+
+	child = fork();
+	if (child < 0)
+		return (FAILURE);
+	if (!child)
+	{
+		execve(path_cmd, token, envp);
+		ft_free_pa(paths, path_cmd, token);
+		return (FAILURE);
+	}
+	wait(&wstatus);
+	return (SUCCESS);
+}
+
 int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 {
 	int		i;
@@ -79,15 +99,14 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 		path_cmd = ft_strjoin_free(path_cmd, cmd);
 		if (access(path_cmd, F_OK) == 0)
 		{
-			execve(path_cmd, new_token_exec, envp);
-			free(paths);
-			free(path_cmd);
-			return (FAILURE);
+			if (ft_old_child(paths, path_cmd, new_token_exec, envp))
+				return (SUCCESS);
 		}
+		free(path_cmd);
 		i++;
 	}
-	free(paths);
-	free(path_cmd);
+	ft_free_pa(paths, path_cmd, new_token_exec);
 	ft_msg(cmd, 1);
-	return (ft_msg(": Command not found.\n", 1));
+	ft_msg(": Command not found.\n", 1);
+	return (FAILURE);
 }

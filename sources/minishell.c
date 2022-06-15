@@ -12,21 +12,6 @@
 
 #include "minishell.h"
 
-void	ft_free_split(char **str)
-{
-	int	i;
-
-	if (!str)
-		return ;
-	i = 0;
-	while (str[i])
-	{
-		free(str[i]);
-		i++;
-	}
-	free(str);
-}
-
 // 0 in not a builtins
 // 1 is a builtins
 // 2 exit
@@ -53,9 +38,9 @@ char	**create_token_exec(char *cmd)
 {
 	char	**new_token_exec;
 
-	new_token_exec = (char **)malloc(sizeof(char *) * 2);
+	new_token_exec = malloc(sizeof(char *) * 2);
 	if (!new_token_exec)
-		return (FAILURE);
+		return (NULL);
 	new_token_exec[0] = cmd;
 	new_token_exec[1] = NULL;
 	return (new_token_exec);
@@ -76,7 +61,7 @@ int	minishell(char *line, char **envp)
 	i = -1;
 	while (cmd[++i] && in != 2)
 	{
-		ft_free_split(token);
+		ft_split_free(token);
 		token = lexer(cmd[i]);
 		if (!token)
 			break ;
@@ -85,7 +70,7 @@ int	minishell(char *line, char **envp)
 			continue ;
 		ft_exec(envp, cmd[i], create_token_exec(cmd[i]));
 	}
-	ft_free_split(token);
-	ft_free_split(cmd);
+	ft_split_free(token);
+	ft_split_free(cmd);
 	return (in);
 }

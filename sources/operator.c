@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+int	ft_free_args_exec(char **args_exec, int ret)
+{
+	free(args_exec);
+	return (ret);
+}
+
 int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 {
 	char	**args_exec;
@@ -33,13 +39,9 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 	{
 		pipex.ctrl = -1;
 		if (ft_child(args_exec, envp, l_token, pipex) >= 0)
-		{
-			free(args_exec);
-			return (SUCCESS);
-		}
+			return (ft_free_args_exec(args_exec, SUCCESS));
 	}
-	free(args_exec);
-	return (FAILURE);
+	return (ft_free_args_exec(args_exec, FAILURE));
 }
 
 int	ft_eperluet(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
