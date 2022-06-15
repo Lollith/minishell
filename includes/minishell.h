@@ -57,14 +57,17 @@ void	ft_print_string_of_string(char **tab);
 /* ************************************************************************** */
 /*                         environment.c 5 functions                          */
 /* ************************************************************************** */
+int		ft_unset_str(char **line, char **envp, int i, int *k);
 int		ft_strlen_equal(char *s);
+char	*ft_str_whitout_equal(char *envp);
+char	**ft_unset_free(int i, char **res);
 char	**ft_unset_envp(char **line, char **envp);
 
 /* ************************************************************************** */
 /*                         builtins_bis.c 5 functions                         */
 /* ************************************************************************** */
 char	**ft_realloc_envp(char **envp);
-int		ft_export(char **line, char **envp);
+int		ft_export(char **line, char ***envp);
 int		ft_unset(char **line, char ***envp);
 int		ft_env(char **envp);
 
@@ -97,8 +100,8 @@ char	**minishell_split(char const *s, char *space);
 /* ************************************************************************** */
 /*                          minishell.c 3 functions                           */
 /* ************************************************************************** */
-int		minishell(char *line, char **envp);
-int		ft_builtins(char **line, char **envp);
+int		minishell(char *line, char ***envp);
+int		ft_builtins(char **line, char ***envp);
 char	**create_token_exec(char *cmd);
 
 /* ************************************************************************** */

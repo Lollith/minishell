@@ -40,20 +40,13 @@ char	**ft_realloc_envp(char **envp)
 	return (res);
 }
 
-int	ft_export(char **line, char **envp)
-{
-	(void)line;
-	(void)envp;
-	return (1);
-}
-
-int	ft_unset_parsing(char **line)
+int	ft_env_parsing(char **line)
 {
 	int		i;
 	char	*str;
 
 	if (!line[1])
-		return (1);
+		return (TRUE);
 	i = 0;
 	while (line[1][i])
 	{
@@ -63,11 +56,19 @@ int	ft_unset_parsing(char **line)
 			str = ft_strjoin_free(str, "\": not a valid identifier");
 			write(1, str, ft_strlen(str));
 			free(str);
-			return (1);
+			return (TRUE);
 		}
 		i++;
 	}
-	return (0);
+	return (FALSE);
+}
+
+int	ft_export(char **line, char ***envp)
+{
+	if (!ft_env_parsing(line))
+		return (1);
+	(void)envp;
+	return (1);
 }
 
 int	ft_unset(char **line, char ***envp)
@@ -75,7 +76,7 @@ int	ft_unset(char **line, char ***envp)
 	int		i;
 	char	**res;
 
-	if (ft_unset_parsing(line))
+	if (ft_env_parsing(line))
 		return (1);
 	i = 0;
 	while (envp[0][i] &&

@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+// SIGQUIT	=	ctrl + \
+// SIGINT	=	ctrl + c
 void	ft_new_prompt(int signum)
 {
 	if (signum == SIGINT)
@@ -102,12 +104,14 @@ int	main(int ac, char **av, char **envp)
 	while (line != NULL)
 	{
 		add_history(line);
-		ac = minishell(line, envp);
+		ac = minishell(line, &envp);
 		free(line);
 		if (ac == 2)
 			break ;
 		line = readline("minishell> ");
 	}
+	if (line == NULL)
+		ft_msg("exit", 1);
 	rl_clear_history();
 	ft_split_free(envp);
 	return (ft_msg("\n", 1));
