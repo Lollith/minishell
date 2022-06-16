@@ -15,27 +15,23 @@
 void	ft_free_pa(char **paths, char *path_cmd, char **token)
 {
 	if (paths)
-		free(paths);
+		ft_split_free(paths);
 	if (path_cmd)
 		free(path_cmd);
 	if (token)
-		free(token);
+		ft_split_free(token);
 }
 
-char	**get_paths(char **envp)
+char	**get_paths(void)
 {
-	int		i;
 	char	*path;
-	char	**paths;
+	char	**res;
 
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-		i++;
-	path = envp[i] + 5;
-	paths = ft_split(path, ':');
-	if (!paths)
+	path = getenv("PATH");
+	res = ft_split(path, ':');
+	if (!res)
 		return (NULL);
-	return (paths);
+	return (res);
 }
 
 int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
@@ -90,7 +86,7 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 	char	**paths;
 	char	*path_cmd;
 
-	paths = get_paths(envp);
+	paths = get_paths();
 	path_cmd = NULL;
 	i = 0;
 	while (paths[i])

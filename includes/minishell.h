@@ -40,7 +40,7 @@ typedef struct s_pipe
 {
 	int	ctrl;
 	int	pipefd[2];
-}				t_pipe;
+}		t_pipe;
 
 /* ************************************************************************** */
 /*                            debug.c 4 functions                             */
@@ -51,8 +51,10 @@ int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
 
 /* ************************************************************************** */
-/*                       environment_bis.c 0 functions                        */
+/*                       environment_bis.c 2 functions                        */
 /* ************************************************************************** */
+int		ft_export_value(char **line, char ***envp, int i);
+char	**ft_export_envp(char **line, char **envp);
 
 /* ************************************************************************** */
 /*                         environment.c 5 functions                          */
@@ -114,7 +116,7 @@ char	**ft_is_arg(t_list *l_token);
 /* ************************************************************************** */
 /*                            execut.c 5 functions                            */
 /* ************************************************************************** */
-char	**get_paths(char **envp);
+char	**get_paths(void);
 void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
 int		ft_exec(char **envp, char *cmd, char **args_exec);
 int		ft_child(char **args_exe, char **envp, t_list *l_token, t_pipe pipex);
@@ -125,7 +127,7 @@ int		ft_old_child(char **paths, char *path_cmd, char **token, char **envp);
 /* ************************************************************************** */
 int		list_token(t_list	**l_token, char *line);
 void	ft_lstclear2(t_list **l_token);
-void	ft_l_delete( t_list *delete);
+void	ft_l_delete(t_list *delete);
 
 /* ************************************************************************** */
 /*                         ft_operator.c 5 functions                          */

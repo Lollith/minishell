@@ -92,8 +92,7 @@ char	**ft_unset_envp(char **line, char **envp)
 		res[i - k] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
 		if (!res[i - k])
 			return (NULL);
-		ft_memcpy(res[i - k], envp[i], ft_strlen(envp[i]));
-		res[i - k][ft_strlen(envp[i])] = '\0';
+		ft_memcpy(res[i - k], envp[i], ft_strlen(envp[i]) + 1);
 	}
 	res[i] = NULL;
 	return (res);
