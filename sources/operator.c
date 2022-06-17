@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/16 18:00:50 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/17 16:36:53 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 			ft_redir_out(l_token, args_exec, envp, pipex);
 		else if (ft_strncmp(l_token->next->content, "<", 1) == 0)
 			ft_redir_in(l_token, args_exec, envp, pipex);
-		//else if (ft_strncmp(l_token->content, "<", 1) == 0)  // si < file1 wc
-			//ft_redir_in(l_token, ft_is_arg(l_token->next), envp, pipex);
 	}
 	else
 	{
@@ -88,20 +86,18 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	return (SUCCESS);
 }
 
-
-// < file1 wc  ou wc < file1
 int	ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 {
-	int		fd;
-	int		fd_tmp;
-	char	*file;
-	struct stat info;
+	int			fd;
+	int			fd_tmp;
+	char		*file;
+	struct stat	info;
 
 	if (stat(l_token->next->content, &info) == 0)
 		file = l_token->next->content;
 	else
 		file = l_token->next->next->content;
-	fd_tmp = dup(STDOUT_FILENO);
+	fd_tmp = dup(STDIN_FILENO);
 	fd = open (file, O_RDONLY);
 	if (fd < 0)
 		return (msg_perror("open "));
