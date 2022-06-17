@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/14 10:34:34 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/17 16:06:30 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,7 +139,16 @@ int		ft_pipex(t_list *l_token, char **args_exec, char **envp, t_pipe pipe);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
 
 /* ************************************************************************** */
+/*                             initialisation.c 4 functions                   */
+/* ************************************************************************** */
+int		init(int ac, char **av, char **envp, t_pipe *pipex);
+int		ft_main(int ac, char **av, char ***envp);
+int		fd_monitor(t_list *tmp_token, char **envp, t_pipe pipex);
+
+/* ************************************************************************** */
 /*                             main.c 4 functions                             */
 /* ************************************************************************** */
+int		check_env(char **envp);
+void	ft_new_prompt(int signum);
 
 #endif
