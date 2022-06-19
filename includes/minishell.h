@@ -88,10 +88,12 @@ int		ft_pwd(void);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
-/*                       minishell_split.c 3 functions                        */
+/*                     minishell_split_bis.c 5 functions                      */
 /* ************************************************************************** */
 int		ft_is_space(char c, char *space);
 int		minishell_quote(char const *str, int i);
+int		minishell_env_res(char *res, char const *str, int i, int *j);
+int		minishell_env_var(char const *str, int i, int *j, int pp);
 int		minishell_len_quote(char const *str, int i, int *j);
 
 /* ************************************************************************** */

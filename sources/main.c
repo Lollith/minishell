@@ -62,38 +62,6 @@ int	ft_main(int ac, char **av, char ***envp)
 	return (0);
 }
 
-// int	main(int ac, char **av, char **envp)
-// {
-// 	char	*line;
-// 	t_list	*l_token;
-// 	t_list	*tmp_token;
-// 	t_pipe	pipex;
-
-// 	l_token = NULL;
-// 	pipex.ctrl = 0;
-// 	pipex.pipefd[0] = 0;
-// 	if (ft_main(ac, av, &envp))
-// 		return (1);
-// 	line = readline("minishell> ");
-// 	while (line != NULL)
-// 	{
-// 		add_history(line);
-// 		ac = minishell(line, envp);
-// 		if (!list_token(&l_token, line))
-// 			return (1);
-// 		tmp_token = l_token;
-// 		monitoring_line(tmp_token, envp, pipex);
-// 		ft_lstclear2(&l_token);
-// 		free(line);
-// 		if (ac == 2)
-// 			break ;
-// 		line = readline("minishell> ");
-// 	}
-// 	rl_clear_history();
-// 	ft_split_free(envp);
-// 	return (ft_msg("\n", 1));
-// }
-
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;

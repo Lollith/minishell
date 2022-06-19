@@ -43,14 +43,61 @@ int	minishell_quote(char const *str, int i)
 	return (i);
 }
 
+int	minishell_env_res(char *res, char const *str, int i, int *j)
+{
+	int		k;
+	int		var;
+	char	name[128];
+	char	*value;
+
+	i++;
+	var = 0;
+	while (ft_isalnum(str[i + var]))
+		var++;
+	ft_memcpy(name, str + i, var);
+	name[var] = '\0';
+	value = getenv(name);
+	k = 0;
+	while (value && value[k])
+	{
+		res[*j] = value[k];
+		k++;
+		*j += 1;
+	}
+	return (i + var);
+}
+
+int	minishell_env_var(char const *str, int i, int *j, int pp)
+{
+	int		var;
+	char	name[128];
+	char	*value;
+
+	if (str[i] == '$')
+	{
+		i++;
+		var = 0;
+		while (ft_isalnum(str[i + var]))
+			var++;
+		ft_memcpy(name, str + i, var);
+		name[var] = '\0';
+		value = getenv(name);
+		if (value)
+			*j += ft_strlen(value);
+		return (i + var);
+	}
+	return (i + pp);
+}
+
 int	minishell_len_quote(char const *str, int i, int *j)
 {
+	i = minishell_env_var(str, i, j, 0);
 	if (str[i] == '\"')
 	{
 		i++;
 		while (str[i] != '\"')
 		{
-			i++;
+			i = minishell_env_var(str, i, j, 1);
 			*j += 1;
 		}
 		i++;
@@ -60,7 +107,7 @@ int	minishell_len_quote(char const *str, int i, int *j)
 		i++;
 		while (str[i] != '\'')
 		{
-			i++;
+			i = minishell_env_var(str, i, j, 1);
 			*j += 1;
 		}
 		i++;

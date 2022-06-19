@@ -67,6 +67,11 @@ char	*minishell_input(char const *str, char *space, int i)
 	{
 		while (ft_is_space(str[i], "\"\'"))
 			i++;
+		if (str[i] == '$')
+		{
+			i = minishell_env_res(res, str, i, &j);
+			continue ;
+		}
 		res[j] = str[i];
 		i++;
 		j++;
@@ -123,27 +128,56 @@ char	**minishell_split(char const *str, char *space)
 // {
 // 	char	**token;
 
-// 	token = minishell_split("Bonjour \" Bonsoir \"", " \t\n\v\f\r");
+// 	token = minishell_split("Bonjour", " \t\n\v\f\r");
 // 	ft_print_string_of_string(token);
-// 	token = minishell_split("\" Bonsoir \" Bonjour les ami", " \t\n\v\f\r");
+// 	ft_split_free(token);
+// 	printf("---------------------------------------------------------------\n");
+// 	token = minishell_split("$TEST", " \t\n\v\f\r");
 // 	ft_print_string_of_string(token);
+// 	ft_split_free(token);
+// 	printf("---------------------------------------------------------------\n");
+// 	token = minishell_split("\"$TEST1\"", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	ft_split_free(token);
+// 	printf("---------------------------------------------------------------\n");
+// 	token = minishell_split("\'$TEST0\'", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	ft_split_free(token);
+// 	printf("---------------------------------------------------------------\n");
+// 	token = minishell_split("$TEST3$TEST2", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	ft_split_free(token);
+// 	printf("---------------------------------------------------------------\n");
+// 	token = minishell_split("Bonsoir", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	ft_split_free(token);
+// }
+
+// int	main(void)
+// {
+// 	char	**token;
+
+// 	token = minishell_split("\" Bonjour \" Bonjour les ami", " \t\n\v\f\r");
+// 	ft_print_string_of_string(token);
+// 	ft_split_free(token);
+// 	printf("---------------------------------------------------------------\n");
 // 	token = minishell_split("export A=\" coucou \"", " \t\n\v\f\r");
 // 	ft_print_string_of_string(token);
-// 	token = minishell_split("echo \"\" | cat -e", " \t\n\v\f\r");
-// 	ft_print_string_of_string(token);
-// 	token = minishell_split("echo \"\" a | cat -e", " \t\n\v\f\r");
-// 	ft_print_string_of_string(token);
+// 	ft_split_free(token);
+// 	printf("---------------------------------------------------------------\n");
 // 	token = minishell_split("echo -n a '' b '' c '' d", " \t\n\v\f\r");
 // 	ft_print_string_of_string(token);
+// 	ft_split_free(token);
+// 	printf("---------------------------------------------------------------\n");
 // 	token = minishell_split("e\"ch\"o bonjour", " \t\n\v\f\r");
 // 	ft_print_string_of_string(token);
-// 	token = minishell_split("env -i ./minishell", " \t\n\v\f\r");
-// 	ft_print_string_of_string(token);
-// 	token = minishell_split("echo $ejknfenf hey", " \t\n\v\f\r");
-// 	ft_print_string_of_string(token);
+// 	ft_split_free(token);
+// 	printf("---------------------------------------------------------------\n");
 // 	token = minishell_split("echo \"$ejnzefc\" hey", " \t\n\v\f\r");
 // 	ft_print_string_of_string(token);
+// 	ft_split_free(token);
+// 	printf("---------------------------------------------------------------\n");
 // 	token = minishell_split("mkdir a | cd a | rm -rf ../a", " \t\n\v\f\r");
 // 	ft_print_string_of_string(token);
-// 	return (0);
+// 	ft_split_free(token);
 // }
