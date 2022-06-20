@@ -37,39 +37,15 @@ int	check_env(char **envp)
 	return (SUCCESS);
 }
 
-int	ft_main(int ac, char **av, char ***envp)
-{
-	(void)av;
-	if (!check_env(*envp))
-	{
-		ft_msg("No environment found\n", 1);
-		return (1);
-	}
-	if (ac != 1)
-	{
-		ft_msg("Usage : ./minishell\n", 1);
-		return (1);
-	}
-	*envp = ft_realloc_envp(*envp);
-	if (!*envp)
-		return (1);
-	signal(SIGINT, ft_new_prompt);
-	signal(SIGQUIT, ft_new_prompt);
-	return (0);
-}
-
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
-	t_list	*l_token;
 	t_list	*tmp_token;
+	t_list	*l_token;
 	t_pipe	pipex;
 
-	pipex.ctrl = 0;
-	pipex.pipefd[0] = 0;
-	if (ft_main(ac, av, &envp))
-		return (1);
 	l_token = NULL;
+	init(ac, av, envp, &pipex);
 	line = readline("minishell> ");
 	while (line != NULL)
 	{
@@ -78,7 +54,7 @@ int	main(int ac, char **av, char **envp)
 		if (!list_token(&l_token, line))
 			return (1);
 		tmp_token = l_token;
-		monitoring_line(tmp_token, envp, pipex);
+		fd_monitor(tmp_token, envp, pipex);
 		ft_lstclear2(&l_token);
 		free(line);
 		if (ac == 2)
