@@ -18,8 +18,6 @@ char	**ft_realloc_envp(char **envp)
 	int		j;
 	char	**res;
 
-	if (!envp)
-		return (NULL);
 	res = malloc(sizeof(char *) * ft_string_of_string_len(envp));
 	if (!res)
 		return (NULL);
@@ -35,8 +33,10 @@ char	**ft_realloc_envp(char **envp)
 			res[i][j] = envp[i][j];
 			j++;
 		}
+		res[i][j] = '\0';
 		i++;
 	}
+	res[i] = NULL;
 	return (res);
 }
 

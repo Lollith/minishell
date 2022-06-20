@@ -96,13 +96,15 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 		if (access(path_cmd, F_OK) == 0)
 		{
 			if (ft_old_child(paths, path_cmd, new_token_exec, envp))
+			{
+				free(path_cmd);
 				return (SUCCESS);
+			}
 		}
 		free(path_cmd);
 		i++;
 	}
 	ft_free_pa(paths, path_cmd, new_token_exec);
 	ft_msg(cmd, 1);
-	ft_msg(": Command not found.\n", 1);
-	return (FAILURE);
+	return (ft_msg(": Command not found.\n", 1));
 }

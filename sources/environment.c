@@ -12,6 +12,7 @@
 
 #include "minishell.h"
 
+// Find the var to unset
 int	ft_unset_str(char **line, char **envp, int i, int *k)
 {
 	char	*str;
@@ -94,6 +95,6 @@ char	**ft_unset_envp(char **line, char **envp)
 			return (NULL);
 		ft_memcpy(res[i - k], envp[i], ft_strlen(envp[i]) + 1);
 	}
-	res[i] = NULL;
+	res[i - k] = NULL;
 	return (res);
 }
