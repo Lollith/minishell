@@ -33,6 +33,7 @@ int	minishell_count(char const *str, char *space)
 			j = FALSE;
 		i++;
 	}
+	printf("connt=%i\n", res);
 	return (res);
 }
 
@@ -44,17 +45,20 @@ int	minishell_len(char const *str, char *space, int i)
 	while (str[i])
 	{
 		i = minishell_len_quote(str, i, &j);
-		if (ft_is_space(str[i], space) || !str[i])
+		if (ft_is_space(str[i], space))
+		{
+			printf("len=%i\n", j);
 			return (j);
-		i++;
-		j++;
+		}
 	}
+	printf("len=%i\n", j);
 	return (j);
 }
 
 char	*minishell_input(char const *str, char *space, int i)
 {
 	int		j;
+	int		k;
 	int		len;
 	char	*res;
 
@@ -63,18 +67,18 @@ char	*minishell_input(char const *str, char *space, int i)
 	if (!res)
 		return (NULL);
 	j = 0;
-	while (--len)
+	while (--len && str[i])
 	{
 		while (ft_is_space(str[i], "\"\'"))
 			i++;
 		if (str[i] == '$')
 		{
+			k = j;
 			i = minishell_env_res(res, str, i, &j);
+			len = j - k - 1;
 			continue ;
 		}
-		res[j] = str[i];
-		i++;
-		j++;
+		ft_chrcpy(str, res, &i, &j);
 	}
 	res[j] = '\0';
 	return (res);
@@ -82,11 +86,18 @@ char	*minishell_input(char const *str, char *space, int i)
 
 int	minishell_post_input(char const *str, char *space, int i, char *res)
 {
+	int	k;
 	int	input;
 
 	input = ft_strlen(res);
 	while (input)
 	{
+		k = i;
+		i = minishell_env_post_input(str, i, &input);
+		if (!str[i])
+			break ;
+		if (k != i)
+			continue ;
 		if (!ft_is_space(str[i], "\"\'"))
 			input--;
 		i++;
@@ -124,40 +135,17 @@ char	**minishell_split(char const *str, char *space)
 	return (res);
 }
 
+// 05 - 9 8 4 4
+// 03 - 7 11
+// 10 - 5 3 2 1 2 1 2 1 2
+// 03 - 5 8
+// 04 - 5 1 4
+// 10 - 6 2 2 3 2 2 3 4 5
 // int	main(void)
 // {
 // 	char	**token;
 
-// 	token = minishell_split("Bonjour", " \t\n\v\f\r");
-// 	ft_print_string_of_string(token);
-// 	ft_split_free(token);
-// 	printf("---------------------------------------------------------------\n");
-// 	token = minishell_split("$TEST", " \t\n\v\f\r");
-// 	ft_print_string_of_string(token);
-// 	ft_split_free(token);
-// 	printf("---------------------------------------------------------------\n");
-// 	token = minishell_split("\"$TEST1\"", " \t\n\v\f\r");
-// 	ft_print_string_of_string(token);
-// 	ft_split_free(token);
-// 	printf("---------------------------------------------------------------\n");
-// 	token = minishell_split("\'$TEST0\'", " \t\n\v\f\r");
-// 	ft_print_string_of_string(token);
-// 	ft_split_free(token);
-// 	printf("---------------------------------------------------------------\n");
-// 	token = minishell_split("$TEST3$TEST2", " \t\n\v\f\r");
-// 	ft_print_string_of_string(token);
-// 	ft_split_free(token);
-// 	printf("---------------------------------------------------------------\n");
-// 	token = minishell_split("Bonsoir", " \t\n\v\f\r");
-// 	ft_print_string_of_string(token);
-// 	ft_split_free(token);
-// }
-
-// int	main(void)
-// {
-// 	char	**token;
-
-// 	token = minishell_split("\" Bonjour \" Bonjour les ami", " \t\n\v\f\r");
+// 	token = minishell_split("\"Bonjour|\" Bonsoir les ami", " \t\n\v\f\r");
 // 	ft_print_string_of_string(token);
 // 	ft_split_free(token);
 // 	printf("---------------------------------------------------------------\n");
@@ -181,3 +169,38 @@ char	**minishell_split(char const *str, char *space)
 // 	ft_print_string_of_string(token);
 // 	ft_split_free(token);
 // }
+
+// 03 - 8 8
+// 02 - 5
+// 02 - 1
+// 02 - 2
+// 02 - 6
+// 03 - 9 8 
+int	main(void)
+{
+	char	**token;
+
+	token = minishell_split("Bonjour $USER", " \t\n\v\f\r");
+	ft_print_string_of_string(token);
+	ft_split_free(token);
+	printf("---------------------------------------------------------------\n");
+	token = minishell_split("$TEST", " \t\n\v\f\r");
+	ft_print_string_of_string(token);
+	ft_split_free(token);
+	printf("---------------------------------------------------------------\n");
+	token = minishell_split("\"$TEST0\"", " \t\n\v\f\r");
+	ft_print_string_of_string(token);
+	ft_split_free(token);
+	printf("---------------------------------------------------------------\n");
+	token = minishell_split("\'$TEST1\'", " \t\n\v\f\r");
+	ft_print_string_of_string(token);
+	ft_split_free(token);
+	printf("---------------------------------------------------------------\n");
+	token = minishell_split("$TEST2$TEST3", " \t\n\v\f\r");
+	ft_print_string_of_string(token);
+	ft_split_free(token);
+	printf("---------------------------------------------------------------\n");
+	token = minishell_split("Aurevoir $LOGNAME", " \t\n\v\f\r");
+	ft_print_string_of_string(token);
+	ft_split_free(token);
+}

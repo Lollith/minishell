@@ -95,22 +95,25 @@ int	minishell_len_quote(char const *str, int i, int *j)
 	if (str[i] == '\"')
 	{
 		i++;
-		while (str[i] != '\"')
+		while (str[i++] != '\"')
 		{
-			i = minishell_env_var(str, i, j, 1);
+			i = minishell_env_var(str, i, j, 0);
 			*j += 1;
 		}
-		i++;
 	}
-	if (str[i] == '\'')
+	else if (str[i] == '\'')
 	{
 		i++;
-		while (str[i] != '\'')
+		while (str[i++] != '\'')
 		{
-			i = minishell_env_var(str, i, j, 1);
+			i = minishell_env_var(str, i, j, 0);
 			*j += 1;
 		}
+	}
+	else
+	{
 		i++;
+		*j += 1;
 	}
 	return (i);
 }

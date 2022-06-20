@@ -88,6 +88,12 @@ int		ft_pwd(void);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
+/*                    minishell_split_utils.c 2 functions                     */
+/* ************************************************************************** */
+void	ft_chrcpy(char const *str, char *res, int *i, int *j);
+int		minishell_env_post_input(char const *str, int i, int *input);
+
+/* ************************************************************************** */
 /*                     minishell_split_bis.c 5 functions                      */
 /* ************************************************************************** */
 int		ft_is_space(char c, char *space);
