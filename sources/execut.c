@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/14 10:41:34 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/17 16:09:51 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ char	**get_paths(void)
 int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 {
 	pid_t	child;
-	int		wstatus;
 
 	child = fork();
 	if (child < 0)
@@ -57,8 +56,8 @@ int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 			return (msg_perror("pipefd0.1 "));
 		if (close(pipex.pipefd[1]) < 0)
 			return (msg_perror("pipefd1.1 "));
+		pipex.ctrl = 0;
 	}
-	wait(&wstatus);
 	return (SUCCESS);
 }
 

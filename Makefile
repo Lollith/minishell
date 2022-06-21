@@ -6,7 +6,7 @@
 #    By: agouet <agouet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/20 16:34:58 by agouet            #+#    #+#              #
-#    Updated: 2022/05/30 10:31:15 by agouet           ###   ########.fr        #
+#    Updated: 2022/06/17 15:55:43 by agouet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRCS		=	$(addprefix sources/, \
 					environment_bis.c \
 					environment.c \
 					execut.c \
+					initialisation.c \
 					operator.c \
 					list_token.c \
 					ft_is_str.c \
@@ -34,7 +35,7 @@ OBJS		=	$(SRCS:.c=.o)
 DEPS		=	$(SRCS:.c=.d)
 CC 			=	cc
 CFLAGS		=	-Wall -Wextra -Werror -MMD -g3
-READLINE	=	-lreadline 
+READLINE	=	-lreadline
 INC			=	-I ./includes
 
 %.o: %.c

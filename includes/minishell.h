@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/14 10:34:34 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/16 17:20:18 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,7 @@ int		monitoring_line(t_list *tmp_token, char **envp, t_pipe pipex);
 int		ft_eperluet(t_list *l_tok, char **arg_exec, char **envp, t_pipe pipex);
 int		ft_ou(t_list *tmp_token, char **arg_exec, char **envp, t_pipe pipex);
 int		ft_redir_out(t_list *l_tok, char **arg_exe, char **envp, t_pipe pipex);
+int		ft_redir_in(t_list *l_tok, char **arg_exe, char **envp, t_pipe pipex);
 
 /* ************************************************************************** */
 /*                         minishell_pipe.c 2 functions                       */
@@ -154,7 +155,16 @@ int		ft_pipex(t_list *l_token, char **args_exec, char **envp, t_pipe pipe);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
 
 /* ************************************************************************** */
+/*                             initialisation.c 4 functions                   */
+/* ************************************************************************** */
+int		init(int ac, char **av, char **envp, t_pipe *pipex);
+int		ft_main(int ac, char **av, char ***envp);
+int		fd_monitor(t_list *tmp_token, char **envp, t_pipe pipex);
+
+/* ************************************************************************** */
 /*                             main.c 4 functions                             */
 /* ************************************************************************** */
+int		check_env(char **envp);
+void	ft_new_prompt(int signum);
 
 #endif
