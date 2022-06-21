@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/17 16:09:51 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/21 13:30:31 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,18 @@ char	**get_paths(char **envp)
 	char	*path;
 	char	**paths;
 
+	paths = NULL;
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
-	path = envp[i] + 5;
-	paths = ft_split(path, ':');
+
+	if (!envp[i] || ft_strncmp(envp[i], "PATH=", 5))
+		paths = NULL;
+	else
+	{
+		path = envp[i] + 5;
+		paths = ft_split(path, ':');
+	}
 	return (paths);
 }
 
@@ -71,19 +78,22 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 
 	paths = get_paths(envp);
 	path_cmd = NULL;
-	i = 0;
-	while (paths[i])
+	if (cmd && (execve(cmd, new_token_exec, envp) == -1) && paths)
 	{
-		path_cmd = ft_strjoin(paths[i], "/");
-		path_cmd = ft_strjoin_free(path_cmd, cmd);
-		if (access(path_cmd, F_OK) == 0)
+		i = 0;
+		while (paths[i])
 		{
-			execve(path_cmd, new_token_exec, envp);
-			free(paths);
-			free(path_cmd);
-			exit (FAILURE);
+			path_cmd = ft_strjoin(paths[i], "/");
+			path_cmd = ft_strjoin_free(path_cmd, cmd);
+			if (access(path_cmd, F_OK) == 0)
+			{
+				execve(path_cmd, new_token_exec, envp);
+				free(paths);
+				free(path_cmd);
+				exit (FAILURE);
+			}
+			i++;
 		}
-		i++;
 	}
 	free(paths);
 	free(path_cmd);
