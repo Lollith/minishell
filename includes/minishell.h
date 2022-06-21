@@ -44,8 +44,9 @@ typedef struct s_pipe
 }		t_pipe;
 
 /* ************************************************************************** */
-/*                            debug.c 4 functions                             */
+/*                            debug.c 5 functions                             */
 /* ************************************************************************** */
+int		ft_free_args_exec(char **args_exec, int ret);
 int		ft_msg(char *str, int fd);
 int		msg_perror(char *origin);
 int		ft_string_of_string_len(char **tab);
@@ -140,7 +141,7 @@ void	ft_lstclear2(t_list **l_token);
 void	ft_l_delete(t_list *delete);
 
 /* ************************************************************************** */
-/*                         ft_operator.c 5 functions                          */
+/*                           operator.c 5 functions                           */
 /* ************************************************************************** */
 int		monitoring_line(t_list *tmp_token, char **envp, t_pipe pipex);
 int		ft_eperluet(t_list *l_tok, char **arg_exec, char **envp, t_pipe pipex);
@@ -155,16 +156,14 @@ int		ft_pipex(t_list *l_token, char **args_exec, char **envp, t_pipe pipe);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
 
 /* ************************************************************************** */
-/*                             initialisation.c 4 functions                   */
+/*                             initialisation.c 2 functions                   */
 /* ************************************************************************** */
 int		init(int ac, char **av, char **envp, t_pipe *pipex);
-int		ft_main(int ac, char **av, char ***envp);
 int		fd_monitor(t_list *tmp_token, char **envp, t_pipe pipex);
 
 /* ************************************************************************** */
 /*                             main.c 4 functions                             */
 /* ************************************************************************** */
-int		check_env(char **envp);
-void	ft_new_prompt(int signum);
+int		ft_main(int ac, char **av, char ***envp);
 
 #endif

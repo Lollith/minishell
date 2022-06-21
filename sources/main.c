@@ -75,7 +75,7 @@ int	main(int ac, char **av, char **envp)
 	while (line != NULL)
 	{
 		add_history (line);
-		ac = minishell(line, envp);
+		ac = minishell(line, &envp);
 		if (!list_token(&l_token, line))
 			return (1);
 		tmp_token = l_token;

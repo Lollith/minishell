@@ -12,12 +12,6 @@
 
 #include "minishell.h"
 
-int	ft_free_args_exec(char **args_exec, int ret)
-{
-	free(args_exec);
-	return (ret);
-}
-
 int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 {
 	char	**args_exec;

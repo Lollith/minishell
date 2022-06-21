@@ -12,27 +12,6 @@
 
 #include "minishell.h"
 
-int	ft_main(int ac, char **av, char ***envp)
-{
-	(void)av;
-	if (!check_env(*envp))
-	{
-		ft_msg("No environment found\n", 1);
-		return (1);
-	}
-	if (ac != 1)
-	{
-		ft_msg("Usage : ./minishell\n", 1);
-		return (1);
-	}
-	*envp = ft_realloc_envp(*envp);
-	if (!*envp)
-		return (1);
-	signal(SIGINT, ft_new_prompt);
-	signal(SIGQUIT, ft_new_prompt);
-	return (0);
-}
-
 int	init(int ac, char **av, char **envp, t_pipe *pipex)
 {
 	pipex->ctrl = 0;
