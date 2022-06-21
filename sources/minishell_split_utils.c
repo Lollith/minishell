@@ -22,7 +22,7 @@ void	ft_chrcpy(char const *str, char *res, int *i, int *j)
 int	minishell_env_post_input(char const *str, int i, int *input)
 {
 	int		var;
-	char	name[128];
+	char	name[BUFFER_NAME];
 	char	*value;
 
 	if (str[i] == '$')
@@ -39,4 +39,15 @@ int	minishell_env_post_input(char const *str, int i, int *input)
 		return (i + var);
 	}
 	return (i);
+}
+
+int	minishell_len_quote_bis(char const *str, int i, int *j, char c)
+{
+	i++;
+	while (str[i] != c)
+	{
+		i = minishell_env_var(str, i, j, 1);
+		*j += 1;
+	}
+	return (i + 1);
 }

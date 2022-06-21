@@ -65,21 +65,27 @@ int	ft_main(int ac, char **av, char ***envp)
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
+	t_list	*tmp_token;
+	t_list	*l_token;
+	t_pipe	pipex;
 
-	if (ft_main(ac, av, &envp))
-		return (1);
+	l_token = NULL;
+	init(ac, av, envp, &pipex);
 	line = readline("minishell> ");
 	while (line != NULL)
 	{
-		add_history(line);
-		ac = minishell(line, &envp);
+		add_history (line);
+		ac = minishell(line, envp);
+		if (!list_token(&l_token, line))
+			return (1);
+		tmp_token = l_token;
+		fd_monitor(tmp_token, envp, pipex);
+		ft_lstclear2(&l_token);
 		free(line);
 		if (ac == 2)
 			break ;
 		line = readline("minishell> ");
 	}
-	if (line == NULL)
-		ft_msg("exit", 1);
 	rl_clear_history();
 	ft_split_free(envp);
 	return (ft_msg("\n", 1));

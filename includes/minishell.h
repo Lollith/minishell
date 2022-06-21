@@ -35,6 +35,7 @@
 # define SUCCESS 1
 # define TRUE 1
 # define FALSE 0
+# define BUFFER_NAME 128
 
 typedef struct s_pipe
 {
@@ -88,10 +89,11 @@ int		ft_pwd(void);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
-/*                    minishell_split_utils.c 2 functions                     */
+/*                    minishell_split_utils.c 3 functions                     */
 /* ************************************************************************** */
 void	ft_chrcpy(char const *str, char *res, int *i, int *j);
 int		minishell_env_post_input(char const *str, int i, int *input);
+int		minishell_len_quote_bis(char const *str, int i, int *j, char c);
 
 /* ************************************************************************** */
 /*                     minishell_split_bis.c 5 functions                      */
