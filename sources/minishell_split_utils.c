@@ -41,6 +41,7 @@ int	minishell_env_post_input(char const *str, int i, int *input)
 	return (i);
 }
 
+// Can over malloc if a quote are after an environment variable
 int	minishell_len_quote_bis(char const *str, int i, int *j, char c)
 {
 	i++;
