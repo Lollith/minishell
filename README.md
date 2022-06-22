@@ -12,7 +12,8 @@ This will be a little copy of bash.
 ### Deployment
 To deploy this project run
 ```bash
-git clone --recurse-submodules https://github.com/Lollith/minishell.git && cd minishell && make && ./minishell
+git clone --recurse-submodules https://github.com/Lollith/minishell.git &&
+cd minishell && make && ./minishell
 ```
 
 ### Related
@@ -20,7 +21,7 @@ Here are some related projects
 
 [Submodule libft](https://github.com/LolinEagle/libft)
 
-[pipex](hhttps://github.com/Lollith/pipex.git)
+[pipex](https://github.com/Lollith/pipex.git)
 
 ### Test
 ```bash
