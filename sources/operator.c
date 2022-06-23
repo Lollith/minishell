@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/23 15:17:57 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 15:25:52 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 		pipex.ctrl = -1;
 		if (ft_child(args_exec, envp, l_token, pipex) >= 0)
 			return (ft_free_args_exec(args_exec, SUCCESS));
-		 minishell(line, &envp);
 	}
 	return (ft_free_args_exec(args_exec, FAILURE));
 }
