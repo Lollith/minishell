@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/23 15:05:52 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 16:02:37 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,35 +32,6 @@ char	**get_paths(void)
 	if (!res)
 		return (NULL);
 	return (res);
-}
-/*char	**get_paths(char **envp)
-{
-	int		i;
-	char	*path;
-	char	**paths;
-
-	paths = NULL;
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-		i++;
-	if (!envp[i] || ft_strncmp(envp[i], "PATH=", 5))
-		paths = NULL;
-	else
-	{
-		path = envp[i] + 5;
-		paths = ft_split(path, ':');
-	}
-	return (paths);
-}*/
-
-char	*get_paths_cmd(char *paths_i, char *cmd)
-{
-	char	*path_cmd;
-
-	path_cmd = NULL;
-	path_cmd = ft_strjoin(paths_i, "/");
-	path_cmd = ft_strjoin_free(path_cmd, cmd);
-	return (path_cmd);
 }
 
 int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
@@ -106,35 +77,6 @@ int	ft_old_child(char **paths, char *path_cmd, char **token, char **envp)
 	}
 	wait(&wstatus);
 	return (SUCCESS);
-}
-
-int	ft_pipex_exec(char **envp, char *cmd, char **new_token_exec, t_pipe fds)
-{
-	int		i;
-	char	**paths;
-	char	*path_cmd;
-
-	paths = get_paths();
-	if (cmd && (execve(cmd, new_token_exec, envp) == -1) && paths)
-	{
-		i = 0;
-		while (paths[i])
-		{
-			path_cmd = get_paths_cmd(paths[i], cmd);
-			if (access(path_cmd, F_OK) == 0)
-			{
-				ft_close_tmp(fds);
-				execve(path_cmd, new_token_exec, envp);
-				ft_split_free(paths);
-				exit (FAILURE);
-			}
-			i++;
-			free(path_cmd);
-		}
-	}
-	ft_split_free(paths);
-	ft_msg(cmd, STDERR_FILENO);
-	return (ft_msg(": Command not found.\n", STDERR_FILENO));
 }
 
 int	ft_exec(char **envp, char *cmd, char **new_token_exec)

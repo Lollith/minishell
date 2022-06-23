@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/23 14:40:05 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 16:01:50 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,45 @@ int	ft_link_fd(int pipefd0, int pipefd1, int std)
 	if (close(pipefd1) < 0)
 		return (msg_perror("pipefd1 "));
 	return (SUCCESS);
+}
+
+char	*get_paths_cmd(char *paths_i, char *cmd)
+{
+	char	*path_cmd;
+
+	path_cmd = NULL;
+	path_cmd = ft_strjoin(paths_i, "/");
+	path_cmd = ft_strjoin_free(path_cmd, cmd);
+	return (path_cmd);
+}
+
+int	ft_pipex_exec(char **envp, char *cmd, char **new_token_exec, t_pipe fds)
+{
+	int		i;
+	char	**paths;
+	char	*path_cmd;
+
+	paths = get_paths();
+	if (cmd && (execve(cmd, new_token_exec, envp) == -1) && paths)
+	{
+		i = 0;
+		while (paths[i])
+		{
+			path_cmd = get_paths_cmd(paths[i], cmd);
+			if (access(path_cmd, F_OK) == 0)
+			{
+				ft_close_tmp(fds);
+				execve(path_cmd, new_token_exec, envp);
+				ft_split_free(paths);
+				exit (FAILURE);
+			}
+			i++;
+			free(path_cmd);
+		}
+	}
+	ft_split_free(paths);
+	ft_msg(cmd, STDERR_FILENO);
+	return (ft_msg(": Command not found.\n", STDERR_FILENO));
 }
 
 int	ft_pipex(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
