@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/23 14:38:13 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 15:05:52 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_free_pa(char **paths, char *path_cmd, char **token)
 		ft_split_free(token);
 }
 
-/*char	**get_paths(void)
+char	**get_paths(void)
 {
 	char	*path;
 	char	**res;
@@ -32,8 +32,8 @@ void	ft_free_pa(char **paths, char *path_cmd, char **token)
 	if (!res)
 		return (NULL);
 	return (res);
-}*/
-char	**get_paths(char **envp)
+}
+/*char	**get_paths(char **envp)
 {
 	int		i;
 	char	*path;
@@ -51,7 +51,7 @@ char	**get_paths(char **envp)
 		paths = ft_split(path, ':');
 	}
 	return (paths);
-}
+}*/
 
 char	*get_paths_cmd(char *paths_i, char *cmd)
 {
@@ -67,7 +67,6 @@ int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 {
 	pid_t	child;
 
-				printf("here\n");
 	child = fork();
 	if (child < 0)
 		return (FAILURE);
@@ -115,7 +114,7 @@ int	ft_pipex_exec(char **envp, char *cmd, char **new_token_exec, t_pipe fds)
 	char	**paths;
 	char	*path_cmd;
 
-	paths = get_paths(envp);
+	paths = get_paths();
 	if (cmd && (execve(cmd, new_token_exec, envp) == -1) && paths)
 	{
 		i = 0;
@@ -144,7 +143,7 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 	char	**paths;
 	char	*path_cmd;
 
-	paths = get_paths(envp);
+	paths = get_paths();
 	path_cmd = NULL;
 	i = 0;
 	while (paths[i])
