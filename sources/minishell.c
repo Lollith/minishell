@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:25:45 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/06 10:09:00 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 11:57:09 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	**create_token_exec(char *cmd)
 	return (new_token_exec);
 }
 
-int	minishell(char *line, char **envp)
+int	minishell(char *line, char **envp, t_pipe pipex)
 {
 	int		i;
 	int		in;
@@ -83,7 +83,7 @@ int	minishell(char *line, char **envp)
 		in = ft_builtins(token, envp);
 		if (in > 0)
 			continue ;
-		ft_exec(envp, cmd[i], create_token_exec(cmd[i]));
+		ft_exec(envp, cmd[i], create_token_exec(cmd[i]), pipex);
 	}
 	ft_free_split(token);
 	ft_free_split(cmd);

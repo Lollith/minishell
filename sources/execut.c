@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/21 13:30:31 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 11:55:33 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	ft_free_pa(char **paths, char *path_cmd, char **token)
 {
 	if (paths)
-		free(paths);
+		ft_split_free(paths);
 	if (path_cmd)
 		free(path_cmd);
 	if (token)
@@ -32,7 +32,6 @@ char	**get_paths(char **envp)
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
-
 	if (!envp[i] || ft_strncmp(envp[i], "PATH=", 5))
 		paths = NULL;
 	else
@@ -41,6 +40,16 @@ char	**get_paths(char **envp)
 		paths = ft_split(path, ':');
 	}
 	return (paths);
+}
+
+char	*get_paths_cmd(char *paths_i, char *cmd)
+{
+	char	*path_cmd;
+
+	path_cmd = NULL;
+	path_cmd = ft_strjoin(paths_i, "/");
+	path_cmd = ft_strjoin_free(path_cmd, cmd);
+	return (path_cmd);
 }
 
 int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
@@ -56,7 +65,7 @@ int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 			ft_link_fd(pipex.pipefd[0], pipex.pipefd[1], STDOUT_FILENO);
 		if (pipex.pipefd[0] && pipex.ctrl == -1)
 			ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
-		ft_exec(envp, l_token->content, new_token_exec);
+		ft_exec(envp, l_token->content, new_token_exec, pipex);
 		return (FAILURE);
 	}
 	if (pipex.pipefd[0] && pipex.ctrl == -1)
@@ -70,33 +79,31 @@ int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 	return (SUCCESS);
 }
 
-int	ft_exec(char **envp, char *cmd, char **new_token_exec)
+int	ft_exec(char **envp, char *cmd, char **new_token_exec, t_pipe fds)
 {
 	int		i;
 	char	**paths;
 	char	*path_cmd;
 
 	paths = get_paths(envp);
-	path_cmd = NULL;
 	if (cmd && (execve(cmd, new_token_exec, envp) == -1) && paths)
 	{
 		i = 0;
 		while (paths[i])
 		{
-			path_cmd = ft_strjoin(paths[i], "/");
-			path_cmd = ft_strjoin_free(path_cmd, cmd);
+			path_cmd = get_paths_cmd(paths[i], cmd);
 			if (access(path_cmd, F_OK) == 0)
 			{
+				ft_close_tmp(fds);
 				execve(path_cmd, new_token_exec, envp);
-				free(paths);
-				free(path_cmd);
+				ft_split_free(paths);
 				exit (FAILURE);
 			}
 			i++;
+			free(path_cmd);
 		}
 	}
-	free(paths);
-	free(path_cmd);
-	ft_msg(cmd, 1);
-	return (ft_msg(": Command not found.\n", 1));
+	ft_split_free(paths);
+	ft_msg(cmd, STDERR_FILENO);
+	return (ft_msg(": Command not found.\n", STDERR_FILENO));
 }
