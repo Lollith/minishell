@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/23 11:55:33 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 14:38:13 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ft_free_pa(char **paths, char *path_cmd, char **token)
 		ft_split_free(token);
 }
 
-char	**get_paths(void)
+/*char	**get_paths(void)
 {
 	char	*path;
 	char	**res;
@@ -32,12 +32,12 @@ char	**get_paths(void)
 	if (!res)
 		return (NULL);
 	return (res);
-}
-
-/*char	**get_paths(void)
+}*/
+char	**get_paths(char **envp)
 {
+	int		i;
 	char	*path;
-	char	**res;
+	char	**paths;
 
 	paths = NULL;
 	i = 0;
@@ -51,7 +51,6 @@ char	**get_paths(void)
 		paths = ft_split(path, ':');
 	}
 	return (paths);
-*/
 }
 
 char	*get_paths_cmd(char *paths_i, char *cmd)
@@ -68,6 +67,7 @@ int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 {
 	pid_t	child;
 
+				printf("here\n");
 	child = fork();
 	if (child < 0)
 		return (FAILURE);
@@ -144,7 +144,7 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 	char	**paths;
 	char	*path_cmd;
 
-	paths = get_paths();
+	paths = get_paths(envp);
 	path_cmd = NULL;
 	i = 0;
 	while (paths[i])
@@ -163,6 +163,6 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 		i++;
 	}
 	ft_free_pa(paths, path_cmd, new_token_exec);
-	ft_msg(cmd, 2);
-	return (ft_msg(": Command not found.\n", 2));
+	ft_msg(cmd, STDERR_FILENO);
+	return (ft_msg(": Command not found.\n", STDERR_FILENO));
 }
