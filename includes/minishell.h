@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/16 17:20:18 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 11:57:57 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,9 @@ typedef struct s_pipe
 {
 	int	ctrl;
 	int	pipefd[2];
-}		t_pipe;
+	int	tmp_in;
+	int	tmp_out;
+}				t_pipe;
 
 /* ************************************************************************** */
 /*   debug.c                                                    5 functions   */
@@ -113,8 +115,10 @@ char	**minishell_split(char const *s, char *space);
 /* ************************************************************************** */
 /*   minishell.c                                                3 functions   */
 /* ************************************************************************** */
-int		minishell(char *line, char ***envp);
-int		ft_builtins(char **line, char ***envp);
+//int		minishell(char *line, char ***envp);
+void	ft_free_split(char **str);
+int		minishell(char *line, char **envp, t_pipe pipex);
+int		ft_builtins(char **line, char **envp);
 char	**create_token_exec(char *cmd);
 
 /* ************************************************************************** */
@@ -129,7 +133,7 @@ char	**ft_is_arg(t_list *l_token);
 /* ************************************************************************** */
 char	**get_paths(void);
 void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
-int		ft_exec(char **envp, char *cmd, char **args_exec);
+int		ft_exec(char **envp, char *cmd, char **args_exec, t_pipe pipex);
 int		ft_child(char **args_exe, char **envp, t_list *l_token, t_pipe pipex);
 int		ft_old_child(char **paths, char *path_cmd, char **token, char **envp);
 
@@ -154,6 +158,7 @@ int		ft_redir_in(t_list *l_tok, char **arg_exe, char **envp, t_pipe pipex);
 /* ************************************************************************** */
 int		ft_pipex(t_list *l_token, char **args_exec, char **envp, t_pipe pipe);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
+int		ft_close_tmp(t_pipe pipex);
 
 /* ************************************************************************** */
 /*   initialisation.c                                           5 functions   */

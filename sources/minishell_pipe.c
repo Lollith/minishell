@@ -6,11 +6,20 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/17 16:05:36 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 12:02:47 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	ft_close_tmp(t_pipe pipex)
+{
+	if (close(pipex.tmp_in) < 0)
+		return (msg_perror("tmp_in. "));
+	if (close(pipex.tmp_out) < 0)
+		return (msg_perror("tmp_out "));
+	return (SUCCESS);
+}
 
 int	ft_link_fd(int pipefd0, int pipefd1, int std)
 {
