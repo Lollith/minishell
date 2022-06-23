@@ -83,7 +83,7 @@ char	**ft_is_arg(t_list *l_token)
 	{
 		args_exec[i] = l_token->next->content;
 		i++;
-		ft_l_delete (l_token);
+		ft_l_delete(l_token);
 	}
 	args_exec[size - 1] = NULL;
 	return (args_exec);

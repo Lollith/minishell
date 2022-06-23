@@ -14,7 +14,7 @@
 
 int	ft_exit(void)
 {
-	ft_msg("exit", 1);
+	write(1, "exit", 4);
 	return (2);
 }
 
@@ -42,10 +42,12 @@ char	*get_home(char **envp)
 	int		i;
 	char	*home;
 
+	home = NULL;
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "HOME=", 5))
 		i++;
-	home = envp[i] + 5;
+	if (envp[i])
+		home = envp[i] + 5;
 	return (home);
 }
 

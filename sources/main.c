@@ -12,29 +12,12 @@
 
 #include "minishell.h"
 
-void	ft_new_prompt(int signum)
+int	main_return(char **envp)
 {
-	if (signum == SIGINT)
-	{
-		ft_msg("\b\b  \n", 1);
-		rl_replace_line("", 0);
-		rl_on_new_line();
-		rl_redisplay();
-	}
-	else if (signum == SIGQUIT)
-		ft_msg("\b\b  \b\b", 1);
-}
-
-int	check_env(char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-		i++;
-	if (!envp[i])
-		return (ft_msg("Error: path not found\n", 2));
-	return (SUCCESS);
+	rl_clear_history();
+	ft_split_free(envp);
+	write(1, "\n", 1);
+	return (0);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -44,13 +27,14 @@ int	main(int ac, char **av, char **envp)
 	t_list	*l_token;
 	t_pipe	pipex;
 
+	if (!init(ac, av, &envp, &pipex))
+		return (1);
 	l_token = NULL;
-	init(ac, av, envp, &pipex);
 	line = readline("minishell> ");
 	while (line != NULL)
 	{
 		add_history (line);
-		//ac = minishell(line, envp);
+		ac = minishell(line, &envp);
 		if (!list_token(&l_token, line))
 			return (1);
 		tmp_token = l_token;
@@ -61,7 +45,5 @@ int	main(int ac, char **av, char **envp)
 			break ;
 		line = readline("minishell> ");
 	}
-	rl_clear_history();
-	ft_split_free(envp);
-	return (ft_msg("\n", 1));
+	return (main_return(envp));
 }

@@ -12,6 +12,24 @@
 
 #include "minishell.h"
 
+// Find the var to unset
+int	ft_unset_str(char **line, char **envp, int i, int *k)
+{
+	char	*str;
+
+	str = ft_str_whitout_equal(envp[i]);
+	if (!str)
+		return (2);
+	if (ft_strncmp(str, line[1], ft_strlen(str)) == 0)
+	{
+		*k = 1;
+		free(str);
+		return (1);
+	}
+	free(str);
+	return (0);
+}
+
 int	ft_strlen_equal(char *s)
 {
 	int	i;
@@ -24,7 +42,7 @@ int	ft_strlen_equal(char *s)
 	return (i);
 }
 
-char	*str_whitout_equal(char *envp)
+char	*ft_str_whitout_equal(char *envp)
 {
 	int		i;
 	int		j;
@@ -53,23 +71,6 @@ char	**ft_unset_free(int i, char **res)
 	return (ft_split_free(res));
 }
 
-int	ft_unset_str(char **line, char **envp, int i, int *k)
-{
-	char	*str;
-
-	str = str_whitout_equal(envp[i]);
-	if (!str)
-		return (2);
-	if (ft_strncmp(str, line[1], ft_strlen(str)) == 0)
-	{
-		*k = 1;
-		free(str);
-		return (1);
-	}
-	free(str);
-	return (0);
-}
-
 char	**ft_unset_envp(char **line, char **envp)
 {
 	int		i;
@@ -92,9 +93,8 @@ char	**ft_unset_envp(char **line, char **envp)
 		res[i - k] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
 		if (!res[i - k])
 			return (NULL);
-		ft_memcpy(res[i - k], envp[i], ft_strlen(envp[i]));
-		res[i - k][ft_strlen(envp[i])] = '\0';
+		ft_memcpy(res[i - k], envp[i], ft_strlen(envp[i]) + 1);
 	}
-	res[i] = NULL;
+	res[i - k] = NULL;
 	return (res);
 }

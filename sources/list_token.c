@@ -12,8 +12,8 @@
 
 #include "minishell.h"
 
-int	list_token(t_list	**l_token, char *line)
-{	
+int	list_token(t_list **l_token, char *line)
+{
 	t_list	*l_new_token;
 	char	**token;
 	int		i;
@@ -21,7 +21,7 @@ int	list_token(t_list	**l_token, char *line)
 	i = 0;
 	token = lexer(line);
 	while (token[i])
-	{	
+	{
 		l_new_token = ft_lstnew(token[i]);
 		if (!l_new_token)
 			return (FAILURE);
@@ -31,7 +31,7 @@ int	list_token(t_list	**l_token, char *line)
 	return (SUCCESS);
 }
 
-void	ft_l_delete( t_list *l_token)
+void	ft_l_delete(t_list *l_token)
 {
 	t_list	*tmp;
 

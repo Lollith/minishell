@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+int	ft_free_args_exec(char **args_exec, int ret)
+{
+	free(args_exec);
+	return (ret);
+}
+
 int	ft_msg(char *str, int fd)
 {
 	write(fd, str, ft_strlen(str));
