@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:25:45 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/06 10:09:00 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 15:54:38 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 // 0 in not a builtins
 // 1 is a builtins
 // 2 exit
+
 int	ft_builtins(char **line, char ***envp)
 {
 	if (ft_is_str(line[0], "echo"))
@@ -68,7 +69,7 @@ int	minishell(char *line, char ***envp)
 		in = ft_builtins(token, envp);
 		if (in > 0)
 			continue ;
-		ft_exec(*envp, cmd[i], create_token_exec(cmd[i]));
+	//	ft_exec(*envp, cmd[i], create_token_exec(cmd[i]));
 	}
 	ft_split_free(token);
 	ft_split_free(cmd);

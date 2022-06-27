@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/17 16:08:33 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 12:07:59 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,20 +73,22 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 
 int	fd_monitor(t_list *tmp_token, char **envp, t_pipe pipex)
 {
-	int	tmp_in;
-	int	tmp_out;
 	int	pid;
 	int	wstatus;
 
-	tmp_in = dup(STDIN_FILENO);
-	tmp_out = dup(STDOUT_FILENO);
+	pipex.tmp_in = dup(STDIN_FILENO);
+	pipex.tmp_out = dup(STDOUT_FILENO);
 	monitoring_line(tmp_token, envp, pipex);
 	pid = wait(&wstatus);
 	while (pid > 0)
 		pid = wait(&wstatus);
-	if (dup2(tmp_in, STDIN_FILENO) == -1)
+	if (dup2(pipex.tmp_in, STDIN_FILENO) == -1)
 		return (msg_perror("dup2 "));
-	if (dup2(tmp_out, STDOUT_FILENO) == -1)
+	if (close(pipex.tmp_in) < 0)
+		return (msg_perror("tmp_in "));
+	if (dup2(pipex.tmp_out, STDOUT_FILENO) == -1)
 		return (msg_perror("dup2 "));
+	if (close(pipex.tmp_out) < 0)
+		return (msg_perror("tmp_out "));
 	return (SUCCESS);
 }

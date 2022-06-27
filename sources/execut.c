@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/17 16:09:51 by agouet           ###   ########.fr       */
+/*   Updated: 2022/06/23 16:02:37 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 			ft_link_fd(pipex.pipefd[0], pipex.pipefd[1], STDOUT_FILENO);
 		if (pipex.pipefd[0] && pipex.ctrl == -1)
 			ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
-		ft_exec(envp, l_token->content, new_token_exec);
+		ft_pipex_exec(envp, l_token->content, new_token_exec, pipex);
 		return (FAILURE);
 	}
 	if (pipex.pipefd[0] && pipex.ctrl == -1)
@@ -104,6 +104,6 @@ int	ft_exec(char **envp, char *cmd, char **new_token_exec)
 		i++;
 	}
 	ft_free_pa(paths, path_cmd, new_token_exec);
-	ft_msg(cmd, 1);
-	return (ft_msg(": Command not found.\n", 1));
+	ft_msg(cmd, STDERR_FILENO);
+	return (ft_msg(": Command not found.\n", STDERR_FILENO));
 }
