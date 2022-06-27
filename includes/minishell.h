@@ -115,7 +115,6 @@ char	**minishell_split(char const *s, char *space);
 /* ************************************************************************** */
 /*   minishell.c                                                3 functions   */
 /* ************************************************************************** */
-void	ft_free_split(char **str);
 int		minishell(char *line, char ***envp);
 int		ft_builtins(char **line, char ***envp);
 char	**create_token_exec(char *cmd);

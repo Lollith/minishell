@@ -15,7 +15,6 @@
 // 0 in not a builtins
 // 1 is a builtins
 // 2 exit
-
 int	ft_builtins(char **line, char ***envp)
 {
 	if (ft_is_str(line[0], "echo"))
@@ -69,7 +68,6 @@ int	minishell(char *line, char ***envp)
 		in = ft_builtins(token, envp);
 		if (in > 0)
 			continue ;
-	//	ft_exec(*envp, cmd[i], create_token_exec(cmd[i]));
 	}
 	ft_split_free(token);
 	ft_split_free(cmd);
