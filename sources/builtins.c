@@ -27,6 +27,8 @@ int	ft_echo(char **line)
 		i++;
 	while (line[i])
 	{
+		if (!line[i][0])
+			write(1, " ", 1);
 		ft_putstr_fd(line[i], 1);
 		if (line[i + 1] && line[i][0] != '\0')
 			write(1, " ", 1);
