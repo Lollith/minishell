@@ -66,7 +66,7 @@ char	*minishell_input(char const *str, char *space, int i)
 	{
 		while (ft_is_space(str[i], "\"\'"))
 			i++;
-		if (str[i] == '$')
+		if (str[i] == '$' && str[i + 1] != '?')
 		{
 			k = j;
 			i = minishell_env_res(res, str, i, &j);

@@ -94,7 +94,7 @@ int	minishell_env_var(char const *str, int i, int *j, int pp)
 
 int	minishell_len_quote(char const *str, int i, int *j)
 {
-	if (str[i] == '$')
+	if (str[i] == '$' && str[i + 1] != '?')
 		i = minishell_env_var(str, i, j, 0);
 	else if (str[i] == '\"')
 		i = minishell_len_quote_bis(str, i, j, '\"');
