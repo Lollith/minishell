@@ -113,6 +113,7 @@ char	**minishell_split(char const *s, char *space);
 /* ************************************************************************** */
 int		minishell(char *line, char ***envp);
 int		ft_builtins(char **line, char ***envp);
+int		ft_builtins_ret(char **line, char ***envp);
 char	**create_token_exec(char *cmd);
 
 /* ************************************************************************** */
@@ -128,7 +129,7 @@ char	**ft_is_arg(t_list *l_token);
 char	**get_paths(void);
 void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
 int		ft_exec(char **envp, char *cmd, char **args_exec);
-int		ft_child(char **args_exe, char **envp, t_list *l_token, t_pipe pipex);
+int		ft_child(char **args_exe, char ***envp, t_list *l_token, t_pipe pipex);
 int		ft_old_child(char **paths, char *path_cmd, char **token, char **envp);
 
 /* ************************************************************************** */
@@ -141,16 +142,16 @@ void	ft_l_delete(t_list *delete);
 /* ************************************************************************** */
 /*   operator.c                                                 5 functions   */
 /* ************************************************************************** */
-int		monitoring_line(t_list *tmp_token, char **envp, t_pipe pipex);
-int		ft_eperluet(t_list *l_tok, char **arg_exec, char **envp, t_pipe pipex);
-int		ft_ou(t_list *tmp_token, char **arg_exec, char **envp, t_pipe pipex);
-int		ft_redir_out(t_list *l_tok, char **arg_exe, char **envp, t_pipe pipex);
-int		ft_redir_in(t_list *l_tok, char **arg_exe, char **envp, t_pipe pipex);
+int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe pipex);
+int		ft_eperluet(t_list *l_tok, char **arg_exec, char ***envp, t_pipe pipex);
+int		ft_ou(t_list *tmp_token, char **arg_exec, char ***envp, t_pipe pipex);
+int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe pipex);
+int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe pipex);
 
 /* ************************************************************************** */
 /*   minishell_pipe.c                                           2 functions   */
 /* ************************************************************************** */
-int		ft_pipex(t_list *l_token, char **args_exec, char **envp, t_pipe pipe);
+int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe pipe);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
 int		ft_close_tmp(t_pipe pipex);
 int		ft_pipex_exec(char **envp, char *cmd, char **args_exec, t_pipe fds);
@@ -159,7 +160,7 @@ int		ft_pipex_exec(char **envp, char *cmd, char **args_exec, t_pipe fds);
 /*   initialisation.c                                           5 functions   */
 /* ************************************************************************** */
 int		init(int ac, char **av, char ***envp, t_pipe *pipex);
-int		fd_monitor(t_list *tmp_token, char **envp, t_pipe pipex);
+int		fd_monitor(t_list *tmp_token, char ***envp, t_pipe pipex);
 
 /* ************************************************************************** */
 /*   main.c                                                     2 functions   */

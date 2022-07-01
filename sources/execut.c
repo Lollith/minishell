@@ -34,20 +34,21 @@ char	**get_paths(void)
 	return (res);
 }
 
-int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
+int	ft_child(char **new_token_exec, char ***envp, t_list *l_token, t_pipe pipex)
 {
 	pid_t	child;
 
 	child = fork();
 	if (child < 0)
-		return (FAILURE);
+		return (-1);
 	if (!child)
 	{
 		if ((pipex.ctrl == 0 || pipex.ctrl == 1) && pipex.pipefd[0])
 			ft_link_fd(pipex.pipefd[0], pipex.pipefd[1], STDOUT_FILENO);
 		if (pipex.pipefd[0] && pipex.ctrl == -1)
 			ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
-		ft_pipex_exec(envp, l_token->content, new_token_exec, pipex);
+		if (ft_builtins(l_token->content, envp) == 0)
+			ft_pipex_exec(*envp, l_token->content, new_token_exec, pipex);
 		return (FAILURE);
 	}
 	if (pipex.pipefd[0] && pipex.ctrl == -1)
@@ -58,7 +59,7 @@ int	ft_child(char **new_token_exec, char **envp, t_list *l_token, t_pipe pipex)
 			return (msg_perror("pipefd1.1 "));
 		pipex.ctrl = 0;
 	}
-	return (SUCCESS);
+	return (ft_builtins_ret(l_token->content, envp));
 }
 
 int	ft_old_child(char **paths, char *path_cmd, char **token, char **envp)

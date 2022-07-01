@@ -35,13 +35,12 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (line[0])
 		{
-			add_history (line);
-			ac = minishell(line, &envp);
-			if (!list_token(&l_token, line))
-				return (1);
-			tmp_token = l_token;
-			fd_monitor(tmp_token, envp, pipex);
-			ft_lstclear2(&l_token);
+      add_history(line);
+      if (!list_token(&l_token, line))
+        return (1);
+      tmp_token = l_token;
+      ac = fd_monitor(tmp_token, &envp, pipex);
+      ft_lstclear2(&l_token);
 		}
 		free(line);
 		if (ac == 2)

@@ -34,6 +34,21 @@ int	ft_builtins(char **line, char ***envp)
 	return (0);
 }
 
+int	ft_builtins_ret(char **line, char ***envp)
+{
+	if (ft_is_str(line[0], "echo") || ft_is_str(line[0], "cd"))
+		return (1);
+	if (ft_is_str(line[0], "pwd") || ft_is_str(line[0], "export"))
+		return (1);
+	if (ft_export(line, envp) || ft_is_str(line[0], "unset"))
+		return (1);
+	if (ft_is_str(line[0], "env"))
+		return (1);
+	if (ft_is_str(line[0], "exit"))
+		return (2);
+	return (0);
+}
+
 char	**create_token_exec(char *cmd)
 {
 	char	**new_token_exec;
@@ -46,30 +61,31 @@ char	**create_token_exec(char *cmd)
 	return (new_token_exec);
 }
 
-int	minishell(char *line, char ***envp)
-{
-	int		i;
-	int		in;
-	char	**cmd;
-	char	**token;
+// int	minishell(char *line, char ***envp)
+// {
+// 	int		i;
+// 	int		in;
+// 	char	**cmd;
+// 	char	**token;
 
-	cmd = ft_split(line, ';');
-	if (!cmd)
-		return (0);
-	in = 0;
-	token = NULL;
-	i = -1;
-	while (cmd[++i] && in != 2)
-	{
-		ft_split_free(token);
-		token = lexer(cmd[i]);
-		if (!token)
-			break ;
-		in = ft_builtins(token, envp);
-		if (in > 0)
-			continue ;
-	}
-	ft_split_free(token);
-	ft_split_free(cmd);
-	return (in);
-}
+// 	cmd = ft_split(line, ';');
+// 	if (!cmd)
+// 		return (0);
+// 	in = 0;
+// 	token = NULL;
+// 	i = -1;
+// 	while (cmd[++i] && in != 2)
+// 	{
+// 		ft_split_free(token);
+// 		token = lexer(cmd[i]);
+// 		if (!token)
+// 			break ;
+// 		in = ft_builtins(token, envp);
+// 		if (in > 0)
+// 			continue ;
+// 		// execve
+// 	}
+// 	ft_split_free(token);
+// 	ft_split_free(cmd);
+// 	return (in);
+// }

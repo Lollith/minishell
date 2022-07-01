@@ -71,14 +71,15 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	return (SUCCESS);
 }
 
-int	fd_monitor(t_list *tmp_token, char **envp, t_pipe pipex)
+int	fd_monitor(t_list *tmp_token, char ***envp, t_pipe pipex)
 {
 	int	pid;
 	int	wstatus;
+	int	res;
 
 	pipex.tmp_in = dup(STDIN_FILENO);
 	pipex.tmp_out = dup(STDOUT_FILENO);
-	monitoring_line(tmp_token, envp, pipex);
+	res = monitoring_line(tmp_token, envp, pipex);
 	pid = wait(&wstatus);
 	while (pid > 0)
 		pid = wait(&wstatus);
@@ -90,5 +91,5 @@ int	fd_monitor(t_list *tmp_token, char **envp, t_pipe pipex)
 		return (msg_perror("dup2 "));
 	if (close(pipex.tmp_out) < 0)
 		return (msg_perror("tmp_out "));
-	return (SUCCESS);
+	return (res);
 }

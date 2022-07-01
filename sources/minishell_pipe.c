@@ -71,7 +71,7 @@ int	ft_pipex_exec(char **envp, char *cmd, char **new_token_exec, t_pipe fds)
 	return (ft_msg(": Command not found.\n", STDERR_FILENO));
 }
 
-int	ft_pipex(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 {
 	if (pipex.ctrl == 1)
 		ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
