@@ -12,43 +12,73 @@
 
 #include "minishell.h"
 
-void	ft_chrcpy(char const *str, char *res, int *i, int *j)
-{
-	res[*j] = str[*i];
-	*i += 1;
-	*j += 1;
-}
+// int	minishell_env_res(char *res, char const *str, int i, int *j)
+// {
+// 	int		k;
+// 	int		var;
+// 	char	name[BUFFER_NAME];
+// 	char	*value;
 
-int	minishell_env_post_input(char const *str, int i, int *input)
-{
-	int		var;
-	char	name[BUFFER_NAME];
-	char	*value;
+// 	i++;
+// 	var = 0;
+// 	while (ft_isalnum(str[i + var]))
+// 		var++;
+// 	ft_memcpy(name, str + i, var);
+// 	name[var] = '\0';
+// 	value = getenv(name);
+// 	if (value)
+// 	{
+// 		k = 0;
+// 		while (value[k])
+// 		{
+// 			res[*j] = value[k];
+// 			k++;
+// 			*j += 1;
+// 		}
+// 	}
+// 	return (i + var);
+// }
 
-	if (str[i] == '$')
-	{
-		i++;
-		var = 0;
-		while (ft_isalnum(str[i + var]))
-			var++;
-		ft_memcpy(name, str + i, var);
-		name[var] = '\0';
-		value = getenv(name);
-		if (value)
-			*input -= ft_strlen(value);
-		return (i + var);
-	}
-	return (i);
-}
+// int	minishell_env_var(char const *str, int i, int *j, int pp)
+// {
+// 	int		var;
+// 	char	name[BUFFER_NAME];
+// 	char	*value;
 
-// Can over malloc if a quote are after an environment variable
-int	minishell_len_quote_bis(char const *str, int i, int *j, char c)
-{
-	i++;
-	while (str[i] != c)
-	{
-		i = minishell_env_var(str, i, j, 1);
-		*j += 1;
-	}
-	return (i + 1);
-}
+// 	if (str[i] == '$')
+// 	{
+// 		i++;
+// 		var = 0;
+// 		while (ft_isalnum(str[i + var]))
+// 			var++;
+// 		ft_memcpy(name, str + i, var);
+// 		name[var] = '\0';
+// 		value = getenv(name);
+// 		if (value)
+// 			*j += ft_strlen(value);
+// 		return (i + var);
+// 	}
+// 	return (i + pp);
+// }
+
+// int	minishell_env_post_input(char const *str, int i, int *input)
+// {
+// 	int		var;
+// 	char	name[BUFFER_NAME];
+// 	char	*value;
+
+// 	if (str[i] == '$')
+// 	{
+// 		i++;
+// 		var = 0;
+// 		while (ft_isalnum(str[i + var]))
+// 			var++;
+// 		ft_memcpy(name, str + i, var);
+// 		name[var] = '\0';
+// 		value = getenv(name);
+// 		if (value)
+// 			*input -= ft_strlen(value);
+// 		return (i + var);
+// 	}
+// 	return (i);
+// }

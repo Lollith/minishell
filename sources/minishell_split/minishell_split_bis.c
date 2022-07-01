@@ -43,60 +43,20 @@ int	minishell_quote(char const *str, int i)
 	return (i);
 }
 
-int	minishell_env_res(char *res, char const *str, int i, int *j)
+int	minishell_len_quote_bis(char const *str, int i, int *j, char c)
 {
-	int		k;
-	int		var;
-	char	name[BUFFER_NAME];
-	char	*value;
-
 	i++;
-	var = 0;
-	while (ft_isalnum(str[i + var]))
-		var++;
-	ft_memcpy(name, str + i, var);
-	name[var] = '\0';
-	value = getenv(name);
-	if (value)
-	{
-		k = 0;
-		while (value[k])
-		{
-			res[*j] = value[k];
-			k++;
-			*j += 1;
-		}
-	}
-	return (i + var);
-}
-
-int	minishell_env_var(char const *str, int i, int *j, int pp)
-{
-	int		var;
-	char	name[BUFFER_NAME];
-	char	*value;
-
-	if (str[i] == '$')
+	while (str[i] != c)
 	{
 		i++;
-		var = 0;
-		while (ft_isalnum(str[i + var]))
-			var++;
-		ft_memcpy(name, str + i, var);
-		name[var] = '\0';
-		value = getenv(name);
-		if (value)
-			*j += ft_strlen(value);
-		return (i + var);
+		*j += 1;
 	}
-	return (i + pp);
+	return (i + 1);
 }
 
 int	minishell_len_quote(char const *str, int i, int *j)
 {
-	if (str[i] == '$' && str[i + 1] != '?')
-		i = minishell_env_var(str, i, j, 0);
-	else if (str[i] == '\"')
+	if (str[i] == '\"')
 		i = minishell_len_quote_bis(str, i, j, '\"');
 	else if (str[i] == '\'')
 		i = minishell_len_quote_bis(str, i, j, '\'');
