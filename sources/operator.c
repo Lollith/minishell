@@ -16,7 +16,8 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 {
 	char	**args_exec;
 
-	args_exec = ft_is_arg(l_token);
+	args_exec = ft_is_arg(&l_token);
+	printf ("4 %s\n", (char *) l_token->content);
 	if (l_token->next)
 	{
 		if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
@@ -25,8 +26,7 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 			ft_ou(l_token, args_exec, envp, pipex);
 		else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
 			ft_pipex(l_token, args_exec, envp, pipex);
-		else if (ft_strncmp(l_token->next->content, ">", 1) == 0
-			|| ft_strncmp(l_token->next->content, ">|", 2) == 0)
+		else if (ft_strncmp(l_token->next->content, ">", 1) == 0)
 			ft_redir_out(l_token, args_exec, envp, pipex);
 		else if (ft_strncmp(l_token->next->content, "<", 1) == 0)
 			ft_redir_in(l_token, args_exec, envp, pipex);
@@ -34,8 +34,7 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 	else
 	{
 		pipex.ctrl = -1;
-		if (ft_child(args_exec, envp, l_token, pipex) >= 0)
-			return (ft_free_args_exec(args_exec, SUCCESS));
+		ft_child(args_exec, envp, l_token, pipex);
 	}
 	return (ft_free_args_exec(args_exec, FAILURE));
 }
@@ -68,7 +67,10 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	fd_tmp = dup(STDOUT_FILENO);
 	fd = open (file, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd < 0)
-		return (msg_perror("open "));
+	{
+		perror(file);
+		return (FAILURE);
+	}
 	if (dup2(fd, STDOUT_FILENO) == -1)
 		return (msg_perror("dup2 "));
 	if (ft_child(args_exec, envp, l_token, pipex) < 0)
@@ -87,16 +89,17 @@ int	ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	int			fd;
 	int			fd_tmp;
 	char		*file;
-	struct stat	info;
+	t_list		*tmp_token;
 
-	if (stat(l_token->next->content, &info) == 0)
-		file = l_token->next->content;
-	else
-		file = l_token->next->next->content;
+	tmp_token = l_token;
+	file = tmp_token->next->next->content;
 	fd_tmp = dup(STDIN_FILENO);
 	fd = open (file, O_RDONLY);
 	if (fd < 0)
-		return (msg_perror("open "));
+	{
+		perror(file);
+		return (FAILURE);
+	}
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return (msg_perror("dup2 "));
 	if (ft_child(args_exec, envp, l_token, pipex) < 0)
@@ -105,7 +108,7 @@ int	ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 		return (msg_perror("fd "));
 	if (dup2(fd_tmp, STDIN_FILENO) == -1)
 		return (msg_perror("dup2 "));
-	if (l_token->next->next->next)
-		monitoring_line(l_token->next->next->next, envp, pipex);
+	if (tmp_token->next->next->next)
+		monitoring_line(tmp_token->next->next->next, envp, pipex);
 	return (SUCCESS);
 }

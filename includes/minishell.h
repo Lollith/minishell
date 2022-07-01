@@ -124,7 +124,7 @@ char	**create_token_exec(char *cmd);
 /* ************************************************************************** */
 char	**lexer(char *line);
 int		size_args(t_list *l_token);
-char	**ft_is_arg(t_list *l_token);
+char	**ft_is_arg(t_list **l_token);
 
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */

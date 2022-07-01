@@ -35,8 +35,7 @@ int	main(int ac, char **av, char **envp)
 	{
 		add_history (line);
 		ac = minishell(line, &envp);
-		if (!list_token(&l_token, line))
-			return (1);
+		list_token(&l_token, line);
 		tmp_token = l_token;
 		fd_monitor(tmp_token, envp, pipex);
 		ft_lstclear2(&l_token);

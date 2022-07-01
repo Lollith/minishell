@@ -12,8 +12,9 @@
 
 #include "minishell.h"
 
-// SIGQUIT	=	ctrl + \
-// SIGINT	=	ctrl + c
+/* SIGQUIT	=	ctrl + \ 
+ SIGINT	=	ctrl + c
+*/
 void	ft_new_prompt(int signum)
 {
 	if (signum == SIGINT)
