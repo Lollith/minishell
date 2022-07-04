@@ -38,22 +38,21 @@ int	minishell_count(char const *str, char *space)
 
 int	minishell_len(char const *str, char *space, int i)
 {
-	int	j;
+	int	res;
 
-	j = 1;
+	res = 1;
 	while (str[i])
 	{
-		i = minishell_len_quote(str, i, &j);
+		i = minishell_len_quote(str, i, &res);
 		if (ft_is_space(str[i], space))
 			break ;
 	}
-	return (j);
+	return (res);
 }
 
 char	*minishell_input(char const *str, char *space, int i)
 {
 	int		j;
-	int		k;
 	int		len;
 	char	*res;
 
@@ -66,14 +65,9 @@ char	*minishell_input(char const *str, char *space, int i)
 	{
 		while (ft_is_space(str[i], "\"\'"))
 			i++;
-		if (str[i] == '$')
-		{
-			k = j;
-			i = minishell_env_res(res, str, i, &j);
-			len -= (j - k) - 1;
-			continue ;
-		}
-		ft_chrcpy(str, res, &i, &j);
+		res[j] = str[i];
+		i++;
+		j++;
 	}
 	res[j] = '\0';
 	return (res);
@@ -81,18 +75,11 @@ char	*minishell_input(char const *str, char *space, int i)
 
 int	minishell_post_input(char const *str, char *space, int i, char *res)
 {
-	int	k;
 	int	input;
 
 	input = ft_strlen(res);
 	while (input)
 	{
-		k = i;
-		i = minishell_env_post_input(str, i, &input);
-		if (!str[i])
-			break ;
-		if (k != i)
-			continue ;
 		if (!ft_is_space(str[i], "\"\'"))
 			input--;
 		i++;

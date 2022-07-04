@@ -92,19 +92,15 @@ int		ft_pwd(void);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
-/*   minishell_split_utils.c                                    3 functions   */
+/*   minishell_split_utils.c                                    0 functions   */
 /* ************************************************************************** */
-void	ft_chrcpy(char const *str, char *res, int *i, int *j);
-int		minishell_env_post_input(char const *str, int i, int *input);
-int		minishell_len_quote_bis(char const *str, int i, int *j, char c);
 
 /* ************************************************************************** */
-/*   minishell_split_bis.c                                      5 functions   */
+/*   minishell_split_bis.c                                      4 functions   */
 /* ************************************************************************** */
 int		ft_is_space(char c, char *space);
 int		minishell_quote(char const *str, int i);
-int		minishell_env_res(char *res, char const *str, int i, int *j);
-int		minishell_env_var(char const *str, int i, int *j, int pp);
+int		minishell_len_quote_bis(char const *str, int i, int *j, char c);
 int		minishell_len_quote(char const *str, int i, int *j);
 
 /* ************************************************************************** */
