@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
+int	monitoring_line(t_list *l_token, char ***envp, t_pipe pipex)
 {
 	char	**args_exec;
 
@@ -40,7 +40,7 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 	return (ft_free_args_exec(args_exec, FAILURE));
 }
 
-int	ft_eperluet(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int	ft_eperluet(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 {
 	if (!ft_child(args_exec, envp, l_token, pipex))
 		return (FAILURE);
@@ -49,7 +49,7 @@ int	ft_eperluet(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	return (SUCCESS);
 }
 
-int	ft_ou(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int	ft_ou(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 {
 	if (ft_child(args_exec, envp, l_token, pipex) > 0)
 		return (SUCCESS);
@@ -58,7 +58,7 @@ int	ft_ou(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	return (FAILURE);
 }
 
-int	ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 {
 	int		fd;
 	int		fd_tmp;
@@ -82,7 +82,7 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	return (SUCCESS);
 }
 
-int	ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 {
 	int			fd;
 	int			fd_tmp;

@@ -12,8 +12,8 @@
 
 #include "minishell.h"
 
-// SIGQUIT	=	ctrl + \
 // SIGINT	=	ctrl + c
+// SIGQUIT	=	ctrl + backslash
 void	ft_new_prompt(int signum)
 {
 	if (signum == SIGINT)
@@ -71,7 +71,7 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	return (SUCCESS);
 }
 
-int	fd_monitor(t_list *tmp_token, char **envp, t_pipe pipex)
+int	fd_monitor(t_list *tmp_token, char ***envp, t_pipe pipex)
 {
 	int	pid;
 	int	wstatus;

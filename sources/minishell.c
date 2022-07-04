@@ -46,30 +46,30 @@ char	**create_token_exec(char *cmd)
 	return (new_token_exec);
 }
 
-int	minishell(char *line, char ***envp)
-{
-	int		i;
-	int		in;
-	char	**cmd;
-	char	**token;
+// int	minishell(char *line, char ***envp)
+// {
+// 	int		i;
+// 	int		in;
+// 	char	**cmd;
+// 	char	**token;
 
-	cmd = ft_split(line, ';');
-	if (!cmd)
-		return (0);
-	in = 0;
-	token = NULL;
-	i = -1;
-	while (cmd[++i] && in != 2)
-	{
-		ft_split_free(token);
-		token = lexer(cmd[i]);
-		if (!token)
-			break ;
-		in = ft_builtins(token, envp);
-		if (in > 0)
-			continue ;
-	}
-	ft_split_free(token);
-	ft_split_free(cmd);
-	return (in);
-}
+// 	cmd = ft_split(line, ';');
+// 	if (!cmd)
+// 		return (0);
+// 	in = 0;
+// 	token = NULL;
+// 	i = -1;
+// 	while (cmd[++i] && in != 2)
+// 	{
+// 		ft_split_free(token);
+// 		token = lexer(cmd[i]);
+// 		if (!token)
+// 			break ;
+// 		in = ft_builtins(token, envp);
+// 		if (in > 0)
+// 			continue ;
+// 	}
+// 	ft_split_free(token);
+// 	ft_split_free(cmd);
+// 	return (in);
+// }

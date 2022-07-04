@@ -18,6 +18,7 @@ int	list_token(t_list **l_token, char *line)
 	char	**token;
 	int		i;
 
+	add_history(line);
 	i = 0;
 	token = lexer(line);
 	while (token[i])
