@@ -12,12 +12,24 @@
 
 #include "minishell.h"
 
-int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
+int monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 {
-	char	**args_exec;
+	char **args_exec;
 
-	args_exec = ft_is_arg(&l_token);
-	printf ("4 %s\n", (char *) l_token->content);
+	t_list		*tmp;
+	if ((l_token)->next && ft_strncmp((l_token)->next->content, "<", 1) == 0)
+	{
+		tmp = (l_token);
+		(l_token) = (l_token)->next;
+		(l_token)->next->next = tmp;
+		if ((l_token)->next->next->next)
+			tmp = (l_token)->next->next->next;
+		else
+			tmp = NULL;
+	printf("ici %s\n", (char *) (l_token)->next->content);
+	}
+//	printf("ici %s\n", (char *) (l_token)->next->content);
+	args_exec = ft_is_arg(l_token);
 	if (l_token->next)
 	{
 		if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
@@ -28,7 +40,7 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 			ft_pipex(l_token, args_exec, envp, pipex);
 		else if (ft_strncmp(l_token->next->content, ">", 1) == 0)
 			ft_redir_out(l_token, args_exec, envp, pipex);
-		else if (ft_strncmp(l_token->next->content, "<", 1) == 0)
+		else if (ft_strncmp(l_token->content, "<", 1) == 0)
 			ft_redir_in(l_token, args_exec, envp, pipex);
 	}
 	else
@@ -39,7 +51,7 @@ int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 	return (ft_free_args_exec(args_exec, FAILURE));
 }
 
-int	ft_eperluet(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int ft_eperluet(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 {
 	if (!ft_child(args_exec, envp, l_token, pipex))
 		return (FAILURE);
@@ -48,7 +60,7 @@ int	ft_eperluet(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	return (SUCCESS);
 }
 
-int	ft_ou(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int ft_ou(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 {
 	if (ft_child(args_exec, envp, l_token, pipex) > 0)
 		return (SUCCESS);
@@ -57,15 +69,16 @@ int	ft_ou(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	return (FAILURE);
 }
 
-int	ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+// > file => creer file
+int ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 {
-	int		fd;
-	int		fd_tmp;
-	char	*file;
+	int fd;
+	int fd_tmp;
+	char *file;
 
 	file = l_token->next->next->content;
 	fd_tmp = dup(STDOUT_FILENO);
-	fd = open (file, O_WRONLY | O_TRUNC | O_CREAT, 0666);
+	fd = open(file, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd < 0)
 	{
 		perror(file);
@@ -83,18 +96,21 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 		monitoring_line(l_token->next->next->next, envp, pipex);
 	return (SUCCESS);
 }
-
-int	ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+// cmd1 < file1 < file2 => result file2, si 1 existe pas => erreur file1 c tout
+int ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 {
-	int			fd;
-	int			fd_tmp;
-	char		*file;
-	t_list		*tmp_token;
+	int fd;
+	int fd_tmp;
+	char *file;
+	//t_list *tmp_token;
 
-	tmp_token = l_token;
-	file = tmp_token->next->next->content;
+	(void)args_exec;
+
+	//tmp_token = l_token;
+	printf("ici %s\n", (char *) (l_token)->content);
+	file = l_token->next->content;
 	fd_tmp = dup(STDIN_FILENO);
-	fd = open (file, O_RDONLY);
+	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
 		perror(file);
@@ -102,13 +118,15 @@ int	ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	}
 	if (dup2(fd, STDIN_FILENO) == -1)
 		return (msg_perror("dup2 "));
-	if (ft_child(args_exec, envp, l_token, pipex) < 0)
-		return (FAILURE);
 	if (close(fd) < 0)
 		return (msg_perror("fd "));
-	if (dup2(fd_tmp, STDIN_FILENO) == -1)
-		return (msg_perror("dup2 "));
-	if (tmp_token->next->next->next)
-		monitoring_line(tmp_token->next->next->next, envp, pipex);
+
+	//	if (ft_child(args_exec, envp, l_token, pipex) < 0)
+	// return (FAILURE);
+	// if (dup2(fd_tmp, STDIN_FILENO) == -1)
+	//	return (msg_perror("dup2 "));
+
+	if (l_token->next->next)
+		monitoring_line(l_token->next->next, envp, pipex);
 	return (SUCCESS);
 }

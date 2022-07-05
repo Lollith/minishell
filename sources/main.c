@@ -14,7 +14,7 @@
 
 int	main_return(char **envp)
 {
-	rl_clear_history();
+	//rl_clear_history();
 	ft_split_free(envp);
 	write(1, "\n", 1);
 	return (0);

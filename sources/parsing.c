@@ -67,14 +67,17 @@ int	size_args(t_list *l_token)
 	return (size);
 }
 
-char	**ft_is_arg(t_list **l_token)
+//  si "<" en pos 1 met ma cmd en pos 1 : si < file cmd => cmd < file1
+// puis analyser ma comande si flag ou file
+//puis faire linverse => si cmd < file1 => <file cmd
+char	**ft_is_arg(t_list *l_token)
 {
 	char		**args_exec;
 	int			size;
 	int			i;
-	t_list		*tmp;
-// met ma cmd en pos 1 si < file cmd => cmd < file1
-	if (ft_strncmp((*l_token)->content, "<", 1) == 0)
+
+	args_exec = NULL;
+	/*if (ft_strncmp((*l_token)->content, "<", 1) == 0)
 	{
 		tmp = (*l_token)->next->next;
 		if ((*l_token)->next->next->next)
@@ -84,17 +87,19 @@ char	**ft_is_arg(t_list **l_token)
 		tmp->next = *l_token;
 		*l_token = tmp;
 	}
-	size = size_args(*l_token);
+*/
+	
+	size = size_args(l_token);
 	args_exec = (char **)malloc(sizeof(char *) * size);
 	if (!args_exec)
 		return (FAILURE);
-	args_exec[0] = (*l_token)->content;
+	args_exec[0] = (l_token)->content;
 	i = 1;
 	while (l_token && i < size - 1)
 	{
-		args_exec[i] = (*l_token)->next->content;
+		args_exec[i] = (l_token)->next->content;
 		i++;
-		ft_l_delete(*l_token);
+		ft_l_delete(l_token);
 	}
 	args_exec[size - 1] = NULL;
 	return (args_exec);
