@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/14 10:42:11 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/06 16:17:05 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ char	**ft_is_arg(t_list *l_token)
 		*l_token = tmp;
 	}
 */
-	
+
 	size = size_args(l_token);
 	args_exec = (char **)malloc(sizeof(char *) * size);
 	if (!args_exec)
@@ -103,4 +103,21 @@ char	**ft_is_arg(t_list *l_token)
 	}
 	args_exec[size - 1] = NULL;
 	return (args_exec);
+}
+
+void	reorganize(t_list **l_token)
+{
+	if ((*l_token)->next && ft_strncmp((*l_token)->next->content, "<", 1) == 0)
+	{
+		t_list		*tmp;
+
+		tmp = (*l_token);
+		(*l_token) = (*l_token)->next;
+		(*l_token)->next->next = tmp;
+		if ((*l_token)->next->next->next)
+			tmp = (*l_token)->next->next->next;
+		else
+			tmp = NULL;
+	printf("monitoring reordonne 3eme pos: %s\n", (char *) (*l_token)->next->next->content);
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/23 16:05:10 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/06 16:28:34 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ char	**create_token_exec(char *cmd);
 char	**lexer(char *line);
 int		size_args(t_list *l_token);
 char	**ft_is_arg(t_list *l_token);
-
+void	reorganize(t_list **l_token);
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */
 /* ************************************************************************** */
@@ -149,7 +149,7 @@ int		monitoring_line(t_list *tmp_token, char **envp, t_pipe pipex);
 int		ft_eperluet(t_list *l_tok, char **arg_exec, char **envp, t_pipe pipex);
 int		ft_ou(t_list *tmp_token, char **arg_exec, char **envp, t_pipe pipex);
 int		ft_redir_out(t_list *l_tok, char **arg_exe, char **envp, t_pipe pipex);
-int		ft_redir_in(t_list *l_tok, char **arg_exe, char **envp, t_pipe pipex);
+int		ft_redir_in(t_list l_tok, char **arg_exe, char **envp, t_pipe pipex);
 
 /* ************************************************************************** */
 /*   minishell_pipe.c                                           2 functions   */

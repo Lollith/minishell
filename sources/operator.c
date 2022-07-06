@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/23 15:25:52 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/06 16:29:43 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,19 +16,9 @@ int monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 {
 	char **args_exec;
 
-	t_list		*tmp;
-	if ((l_token)->next && ft_strncmp((l_token)->next->content, "<", 1) == 0)
-	{
-		tmp = (l_token);
-		(l_token) = (l_token)->next;
-		(l_token)->next->next = tmp;
-		if ((l_token)->next->next->next)
-			tmp = (l_token)->next->next->next;
-		else
-			tmp = NULL;
-	printf("ici %s\n", (char *) (l_token)->next->content);
-	}
-//	printf("ici %s\n", (char *) (l_token)->next->content);
+
+	reorganize(&l_token);
+	printf("apre reorga 2em pos %s\n", (char *) (l_token)->next->content);
 	args_exec = ft_is_arg(l_token);
 	if (l_token->next)
 	{
@@ -97,17 +87,17 @@ int ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	return (SUCCESS);
 }
 // cmd1 < file1 < file2 => result file2, si 1 existe pas => erreur file1 c tout
-int ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int ft_redir_in(t_list l_token, char **args_exec, char **envp, t_pipe pipex)
 {
 	int fd;
 	int fd_tmp;
 	char *file;
-	//t_list *tmp_token;
+	t_list tmp_token;
 
 	(void)args_exec;
 
-	//tmp_token = l_token;
-	printf("ici %s\n", (char *) (l_token)->content);
+	tmp_token = l_token;
+	printf("recup ds redir cmd %s\n", (char *) (tmp_token)->next->next->content);
 	file = l_token->next->content;
 	fd_tmp = dup(STDIN_FILENO);
 	fd = open(file, O_RDONLY);
