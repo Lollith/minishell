@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/06 16:17:05 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/07 17:45:51 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,9 +115,14 @@ void	reorganize(t_list **l_token)
 		(*l_token) = (*l_token)->next;
 		(*l_token)->next->next = tmp;
 		if ((*l_token)->next->next->next)
-			tmp = (*l_token)->next->next->next;
-		else
-			tmp = NULL;
-	printf("monitoring reordonne 3eme pos: %s\n", (char *) (*l_token)->next->next->content);
+			tmp->next = (*l_token)->next->next->next;
+			else
+			tmp->next = NULL;
+	//printf("monitoring reordonne 3eme pos: %s\n", (char *) (*l_token)->next->next->content);
+	printf("apre reorga 1em pos %s\n", (char *) (*l_token)->content);
+	printf("apre reorga 2em pos %s\n", (char *) (*l_token)->next->content);
+	printf("apre reorga 3em pos %s\n", (char *) (*l_token)->next->next->content);
+	printf("apre reorga 4em pos %s\n", (char *) (*l_token)->next->next->next->content);
+	printf("apre reorga 5em pos %s\n", (char *) (*l_token)->next->next->next->next->content);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/06 16:29:43 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/07 17:44:00 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
 {
 	char **args_exec;
 
-
 	reorganize(&l_token);
-	printf("apre reorga 2em pos %s\n", (char *) (l_token)->next->content);
 	args_exec = ft_is_arg(l_token);
 	if (l_token->next)
 	{
@@ -87,19 +85,23 @@ int ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	return (SUCCESS);
 }
 // cmd1 < file1 < file2 => result file2, si 1 existe pas => erreur file1 c tout
-int ft_redir_in(t_list l_token, char **args_exec, char **envp, t_pipe pipex)
+int ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 {
 	int fd;
 	int fd_tmp;
 	char *file;
-	t_list tmp_token;
+	//t_list *tmp_token;
 
 	(void)args_exec;
 
-	tmp_token = l_token;
-	printf("recup ds redir cmd %s\n", (char *) (tmp_token)->next->next->content);
-	file = l_token->next->content;
 	fd_tmp = dup(STDIN_FILENO);
+	//tmp_token = (*l_token);
+	//printf("recup ds redir cmd %s\n", (char *) (l_token)->content);
+	printf("apre reorga 1em pos %s\n", (char *) (l_token)->content);
+	printf("apre reorga 2em pos %s\n", (char *) (l_token)->next->content);
+	printf("apre reorga 3em pos %s\n", (char *) (l_token)->next->next->content);
+	file = args_exec[1];
+	printf("%s\n", file);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
@@ -116,7 +118,7 @@ int ft_redir_in(t_list l_token, char **args_exec, char **envp, t_pipe pipex)
 	// if (dup2(fd_tmp, STDIN_FILENO) == -1)
 	//	return (msg_perror("dup2 "));
 
-	if (l_token->next->next)
-		monitoring_line(l_token->next->next, envp, pipex);
+	if ((l_token)->next->next)
+		monitoring_line((l_token)->next->next, envp, pipex);
 	return (SUCCESS);
 }
