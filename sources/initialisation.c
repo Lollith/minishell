@@ -6,13 +6,13 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/23 12:07:59 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/08 14:33:28 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/* SIGQUIT	=	ctrl + \ 
+/* SIGQUIT	=	ctrl + \
  SIGINT	=	ctrl + c
 */
 void	ft_new_prompt(int signum)

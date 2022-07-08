@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/07 17:45:51 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/08 11:49:12 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,9 @@ char	**lexer(char *line)
 	return (token);
 }
 
+// cherche les flag et les files dune commande,
+//les met ds args_ecxec pour la commande exec,
+// et les sort de la liste chainee
 int	size_args(t_list *l_token)
 {
 	int			size;
@@ -67,9 +70,6 @@ int	size_args(t_list *l_token)
 	return (size);
 }
 
-//  si "<" en pos 1 met ma cmd en pos 1 : si < file cmd => cmd < file1
-// puis analyser ma comande si flag ou file
-//puis faire linverse => si cmd < file1 => <file cmd
 char	**ft_is_arg(t_list *l_token)
 {
 	char		**args_exec;
@@ -77,18 +77,6 @@ char	**ft_is_arg(t_list *l_token)
 	int			i;
 
 	args_exec = NULL;
-	/*if (ft_strncmp((*l_token)->content, "<", 1) == 0)
-	{
-		tmp = (*l_token)->next->next;
-		if ((*l_token)->next->next->next)
-			(*l_token)->next->next = (*l_token)->next->next->next;
-		else
-			(*l_token)->next->next = NULL;
-		tmp->next = *l_token;
-		*l_token = tmp;
-	}
-*/
-
 	size = size_args(l_token);
 	args_exec = (char **)malloc(sizeof(char *) * size);
 	if (!args_exec)
@@ -105,24 +93,21 @@ char	**ft_is_arg(t_list *l_token)
 	return (args_exec);
 }
 
+//si cmd < file1 => <file cmd => passe ds ft_isarg => tab de [0]"<" [1]"file" => < cat
+// logiuement la cmd va se retourvee systematiquenet a ka fin  cat < file1 < file2 => < file1 < file2 < cat
 void	reorganize(t_list **l_token)
 {
 	if ((*l_token)->next && ft_strncmp((*l_token)->next->content, "<", 1) == 0)
 	{
 		t_list		*tmp;
 
-		tmp = (*l_token);
-		(*l_token) = (*l_token)->next;
-		(*l_token)->next->next = tmp;
+		tmp = (*l_token)->next;
 		if ((*l_token)->next->next->next)
-			tmp->next = (*l_token)->next->next->next;
-			else
-			tmp->next = NULL;
-	//printf("monitoring reordonne 3eme pos: %s\n", (char *) (*l_token)->next->next->content);
-	printf("apre reorga 1em pos %s\n", (char *) (*l_token)->content);
-	printf("apre reorga 2em pos %s\n", (char *) (*l_token)->next->content);
-	printf("apre reorga 3em pos %s\n", (char *) (*l_token)->next->next->content);
-	printf("apre reorga 4em pos %s\n", (char *) (*l_token)->next->next->next->content);
-	printf("apre reorga 5em pos %s\n", (char *) (*l_token)->next->next->next->next->content);
+			(*l_token)->next = (*l_token)->next->next->next;
+		else
+			(*l_token)->next = NULL;
+
+		(tmp->next->next) = (*l_token);
+		(*l_token) = tmp;
 	}
 }
