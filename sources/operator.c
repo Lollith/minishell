@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/11 12:03:43 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/11 12:17:05 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,11 @@ int ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 
 	fd_tmp = dup(STDIN_FILENO);
 	file = args_exec[1];
+	if (!file)// ca ou file exsite pas deja
+	{
+		file = l_token->next->content;
+		ft_l_delete(l_token); // attention supression de mon file de ma liste chainee, pas remise ds un tab
+	}
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
