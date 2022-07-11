@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/23 15:20:39 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/11 12:19:27 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	main_return(char **envp)
 {
-	//rl_clear_history();
+	rl_clear_history();
 	ft_split_free(envp);
 	write(1, "\n", 1);
 	return (0);

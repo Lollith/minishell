@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/08 14:55:46 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/11 12:24:15 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ int	ft_pipex_exec(char **envp, char *cmd, char **new_token_exec, t_pipe fds)
 	int		i;
 	char	**paths;
 	char	*path_cmd;
+
 	(void) fds;
 	paths = get_paths();
 	if (cmd && (execve(cmd, new_token_exec, envp) == -1) && paths)
