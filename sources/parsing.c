@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/08 11:49:12 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/11 11:54:52 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,8 @@ char	**ft_is_arg(t_list *l_token)
 // logiuement la cmd va se retourvee systematiquenet a ka fin  cat < file1 < file2 => < file1 < file2 < cat
 void	reorganize(t_list **l_token)
 {
-	if ((*l_token)->next && ft_strncmp((*l_token)->next->content, "<", 1) == 0)
+	if (((*l_token)->next && ft_strncmp((*l_token)->next->content, "<", 1) == 0)
+	|| ((*l_token)->next && ft_strncmp((*l_token)->next->content, ">", 1) == 0))
 	{
 		t_list		*tmp;
 
