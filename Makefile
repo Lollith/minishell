@@ -6,7 +6,7 @@
 #    By: agouet <agouet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/20 16:34:58 by agouet            #+#    #+#              #
-#    Updated: 2022/06/17 15:55:43 by agouet           ###   ########.fr        #
+#    Updated: 2022/07/11 16:37:00 by agouet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS		=	$(addprefix sources/, \
 					execut.c \
 					initialisation.c \
 					operator.c \
+					operator_bonus.c \
 					list_token.c \
 					ft_is_str.c \
 					minishell_split/minishell_split_utils.c \
@@ -30,6 +31,8 @@ SRCS		=	$(addprefix sources/, \
 					minishell.c \
 					main.c \
 					debug.c \
+					monitor.c \
+					heredoc.c \
 				)
 OBJS		=	$(SRCS:.c=.o)
 DEPS		=	$(SRCS:.c=.d)
@@ -55,7 +58,8 @@ fclean: clean
 	${MAKE} fclean -C libft
 	rm -f $(NAME)
 
-re: fclean all
+re: fclean
+	make
 
 .PHONY:	all re clean fclean
 

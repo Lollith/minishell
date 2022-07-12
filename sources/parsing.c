@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/14 10:42:11 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/11 14:12:54 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,14 +50,17 @@ char	**lexer(char *line)
 	return (token);
 }
 
+// cherche les flag et les files dune commande,
+//les met ds args_ecxec pour la commande exec,
+// et les sort de la liste chainee
 int	size_args(t_list *l_token)
 {
 	int			size;
 	t_list		*tmp_token;
 	struct stat	info;
 
-	tmp_token = l_token;
 	size = 2;
+	tmp_token = l_token;
 	while ((tmp_token->next && (ft_strchr(tmp_token->next->content, '-')
 				|| (stat(tmp_token->next->content, &info) == 0))))
 	{
@@ -73,18 +76,41 @@ char	**ft_is_arg(t_list *l_token)
 	int			size;
 	int			i;
 
+	args_exec = NULL;
 	size = size_args(l_token);
 	args_exec = (char **)malloc(sizeof(char *) * size);
 	if (!args_exec)
 		return (FAILURE);
-	args_exec[0] = l_token->content;
+	args_exec[0] = (l_token)->content;
 	i = 1;
 	while (l_token && i < size - 1)
 	{
-		args_exec[i] = l_token->next->content;
+		args_exec[i] = (l_token)->next->content;
 		i++;
 		ft_l_delete(l_token);
 	}
 	args_exec[size - 1] = NULL;
 	return (args_exec);
+}
+
+//si cmd < file1 => <file cmd => passe ds ft_isarg
+// => tab de [0]"<" [1]"file" => < cat
+// logiuement la cmd va se retourvee systematiquenet a ka fin
+//cat < file1 < file2 => < file1 < file2 < cat
+void	reorganize(t_list **l_token)
+{
+	t_list	*tmp;
+
+	if ((*l_token)->next
+		&& ((ft_strncmp((*l_token)->next->content, "<", 1) == 0)
+			|| (ft_strncmp((*l_token)->next->content, ">", 1) == 0)))
+	{
+		tmp = (*l_token)->next;
+		if ((*l_token)->next->next->next)
+			(*l_token)->next = (*l_token)->next->next->next;
+		else
+			(*l_token)->next = NULL;
+		(tmp->next->next) = (*l_token);
+		(*l_token) = tmp;
+	}
 }

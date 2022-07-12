@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/23 16:01:50 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/11 12:24:15 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ int	ft_pipex_exec(char **envp, char *cmd, char **new_token_exec, t_pipe fds)
 	char	*path_cmd;
 
 	paths = get_paths();
+	ft_close_tmp(fds);
 	if (cmd && (execve(cmd, new_token_exec, envp) == -1) && paths)
 	{
 		i = 0;
@@ -57,7 +58,6 @@ int	ft_pipex_exec(char **envp, char *cmd, char **new_token_exec, t_pipe fds)
 			path_cmd = get_paths_cmd(paths[i], cmd);
 			if (access(path_cmd, F_OK) == 0)
 			{
-				ft_close_tmp(fds);
 				execve(path_cmd, new_token_exec, envp);
 				ft_split_free(paths);
 				exit (FAILURE);
@@ -77,15 +77,11 @@ int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 		ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
 	if (pipe(pipex.pipefd) < 0)
 		return (msg_perror("pipe"));
-	if (ft_child(args_exec, envp, l_token, pipex) <= 0)
-		return (FAILURE);
+	ft_child(args_exec, envp, l_token, pipex);
+	if (pipex.ctrl == 0)
+		pipex.ctrl = 1;
 	else
-	{
-		if (pipex.ctrl == 0)
-			pipex.ctrl = 1;
-		else
-			pipex.ctrl = 0;
-		monitoring_line(l_token->next->next, envp, pipex);
-	}
+		pipex.ctrl = 0;
+	monitoring_line(l_token->next->next, envp, pipex);
 	return (0);
 }
