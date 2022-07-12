@@ -23,9 +23,7 @@
 int	ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 {
 	int		fd;
-	int		fd_tmp;
 
-	fd_tmp = dup(STDOUT_FILENO);
 	fd = open_out(l_token, args_exec);
 	if (l_token->next)
 	{
@@ -69,10 +67,8 @@ int	open_out(t_list *l_token, char **args_exec)
 int	ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 {
 	int		fd;
-	int		fd_tmp;
 	char	*file;
 
-	fd_tmp = dup(STDIN_FILENO);
 	file = open_in(l_token, args_exec);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)

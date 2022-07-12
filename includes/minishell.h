@@ -144,7 +144,7 @@ void	ft_lstclear2(t_list **l_token);
 void	ft_l_delete(t_list *delete);
 
 /* ************************************************************************** */
-/*   operator_bonus.c                                                 5 functions   */
+/*   operator_bonus.c                                           2 functions   */
 /* ************************************************************************** */
 int		ft_eperluet(t_list *l_tok, char **arg_exec, char **envp, t_pipe pipex);
 int		ft_ou(t_list *tmp_token, char **arg_exec, char **envp, t_pipe pipex);
