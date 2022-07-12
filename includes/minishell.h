@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/23 16:05:10 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/11 16:38:10 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ char	**create_token_exec(char *cmd);
 char	**lexer(char *line);
 int		size_args(t_list *l_token);
 char	**ft_is_arg(t_list *l_token);
+void	reorganize(t_list **l_token);
 
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */
@@ -139,13 +140,32 @@ void	ft_lstclear2(t_list **l_token);
 void	ft_l_delete(t_list *delete);
 
 /* ************************************************************************** */
-/*   operator.c                                                 5 functions   */
+/*   operator_bonus.c                                           2 functions   */
 /* ************************************************************************** */
-int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe pipex);
 int		ft_eperluet(t_list *l_tok, char **arg_exec, char ***envp, t_pipe pipex);
 int		ft_ou(t_list *tmp_token, char **arg_exec, char ***envp, t_pipe pipex);
+
+/* ************************************************************************** */
+/*   operator.c                                                 5 functions   */
+/* ************************************************************************** */
 int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe pipex);
+int		open_out(t_list *l_token, char **args_exec);
 int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe pipex);
+char	*open_in(t_list *l_token, char **args_exec);
+
+/* ************************************************************************** */
+/*   heredoc.c                                                 5 functions   */
+/* ************************************************************************** */
+char	*creat_h_file(void);
+char	*check_here_file(void);
+char	*ft_heredoc(t_list *l_token);
+void	free_heredoc(char *file1);
+char	*init_hd(int *pt_fd);
+
+/* ************************************************************************** */
+/*   operator.c                                           2 functions   */
+/* ************************************************************************** */
+int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe pipex);
 
 /* ************************************************************************** */
 /*   minishell_pipe.c                                           2 functions   */

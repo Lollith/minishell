@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/06/23 12:07:59 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/11 12:19:40 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 // SIGINT	=	ctrl + c
 // SIGQUIT	=	ctrl + backslash
+
 void	ft_new_prompt(int signum)
 {
 	if (signum == SIGINT)

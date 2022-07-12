@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/23 15:20:39 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/11 12:19:27 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,7 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (line[0])
 		{
-			if (!list_token(&l_token, line))
-				return (1);
+			list_token(&l_token, line);
 			tmp_token = l_token;
 			fd_monitor(tmp_token, &envp, pipex);
 			ft_lstclear2(&l_token);

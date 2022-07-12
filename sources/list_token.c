@@ -29,6 +29,7 @@ int	list_token(t_list **l_token, char *line)
 		ft_lstadd_back(l_token, l_new_token);
 		i++;
 	}
+	free(token);
 	return (SUCCESS);
 }
 
