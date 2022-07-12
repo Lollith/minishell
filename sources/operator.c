@@ -21,7 +21,7 @@
 // fi file existe recup arg[1] sinon recup sur la liste chainee
 //et le suprime de la liste
 
-int	ft_redir_out(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 {
 	int		fd;
 
@@ -66,7 +66,7 @@ int	open_out(t_list *l_token, char **args_exec)
 //=> < (-file1) cmd < (-file2)
 //=> < (-file1) < (-file2) cmd1
 
-int	ft_redir_in(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 {
 	int		fd;
 	char	*file;

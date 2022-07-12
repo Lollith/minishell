@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	monitoring_line(t_list *l_token, char **envp, t_pipe pipex)
+int	monitoring_line(t_list *l_token, char ***envp, t_pipe pipex)
 {
 	char	**args_exec;
 

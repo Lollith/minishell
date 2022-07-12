@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_eperluet(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int	ft_eperluet(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 {
 	if (ft_child(args_exec, envp, l_token, pipex) == 0)
 		exit (FAILURE);
@@ -21,7 +21,7 @@ int	ft_eperluet(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
 	return (SUCCESS);
 }
 
-int	ft_ou(t_list *l_token, char **args_exec, char **envp, t_pipe pipex)
+int	ft_ou(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 {
 	if (ft_child(args_exec, envp, l_token, pipex) > 0)
 		return (SUCCESS);
