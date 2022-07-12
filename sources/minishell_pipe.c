@@ -49,6 +49,7 @@ int	ft_pipex_exec(char **envp, char *cmd, char **new_token_exec, t_pipe fds)
 	char	*path_cmd;
 
 	paths = get_paths();
+	ft_close_tmp(fds);
 	if (cmd && (execve(cmd, new_token_exec, envp) == -1) && paths)
 	{
 		i = 0;
@@ -57,7 +58,6 @@ int	ft_pipex_exec(char **envp, char *cmd, char **new_token_exec, t_pipe fds)
 			path_cmd = get_paths_cmd(paths[i], cmd);
 			if (access(path_cmd, F_OK) == 0)
 			{
-				ft_close_tmp(fds);
 				execve(path_cmd, new_token_exec, envp);
 				ft_split_free(paths);
 				exit (FAILURE);

@@ -58,7 +58,8 @@ fclean: clean
 	${MAKE} fclean -C libft
 	rm -f $(NAME)
 
-re: fclean all
+re: fclean
+	make
 
 .PHONY:	all re clean fclean
 
