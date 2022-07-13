@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/07/11 16:38:10 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/13 15:05:44 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,12 @@ char	**create_token_exec(char *cmd);
 char	**lexer(char *line);
 int		size_args(t_list *l_token);
 char	**ft_is_arg(t_list *l_token);
-void	reorganize(t_list **l_token);
+
+/* ************************************************************************** */
+/*   parsing2.c                                                 2 functions   */
+/* ************************************************************************** */
+int		is_operator(t_list *l_token);
+int		is_cmd(t_list *l_token);
 
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */
@@ -166,6 +171,7 @@ char	*init_hd(int *pt_fd);
 /*   operator.c                                           2 functions   */
 /* ************************************************************************** */
 int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe pipex);
+void	reorganize(t_list **l_token);
 
 /* ************************************************************************** */
 /*   minishell_pipe.c                                           2 functions   */
@@ -174,6 +180,7 @@ int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe pipe);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
 int		ft_close_tmp(t_pipe pipex);
 int		ft_pipex_exec(char **envp, char *cmd, char **args_exec, t_pipe fds);
+char	*get_paths_cmd(char *paths_i, char *cmd);
 
 /* ************************************************************************** */
 /*   initialisation.c                                           5 functions   */
