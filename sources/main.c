@@ -41,8 +41,6 @@ int	main(int ac, char **av, char **envp)
 			ft_lstclear2(&l_token);
 		}
 		free(line);
-		if (ac == 2)
-			break ;
 		line = readline("minishell> ");
 	}
 	return (main_return(envp));

@@ -15,6 +15,7 @@
 int	ft_exit(void)
 {
 	write(1, "exit", 4);
+	exit(0);
 	return (2);
 }
 
@@ -53,6 +54,7 @@ char	*get_home(char **envp)
 	return (home);
 }
 
+// create OLDPWD
 int	ft_cd(char **line, char **envp)
 {
 	char	*home;

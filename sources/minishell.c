@@ -46,30 +46,13 @@ char	**create_token_exec(char *cmd)
 	return (new_token_exec);
 }
 
-// int	minishell(char *line, char ***envp)
-// {
-// 	int		i;
-// 	int		in;
-// 	char	**cmd;
-// 	char	**token;
-
-// 	cmd = ft_split(line, ';');
-// 	if (!cmd)
-// 		return (0);
-// 	in = 0;
-// 	token = NULL;
-// 	i = -1;
-// 	while (cmd[++i] && in != 2)
-// 	{
-// 		ft_split_free(token);
-// 		token = lexer(cmd[i]);
-// 		if (!token)
-// 			break ;
-// 		in = ft_builtins(token, envp);
-// 		if (in > 0)
-// 			continue ;
-// 	}
-// 	ft_split_free(token);
-// 	ft_split_free(cmd);
-// 	return (in);
-// }
+int	ft_link_fd(int pipefd0, int pipefd1, int std)
+{
+	if (close(pipefd0) < 0)
+		return (msg_perror("pipefd0 "));
+	if (dup2(pipefd1, std) == -1)
+		return (msg_perror("dup2 "));
+	if (close(pipefd1) < 0)
+		return (msg_perror("pipefd1 "));
+	return (SUCCESS);
+}

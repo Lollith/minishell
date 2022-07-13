@@ -43,7 +43,7 @@ typedef struct s_pipe
 	int	pipefd[2];
 	int	tmp_in;
 	int	tmp_out;
-}				t_pipe;
+}	t_pipe;
 
 /* ************************************************************************** */
 /*   debug.c                                                    5 functions   */
@@ -111,9 +111,9 @@ char	**minishell_split(char const *s, char *space);
 /* ************************************************************************** */
 /*   minishell.c                                                3 functions   */
 /* ************************************************************************** */
-int		minishell(char *line, char ***envp);
 int		ft_builtins(char **line, char ***envp);
 char	**create_token_exec(char *cmd);
+int		ft_link_fd(int pipefd0, int pipefd1, int std);
 
 /* ************************************************************************** */
 /*   parsing.c                                                  4 functions   */
@@ -124,13 +124,11 @@ char	**ft_is_arg(t_list *l_token);
 void	reorganize(t_list **l_token);
 
 /* ************************************************************************** */
-/*   execut.c                                                   5 functions   */
+/*   execut.c                                                   3 functions   */
 /* ************************************************************************** */
 char	**get_paths(void);
 void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
 int		ft_exec(char **envp, char *cmd, char **args_exec);
-int		ft_child(char **args_exe, char ***envp, t_list *l_token, t_pipe pipex);
-int		ft_old_child(char **paths, char *path_cmd, char **token, char **envp);
 
 /* ************************************************************************** */
 /*  list_token.c                                                3 functions   */
@@ -168,12 +166,13 @@ char	*init_hd(int *pt_fd);
 int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe pipex);
 
 /* ************************************************************************** */
-/*   minishell_pipe.c                                           2 functions   */
+/*   minishell_pipe.c                                           5 functions   */
 /* ************************************************************************** */
-int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe pipe);
-int		ft_link_fd(int pipefd0, int pipefd1, int std);
 int		ft_close_tmp(t_pipe pipex);
-int		ft_pipex_exec(char **envp, char *cmd, char **args_exec, t_pipe fds);
+char	*get_paths_cmd(char *paths_i, char *cmd);
+int		ft_pipex_exec_return(char **paths, char *cmd);
+int		ft_pipex_exec(char ***envp, char *cmd, char **token_exec, t_pipe fds);
+int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex);
 
 /* ************************************************************************** */
 /*   initialisation.c                                           5 functions   */

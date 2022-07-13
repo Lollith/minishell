@@ -60,9 +60,9 @@ int	size_args(t_list *l_token)
 	struct stat	info;
 
 	size = 2;
-	tmp_token = l_token;
-	while ((tmp_token->next && (ft_strchr(tmp_token->next->content, '-')
-				|| (stat(tmp_token->next->content, &info) == 0))))
+	tmp_token = l_token->next;
+	while ((tmp_token && (ft_strchr(tmp_token->content, '-')
+				|| (stat(tmp_token->content, &info) == 0))))
 	{
 		size++;
 		tmp_token = tmp_token->next;
