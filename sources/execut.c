@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/08 14:51:27 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/13 17:30:35 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,13 @@ int	ft_child(char **new_token_exec, char ***envp, t_list *l_token, t_pipe pipex)
 		close(pipex.pipefd[1]);
 		pipex.ctrl = 0;
 	}
-	return (SUCCESS);
+	wait(&wstatus);
++   ret = WEXITSTATUS(wstatus);
++   printf ("wexistatus %d\n", ret);
++   pipex.pipe_return = ret;
++   return (ret);
+
+	//return (SUCCESS);
 }
 
 // int	ft_old_child(char **paths, char *path_cmd, char **token, char **envp)

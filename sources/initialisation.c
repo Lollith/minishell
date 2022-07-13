@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/11 12:19:40 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/13 16:16:56 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,9 @@ int	fd_monitor(t_list *tmp_token, char ***envp, t_pipe pipex)
 	pid = wait(&wstatus);
 	while (pid > 0)
 		pid = wait(&wstatus);
-	if (dup2(pipex.tmp_in, STDIN_FILENO) == -1)
-		return (msg_perror("dup2 "));
-	if (close(pipex.tmp_in) < 0)
-		return (msg_perror("tmp_in "));
-	if (dup2(pipex.tmp_out, STDOUT_FILENO) == -1)
-		return (msg_perror("dup2 "));
-	if (close(pipex.tmp_out) < 0)
-		return (msg_perror("tmp_out "));
+	dup2(pipex.tmp_in, STDIN_FILENO);
+	close(pipex.tmp_in);
+	dup2(pipex.tmp_out, STDOUT_FILENO);
+	close(pipex.tmp_out);
 	return (SUCCESS);
 }

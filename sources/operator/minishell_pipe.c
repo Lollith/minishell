@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/11 12:24:15 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/13 16:13:46 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,8 @@
 
 int	ft_close_tmp(t_pipe pipex)
 {
-	if (close(pipex.tmp_in) < 0)
-		return (msg_perror("tmp_in. "));
-	if (close(pipex.tmp_out) < 0)
-		return (msg_perror("tmp_out "));
+	close(pipex.tmp_in);
+	close(pipex.tmp_out);
 	return (SUCCESS);
 }
 
@@ -26,7 +24,7 @@ int	ft_link_fd(int pipefd0, int pipefd1, int std)
 	if (close(pipefd0) < 0)
 		return (msg_perror("pipefd0 "));
 	if (dup2(pipefd1, std) == -1)
-		return (msg_perror("dup2 "));
+		return (msg_perror("dup2. "));
 	if (close(pipefd1) < 0)
 		return (msg_perror("pipefd1 "));
 	return (SUCCESS);

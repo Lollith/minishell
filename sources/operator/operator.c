@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/13 15:05:19 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/13 17:07:34 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int	open_out(t_list *l_token, char **args_exec)
 //=> erreur file1 c tout
 //=> < (-file1) cmd < (-file2)
 //=> < (-file1) < (-file2) cmd1
+//cat << EOF => ]<<] [EOF]  + cat
 
 int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 {
@@ -95,10 +96,7 @@ char	*open_in(t_list *l_token, char **args_exec)
 	char	*file;
 
 	if (ft_strncmp(l_token->content, "<<", 2) == 0)
-	{
-		file = ft_heredoc(l_token);
-		ft_l_delete(l_token);
-	}
+		file = ft_heredoc(l_token, args_exec);
 	else
 		file = args_exec[1];
 	if (!file)

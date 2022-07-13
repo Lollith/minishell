@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/07/13 15:05:44 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/13 16:43:00 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,7 +163,7 @@ char	*open_in(t_list *l_token, char **args_exec);
 /* ************************************************************************** */
 char	*creat_h_file(void);
 char	*check_here_file(void);
-char	*ft_heredoc(t_list *l_token);
+char	*ft_heredoc(t_list *l_token, char **args_exec);
 void	free_heredoc(char *file1);
 char	*init_hd(int *pt_fd);
 

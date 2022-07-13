@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/13 14:57:46 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/13 16:14:45 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,9 +54,7 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe pipex)
 	reorganize(&l_token);
 	args_exec = ft_is_arg(l_token);
 	if (l_token->next)
-	{
 		check_op(l_token, args_exec, envp, pipex);
-	}
 	else
 	{
 		if (ft_strncmp(l_token->content, ">", 1) == 0)
