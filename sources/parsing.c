@@ -51,7 +51,7 @@ char	**lexer(char *line)
 }
 
 // cherche les flag et les files dune commande,
-//les met ds args_ecxec pour la commande exec,
+// les met ds args_ecxec pour la commande exec,
 // et les sort de la liste chainee
 int	size_args(t_list *l_token)
 {
@@ -93,10 +93,10 @@ char	**ft_is_arg(t_list *l_token)
 	return (args_exec);
 }
 
-//si cmd < file1 => <file cmd => passe ds ft_isarg
+// si cmd < file1 => <file cmd => passe ds ft_isarg
 // => tab de [0]"<" [1]"file" => < cat
 // logiuement la cmd va se retourvee systematiquenet a ka fin
-//cat < file1 < file2 => < file1 < file2 < cat
+// cat < file1 < file2 => < file1 < file2 < cat
 void	reorganize(t_list **l_token)
 {
 	t_list	*tmp;

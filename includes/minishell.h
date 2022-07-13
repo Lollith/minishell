@@ -154,7 +154,7 @@ int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe pipex);
 char	*open_in(t_list *l_token, char **args_exec);
 
 /* ************************************************************************** */
-/*   heredoc.c                                                 5 functions   */
+/*   heredoc.c                                                  5 functions   */
 /* ************************************************************************** */
 char	*creat_h_file(void);
 char	*check_here_file(void);
@@ -163,7 +163,7 @@ void	free_heredoc(char *file1);
 char	*init_hd(int *pt_fd);
 
 /* ************************************************************************** */
-/*   operator.c                                           2 functions   */
+/*   operator.c                                                 2 functions   */
 /* ************************************************************************** */
 int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe pipex);
 

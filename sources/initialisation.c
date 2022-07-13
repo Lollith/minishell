@@ -14,7 +14,6 @@
 
 // SIGINT	=	ctrl + c
 // SIGQUIT	=	ctrl + backslash
-
 void	ft_new_prompt(int signum)
 {
 	if (signum == SIGINT)
