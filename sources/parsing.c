@@ -41,10 +41,15 @@ int	ft_quote(char *line)
 char	**lexer(char *line)
 {
 	char	**token;
+	char	*str;
 
 	if (!ft_quote(line))
 		return (NULL);
-	token = minishell_split(line, " \t\n\v\f\r");
+	str = ft_quoting(line);
+	if (!str)
+		return (NULL);
+	token = minishell_split(line, MS_SPACE);
+	free(str);
 	if (!token)
 		return (NULL);
 	return (token);
@@ -61,8 +66,8 @@ int	size_args(t_list *l_token)
 
 	size = 2;
 	tmp_token = l_token->next;
-	while ((tmp_token && (ft_strchr(tmp_token->content, '-')
-				|| (stat(tmp_token->content, &info) == 0))))
+	while ((tmp_token && (ft_strchr(tmp_token->content, '-') || \
+	(stat(tmp_token->content, &info) == 0))))
 	{
 		size++;
 		tmp_token = tmp_token->next;
@@ -101,9 +106,9 @@ void	reorganize(t_list **l_token)
 {
 	t_list	*tmp;
 
-	if ((*l_token)->next
-		&& ((ft_strncmp((*l_token)->next->content, "<", 1) == 0)
-			|| (ft_strncmp((*l_token)->next->content, ">", 1) == 0)))
+	if ((*l_token)->next && \
+	((ft_strncmp((*l_token)->next->content, "<", 1) == 0) || \
+	(ft_strncmp((*l_token)->next->content, ">", 1) == 0)))
 	{
 		tmp = (*l_token)->next;
 		if ((*l_token)->next->next->next)

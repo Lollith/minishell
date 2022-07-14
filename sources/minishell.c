@@ -56,3 +56,32 @@ int	ft_link_fd(int pipefd0, int pipefd1, int std)
 		return (msg_perror("pipefd1 "));
 	return (SUCCESS);
 }
+
+char	*ft_quoting(char const *str)
+{
+	int		i;
+	int		size;
+	char	*res;
+
+	size = 1;
+	i = -1;
+	while (str[++i])
+	{
+		if (ft_quoting_quote(str, &i, '\"') || ft_quoting_quote(str, &i, '\''))
+			continue ;
+		size += ft_quoting_quoting(str, &i);
+	}
+	res = malloc(sizeof(char) * (i + size));
+	if (!res)
+		return (NULL);
+	size = 0;
+	i = -1;
+	while (str[++i])
+	{
+		if (ft_d_quote(str, res, &i, size) || ft_s_quote(str, res, &i, size))
+			continue ;
+		ft_quoting_res(str, res, &i, &size);
+	}
+	res[i + size] = '\0';
+	return (res);
+}

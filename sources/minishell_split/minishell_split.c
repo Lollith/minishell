@@ -89,7 +89,6 @@ int	minishell_post_input(char const *str, char *space, int i, char *res)
 	return (i);
 }
 
-// && || | > <
 char	**minishell_split(char const *str, char *space)
 {
 	int		i;
