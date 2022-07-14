@@ -37,6 +37,7 @@
 # define FALSE 0
 # define BUFFER_NAME 128
 
+int	pipe_ret;
 typedef struct s_pipe
 {
 	int	ctrl;
@@ -172,6 +173,7 @@ char	*init_hd(int *pt_fd);
 /* ************************************************************************** */
 int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe pipex);
 void	reorganize(t_list **l_token);
+void	ft_pipe_ret(t_list *l_token, char ***envp, t_pipe pipex);
 
 /* ************************************************************************** */
 /*   minishell_pipe.c                                           2 functions   */

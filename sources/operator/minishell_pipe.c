@@ -21,12 +21,10 @@ int	ft_close_tmp(t_pipe pipex)
 
 int	ft_link_fd(int pipefd0, int pipefd1, int std)
 {
-	if (close(pipefd0) < 0)
-		return (msg_perror("pipefd0. "));
-	if (dup2(pipefd1, std) == -1)
-		return (msg_perror("dup2. "));
-	if (close(pipefd1) < 0)
-		return (msg_perror("pipefd1 "));
+	if (pipefd0)
+		close(pipefd0);
+	dup2(pipefd1, std);
+	close(pipefd1);
 	return (SUCCESS);
 }
 

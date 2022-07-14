@@ -67,6 +67,7 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 {
 	pipex->ctrl = 0;
 	pipex->pipefd[0] = 0;
+	pipe_ret = -1;
 	if (ft_main(ac, av, envp))
 		return (FAILURE);
 	return (SUCCESS);

@@ -50,7 +50,9 @@ int	ft_child(char **new_token_exec, char ***envp, t_list *l_token, t_pipe pipex)
 		if (pipex.pipefd[0] && pipex.ctrl == -1)
 			ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
 		ft_pipex_exec(*envp, l_token->content, new_token_exec, pipex);
-		return (FAILURE);
+		//ft_split_free(new_token_exec);
+		//ft_lstclear2(&l_token);
+		exit (FAILURE);
 	}
 	if (pipex.pipefd[0] && pipex.ctrl == -1)
 	{
@@ -61,7 +63,7 @@ int	ft_child(char **new_token_exec, char ***envp, t_list *l_token, t_pipe pipex)
 	wait(&wstatus);
    ret = WEXITSTATUS(wstatus);
    printf ("wexistatus %d\n", ret);
-   //pipex.pipe_return = ret;
+   pipe_ret = ret;
    return (ret);
 
 	//return (SUCCESS);
