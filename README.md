@@ -40,4 +40,5 @@ e"ch"o bonjour
 echo\ bonjour
 echo $ejknfenf hey
 echo "$ejnzefc" hey
+grep -n -- 'f.*\.c$' *g*.h /dev/null'
 ```

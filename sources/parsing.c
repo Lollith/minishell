@@ -41,17 +41,22 @@ int	ft_quote(char *line)
 char	**lexer(char *line)
 {
 	char	**token;
+	char	*str;
 
 	if (!ft_quote(line))
 		return (NULL);
-	token = minishell_split(line, " \t\n\v\f\r");
+	str = ft_quoting(line);
+	if (!str)
+		return (NULL);
+	token = minishell_split(line, MS_SPACE);
+	free(str);
 	if (!token)
 		return (NULL);
 	return (token);
 }
 
 // cherch si g un operateur ou une commande
-//sinon met le toekn suivant ds args_ecxec pour la commande a exec,
+// sinon met le toekn suivant ds args_ecxec pour la commande a exec,
 // et les sort de la liste chainee ( file, - flag et autre mots pour grep)
 int	size_args(t_list *l_token)
 {
@@ -59,9 +64,9 @@ int	size_args(t_list *l_token)
 	t_list		*tmp_token;
 
 	size = 2;
-	tmp_token = l_token;
-	while (tmp_token->next && (!is_operator(tmp_token->next))
-		&& (!is_cmd(tmp_token->next)))
+	tmp_token = l_token->next;
+	while (tmp_token && (!is_operator(tmp_token)) && \
+	(!is_cmd(tmp_token)))
 	{
 		size++;
 		tmp_token = tmp_token->next;

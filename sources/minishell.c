@@ -46,30 +46,42 @@ char	**create_token_exec(char *cmd)
 	return (new_token_exec);
 }
 
-// int	minishell(char *line, char ***envp)
-// {
-// 	int		i;
-// 	int		in;
-// 	char	**cmd;
-// 	char	**token;
+int	ft_link_fd(int pipefd0, int pipefd1, int std)
+{
+	if (close(pipefd0) < 0)
+		return (msg_perror("pipefd0 "));
+	if (dup2(pipefd1, std) == -1)
+		return (msg_perror("dup2 "));
+	if (close(pipefd1) < 0)
+		return (msg_perror("pipefd1 "));
+	return (SUCCESS);
+}
 
-// 	cmd = ft_split(line, ';');
-// 	if (!cmd)
-// 		return (0);
-// 	in = 0;
-// 	token = NULL;
-// 	i = -1;
-// 	while (cmd[++i] && in != 2)
-// 	{
-// 		ft_split_free(token);
-// 		token = lexer(cmd[i]);
-// 		if (!token)
-// 			break ;
-// 		in = ft_builtins(token, envp);
-// 		if (in > 0)
-// 			continue ;
-// 	}
-// 	ft_split_free(token);
-// 	ft_split_free(cmd);
-// 	return (in);
-// }
+char	*ft_quoting(char const *str)
+{
+	int		i;
+	int		size;
+	char	*res;
+
+	size = 1;
+	i = -1;
+	while (str[++i])
+	{
+		if (ft_quoting_quote(str, &i, '\"') || ft_quoting_quote(str, &i, '\''))
+			continue ;
+		size += ft_quoting_quoting(str, &i);
+	}
+	res = malloc(sizeof(char) * (i + size));
+	if (!res)
+		return (NULL);
+	size = 0;
+	i = -1;
+	while (str[++i])
+	{
+		if (ft_d_quote(str, res, &i, size) || ft_s_quote(str, res, &i, size))
+			continue ;
+		ft_quoting_res(str, res, &i, &size);
+	}
+	res[i + size] = '\0';
+	return (res);
+}

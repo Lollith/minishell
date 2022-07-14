@@ -11,17 +11,18 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
-//si cmd < file1 => <file cmd => passe ds ft_isarg
+
+// si cmd < file1 => <file cmd => passe ds ft_isarg
 // => tab de [0]"<" [1]"file" => < cat
 // logiuement la cmd va se retourvee systematiquenet a ka fin
-//cat < file1 < file2 => < file1 < file2 < cat
+// cat < file1 < file2 => < file1 < file2 < cat
 void	reorganize(t_list **l_token)
 {
 	t_list	*tmp;
 
-	if ((*l_token)->next
-		&& ((ft_strncmp((*l_token)->next->content, "<", 1) == 0)
-			|| (ft_strncmp((*l_token)->next->content, ">", 1) == 0)))
+	if ((*l_token)->next && \
+	((ft_strncmp((*l_token)->next->content, "<", 1) == 0) || \
+	(ft_strncmp((*l_token)->next->content, ">", 1) == 0)))
 	{
 		tmp = (*l_token)->next;
 		if ((*l_token)->next->next->next)

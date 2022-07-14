@@ -13,26 +13,26 @@
 NAME 		=	minishell
 LIBFT		= 	libft/libft.a
 SRCS		=	$(addprefix sources/, \
-					builtins/builtins.c \
 					builtins/builtins_bis.c \
+					builtins/builtins.c \
 					builtins/environment_bis.c \
 					builtins/environment.c \
-					execut.c \
-					initialisation.c \
-					operator/operator.c \
-					operator/operator_bonus.c \
-					list_token.c \
-					ft_is_str.c \
-					minishell_split/minishell_split_utils.c \
 					minishell_split/minishell_split_bis.c \
 					minishell_split/minishell_split.c \
+					operator/heredoc.c \
 					operator/minishell_pipe.c \
+					operator/operator_bonus.c \
+					operator/operator.c \
+					execut.c \
+					initialisation.c \
+					list_token.c \
+					ft_is_str.c \
+					ft_quoting.c \
 					parsing.c \
 					minishell.c \
 					main.c \
 					debug.c \
 					monitor.c \
-					operator/heredoc.c \
 					parsing2.c \
 				)
 OBJS		=	$(SRCS:.c=.o)

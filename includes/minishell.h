@@ -35,7 +35,8 @@
 # define SUCCESS 1
 # define TRUE 1
 # define FALSE 0
-# define BUFFER_NAME 128
+# define BUFFER_NAME 32
+# define MS_SPACE " \t\n\v\f\r"
 
 typedef struct s_pipe
 {
@@ -43,7 +44,7 @@ typedef struct s_pipe
 	int	pipefd[2];
 	int	tmp_in;
 	int	tmp_out;
-}				t_pipe;
+}	t_pipe;
 
 /* ************************************************************************** */
 /*   debug.c                                                    5 functions   */
@@ -92,10 +93,6 @@ int		ft_pwd(void);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
-/*   minishell_split_utils.c                                    0 functions   */
-/* ************************************************************************** */
-
-/* ************************************************************************** */
 /*   minishell_split_bis.c                                      4 functions   */
 /* ************************************************************************** */
 int		ft_is_space(char c, char *space);
@@ -109,15 +106,26 @@ int		minishell_len_quote(char const *str, int i, int *j);
 char	**minishell_split(char const *s, char *space);
 
 /* ************************************************************************** */
-/*   minishell.c                                                3 functions   */
+/*   ft_quoting.c                                               5 functions   */
 /* ************************************************************************** */
-int		minishell(char *line, char ***envp);
-int		ft_builtins(char **line, char ***envp);
-char	**create_token_exec(char *cmd);
+int		ft_quoting_quote(char const *str, int *i, char c);
+int		ft_quoting_quoting(char const *str, int *i);
+int		ft_d_quote(char const *str, char *res, int *i, int size);
+int		ft_s_quote(char const *str, char *res, int *i, int size);
+void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 
 /* ************************************************************************** */
-/*   parsing.c                                                  4 functions   */
+/*   minishell.c                                                4 functions   */
 /* ************************************************************************** */
+int		ft_builtins(char **line, char ***envp);
+char	**create_token_exec(char *cmd);
+int		ft_link_fd(int pipefd0, int pipefd1, int std);
+char	*ft_quoting(char const *str);
+
+/* ************************************************************************** */
+/*   parsing.c                                                  5 functions   */
+/* ************************************************************************** */
+int		ft_quote(char *line);
 char	**lexer(char *line);
 int		size_args(t_list *l_token);
 char	**ft_is_arg(t_list *l_token);
@@ -129,13 +137,11 @@ int		is_operator(t_list *l_token);
 int		is_cmd(t_list *l_token);
 
 /* ************************************************************************** */
-/*   execut.c                                                   5 functions   */
+/*   execut.c                                                   3 functions   */
 /* ************************************************************************** */
+void	ft_free_pa(char **paths, char *path_cmd, char **token);
 char	**get_paths(void);
-void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
-int		ft_exec(char **envp, char *cmd, char **args_exec);
-int		ft_child(char **args_exe, char ***envp, t_list *l_token, t_pipe pipex);
-int		ft_old_child(char **paths, char *path_cmd, char **token, char **envp);
+int		ft_child(char **new_token, char ***envp, t_list *l_token, t_pipe pipex);
 
 /* ************************************************************************** */
 /*  list_token.c                                                3 functions   */
@@ -151,7 +157,7 @@ int		ft_eperluet(t_list *l_tok, char **arg_exec, char ***envp, t_pipe pipex);
 int		ft_ou(t_list *tmp_token, char **arg_exec, char ***envp, t_pipe pipex);
 
 /* ************************************************************************** */
-/*   operator.c                                                 5 functions   */
+/*   operator.c                                                 4 functions   */
 /* ************************************************************************** */
 int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe pipex);
 int		open_out(t_list *l_token, char **args_exec);
@@ -159,7 +165,7 @@ int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe pipex);
 char	*open_in(t_list *l_token, char **args_exec);
 
 /* ************************************************************************** */
-/*   heredoc.c                                                 5 functions   */
+/*   heredoc.c                                                  5 functions   */
 /* ************************************************************************** */
 char	*creat_h_file(void);
 char	*check_here_file(void);
@@ -168,19 +174,19 @@ void	free_heredoc(char *file1);
 char	*init_hd(int *pt_fd);
 
 /* ************************************************************************** */
-/*   operator.c                                           2 functions   */
+/*   monitor.c                                                  1 functions   */
 /* ************************************************************************** */
 int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe pipex);
 void	reorganize(t_list **l_token);
 
 /* ************************************************************************** */
-/*   minishell_pipe.c                                           2 functions   */
+/*   minishell_pipe.c                                           5 functions   */
 /* ************************************************************************** */
-int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe pipe);
-int		ft_link_fd(int pipefd0, int pipefd1, int std);
 int		ft_close_tmp(t_pipe pipex);
-int		ft_pipex_exec(char **envp, char *cmd, char **args_exec, t_pipe fds);
 char	*get_paths_cmd(char *paths_i, char *cmd);
+int		ft_pipex_exec_return(char **paths, char *cmd);
+int		ft_pipex_exec(char ***envp, char *cmd, char **token_exec, t_pipe fds);
+int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex);
 
 /* ************************************************************************** */
 /*   initialisation.c                                           5 functions   */
