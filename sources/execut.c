@@ -37,6 +37,8 @@ char	**get_paths(void)
 int	ft_child(char **new_token_exec, char ***envp, t_list *l_token, t_pipe pipex)
 {
 	pid_t	child;
+	int		wstatus;
+	int		ret;
 
 	child = fork();
 	if (child < 0)
@@ -57,10 +59,10 @@ int	ft_child(char **new_token_exec, char ***envp, t_list *l_token, t_pipe pipex)
 		pipex.ctrl = 0;
 	}
 	wait(&wstatus);
-+   ret = WEXITSTATUS(wstatus);
-+   printf ("wexistatus %d\n", ret);
-+   pipex.pipe_return = ret;
-+   return (ret);
+   ret = WEXITSTATUS(wstatus);
+   printf ("wexistatus %d\n", ret);
+   //pipex.pipe_return = ret;
+   return (ret);
 
 	//return (SUCCESS);
 }

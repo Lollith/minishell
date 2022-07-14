@@ -62,8 +62,8 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe pipex)
 		else
 		{
 			pipex.ctrl = -1;
-			if (ft_child(args_exec, envp, l_token, pipex) == 0)
-				return (FAILURE);
+			if (ft_child(args_exec, envp, l_token, pipex) > 0)
+				exit (FAILURE);
 		}
 	}
 	return (ft_free_args_exec(args_exec, FAILURE));

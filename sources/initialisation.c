@@ -81,8 +81,10 @@ int	fd_monitor(t_list *tmp_token, char ***envp, t_pipe pipex)
 	pipex.tmp_out = dup(STDOUT_FILENO);
 	monitoring_line(tmp_token, envp, pipex);
 	pid = wait(&wstatus);
+	//printf("pid %d\n", pid);
 	while (pid > 0)
 		pid = wait(&wstatus);
+	//printf("pid %d\n", pid);
 	dup2(pipex.tmp_in, STDIN_FILENO);
 	close(pipex.tmp_in);
 	dup2(pipex.tmp_out, STDOUT_FILENO);
