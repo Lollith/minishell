@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/11 14:12:54 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/13 15:03:51 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,18 @@ char	**lexer(char *line)
 	return (token);
 }
 
-// cherche les flag et les files dune commande,
-// les met ds args_ecxec pour la commande exec,
-// et les sort de la liste chainee
+// cherch si g un operateur ou une commande
+// sinon met le toekn suivant ds args_ecxec pour la commande a exec,
+// et les sort de la liste chainee ( file, - flag et autre mots pour grep)
 int	size_args(t_list *l_token)
 {
 	int			size;
 	t_list		*tmp_token;
-	struct stat	info;
 
 	size = 2;
 	tmp_token = l_token->next;
-	while ((tmp_token && (ft_strchr(tmp_token->content, '-') || \
-	(stat(tmp_token->content, &info) == 0))))
+	while (tmp_token && (!is_operator(tmp_token)) && \
+	(!is_cmd(tmp_token)))
 	{
 		size++;
 		tmp_token = tmp_token->next;
@@ -96,26 +95,4 @@ char	**ft_is_arg(t_list *l_token)
 	}
 	args_exec[size - 1] = NULL;
 	return (args_exec);
-}
-
-// si cmd < file1 => <file cmd => passe ds ft_isarg
-// => tab de [0]"<" [1]"file" => < cat
-// logiuement la cmd va se retourvee systematiquenet a ka fin
-// cat < file1 < file2 => < file1 < file2 < cat
-void	reorganize(t_list **l_token)
-{
-	t_list	*tmp;
-
-	if ((*l_token)->next && \
-	((ft_strncmp((*l_token)->next->content, "<", 1) == 0) || \
-	(ft_strncmp((*l_token)->next->content, ">", 1) == 0)))
-	{
-		tmp = (*l_token)->next;
-		if ((*l_token)->next->next->next)
-			(*l_token)->next = (*l_token)->next->next->next;
-		else
-			(*l_token)->next = NULL;
-		(tmp->next->next) = (*l_token);
-		(*l_token) = tmp;
-	}
 }
