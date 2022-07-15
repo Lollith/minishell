@@ -141,7 +141,7 @@ int		is_cmd(t_list *l_token);
 /* ************************************************************************** */
 void	ft_free_pa(char **paths, char *path_cmd, char **token);
 char	**get_paths(void);
-int		ft_child(char **new_token, char ***envp, t_list *l_token, t_pipe pipex);
+int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe pipex);
 
 /* ************************************************************************** */
 /*  list_token.c                                                3 functions   */

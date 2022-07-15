@@ -64,10 +64,10 @@ int	ft_main(int ac, char **av, char ***envp)
 
 int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 {
-	pipex->ctrl = 0;
-	pipex->pipefd[0] = 0;
 	if (ft_main(ac, av, envp))
 		return (FAILURE);
+	pipex->ctrl = 0;
+	pipex->pipefd[0] = 0;
 	return (SUCCESS);
 }
 
