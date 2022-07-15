@@ -34,39 +34,34 @@ char	**get_paths(void)
 	return (res);
 }
 
-int	ft_child(char **new_token_exec, char ***envp, t_list *l_token, t_pipe pipex)
+int	ft_child(char **new_token_exec, char ***envp, t_list *l_token, t_pipe *pipex)
 {
 	pid_t	child;
-	int		wstatus;
-	int		ret;
 
 	child = fork();
+	pipex->pid = child;
 	if (child < 0)
-		return (FAILURE);
+		return (1);
 	if (!child)
 	{
-		if ((pipex.ctrl == 0 || pipex.ctrl == 1) && pipex.pipefd[0])
-			ft_link_fd(pipex.pipefd[0], pipex.pipefd[1], STDOUT_FILENO);
-		if (pipex.pipefd[0] && pipex.ctrl == -1)
-			ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
-		ft_pipex_exec(*envp, l_token->content, new_token_exec, pipex);
+		if ((pipex->ctrl == 0 || pipex->ctrl == 1) && pipex->pipefd[0])
+			ft_link_fd(pipex->pipefd[0], pipex->pipefd[1], STDOUT_FILENO);
+		if (pipex->pipefd[0] && pipex->ctrl == -1)
+			ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
+		if (ft_pipex_exec(*envp, l_token->content, new_token_exec, pipex) == 0)
+			exit (127);
+		return (1);
+		//exit(0);
 		//ft_split_free(new_token_exec);
 		//ft_lstclear2(&l_token);
-		exit (FAILURE);
 	}
-	if (pipex.pipefd[0] && pipex.ctrl == -1)
+	if (pipex->pipefd[0] && pipex->ctrl == -1)
 	{
-		close(pipex.pipefd[0]);
-		close(pipex.pipefd[1]);
-		pipex.ctrl = 0;
+		close(pipex->pipefd[0]);
+		close(pipex->pipefd[1]);
+		pipex->ctrl = 0;
 	}
-	wait(&wstatus);
-   ret = WEXITSTATUS(wstatus);
-   printf ("wexistatus %d\n", ret);
-   pipe_ret = ret;
-   return (ret);
-
-	//return (SUCCESS);
+	return (0);
 }
 
 // int	ft_old_child(char **paths, char *path_cmd, char **token, char **envp)

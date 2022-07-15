@@ -67,28 +67,41 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 {
 	pipex->ctrl = 0;
 	pipex->pipefd[0] = 0;
+	pipex->pid = 0;
 	pipe_ret = -1;
 	if (ft_main(ac, av, envp))
 		return (FAILURE);
 	return (SUCCESS);
 }
+//>128 when a command was ended by a signal. The value is 128 plus the 
+//signal number.
 
-int	fd_monitor(t_list *tmp_token, char ***envp, t_pipe pipex)
+int	fd_monitor(t_list *tmp_token, char ***envp, t_pipe *pipex)
 {
 	int	pid;
 	int	wstatus;
+	int	ret;
 
-	pipex.tmp_in = dup(STDIN_FILENO);
-	pipex.tmp_out = dup(STDOUT_FILENO);
+	pipex->tmp_in = dup(STDIN_FILENO);
+	pipex->tmp_out = dup(STDOUT_FILENO);
 	monitoring_line(tmp_token, envp, pipex);
+
+	waitpid(pipex->pid, &wstatus, 0);
+	if (WIFEXITED(wstatus))
+		ret = WEXITSTATUS(wstatus);
+	else if (WIFSIGNALED(wstatus))
+		ret = 128 + WTERMSIG(wstatus);
+	//pipe_ret = ret;
+	printf ("wexistatus %d\n", ret);
+
+// 	printf ("piperet %d\n", pipe_ret);
 	pid = wait(&wstatus);
-	//printf("pid %d\n", pid);
 	while (pid > 0)
 		pid = wait(&wstatus);
-	//printf("pid %d\n", pid);
-	dup2(pipex.tmp_in, STDIN_FILENO);
-	close(pipex.tmp_in);
-	dup2(pipex.tmp_out, STDOUT_FILENO);
-	close(pipex.tmp_out);
+	
+	dup2(pipex->tmp_in, STDIN_FILENO);
+	close(pipex->tmp_in);
+	dup2(pipex->tmp_out, STDOUT_FILENO);
+	close(pipex->tmp_out);
 	return (SUCCESS);
 }

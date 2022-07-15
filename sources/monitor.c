@@ -33,7 +33,7 @@ void	reorganize(t_list **l_token)
 	}
 }
 
-void	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
+void	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
 		ft_eperluet(l_token, args_exec, envp, pipex);
@@ -47,27 +47,31 @@ void	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
 		ft_redir_in(l_token, args_exec, envp, pipex);
 }
 
-int	monitoring_line(t_list *l_token, char ***envp, t_pipe pipex)
+int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 {
 	char	**args_exec;
 
-		
 	reorganize(&l_token);
 	args_exec = ft_is_arg(l_token);
+
+	//printf("token %s\n", (char *)l_token->content);
+	//printf("argexe %s\n", args_exec[1]);
+
 	if (l_token->next)
 		check_op(l_token, args_exec, envp, pipex);
 	else
 	{
 		if (ft_strncmp(l_token->content, ">", 1) == 0)
 			ft_redir_out(l_token, args_exec, envp, pipex);
-		else if (ft_strncmp(l_token->content, "$?", 2) == 0)
+		else if (ft_strncmp(l_token->content, "$?", 2) == 0)// ici return
 			ft_pipe_ret(l_token, envp, pipex);
 		else
 		{
-			pipex.ctrl = -1;
-			if (ft_child(args_exec, envp, l_token, pipex) > 0)
+			pipex->ctrl = -1;
+			if (ft_child(args_exec, envp, l_token, pipex) == 1)
 				exit (FAILURE);
 		}
 	}
+	pipex->ctrl = 0;
 	return (ft_free_args_exec(args_exec, FAILURE));
 }

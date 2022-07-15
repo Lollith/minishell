@@ -40,10 +40,11 @@
 int	pipe_ret;
 typedef struct s_pipe
 {
-	int	ctrl;
-	int	pipefd[2];
-	int	tmp_in;
-	int	tmp_out;
+	int		ctrl;
+	int		pipefd[2];
+	int		tmp_in;
+	int		tmp_out;
+	pid_t	pid;
 }				t_pipe;
 
 /* ************************************************************************** */
@@ -135,7 +136,7 @@ int		is_cmd(t_list *l_token);
 char	**get_paths(void);
 void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
 int		ft_exec(char **envp, char *cmd, char **args_exec);
-int		ft_child(char **args_exe, char ***envp, t_list *l_token, t_pipe pipex);
+int		ft_child(char **args_exe, char ***envp, t_list *l_token, t_pipe *pipex);
 int		ft_old_child(char **paths, char *path_cmd, char **token, char **envp);
 
 /* ************************************************************************** */
@@ -148,15 +149,15 @@ void	ft_l_delete(t_list *delete);
 /* ************************************************************************** */
 /*   operator_bonus.c                                           2 functions   */
 /* ************************************************************************** */
-int		ft_eperluet(t_list *l_tok, char **arg_exec, char ***envp, t_pipe pipex);
-int		ft_ou(t_list *tmp_token, char **arg_exec, char ***envp, t_pipe pipex);
+int		ft_eperluet(t_list *l_tok, char **arg_exec, char ***envp, t_pipe *pipex);
+int		ft_ou(t_list *tmp_token, char **arg_exec, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   operator.c                                                 5 functions   */
 /* ************************************************************************** */
-int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe pipex);
+int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pipex);
 int		open_out(t_list *l_token, char **args_exec);
-int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe pipex);
+int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pipex);
 char	*open_in(t_list *l_token, char **args_exec);
 
 /* ************************************************************************** */
@@ -171,24 +172,24 @@ char	*init_hd(int *pt_fd);
 /* ************************************************************************** */
 /*   operator.c                                           2 functions   */
 /* ************************************************************************** */
-int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe pipex);
+int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe *pipex);
 void	reorganize(t_list **l_token);
-void	ft_pipe_ret(t_list *l_token, char ***envp, t_pipe pipex);
+void	ft_pipe_ret(t_list *l_token, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   minishell_pipe.c                                           2 functions   */
 /* ************************************************************************** */
-int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe pipe);
+int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipe);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
-int		ft_close_tmp(t_pipe pipex);
-int		ft_pipex_exec(char **envp, char *cmd, char **args_exec, t_pipe fds);
+int		ft_close_tmp(t_pipe *pipex);
+int		ft_pipex_exec(char **envp, char *cmd, char **args_exec, t_pipe *fds);
 char	*get_paths_cmd(char *paths_i, char *cmd);
 
 /* ************************************************************************** */
 /*   initialisation.c                                           5 functions   */
 /* ************************************************************************** */
 int		init(int ac, char **av, char ***envp, t_pipe *pipex);
-int		fd_monitor(t_list *tmp_token, char ***envp, t_pipe pipex);
+int		fd_monitor(t_list *tmp_token, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   main.c                                                     2 functions   */

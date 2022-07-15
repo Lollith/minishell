@@ -50,7 +50,7 @@ char	**lexer(char *line)
 	return (token);
 }
 
-// cherch si g un operateur ou une commande
+// cherche si g un operateur 
 //sinon met le toekn suivant ds args_ecxec pour la commande a exec,
 // et les sort de la liste chainee ( file, - flag et autre mots pour grep)
 int	size_args(t_list *l_token)
@@ -60,8 +60,7 @@ int	size_args(t_list *l_token)
 
 	size = 2;
 	tmp_token = l_token;
-	while (tmp_token->next && (!is_operator(tmp_token->next))
-		&& (!is_cmd(tmp_token->next)))
+	while (tmp_token->next && (!is_operator(tmp_token->next)))
 	{
 		size++;
 		tmp_token = tmp_token->next;
