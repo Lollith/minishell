@@ -21,6 +21,11 @@ int	ft_env_size(char const *str)
 	var = 0;
 	while (ft_isalnum(str[var]))
 		var++;
+	if (var >= BUFFER_NAME)
+	{
+		ft_msg("Your environment name is too long", 2);
+		return (0);
+	}
 	ft_memcpy(name, str, var);
 	name[var] = '\0';
 	value = getenv(name);
@@ -29,27 +34,87 @@ int	ft_env_size(char const *str)
 	return (0);
 }
 
-char	*ft_realloc_token(char *token)
+int	ft_env_input_var(char const *str, char *res, int j)
+{
+	int		i;
+	int		var;
+	char	name[BUFFER_NAME];
+	char	*value;
+
+	var = 0;
+	while (ft_isalnum(str[var]))
+		var++;
+	if (var >= BUFFER_NAME)
+		return (j);
+	ft_memcpy(name, str, var);
+	name[var] = '\0';
+	value = getenv(name);
+	if (!value)
+		return (j);
+	i = -1;
+	while (value[++i])
+	{
+		res[j] = value[i];
+		j++;
+	}
+	return (j - 1);
+}
+
+void	ft_env_input(char *token, char *res)
+{
+	int	i;
+	int	j;
+
+	j = 0;
+	i = -1;
+	while (token[++i])
+	{
+		if (token[i] != '$')
+			res[j] = token[i];
+		else if (token[i + 1] == '?')
+			res[j] = token[i];
+		else
+		{
+			i++;
+			j = ft_env_input_var(token + i, res, j);
+			while (ft_isalnum(token[i + 1]))
+				i++;
+		}
+		j++;
+	}
+	res[j] = '\0';
+}
+
+char	*ft_env_realloc_token(char *token)
 {
 	int		i;
 	int		size;
 	char	*res;
 
-	size = 0;
+	size = 1;
 	i = -1;
 	while (token[++i])
 	{
 		if (token[i] != '$')
 			size++;
+		else if (token[i + 1] == '?')
+			size++;
 		else
 		{
 			i++;
 			size += ft_env_size(token + i);
+			while (ft_isalnum(token[i + 1]))
+				i++;
 		}
 	}
+	res = malloc(sizeof(char) * size);
+	if (!res)
+		return (NULL);
+	ft_env_input(token, res);
+	return (res);
 }
 
-int	ft_env_var(char ***token, char **envp)
+int	ft_env_var(char ***token)
 {
 	int		i;
 	int		j;
@@ -62,7 +127,7 @@ int	ft_env_var(char ***token, char **envp)
 		{
 			if (token[0][j][i] == '$')
 			{
-				token[0][j] = ft_realloc_token(token[0][j]);
+				token[0][j] = ft_env_realloc_token(token[0][j]);
 				if (!token)
 					return (1);
 			}
