@@ -36,11 +36,12 @@ char	**get_paths(void)
 	return (res);
 }
 
-// change $VAR , $? and * here
-int	ft_child(char **new_token, char ***envp, t_list *l_token, t_pipe pipex)
+int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe pipex)
 {
 	pid_t	child;
 
+	if (ft_env_var(token))
+		return (FAILURE);
 	child = fork();
 	if (child < 0)
 		return (FAILURE);
@@ -50,9 +51,9 @@ int	ft_child(char **new_token, char ***envp, t_list *l_token, t_pipe pipex)
 			ft_link_fd(pipex.pipefd[0], pipex.pipefd[1], STDOUT_FILENO);
 		if (pipex.pipefd[0] && pipex.ctrl == -1)
 			ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
-		if (ft_builtins(new_token, envp))
+		if (ft_builtins(*token, envp))
 			exit(SUCCESS);
-		ft_pipex_exec(envp, l_token->content, new_token, pipex);
+		ft_pipex_exec(envp, l_token->content, *token, pipex);
 		return (FAILURE);
 	}
 	if (pipex.pipefd[0] && pipex.ctrl == -1)

@@ -88,6 +88,11 @@ int		ft_cd(char **line, char **envp);
 int		ft_pwd(void);
 
 /* ************************************************************************** */
+/*   ft_env.c                                                   5 functions   */
+/* ************************************************************************** */
+int		ft_env_var(char ***token);
+
+/* ************************************************************************** */
 /*   ft_is_str.c                                                1 functions   */
 /* ************************************************************************** */
 int		ft_is_str(char *line, char *str);
@@ -141,7 +146,7 @@ int		is_cmd(t_list *l_token);
 /* ************************************************************************** */
 void	ft_free_pa(char **paths, char *path_cmd, char **token);
 char	**get_paths(void);
-int		ft_child(char **new_token, char ***envp, t_list *l_token, t_pipe pipex);
+int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe pipex);
 
 /* ************************************************************************** */
 /*  list_token.c                                                3 functions   */
