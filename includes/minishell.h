@@ -37,9 +37,9 @@
 # define FALSE 0
 # define BUFFER_NAME 128
 
-int	pipe_ret;
 typedef struct s_pipe
 {
+	int		pipe_ret;
 	int		ctrl;
 	int		pipefd[2];
 	int		tmp_in;
@@ -149,13 +149,13 @@ void	ft_l_delete(t_list *delete);
 /* ************************************************************************** */
 /*   operator_bonus.c                                           2 functions   */
 /* ************************************************************************** */
-int		ft_eperluet(t_list *l_tok, char **arg_exec, char ***envp, t_pipe *pipex);
+int		ft_eperluet(t_list *l_tok, char **arg_exec, char ***envp, t_pipe *pip);
 int		ft_ou(t_list *tmp_token, char **arg_exec, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   operator.c                                                 5 functions   */
 /* ************************************************************************** */
-int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pipex);
+int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pip);
 int		open_out(t_list *l_token, char **args_exec);
 int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pipex);
 char	*open_in(t_list *l_token, char **args_exec);

@@ -53,17 +53,13 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 
 	reorganize(&l_token);
 	args_exec = ft_is_arg(l_token);
-
-	//printf("token %s\n", (char *)l_token->content);
-	//printf("argexe %s\n", args_exec[1]);
-
 	if (l_token->next)
 		check_op(l_token, args_exec, envp, pipex);
 	else
 	{
 		if (ft_strncmp(l_token->content, ">", 1) == 0)
 			ft_redir_out(l_token, args_exec, envp, pipex);
-		else if (ft_strncmp(l_token->content, "$?", 2) == 0)// ici return
+		else if (ft_strncmp(l_token->content, "$?", 2) == 0) // ici return
 			ft_pipe_ret(l_token, envp, pipex);
 		else
 		{

@@ -53,20 +53,20 @@ char	*check_here_file(void)
 char	*ft_heredoc(t_list *l_token, char **args_exec)
 {
 	char	*line;
-	int		size_EOF;
+	int		size_eof;
 	char	*file_h;
 	int		fd_tmp_h;
 
 	(void) l_token;
 	file_h = init_hd(&fd_tmp_h);
-	size_EOF = ft_strlen(args_exec[1]);
+	size_eof = ft_strlen(args_exec[1]);
 	line = " ";
 	while (line)
 	{
 		write(1, "heredoc> ", 9);
 		line = get_next_line(STDIN_FILENO);
-		if ((ft_strlen(line) - size_EOF == 1)
-			&& (ft_strncmp(line, args_exec[1], size_EOF) == 0))
+		if ((ft_strlen(line) - size_eof == 1)
+			&& (ft_strncmp(line, args_exec[1], size_eof) == 0))
 		{
 			if (close(fd_tmp_h) < 0)
 				return (NULL);

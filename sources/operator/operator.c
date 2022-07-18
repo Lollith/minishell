@@ -109,13 +109,8 @@ char	*open_in(t_list *l_token, char **args_exec)
 
 void	ft_pipe_ret(t_list *l_token, char ***envp, t_pipe *pipex)
 {
-//	char *args_exec_ret[2];
 	(void) envp;
 	(void) pipex;
-
-	//args_exec_ret[0] = ft_itoa(pipe_ret);
-	//args_exec_ret [1] = NULL;
-	l_token->content = (char*) ft_itoa(pipe_ret);
-	printf("%s\n", (char*)l_token->content);
-	//ft_child(args_exec_ret, envp, l_token, pipex);
+	l_token->content = (char *) ft_itoa(pipex->pipe_ret);
+	printf ("itoa %s\n", (char *)l_token->content);
 }

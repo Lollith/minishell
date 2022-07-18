@@ -14,7 +14,11 @@
 
 int	ft_eperluet(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
-	if (ft_child(args_exec, envp, l_token, pipex) == 0)
+	int	status;
+
+	ft_child(args_exec, envp, l_token, pipex);
+	wait(&status);
+	if (WEXITSTATUS(status) != 0)
 		return (FAILURE);
 	else
 		monitoring_line(l_token->next->next, envp, pipex);
@@ -23,9 +27,13 @@ int	ft_eperluet(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 
 int	ft_ou(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
-	if (ft_child(args_exec, envp, l_token, pipex) == 0)
-		return (FAILURE);
-	else
+	int	status;
+
+	ft_child(args_exec, envp, l_token, pipex);
+	wait(&status);
+	if (WEXITSTATUS(status) != 0)
 		monitoring_line(l_token->next->next, envp, pipex);
+	else
+		return (FAILURE);
 	return (FAILURE);
 }

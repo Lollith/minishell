@@ -68,7 +68,7 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	pipex->ctrl = 0;
 	pipex->pipefd[0] = 0;
 	pipex->pid = 0;
-	pipe_ret = -1;
+	pipex->pipe_ret = -1;
 	if (ft_main(ac, av, envp))
 		return (FAILURE);
 	return (SUCCESS);
@@ -85,20 +85,16 @@ int	fd_monitor(t_list *tmp_token, char ***envp, t_pipe *pipex)
 	pipex->tmp_in = dup(STDIN_FILENO);
 	pipex->tmp_out = dup(STDOUT_FILENO);
 	monitoring_line(tmp_token, envp, pipex);
-
 	waitpid(pipex->pid, &wstatus, 0);
 	if (WIFEXITED(wstatus))
 		ret = WEXITSTATUS(wstatus);
 	else if (WIFSIGNALED(wstatus))
 		ret = 128 + WTERMSIG(wstatus);
-	//pipe_ret = ret;
+	pipex->pipe_ret = ret;
 	printf ("wexistatus %d\n", ret);
-
-// 	printf ("piperet %d\n", pipe_ret);
 	pid = wait(&wstatus);
 	while (pid > 0)
 		pid = wait(&wstatus);
-	
 	dup2(pipex->tmp_in, STDIN_FILENO);
 	close(pipex->tmp_in);
 	dup2(pipex->tmp_out, STDOUT_FILENO);
