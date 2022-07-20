@@ -173,7 +173,7 @@ char	*init_hd(int *pt_fd);
 /*   operator.c                                           2 functions   */
 /* ************************************************************************** */
 int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe *pipex);
-void	reorganize(t_list **l_token);
+void	reorganize(t_list **l_token, char **args_exec);
 void	ft_pipe_ret(t_list *l_token, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */

@@ -62,7 +62,7 @@ int	size_args(t_list *l_token)
 	size = 2;
 	tmp_token = l_token;
 	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0
-			|| (ft_strncmp(l_token->content, ">", 2) == 0)))
+			|| (ft_strncmp(l_token->content, ">", 1) == 0)))
 		size ++;
 	else
 	{	
