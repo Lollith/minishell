@@ -12,16 +12,6 @@
 
 #include "minishell.h"
 
-void	ft_free_pa(char **paths, char *path_cmd, char **token)
-{
-	if (paths)
-		ft_split_free(paths);
-	if (path_cmd)
-		free(path_cmd);
-	if (token)
-		ft_split_free(token);
-}
-
 char	**get_paths(void)
 {
 	char	*path;
@@ -34,6 +24,16 @@ char	**get_paths(void)
 	if (!res)
 		return (NULL);
 	return (res);
+}
+
+void	ft_child_close_pipe(t_pipe pipex)
+{
+	if (pipex.pipefd[0] && pipex.ctrl == -1)
+	{
+		close(pipex.pipefd[0]);
+		close(pipex.pipefd[1]);
+		pipex.ctrl = 0;
+	}
 }
 
 int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe pipex)
@@ -51,16 +51,16 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe pipex)
 			ft_link_fd(pipex.pipefd[0], pipex.pipefd[1], STDOUT_FILENO);
 		if (pipex.pipefd[0] && pipex.ctrl == -1)
 			ft_link_fd(pipex.pipefd[1], pipex.pipefd[0], STDIN_FILENO);
-		if (ft_builtins(*token, envp))
+		if (ft_builtins_fork(*token))
 			exit(SUCCESS);
 		ft_pipex_exec(envp, l_token->content, *token, pipex);
 		return (FAILURE);
 	}
-	if (pipex.pipefd[0] && pipex.ctrl == -1)
+	else
 	{
-		close(pipex.pipefd[0]);
-		close(pipex.pipefd[1]);
-		pipex.ctrl = 0;
+		if (ft_builtins(*token, envp) == 2)
+			exit(EXIT_FAILURE);
 	}
+	ft_child_close_pipe(pipex);
 	return (SUCCESS);
 }

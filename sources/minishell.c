@@ -14,6 +14,27 @@
 
 // 0 in not a builtins
 // 1 is a builtins
+int	ft_builtins_fork(char **line)
+{
+	if (ft_is_str(line[0], "echo"))
+		return (1);
+	if (ft_is_str(line[0], "cd"))
+		return (1);
+	if (ft_is_str(line[0], "pwd"))
+		return (1);
+	if (ft_is_str(line[0], "export"))
+		return (1);
+	if (ft_is_str(line[0], "unset"))
+		return (1);
+	if (ft_is_str(line[0], "env"))
+		return (1);
+	if (ft_is_str(line[0], "exit"))
+		return (1);
+	return (0);
+}
+
+// 0 in not a builtins
+// 1 is a builtins
 // 2 exit
 int	ft_builtins(char **line, char ***envp)
 {
