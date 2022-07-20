@@ -19,15 +19,6 @@ int	ft_close_tmp(t_pipe *pipex)
 	return (SUCCESS);
 }
 
-int	ft_link_fd(int pipefd0, int pipefd1, int std)
-{
-	if (pipefd0)
-		close(pipefd0);
-	dup2(pipefd1, std);
-	close(pipefd1);
-	return (SUCCESS);
-}
-
 char	*get_paths_cmd(char *paths_i, char *cmd)
 {
 	char	*path_cmd;
@@ -79,7 +70,7 @@ int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
 	if (pipe(pipex->pipefd) < 0)
 		return (msg_perror("pipe"));
-	ft_child(args_exec, envp, l_token, pipex);
+	ft_child(&args_exec, envp, l_token, pipex);
 	if (pipex->ctrl == 0)
 		pipex->ctrl = 1;
 	else

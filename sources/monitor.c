@@ -22,7 +22,7 @@ void	reorganize(t_list **l_token, char **args_exec)
 {
 	t_list	*tmp;
 	int		i;
-	t_list *new;
+	t_list	*new;
 
 	i = 1;
 	if ((*l_token)->next
@@ -35,7 +35,7 @@ void	reorganize(t_list **l_token, char **args_exec)
 		{
 			new = ft_lstnew (args_exec[i]);
 			ft_lstlast(*l_token)->next = new;
-			i++;	
+			i++;
 		}
 		ft_lstlast(*l_token)->next = NULL;
 		if (tmp->next->next)
@@ -81,7 +81,7 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 		else
 		{
 			pipex->ctrl = -1;
-			if (ft_child(args_exec, envp, l_token, pipex) == 1)
+			if (ft_child(&args_exec, envp, l_token, pipex) == 1)
 				exit (FAILURE);
 		}
 	}

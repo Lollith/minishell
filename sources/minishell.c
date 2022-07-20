@@ -67,17 +67,6 @@ char	**create_token_exec(char *cmd)
 	return (new_token_exec);
 }
 
-int	ft_link_fd(int pipefd0, int pipefd1, int std)
-{
-	if (close(pipefd0) < 0)
-		return (msg_perror("pipefd0 "));
-	if (dup2(pipefd1, std) == -1)
-		return (msg_perror("dup2 "));
-	if (close(pipefd1) < 0)
-		return (msg_perror("pipefd1 "));
-	return (SUCCESS);
-}
-
 char	*ft_quoting(char const *str)
 {
 	int		i;

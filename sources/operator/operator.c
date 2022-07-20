@@ -28,7 +28,6 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	fd = open_out(l_token, args_exec);
 	if (fd < 0)
 		return (FAILURE);
-
 	if (l_token->next)
 	{
 		if (dup2(fd, STDOUT_FILENO) == -1)

@@ -65,8 +65,8 @@ int	ft_main(int ac, char **av, char ***envp)
 int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 {
 	if (ft_main(ac, av, envp))
-		return (FAILURE);	
-  pipex->pid = 0;
+		return (FAILURE);
+	pipex->pid = 0;
 	pipex->pipe_ret = -1;
 	pipex->ctrl = 0;
 	pipex->pipefd[0] = 0;
@@ -75,7 +75,7 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 //>128 when a command was ended by a signal. The value is 128 plus the 
 //signal number.
 
-int	fd_monitor(t_list *tmp_token, char ***envp, t_pipe *pipex)
+int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 {
 	int	pid;
 	int	wstatus;

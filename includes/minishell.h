@@ -127,7 +127,6 @@ void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 int		ft_builtins_fork(char **line);
 int		ft_builtins(char **line, char ***envp);
 char	**create_token_exec(char *cmd);
-int		ft_link_fd(int pipefd0, int pipefd1, int std);
 char	*ft_quoting(char const *str);
 
 /* ************************************************************************** */
@@ -148,11 +147,10 @@ int		is_cmd(t_list *l_token);
 /*   execut.c                                                   3 functions   */
 /* ************************************************************************** */
 char	**get_paths(void);
-void	ft_child_close_pipe(t_pipe pipex);
+void	ft_child_close_pipe(t_pipe *pipex);
 int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex);
-void	ft_free_pa(char **paths, char *path_cmd, char **fake_token);
-int		ft_exec(char **envp, char *cmd, char **args_exec);
-//int		ft_old_child(char **paths, char *path_cmd, char **token, char **envp);
+void	fd_monitor(t_pipe *pipex);
+int		ft_link_fd(int pipefd0, int pipefd1, int std);
 
 /* ************************************************************************** */
 /*  list_token.c                                                3 functions   */
@@ -196,16 +194,15 @@ void	ft_pipe_ret(t_list *l_token, char ***envp, t_pipe *pipex);
 /* ************************************************************************** */
 int		ft_close_tmp(t_pipe *pipex);
 int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipe);
-int		ft_link_fd(int pipefd0, int pipefd1, int std);
 int		ft_pipex_exec(char ***envp, char *cmd, char **args_exec, t_pipe *fds);
 char	*get_paths_cmd(char *paths_i, char *cmd);
-//int		ft_pipex_exec_return(char **paths, char *cmd);
+int		ft_pipex_exec_return(char **paths, char *cmd);
 
 /* ************************************************************************** */
 /*   initialisation.c                                           5 functions   */
 /* ************************************************************************** */
 int		init(int ac, char **av, char ***envp, t_pipe *pipex);
-int		fd_monitor(t_list *tmp_token, char ***envp, t_pipe *pipex);
+int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   main.c                                                     2 functions   */

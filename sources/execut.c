@@ -26,7 +26,7 @@ char	**get_paths(void)
 	return (res);
 }
 
-void	ft_child_close_pipe(t_pipe pipex)
+void	ft_child_close_pipe(t_pipe *pipex)
 {
 	if (pipex->pipefd[0] && pipex->ctrl == -1)
 	{
@@ -48,22 +48,35 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 		return (1);
 	if (!child)
 	{
-		if ((pipex->ctrl == 0 || pipex->ctrl == 1) && pipex->pipefd[0])
-			ft_link_fd(pipex->pipefd[0], pipex->pipefd[1], STDOUT_FILENO);
-		if (pipex->pipefd[0] && pipex->ctrl == -1)
-			ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
-      if (ft_builtins_fork(*token))
-			  exit(SUCCESS);
+		fd_monitor(pipex);
+		if (ft_builtins_fork(*token))
+			exit(SUCCESS);
 		if (ft_pipex_exec(envp, l_token->content, *token, pipex) == 0)
 			exit (127);
 		return (1);
 	}
-  else
+	else
 	{
 		if (ft_builtins(*token, envp) == 2)
 			exit(EXIT_FAILURE);
 	}
-  ft_child_close_pipe(pipex);
-	
+	ft_child_close_pipe(pipex);
 	return (0);
+}
+
+void	fd_monitor(t_pipe *pipex)
+{
+	if ((pipex->ctrl == 0 || pipex->ctrl == 1) && pipex->pipefd[0])
+		ft_link_fd(pipex->pipefd[0], pipex->pipefd[1], STDOUT_FILENO);
+	if (pipex->pipefd[0] && pipex->ctrl == -1)
+		ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
+}
+
+int	ft_link_fd(int pipefd0, int pipefd1, int std)
+{
+	if (pipefd0)
+		close(pipefd0);
+	dup2(pipefd1, std);
+	close(pipefd1);
+	return (SUCCESS);
 }
