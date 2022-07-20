@@ -14,7 +14,7 @@
 
 int	ft_exit(void)
 {
-	write(1, "exit", 4);
+	write(1, "exit\n", 5);
 	exit(0);
 	return (2);
 }

@@ -120,8 +120,9 @@ int		ft_s_quote(char const *str, char *res, int *i, int size);
 void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 
 /* ************************************************************************** */
-/*   minishell.c                                                4 functions   */
+/*   minishell.c                                                5 functions   */
 /* ************************************************************************** */
+int		ft_builtins_fork(char **line);
 int		ft_builtins(char **line, char ***envp);
 char	**create_token_exec(char *cmd);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
@@ -144,8 +145,8 @@ int		is_cmd(t_list *l_token);
 /* ************************************************************************** */
 /*   execut.c                                                   3 functions   */
 /* ************************************************************************** */
-void	ft_free_pa(char **paths, char *path_cmd, char **token);
 char	**get_paths(void);
+void	ft_child_close_pipe(t_pipe pipex);
 int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe pipex);
 
 /* ************************************************************************** */
