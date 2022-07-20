@@ -26,6 +26,9 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	int		fd;
 
 	fd = open_out(l_token, args_exec);
+	if (fd < 0)
+		return (FAILURE);
+
 	if (l_token->next)
 	{
 		if (dup2(fd, STDOUT_FILENO) == -1)
@@ -55,10 +58,7 @@ int	open_out(t_list *l_token, char **args_exec)
 	else
 		fd = open (file, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd < 0)
-	{
 		perror(file);
-		return (FAILURE);
-	}
 	return (fd);
 }
 
