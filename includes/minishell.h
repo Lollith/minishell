@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/07/13 15:05:44 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/13 16:43:00 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,11 +40,13 @@
 
 typedef struct s_pipe
 {
-	int	ctrl;
-	int	pipefd[2];
-	int	tmp_in;
-	int	tmp_out;
-}	t_pipe;
+	int		pipe_ret;
+	int		ctrl;
+	int		pipefd[2];
+	int		tmp_in;
+	int		tmp_out;
+	pid_t	pid;
+}				t_pipe;
 
 /* ************************************************************************** */
 /*   debug.c                                                    5 functions   */
@@ -125,7 +127,6 @@ void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 int		ft_builtins_fork(char **line);
 int		ft_builtins(char **line, char ***envp);
 char	**create_token_exec(char *cmd);
-int		ft_link_fd(int pipefd0, int pipefd1, int std);
 char	*ft_quoting(char const *str);
 
 /* ************************************************************************** */
@@ -146,8 +147,10 @@ int		is_cmd(t_list *l_token);
 /*   execut.c                                                   3 functions   */
 /* ************************************************************************** */
 char	**get_paths(void);
-void	ft_child_close_pipe(t_pipe pipex);
-int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe pipex);
+void	ft_child_close_pipe(t_pipe *pipex);
+int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex);
+void	fd_monitor(t_pipe *pipex);
+int		ft_link_fd(int pipefd0, int pipefd1, int std);
 
 /* ************************************************************************** */
 /*  list_token.c                                                3 functions   */
@@ -159,15 +162,15 @@ void	ft_l_delete(t_list *delete);
 /* ************************************************************************** */
 /*   operator_bonus.c                                           2 functions   */
 /* ************************************************************************** */
-int		ft_eperluet(t_list *l_tok, char **arg_exec, char ***envp, t_pipe pipex);
-int		ft_ou(t_list *tmp_token, char **arg_exec, char ***envp, t_pipe pipex);
+int		ft_eperluet(t_list *l_tok, char **arg_exec, char ***envp, t_pipe *pip);
+int		ft_ou(t_list *tmp_token, char **arg_exec, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   operator.c                                                 4 functions   */
 /* ************************************************************************** */
-int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe pipex);
+int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pip);
 int		open_out(t_list *l_token, char **args_exec);
-int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe pipex);
+int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pipex);
 char	*open_in(t_list *l_token, char **args_exec);
 
 /* ************************************************************************** */
@@ -175,30 +178,31 @@ char	*open_in(t_list *l_token, char **args_exec);
 /* ************************************************************************** */
 char	*creat_h_file(void);
 char	*check_here_file(void);
-char	*ft_heredoc(t_list *l_token);
+char	*ft_heredoc(t_list *l_token, char **args_exec);
 void	free_heredoc(char *file1);
 char	*init_hd(int *pt_fd);
 
 /* ************************************************************************** */
 /*   monitor.c                                                  1 functions   */
 /* ************************************************************************** */
-int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe pipex);
-void	reorganize(t_list **l_token);
+int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe *pipex);
+void	reorganize(t_list **l_token, char **args_exec);
+void	ft_pipe_ret(t_list *l_token, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   minishell_pipe.c                                           5 functions   */
 /* ************************************************************************** */
-int		ft_close_tmp(t_pipe pipex);
+int		ft_close_tmp(t_pipe *pipex);
+int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipe);
+int		ft_pipex_exec(char ***envp, char *cmd, char **args_exec, t_pipe *fds);
 char	*get_paths_cmd(char *paths_i, char *cmd);
 int		ft_pipex_exec_return(char **paths, char *cmd);
-int		ft_pipex_exec(char ***envp, char *cmd, char **token_exec, t_pipe fds);
-int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex);
 
 /* ************************************************************************** */
 /*   initialisation.c                                           5 functions   */
 /* ************************************************************************** */
 int		init(int ac, char **av, char ***envp, t_pipe *pipex);
-int		fd_monitor(t_list *tmp_token, char ***envp, t_pipe pipex);
+int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   main.c                                                     2 functions   */
