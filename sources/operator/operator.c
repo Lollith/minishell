@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/13 15:05:19 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/13 17:07:34 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,19 @@
 // > file ls  = ls > file
 // ls > file1 > file2: creer les 2 files , ecrase f1 et f2 + \n fd file2
 // echo test > file test1  = exho test test1 > file
+
 // bad cmd > file  : crer file ms erreur cmd
 // si file existe recup arg[1] sinon recup sur la liste chainee
 // et le suprime de la liste
-int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
+
+int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	int		fd;
 
 	fd = open_out(l_token, args_exec);
+	if (fd < 0)
+		return (FAILURE);
+
 	if (l_token->next)
 	{
 		if (dup2(fd, STDOUT_FILENO) == -1)
@@ -53,18 +58,17 @@ int	open_out(t_list *l_token, char **args_exec)
 	else
 		fd = open (file, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd < 0)
-	{
 		perror(file);
-		return (FAILURE);
-	}
 	return (fd);
 }
 
 // bash : cmd1 < file1 < file2 => result file2, si 1 existe pas
-// => erreur file1 c tout
-// => < (-file1) cmd < (-file2)
-// => < (-file1) < (-file2) cmd1
-int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe pipex)
+//=> erreur file1 c tout
+//=> < (-file1) cmd < (-file2)
+//=> < (-file1) < (-file2) cmd1
+//cat << EOF => ]<<] [EOF]  + cat
+
+int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	int		fd;
 	char	*file;
@@ -92,10 +96,7 @@ char	*open_in(t_list *l_token, char **args_exec)
 	char	*file;
 
 	if (ft_strncmp(l_token->content, "<<", 2) == 0)
-	{
-		file = ft_heredoc(l_token);
-		ft_l_delete(l_token);
-	}
+		file = ft_heredoc(l_token, args_exec);
 	else
 		file = args_exec[1];
 	if (!file)
@@ -104,4 +105,12 @@ char	*open_in(t_list *l_token, char **args_exec)
 		ft_l_delete(l_token);
 	}
 	return (file);
+}
+
+void	ft_pipe_ret(t_list *l_token, char ***envp, t_pipe *pipex)
+{
+	(void) envp;
+	(void) pipex;
+	l_token->content = (char *) ft_itoa(pipex->pipe_ret);
+	printf ("itoa %s\n", (char *)l_token->content);
 }

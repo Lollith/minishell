@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 13:29:11 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/11 16:18:46 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/13 16:59:32 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,22 +50,23 @@ char	*check_here_file(void)
 	return (NULL);
 }
 
-char	*ft_heredoc(t_list *l_token)
+char	*ft_heredoc(t_list *l_token, char **args_exec)
 {
 	char	*line;
-	int		size;
+	int		size_eof;
 	char	*file_h;
 	int		fd_tmp_h;
 
+	(void) l_token;
 	file_h = init_hd(&fd_tmp_h);
-	size = ft_strlen(l_token->next->content);
+	size_eof = ft_strlen(args_exec[1]);
 	line = " ";
 	while (line)
 	{
 		write(1, "heredoc> ", 9);
 		line = get_next_line(STDIN_FILENO);
-		if ((ft_strlen(line) - size == 1)
-			&& (ft_strncmp(line, l_token->next->content, size) == 0))
+		if ((ft_strlen(line) - size_eof == 1)
+			&& (ft_strncmp(line, args_exec[1], size_eof) == 0))
 		{
 			if (close(fd_tmp_h) < 0)
 				return (NULL);
