@@ -60,7 +60,7 @@ int	ft_env_input_var(char const *str, char *res, int j)
 	return (j - 1);
 }
 
-void	ft_env_input(char *token, char *res)
+void	ft_env_input(char *token, char *res, int pipe_ret)
 {
 	int	i;
 	int	j;
@@ -72,7 +72,7 @@ void	ft_env_input(char *token, char *res)
 		if (token[i] != '$')
 			res[j] = token[i];
 		else if (token[i + 1] == '?')
-			res[j] = token[i];
+			ft_env_pipe_input(res, pipe_ret, &i, &j);
 		else
 		{
 			i++;
@@ -83,9 +83,10 @@ void	ft_env_input(char *token, char *res)
 		j++;
 	}
 	res[j] = '\0';
+	free(token);
 }
 
-char	*ft_env_realloc_token(char *token)
+char	*ft_env_realloc_token(char *token, int pipe_ret)
 {
 	int		i;
 	int		size;
@@ -98,7 +99,7 @@ char	*ft_env_realloc_token(char *token)
 		if (token[i] != '$')
 			size++;
 		else if (token[i + 1] == '?')
-			size++;
+			size += ft_env_pipe_size(pipe_ret, &i);
 		else
 		{
 			i++;
@@ -110,11 +111,11 @@ char	*ft_env_realloc_token(char *token)
 	res = malloc(sizeof(char) * size);
 	if (!res)
 		return (NULL);
-	ft_env_input(token, res);
+	ft_env_input(token, res, pipe_ret);
 	return (res);
 }
 
-int	ft_env_var(char ***token)
+int	ft_env_var(char ***token, int pipe_ret)
 {
 	int		i;
 	int		j;
@@ -127,7 +128,7 @@ int	ft_env_var(char ***token)
 		{
 			if (token[0][j][i] == '$')
 			{
-				token[0][j] = ft_env_realloc_token(token[0][j]);
+				token[0][j] = ft_env_realloc_token(token[0][j], pipe_ret);
 				if (!token)
 					return (1);
 			}

@@ -15,9 +15,7 @@
 // si cmd < file1 => <file cmd => passe ds ft_isarg
 // => tab de [0]"<" [1]"file" => < cat
 // logiuement la cmd va se retourvee systematiquenet a ka fin
-
-//cat < file1 < file2 => < file1 < file2 < cat
-
+// cat < file1 < file2 => < file1 < file2 < cat
 void	reorganize(t_list **l_token, char **args_exec)
 {
 	t_list	*tmp;

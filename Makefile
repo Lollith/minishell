@@ -24,6 +24,7 @@ SRCS		=	$(addprefix sources/, \
 					operator/operator_bonus.c \
 					operator/operator.c \
 					execut.c \
+					ft_env_pipe.c \
 					ft_env.c \
 					initialisation.c \
 					list_token.c \

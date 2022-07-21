@@ -89,8 +89,9 @@ int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 		ret = WEXITSTATUS(wstatus);
 	else if (WIFSIGNALED(wstatus))
 		ret = 128 + WTERMSIG(wstatus);
+	else
+		ret = 0;
 	pipex->pipe_ret = ret;
-	//printf ("wexistatus %d\n", ret);
 	pid = wait(&wstatus);
 	while (pid > 0)
 		pid = wait(&wstatus);
