@@ -67,7 +67,7 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	if (ft_main(ac, av, envp))
 		return (FAILURE);
 	pipex->pid = 0;
-	pipex->pipe_ret = -1;
+	pipex->pipe_ret = 1;
 	pipex->ctrl = 0;
 	pipex->pipefd[0] = 0;
 	return (SUCCESS);
@@ -81,9 +81,11 @@ int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 	int	wstatus;
 	int	ret;
 
+	wstatus = 0;
 	pipex->tmp_in = dup(STDIN_FILENO);
 	pipex->tmp_out = dup(STDOUT_FILENO);
-	monitoring_line(tmp_token, envp, pipex);
+	if ( monitoring_line(tmp_token, envp, pipex) != 1)
+	{
 	waitpid(pipex->pid, &wstatus, 0);
 	if (WIFEXITED(wstatus))
 		ret = WEXITSTATUS(wstatus);
@@ -92,6 +94,7 @@ int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 	else
 		ret = 0;
 	pipex->pipe_ret = ret;
+	}
 	pid = wait(&wstatus);
 	while (pid > 0)
 		pid = wait(&wstatus);

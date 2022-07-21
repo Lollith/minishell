@@ -21,6 +21,8 @@ int	list_token(t_list **l_token, char *line)
 	add_history(line);
 	i = 0;
 	token = lexer(line);
+	if (!token)
+		return (FAILURE);
 	while (token[i])
 	{
 		l_new_token = ft_lstnew(token[i]);

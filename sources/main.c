@@ -35,9 +35,11 @@ int	main(int ac, char **av, char **envp)
 	{
 		if (line[0])
 		{
-			list_token(&l_token, line);
-			tmp_token = l_token;
-			parent(tmp_token, &envp, &pipex);
+			if (list_token(&l_token, line))
+			{	
+				tmp_token = l_token;
+				parent(tmp_token, &envp, &pipex);
+			}
 			ft_lstclear2(&l_token);
 		}
 		free(line);

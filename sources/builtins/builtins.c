@@ -28,9 +28,6 @@ int	ft_echo(char **line)
 		i++;
 	while (line[i])
 	{
-	//printf("ift echo arg00 %s\n", line[0]);
-	//printf("arg01 %s\n", line[1]);
-	//printf("arg01 %s\n", *token[1]);
 		if (!line[i][0])
 			write(1, " ", 1);
 		ft_putstr_fd(line[i], 1);

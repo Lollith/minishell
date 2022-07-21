@@ -45,7 +45,7 @@ void	reorganize(t_list **l_token, char **args_exec)
 	}
 }
 
-void	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
+int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	char	**file_redir;
 
@@ -58,9 +58,13 @@ void	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
 		ft_pipex(l_token, args_exec, envp, pipex);
 	else if (ft_strncmp(l_token->content, ">", 1) == 0)
-		ft_redir_out(l_token, file_redir, envp, pipex);
+		{
+		if(ft_redir_out(l_token, file_redir, envp, pipex) ==0)
+			return 0;
+		}
 	else if (ft_strncmp(l_token->content, "<", 1) == 0)
 		ft_redir_in(l_token, file_redir, envp, pipex);
+	return 1;
 }
 
 int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
@@ -69,7 +73,10 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 
 	args_exec = ft_is_arg(l_token);
 	if (l_token->next)
-		check_op(l_token, args_exec, envp, pipex);
+		{
+			if (check_op(l_token, args_exec, envp, pipex) == 0)
+				return 1;
+		}
 	else
 	{
 		if (ft_strncmp(l_token->content, ">", 1) == 0)
@@ -78,7 +85,7 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 		{
 			pipex->ctrl = -1;
 			if (ft_child(&args_exec, envp, l_token, pipex) == 1)
-				exit (FAILURE);
+				exit (1);
 		}
 	}
 	pipex->ctrl = 0;
