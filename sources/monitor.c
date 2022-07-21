@@ -74,8 +74,6 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 	{
 		if (ft_strncmp(l_token->content, ">", 1) == 0)
 			ft_redir_out(l_token, args_exec, envp, pipex);
-		else if (ft_strncmp(l_token->content, "$?", 2) == 0)
-			ft_pipe_ret(l_token, envp, pipex);
 		else
 		{
 			pipex->ctrl = -1;
