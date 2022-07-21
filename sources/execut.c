@@ -40,7 +40,7 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 {
 	pid_t	child;
 
-	if (ft_env_var(token))
+	if (ft_env_var(token, pipex->pipe_ret))
 		return (FAILURE);
 	child = fork();
 	pipex->pid = child;

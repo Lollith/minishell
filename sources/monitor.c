@@ -15,9 +15,7 @@
 // si cmd < file1 => <file cmd => passe ds ft_isarg
 // => tab de [0]"<" [1]"file" => < cat
 // logiuement la cmd va se retourvee systematiquenet a ka fin
-
-//cat < file1 < file2 => < file1 < file2 < cat
-
+// cat < file1 < file2 => < file1 < file2 < cat
 void	reorganize(t_list **l_token, char **args_exec)
 {
 	t_list	*tmp;
@@ -76,7 +74,7 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 	{
 		if (ft_strncmp(l_token->content, ">", 1) == 0)
 			ft_redir_out(l_token, args_exec, envp, pipex);
-		else if (ft_strncmp(l_token->content, "$?", 2) == 0) // ici return
+		else if (ft_strncmp(l_token->content, "$?", 2) == 0)
 			ft_pipe_ret(l_token, envp, pipex);
 		else
 		{
