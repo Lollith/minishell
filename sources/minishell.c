@@ -79,7 +79,10 @@ char	*ft_quoting(char const *str)
 	{
 		if (ft_quoting_quote(str, &i, '\"') || ft_quoting_quote(str, &i, '\''))
 			continue ;
-		size += ft_quoting_quoting(str, &i);
+		if (ft_quoting_quoting(str, &i) == 1)
+			return (NULL);
+		else
+			size += ft_quoting_quoting(str, &i);
 	}
 	res = malloc(sizeof(char) * (i + size));
 	if (!res)

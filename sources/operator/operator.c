@@ -33,7 +33,8 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		if (dup2(fd, STDOUT_FILENO) == -1)
 			return (msg_perror("dup2 "));
 		close(fd);
-		monitoring_line(l_token->next, envp, pipex);
+		if (monitoring_line(l_token->next, envp, pipex) == 0)
+			return (FAILURE);
 	}
 	close(fd);
 	return (SUCCESS);
@@ -104,12 +105,4 @@ char	*open_in(t_list *l_token, char **args_exec)
 		ft_l_delete(l_token);
 	}
 	return (file);
-}
-
-void	ft_pipe_ret(t_list *l_token, char ***envp, t_pipe *pipex)
-{
-	(void) envp;
-	(void) pipex;
-	l_token->content = (char *) ft_itoa(pipex->pipe_ret);
-	printf ("itoa %s\n", (char *)l_token->content);
 }

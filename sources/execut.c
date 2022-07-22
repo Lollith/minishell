@@ -49,17 +49,15 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 	if (!child)
 	{
 		fd_monitor(pipex);
+		ft_close_tmp(pipex);
 		if (ft_builtins_fork(*token))
-			exit(SUCCESS);
+			exit(0);
 		if (ft_pipex_exec(envp, l_token->content, *token, pipex) == 0)
 			exit (127);
-		return (1);
+		return (0);
 	}
-	else
-	{
-		if (ft_builtins(*token, envp) == 2)
-			exit(EXIT_FAILURE);
-	}
+	if (ft_builtins(*token, envp) == 2)
+		exit(EXIT_FAILURE);
 	ft_child_close_pipe(pipex);
 	return (0);
 }

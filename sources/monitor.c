@@ -16,7 +16,9 @@
 // => tab de [0]"<" [1]"file" => < cat
 // logiuement la cmd va se retourvee systematiquenet a ka fin
 // cat < file1 < file2 => < file1 < file2 < cat
-void	reorganize(t_list **l_token, char **args_exec)
+
+// regorga en tenant compte des flags et file des arg_exec
+int	reorganize(t_list **l_token, char **args_exec)
 {
 	t_list	*tmp;
 	int		i;
@@ -35,32 +37,49 @@ void	reorganize(t_list **l_token, char **args_exec)
 			ft_lstlast(*l_token)->next = new;
 			i++;
 		}
-		ft_lstlast(*l_token)->next = NULL;
-		if (tmp->next->next)
-			ft_lstadd_back(l_token, tmp->next->next);
-		else
-			ft_lstlast(*l_token)->next = NULL;
-		tmp->next->next = (*l_token);
-		(*l_token) = tmp;
+		reorga2(l_token, tmp);
+		return (SUCCESS);
 	}
+	return (FAILURE);
 }
 
-void	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
+void	reorga2(t_list **l_token, t_list *tmp)
+{
+	ft_lstlast(*l_token)->next = NULL;
+	if (tmp->next->next)
+		ft_lstadd_back(l_token, tmp->next->next);
+	else
+		ft_lstlast(*l_token)->next = NULL;
+	tmp->next->next = (*l_token);
+	(*l_token) = tmp;
+}
+
+int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	char	**file_redir;
 
-	reorganize(&l_token, args_exec);
-	file_redir = ft_is_arg(l_token);
+	if (reorganize(&l_token, args_exec) == 1)
+		file_redir = ft_is_arg(l_token);
 	if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
 		ft_eperluet(l_token, args_exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
 		ft_ou(l_token, args_exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
-		ft_pipex(l_token, args_exec, envp, pipex);
+	{
+		if (ft_pipex(l_token, args_exec, envp, pipex) == 0)
+			return (FAILURE);
+	}
 	else if (ft_strncmp(l_token->content, ">", 1) == 0)
-		ft_redir_out(l_token, file_redir, envp, pipex);
+	{
+		if (ft_redir_out(l_token, file_redir, envp, pipex) == 0)
+			return (FAILURE);
+	}
 	else if (ft_strncmp(l_token->content, "<", 1) == 0)
-		ft_redir_in(l_token, file_redir, envp, pipex);
+	{
+		if (ft_redir_in(l_token, file_redir, envp, pipex) == 0)
+			return (FAILURE);
+	}
+	return (SUCCESS);
 }
 
 int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
@@ -69,20 +88,38 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 
 	args_exec = ft_is_arg(l_token);
 	if (l_token->next)
-		check_op(l_token, args_exec, envp, pipex);
+	{
+		if (check_op(l_token, args_exec, envp, pipex) == 0)
+			return (FAILURE);
+	}
 	else
 	{
 		if (ft_strncmp(l_token->content, ">", 1) == 0)
-			ft_redir_out(l_token, args_exec, envp, pipex);
-		else if (ft_strncmp(l_token->content, "$?", 2) == 0)
-			ft_pipe_ret(l_token, envp, pipex);
+		{
+			if (ft_redir_out(l_token, args_exec, envp, pipex) == 0)
+				return (FAILURE);
+		}
 		else
 		{
 			pipex->ctrl = -1;
 			if (ft_child(&args_exec, envp, l_token, pipex) == 1)
-				exit (FAILURE);
+				exit (127);
 		}
 	}
 	pipex->ctrl = 0;
-	return (ft_free_args_exec(args_exec, FAILURE));
+	return (ft_free_args_exec(args_exec, SUCCESS));
+}
+
+void	ft_pipe_ret(t_pipe *pipex)
+{
+	int	wstatus;
+
+	wstatus = 0;
+	waitpid(pipex->pid, &wstatus, 0);
+	if (WIFEXITED(wstatus))
+		pipex->pipe_ret = WEXITSTATUS(wstatus);
+	else if (WIFSIGNALED(wstatus))
+		pipex->pipe_ret = 128 + WTERMSIG(wstatus);
+	else
+		pipex->pipe_ret = 0;
 }

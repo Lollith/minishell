@@ -32,11 +32,15 @@ int	ft_quoting_quoting(char const *str, int *i)
 			*i += 1;
 		if (str[*i + 1] == '|' && str[*i] == '|')
 			*i += 1;
+		if (str[*i + 1] == '>' && str[*i] == '>')
+			*i += 1;
+		if (str[*i + 1] == '<' && str[*i] == '<')
+			*i += 1;
 		if (ft_is_space(str[*i + 1], "&|><") || \
 		(str[*i - 1] != '&' && str[*i] == '&'))
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token", 2);
-			exit(1);
+			ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
+			return (1);
 		}
 		return (2);
 	}
