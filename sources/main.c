@@ -12,6 +12,30 @@
 
 #include "minishell.h"
 
+int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
+{
+	int	pid;
+	int	wstatus;
+
+	wstatus = 0;
+	pipex->tmp_in = dup(STDIN_FILENO);
+	pipex->tmp_out = dup(STDOUT_FILENO);
+	if (monitoring_line(tmp_token, envp, pipex) != 1)
+		pipex->pipe_ret = 1;
+	else
+		pipex->pipe_ret = -1;
+	if (pipex->pipe_ret != 1)
+		ft_pipe_ret(pipex);
+	pid = wait(&wstatus);
+	while (pid > 0)
+		pid = wait(&wstatus);
+	dup2(pipex->tmp_in, STDIN_FILENO);
+	close(pipex->tmp_in);
+	dup2(pipex->tmp_out, STDOUT_FILENO);
+	close(pipex->tmp_out);
+	return (SUCCESS);
+}
+
 int	main_return(char **envp)
 {
 	rl_clear_history();

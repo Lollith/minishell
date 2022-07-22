@@ -191,9 +191,10 @@ char	*init_hd(int *pt_fd);
 /* ************************************************************************** */
 /*   monitor.c                                                  1 functions   */
 /* ************************************************************************** */
+void	ft_pipe_ret(t_pipe *pipex);
 int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe *pipex);
-void	reorganize(t_list **l_token, char **args_exec);
-void	ft_pipe_ret(t_list *l_token, char ***envp, t_pipe *pipex);
+int		reorganize(t_list **l_token, char **args_exec);
+void	reorga2(t_list **l_token, t_list *tmp);
 
 /* ************************************************************************** */
 /*   minishell_pipe.c                                           5 functions   */
@@ -208,10 +209,10 @@ int		ft_pipex_exec_return(char **paths, char *cmd);
 /*   initialisation.c                                           5 functions   */
 /* ************************************************************************** */
 int		init(int ac, char **av, char ***envp, t_pipe *pipex);
-int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   main.c                                                     2 functions   */
 /* ************************************************************************** */
+int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
 
 #endif

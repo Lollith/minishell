@@ -33,7 +33,8 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		if (dup2(fd, STDOUT_FILENO) == -1)
 			return (msg_perror("dup2 "));
 		close(fd);
-		monitoring_line(l_token->next, envp, pipex);
+		if (monitoring_line(l_token->next, envp, pipex) == 0)
+			return (FAILURE);
 	}
 	close(fd);
 	return (SUCCESS);

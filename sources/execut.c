@@ -54,7 +54,7 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 			exit(0);
 		if (ft_pipex_exec(envp, l_token->content, *token, pipex) == 0)
 			exit (127);
-		return (1);
+		return (0);
 	}
 	if (ft_builtins(*token, envp) == 2)
 		exit(EXIT_FAILURE);
