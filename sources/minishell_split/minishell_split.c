@@ -63,8 +63,6 @@ char	*minishell_input(char const *str, char *space, int i)
 	j = 0;
 	while (--len)
 	{
-		while (ft_is_space(str[i], "\"\'"))
-			i++;
 		res[j] = str[i];
 		i++;
 		j++;
@@ -80,8 +78,7 @@ int	minishell_post_input(char const *str, char *space, int i, char *res)
 	input = ft_strlen(res);
 	while (input)
 	{
-		if (!ft_is_space(str[i], "\"\'"))
-			input--;
+		input--;
 		i++;
 	}
 	while (str[i] && !ft_is_space(str[i], space))

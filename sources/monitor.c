@@ -102,7 +102,7 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 		{
 			pipex->ctrl = -1;
 			if (ft_child(&args_exec, envp, l_token, pipex) == 1)
-				exit (127);
+				exit(127);
 		}
 	}
 	pipex->ctrl = 0;

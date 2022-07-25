@@ -87,6 +87,7 @@ char	*ft_quoting(char const *str)
 {
 	int		i;
 	int		size;
+	int		agouet;
 	char	*res;
 
 	size = 1;
@@ -95,9 +96,10 @@ char	*ft_quoting(char const *str)
 	{
 		if (ft_quoting_quote(str, &i, '\"') || ft_quoting_quote(str, &i, '\''))
 			continue ;
-		if (ft_quoting_quoting(str, &i) == 1)
+		agouet = ft_quoting_quoting(str, &i)
+		if (agouet == 1)
 			return (NULL);
-		size += ft_quoting_quoting(str, &i);
+		size += agouet;
 	}
 	res = malloc(sizeof(char) * (i + size));
 	if (!res)
