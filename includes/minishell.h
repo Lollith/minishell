@@ -76,6 +76,7 @@ char	**ft_unset_envp(char **line, char **envp);
 /*   builtins_bis.c                                             5 functions   */
 /* ************************************************************************** */
 char	**ft_realloc_envp(char **envp);
+int		ft_env_parsing(char **line, int is_unset);
 int		ft_export(char **line, char ***envp);
 int		ft_unset(char **line, char ***envp);
 int		ft_env(char **envp);
@@ -133,10 +134,11 @@ void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 int		ft_builtins_fork(char **line);
 int		ft_builtins(char **line, char ***envp);
 char	**create_token_exec(char *cmd);
+void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str);
 
 /* ************************************************************************** */
-/*   parsing.c                                                  5 functions   */
+/*   parsing.c                                                  4 functions   */
 /* ************************************************************************** */
 int		ft_quote(char *line);
 char	**lexer(char *line);
@@ -150,7 +152,7 @@ int		is_operator(t_list *l_token);
 int		is_cmd(t_list *l_token);
 
 /* ************************************************************************** */
-/*   execut.c                                                   3 functions   */
+/*   execut.c                                                   5 functions   */
 /* ************************************************************************** */
 char	**get_paths(void);
 void	ft_child_close_pipe(t_pipe *pipex);
@@ -189,12 +191,12 @@ void	free_heredoc(char *file1);
 char	*init_hd(int *pt_fd);
 
 /* ************************************************************************** */
-/*   monitor.c                                                  1 functions   */
+/*   monitor.c                                                  5 functions   */
 /* ************************************************************************** */
-void	ft_pipe_ret(t_pipe *pipex);
-int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe *pipex);
 int		reorganize(t_list **l_token, char **args_exec);
 void	reorga2(t_list **l_token, t_list *tmp);
+int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe *pipex);
+void	ft_pipe_ret(t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   minishell_pipe.c                                           5 functions   */
@@ -211,7 +213,7 @@ int		ft_pipex_exec_return(char **paths, char *cmd);
 int		init(int ac, char **av, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
-/*   main.c                                                     2 functions   */
+/*   main.c                                                     3 functions   */
 /* ************************************************************************** */
 int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
 

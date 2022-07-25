@@ -67,6 +67,22 @@ char	**create_token_exec(char *cmd)
 	return (new_token_exec);
 }
 
+void	ft_quoting_input(char const *str, char *res)
+{
+	int		i;
+	int		size;
+
+	size = 0;
+	i = -1;
+	while (str[++i])
+	{
+		if (ft_d_quote(str, res, &i, size) || ft_s_quote(str, res, &i, size))
+			continue ;
+		ft_quoting_res(str, res, &i, &size);
+	}
+	res[i + size] = '\0';
+}
+
 char	*ft_quoting(char const *str)
 {
 	int		i;
@@ -81,20 +97,11 @@ char	*ft_quoting(char const *str)
 			continue ;
 		if (ft_quoting_quoting(str, &i) == 1)
 			return (NULL);
-		else
-			size += ft_quoting_quoting(str, &i);
+		size += ft_quoting_quoting(str, &i);
 	}
 	res = malloc(sizeof(char) * (i + size));
 	if (!res)
 		return (NULL);
-	size = 0;
-	i = -1;
-	while (str[++i])
-	{
-		if (ft_d_quote(str, res, &i, size) || ft_s_quote(str, res, &i, size))
-			continue ;
-		ft_quoting_res(str, res, &i, &size);
-	}
-	res[i + size] = '\0';
+	ft_quoting_input(str, res);
 	return (res);
 }
