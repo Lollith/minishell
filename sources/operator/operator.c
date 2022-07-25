@@ -25,6 +25,8 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	int		fd;
 
+	if (!next_checker(l_token))
+		return (FAILURE);
 	fd = open_out(l_token, args_exec);
 	if (fd < 0)
 		return (FAILURE);
@@ -105,4 +107,14 @@ char	*open_in(t_list *l_token, char **args_exec)
 		ft_l_delete(l_token);
 	}
 	return (file);
+}
+
+int	next_checker(t_list *l_token)
+{
+	if (!l_token->next)
+	{
+		printf("syntax error near unexpected token `newline'\n");
+		return (FAILURE);
+	}
+	return (SUCCESS);
 }

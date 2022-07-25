@@ -63,19 +63,17 @@ char	**lexer(char *line)
 int	size_args(t_list *l_token)
 {
 	int			size;
-	t_list		*tmp_token;
 
 	size = 2;
-	tmp_token = l_token;
 	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0
 			|| (ft_strncmp(l_token->content, ">", 1) == 0)))
 		size ++;
 	else
 	{	
-		while (tmp_token->next && (!is_operator(tmp_token->next)))
+		while (l_token->next && (!is_operator(l_token->next)))
 		{
 			size++;
-			tmp_token = tmp_token->next;
+			l_token = l_token->next;
 		}
 	}
 	return (size);

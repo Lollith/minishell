@@ -87,6 +87,8 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 	char	**args_exec;
 
 	args_exec = ft_is_arg(l_token);
+	//printf("res0 %s\n",args_exec[0]);
+	//printf("res1 %s\n", args_exec[1]);
 	if (l_token->next)
 	{
 		if (check_op(l_token, args_exec, envp, pipex) == 0)
@@ -97,6 +99,11 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 		if (ft_strncmp(l_token->content, ">", 1) == 0)
 		{
 			if (ft_redir_out(l_token, args_exec, envp, pipex) == 0)
+				return (FAILURE);
+		}
+		else if (ft_strncmp(l_token->content, "<", 1) == 0)
+		{
+			if (!next_checker(l_token))
 				return (FAILURE);
 		}
 		else

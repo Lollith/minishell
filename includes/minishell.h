@@ -178,6 +178,7 @@ int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pip);
 int		open_out(t_list *l_token, char **args_exec);
 int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pipex);
 char	*open_in(t_list *l_token, char **args_exec);
+int		next_checker(t_list *l_token);
 
 /* ************************************************************************** */
 /*   heredoc.c                                                  5 functions   */
