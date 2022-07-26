@@ -21,6 +21,8 @@ int	ft_env_size(char const *str)
 	var = 0;
 	while (ft_isalnum(str[var]))
 		var++;
+	if (var == 0)
+		return (0);
 	if (var >= BUFFER_NAME)
 	{
 		ft_msg("Your environment name is too long", 2);
@@ -44,13 +46,13 @@ int	ft_env_input_var(char const *str, char *res, int j)
 	var = 0;
 	while (ft_isalnum(str[var]))
 		var++;
-	if (var >= BUFFER_NAME)
-		return (j);
+	if (var == 0 || var >= BUFFER_NAME)
+		return (j - 1);
 	ft_memcpy(name, str, var);
 	name[var] = '\0';
 	value = getenv(name);
 	if (!value)
-		return (j);
+		return (j - 1);
 	i = -1;
 	while (value[++i])
 	{
@@ -77,8 +79,9 @@ void	ft_env_input(char *token, char *res, int pipe_ret)
 		{
 			i++;
 			j = ft_env_input_var(token + i, res, j);
-			while (ft_isalnum(token[i + 1]))
+			while (ft_isalnum(token[i]))
 				i++;
+			i--;
 		}
 		j++;
 	}
@@ -117,8 +120,8 @@ char	*ft_env_realloc_token(char *token, int pipe_ret)
 
 int	ft_env_var(char ***token, int pipe_ret)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	j = -1;
 	while (token[0][++j])

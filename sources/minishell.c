@@ -41,7 +41,7 @@ int	ft_builtins(char **line, char ***envp)
 	if (ft_is_str(line[0], "echo"))
 		return (ft_echo(line));
 	if (ft_is_str(line[0], "cd"))
-		return (ft_cd(line, *envp));
+		return (ft_cd(line, envp));
 	if (ft_is_str(line[0], "pwd"))
 		return (ft_pwd());
 	if (ft_is_str(line[0], "export"))
@@ -96,8 +96,8 @@ char	*ft_quoting(char const *str)
 	{
 		if (ft_quoting_quote(str, &i, '\"') || ft_quoting_quote(str, &i, '\''))
 			continue ;
-		agouet = ft_quoting_quoting(str, &i)
-		if (agouet == 1)
+		agouet = ft_quoting_quoting(str, &i);
+		if (agouet == 3)
 			return (NULL);
 		size += agouet;
 	}

@@ -58,10 +58,11 @@ int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
 
 /* ************************************************************************** */
-/*   environment_bis.c                                          2 functions   */
+/*   environment_bis.c                                          3 functions   */
 /* ************************************************************************** */
 int		ft_export_value(char **line, char ***envp, int i);
 char	**ft_export_envp(char **line, char **envp);
+char	**ft_export_line(char *pwd);
 
 /* ************************************************************************** */
 /*   environment.c                                              5 functions   */
@@ -87,7 +88,7 @@ int		ft_env(char **envp);
 int		ft_exit(void);
 int		ft_echo(char **line);
 char	*get_home(char **envp);
-int		ft_cd(char **line, char **envp);
+int		ft_cd(char **line, char ***envp);
 int		ft_pwd(void);
 
 /* ************************************************************************** */

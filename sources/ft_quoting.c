@@ -43,7 +43,7 @@ int	ft_quoting_quoting(char const *str, int *i)
 		(str[*i - 1] != '<' && str[*i] == '<'))
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
-			return (1);
+			return (3);
 		}
 		return (2);
 	}
