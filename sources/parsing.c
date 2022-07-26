@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/13 15:03:51 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 12:17:18 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**lexer(char *line)
 }
 
 // si < ou >  : next  paxsse ds mon tab execve
-// sinon cherche si g un operateur 
+// sinon cherche si g un operateur
 //sinon met le toekn suivant ds args_ecxec pour la commande a exec,
 // et les sort de la liste chainee ( file, - flag et autre mots pour grep)
 
@@ -65,11 +65,15 @@ int	size_args(t_list *l_token)
 	int			size;
 
 	size = 2;
+	if (!next_checker(l_token))
+		return (FAILURE);
 	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0
 			|| (ft_strncmp(l_token->content, ">", 1) == 0)))
 		size ++;
 	else
-	{	
+	{
+		if (!next_checker(l_token->next))
+			return (FAILURE);
 		while (l_token->next && (!is_operator(l_token->next)))
 		{
 			size++;
@@ -87,6 +91,8 @@ char	**ft_is_arg(t_list *l_token)
 
 	args_exec = NULL;
 	size = size_args(l_token);
+	if (!size)
+		return (NULL);
 	args_exec = (char **)malloc(sizeof(char *) * size);
 	if (!args_exec)
 		return (FAILURE);

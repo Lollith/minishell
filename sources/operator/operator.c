@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/13 17:07:34 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 12:19:10 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	int		fd;
 
-	if (!next_checker(l_token))
-		return (FAILURE);
+	//if (!next_checker(l_token))
+	//	return (FAILURE);
 	fd = open_out(l_token, args_exec);
 	if (fd < 0)
 		return (FAILURE);
@@ -111,9 +111,11 @@ char	*open_in(t_list *l_token, char **args_exec)
 
 int	next_checker(t_list *l_token)
 {
-	if (!l_token->next)
+	if (((ft_strncmp(l_token->content, "<", 1) == 0) || (ft_strncmp(l_token->content, ">", 1) == 0)) &&
+		((!l_token->next) || (ft_strncmp(l_token->content, "<", 1) == 0) ||
+		(ft_strncmp(l_token->content, ">", 1) == 0)) )
 	{
-		printf("syntax error near unexpected token `newline'\n");
+		printf("syntax error near unexpected token\n");
 		return (FAILURE);
 	}
 	return (SUCCESS);
