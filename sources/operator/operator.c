@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/26 12:19:10 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 15:46:25 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,12 +111,15 @@ char	*open_in(t_list *l_token, char **args_exec)
 
 int	next_checker(t_list *l_token)
 {
-	if (((ft_strncmp(l_token->content, "<", 1) == 0) || (ft_strncmp(l_token->content, ">", 1) == 0)) &&
-		((!l_token->next) || (ft_strncmp(l_token->content, "<", 1) == 0) ||
-		(ft_strncmp(l_token->content, ">", 1) == 0)) )
+	while (l_token)
 	{
-		printf("syntax error near unexpected token\n");
-		return (FAILURE);
+		if (((ft_strncmp(l_token->content, "<", 1) == 0) || (ft_strncmp(l_token->content, ">", 1) == 0)) &&
+		((!l_token->next)))
+		{
+			printf("syntax error near unexpected token\n");
+			return (FAILURE);
+		}
+		l_token = l_token->next;
 	}
 	return (SUCCESS);
 }

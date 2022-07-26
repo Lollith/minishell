@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/26 12:17:18 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 15:47:28 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,15 +65,11 @@ int	size_args(t_list *l_token)
 	int			size;
 
 	size = 2;
-	if (!next_checker(l_token))
-		return (FAILURE);
 	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0
 			|| (ft_strncmp(l_token->content, ">", 1) == 0)))
 		size ++;
 	else
 	{
-		if (!next_checker(l_token->next))
-			return (FAILURE);
 		while (l_token->next && (!is_operator(l_token->next)))
 		{
 			size++;

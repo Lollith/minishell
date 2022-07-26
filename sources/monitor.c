@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/26 11:32:46 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 15:51:18 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,12 @@ int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 
 	if (reorganize(&l_token, args_exec) == 1)
 		file_redir = ft_is_arg(l_token);
+	else
+		file_redir = args_exec;
+	printf("res0 %s\n",args_exec[0]);
+	printf("res1 %s\n", args_exec[1]);
+	printf("token0 %s\n", (char*)l_token->content);
+	printf("token1 %s\n", (char*)l_token->next->content);
 	if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
 		ft_eperluet(l_token, args_exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
@@ -89,8 +95,6 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 	args_exec = ft_is_arg(l_token);
 	if (!args_exec)
 		return (FAILURE);
-	//printf("res0 %s\n",args_exec[0]);
-	//printf("res1 %s\n", args_exec[1]);
 	if (l_token->next)
 	{
 		if (check_op(l_token, args_exec, envp, pipex) == 0)
@@ -103,11 +107,6 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 			if (ft_redir_out(l_token, args_exec, envp, pipex) == 0)
 				return (FAILURE);
 		}
-		//else if (ft_strncmp(l_token->content, "<", 1) == 0)
-		//{
-		//	if (!next_checker(l_token))
-		//		return (FAILURE);
-		//}
 		else
 		{
 			pipex->ctrl = -1;
