@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/26 15:51:18 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 17:05:20 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		file_redir = ft_is_arg(l_token);
 	else
 		file_redir = args_exec;
-	printf("res0 %s\n",args_exec[0]);
-	printf("res1 %s\n", args_exec[1]);
-	printf("token0 %s\n", (char*)l_token->content);
-	printf("token1 %s\n", (char*)l_token->next->content);
 	if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
 		ft_eperluet(l_token, args_exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "||", 2) == 0)

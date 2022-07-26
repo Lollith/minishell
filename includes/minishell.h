@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/07/13 16:43:00 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 16:10:39 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -215,5 +215,6 @@ int		init(int ac, char **av, char ***envp, t_pipe *pipex);
 /*   main.c                                                     2 functions   */
 /* ************************************************************************** */
 int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
+void	ft_new_prompt(int signum);
 
 #endif

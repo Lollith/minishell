@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/13 17:50:36 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 16:51:17 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	pipex->pipefd[0] = 0;
 	return (SUCCESS);
 }
-//>128 when a command was ended by a signal. The value is 128 plus the 
+//>128 when a command was ended by a signal. The value is 128 plus the
 //signal number.
