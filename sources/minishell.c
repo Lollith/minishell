@@ -55,18 +55,6 @@ int	ft_builtins(char **line, char ***envp)
 	return (0);
 }
 
-char	**create_token_exec(char *cmd)
-{
-	char	**new_token_exec;
-
-	new_token_exec = malloc(sizeof(char *) * 2);
-	if (!new_token_exec)
-		return (NULL);
-	new_token_exec[0] = cmd;
-	new_token_exec[1] = NULL;
-	return (new_token_exec);
-}
-
 void	ft_quoting_input(char const *str, char *res)
 {
 	int		i;

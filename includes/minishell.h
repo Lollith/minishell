@@ -67,9 +67,9 @@ char	**ft_export_line(char *pwd);
 /* ************************************************************************** */
 /*   environment.c                                              5 functions   */
 /* ************************************************************************** */
-int		ft_unset_str(char **line, char **envp, int i, int *k);
 int		ft_strlen_equal(char *s);
 char	*ft_str_whitout_equal(char *envp);
+int		ft_unset_str(char **line, char **envp, int i, int *k);
 char	**ft_unset_free(int i, char **res);
 char	**ft_unset_envp(char **line, char **envp);
 
@@ -130,11 +130,10 @@ int		ft_s_quote(char const *str, char *res, int *i, int size);
 void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 
 /* ************************************************************************** */
-/*   minishell.c                                                5 functions   */
+/*   minishell.c                                                4 functions   */
 /* ************************************************************************** */
 int		ft_builtins_fork(char **line);
 int		ft_builtins(char **line, char ***envp);
-char	**create_token_exec(char *cmd);
 void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str);
 

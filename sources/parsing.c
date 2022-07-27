@@ -55,7 +55,7 @@ char	**lexer(char *line)
 	return (token);
 }
 
-// si < ou >  : next  paxsse ds mon tab execve
+// si < ou > : next  paxsse ds mon tab execve
 // sinon cherche si g un operateur 
 // sinon met le toekn suivant ds args_ecxec pour la commande a exec,
 // et les sort de la liste chainee ( file, - flag et autre mots pour grep)

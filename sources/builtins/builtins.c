@@ -12,7 +12,6 @@
 
 #include "minishell.h"
 
-// need to free
 int	ft_exit(void)
 {
 	write(1, "exit\n", 5);
