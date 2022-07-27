@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/07/13 16:43:00 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 16:10:39 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,6 +180,7 @@ int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pip);
 int		open_out(t_list *l_token, char **args_exec);
 int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pipex);
 char	*open_in(t_list *l_token, char **args_exec);
+int		next_checker(t_list *l_token);
 
 /* ************************************************************************** */
 /*   heredoc.c                                                  5 functions   */
@@ -216,5 +217,6 @@ int		init(int ac, char **av, char ***envp, t_pipe *pipex);
 /*   main.c                                                     3 functions   */
 /* ************************************************************************** */
 int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
+void	ft_new_prompt(int signum);
 
 #endif

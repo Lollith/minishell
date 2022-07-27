@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/13 16:14:45 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 17:05:20 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 
 	if (reorganize(&l_token, args_exec) == 1)
 		file_redir = ft_is_arg(l_token);
+	else
+		file_redir = args_exec;
 	if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
 		ft_eperluet(l_token, args_exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
@@ -86,6 +88,8 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 	char	**args_exec;
 
 	args_exec = ft_is_arg(l_token);
+	if (!args_exec)
+		return (FAILURE);
 	if (l_token->next)
 	{
 		if (check_op(l_token, args_exec, envp, pipex) == 0)
