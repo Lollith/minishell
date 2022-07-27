@@ -72,5 +72,6 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	pipex->pipefd[0] = 0;
 	return (SUCCESS);
 }
-//>128 when a command was ended by a signal. The value is 128 plus the
-//signal number.
+
+// >128 when a command was ended by a signal.
+// The value is 128 plus the signal number.

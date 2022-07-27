@@ -88,15 +88,10 @@ void	ft_quoting_res(char const *str, char *res, int *i, int *size)
 		res[*i + *size] = ' ';
 		*size += 1;
 		res[*i + *size] = str[*i];
-		if (str[*i + 1] == '&' && str[*i] == '&')
+		if (ft_is_space(str[*i + 1], "&|><"))
 		{
 			*i += 1;
-			res[*i + *size] = '&';
-		}
-		if (str[*i + 1] == '|' && str[*i] == '|')
-		{
-			*i += 1;
-			res[*i + *size] = '|';
+			res[*i + *size] = str[*i];
 		}
 		*size += 1;
 		res[*i + *size] = ' ';

@@ -16,7 +16,6 @@
 // => tab de [0]"<" [1]"file" => < cat
 // logiuement la cmd va se retourvee systematiquenet a ka fin
 // cat < file1 < file2 => < file1 < file2 < cat
-
 // regorga en tenant compte des flags et file des arg_exec
 int	reorganize(t_list **l_token, char **args_exec)
 {

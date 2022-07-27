@@ -25,7 +25,7 @@ Here are some related projects
 
 ## Test
 ```bash
-/bin/ls "|" /usr/bin/grep minishell "&&" /bin/echo i love my minishell
+/bin/ls "|" /usr/bin/grep minishell "&&" echo i love my minishell
 mkdir a && cd a && rm -rf ../a
 ls $HOME/Desktop
 cat Makefile | ./minishell
