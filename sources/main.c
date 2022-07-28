@@ -20,7 +20,6 @@ int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 	wstatus = 0;
 	pipex->tmp_in = dup(STDIN_FILENO);
 	pipex->tmp_out = dup(STDOUT_FILENO);
-
 	if (!next_checker(tmp_token))
 		return (FAILURE);
 	if (monitoring_line(tmp_token, envp, pipex) == 0)
