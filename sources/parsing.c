@@ -48,7 +48,7 @@ char	**lexer(char *line)
 	str = ft_quoting(line);
 	if (!str)
 		return (NULL);
-	token = minishell_split(line, MS_SPACE);
+	token = minishell_split(str, MS_SPACE);	
 	free(str);
 	if (!token)
 		return (NULL);
@@ -66,8 +66,8 @@ int	size_args(t_list *l_token)
 
 	size = 2;
 	tmp_token = l_token;
-	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0
-			|| (ft_strncmp(l_token->content, ">", 1) == 0)))
+	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0 || \
+	(ft_strncmp(l_token->content, ">", 1) == 0)))
 		size ++;
 	else
 	{	
@@ -88,7 +88,7 @@ char	**ft_is_arg(t_list *l_token)
 
 	args_exec = NULL;
 	size = size_args(l_token);
-	args_exec = (char **)malloc(sizeof(char *) * size);
+	args_exec = malloc(sizeof(char *) * size);
 	if (!args_exec)
 		return (FAILURE);
 	args_exec[0] = (l_token)->content;

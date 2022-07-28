@@ -109,7 +109,6 @@ char	*ft_env_realloc_token(char *token, int pipe_ret)
 				i++;
 		}
 	}
-	printf("[size=%i]\n", size);
 	res = malloc(sizeof(char) * size);
 	if (!res)
 		return (NULL);
