@@ -38,6 +38,20 @@ int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 	return (SUCCESS);
 }
 
+void	ft_pipe_ret(t_pipe *pipex)
+{
+	int	wstatus;
+
+	wstatus = 0;
+	waitpid(pipex->pid, &wstatus, 0);
+	if (WIFEXITED(wstatus))
+		pipex->pipe_ret = WEXITSTATUS(wstatus);
+	else if (WIFSIGNALED(wstatus))
+		pipex->pipe_ret = 128 + WTERMSIG(wstatus);
+	else
+		pipex->pipe_ret = 0;
+}
+
 int	main_return(char **envp)
 {
 	rl_clear_history();

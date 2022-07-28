@@ -17,7 +17,7 @@
 // logiuement la cmd va se retourvee systematiquenet a ka fin
 // cat < file1 < file2 => < file1 < file2 < cat
 // regorga en tenant compte des flags et file des arg_exec
-int	reorganize(t_list **l_token, char **args_exec)
+int	reorganize(t_list **l_token, char **args_exec, char ***file_redir)
 {
 	t_list	*tmp;
 	int		i;
@@ -37,8 +37,10 @@ int	reorganize(t_list **l_token, char **args_exec)
 			i++;
 		}
 		reorga2(l_token, tmp);
+		*file_redir = ft_is_arg(*l_token);
 		return (SUCCESS);
 	}
+	*file_redir = args_exec;
 	return (FAILURE);
 }
 
@@ -57,10 +59,7 @@ int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	char	**file_redir;
 
-	if (reorganize(&l_token, args_exec) == 1)
-		file_redir = ft_is_arg(l_token);
-	else
-		file_redir = args_exec;
+	reorganize(&l_token, args_exec, &file_redir);
 	if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
 		ft_eperluet(l_token, args_exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
@@ -96,33 +95,23 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 			return (FAILURE);
 	}
 	else
-	{
-		if (ft_strncmp(l_token->content, ">", 1) == 0)
-		{
-			if (ft_redir_out(l_token, args_exec, envp, pipex) == 0)
-				return (FAILURE);
-		}
-		else
-		{
-			pipex->ctrl = -1;
-			if (ft_child(&args_exec, envp, l_token, pipex) == 1)
-				exit (127);
-		}
-	}
+		one_cmd(l_token, args_exec, envp, pipex);
 	pipex->ctrl = 0;
 	return (ft_free_args_exec(args_exec, SUCCESS));
 }
 
-void	ft_pipe_ret(t_pipe *pipex)
+int	one_cmd(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
-	int	wstatus;
-
-	wstatus = 0;
-	waitpid(pipex->pid, &wstatus, 0);
-	if (WIFEXITED(wstatus))
-		pipex->pipe_ret = WEXITSTATUS(wstatus);
-	else if (WIFSIGNALED(wstatus))
-		pipex->pipe_ret = 128 + WTERMSIG(wstatus);
+	if (ft_strncmp(l_token->content, ">", 1) == 0)
+	{
+		if (ft_redir_out(l_token, args_exec, envp, pipex) == 0)
+			return (FAILURE);
+	}
 	else
-		pipex->pipe_ret = 0;
+	{
+		pipex->ctrl = -1;
+		if (ft_child(&args_exec, envp, l_token, pipex) == 1)
+			exit (127);
+	}
+	return (SUCCESS);
 }
