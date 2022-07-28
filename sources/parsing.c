@@ -48,7 +48,7 @@ char	**lexer(char *line)
 	str = ft_quoting(line);
 	if (!str)
 		return (NULL);
-	token = minishell_split(str, MS_SPACE);	
+	token = minishell_split(str, MS_SPACE);
 	free(str);
 	if (!token)
 		return (NULL);
