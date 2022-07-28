@@ -34,8 +34,6 @@ int	check_env(char **envp)
 	i = 0;
 	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
 		i++;
-	if (!envp[i])
-		return (ft_msg("Error : Path not found\n", 2));
 	return (SUCCESS);
 }
 
