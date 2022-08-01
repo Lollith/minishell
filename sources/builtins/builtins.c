@@ -24,7 +24,7 @@ int	ft_echo(char **line)
 	int	i;
 
 	i = 1;
-	if (ft_is_str(line[1], "-n"))
+	while (ft_is_str(line[i], "-n"))
 		i++;
 	while (line[i])
 	{
@@ -54,16 +54,30 @@ char	*get_home(char **envp)
 	return (home);
 }
 
-// create OLDPWD
-int	ft_cd(char **line, char **envp)
+int	ft_cd(char **line, char ***envp)
 {
 	char	*home;
+	char	**bis;
 
-	home = get_home(envp);
+	bis = ft_export_line("OLDPWD=");
+	if (!bis)
+		return (2);
 	if (line[1])
 		chdir(line[1]);
 	else
+	{
+		home = get_home(*envp);
 		chdir(home);
+	}
+	if (ft_export(bis, envp) == 2)
+		return (2);
+	ft_split_free(bis);
+	bis = ft_export_line("PWD=");
+	if (!bis)
+		return (2);
+	if (ft_export(bis, envp) == 2)
+		return (2);
+	ft_split_free(bis);
 	return (1);
 }
 

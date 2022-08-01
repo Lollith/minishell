@@ -48,14 +48,14 @@ char	**lexer(char *line)
 	str = ft_quoting(line);
 	if (!str)
 		return (NULL);
-	token = minishell_split(line, MS_SPACE);
+	token = minishell_split(str, MS_SPACE);
 	free(str);
 	if (!token)
 		return (NULL);
 	return (token);
 }
 
-// si < ou >  : next  paxsse ds mon tab execve
+// si < ou > : next  paxsse ds mon tab execve
 // sinon cherche si g un operateur 
 // sinon met le toekn suivant ds args_ecxec pour la commande a exec,
 // et les sort de la liste chainee ( file, - flag et autre mots pour grep)
@@ -66,7 +66,7 @@ int	size_args(t_list *l_token)
 	size = 2;
 	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0
 			|| (ft_strncmp(l_token->content, ">", 1) == 0)))
-		size ++;
+		size++;
 	else
 	{
 		while (l_token->next && (!is_operator(l_token->next)))
@@ -88,7 +88,7 @@ char	**ft_is_arg(t_list *l_token)
 	size = size_args(l_token);
 	if (!size)
 		return (NULL);
-	args_exec = (char **)malloc(sizeof(char *) * size);
+	args_exec = malloc(sizeof(char *) * size);
 	if (!args_exec)
 		return (FAILURE);
 	args_exec[0] = (l_token)->content;

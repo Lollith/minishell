@@ -37,26 +37,3 @@ int	is_operator(t_list *l_token)
 	}
 	return (FAILURE);
 }
-
-// int	is_cmd(t_list *l_token)
-// {
-// 	char	**paths;
-// 	char	*path_cmd;
-// 	int		i;
-
-// 	i = 0;
-// 	paths = get_paths();
-// 	while (paths[i])
-// 	{
-// 		path_cmd = get_paths_cmd(paths[i], l_token->content);
-// 		if (access(path_cmd, F_OK) == 0)
-// 		{
-// 			printf (" c une cmd\n");
-// 			return (SUCCESS);
-// 		}
-// 		i++;
-// 		free(path_cmd);
-// 	}
-// 	ft_split_free(paths);
-// 	return (FAILURE);
-// }
