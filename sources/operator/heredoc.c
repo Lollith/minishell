@@ -16,8 +16,8 @@ char	*creat_h_file(void)
 {
 	char	*file_heredoc;
 
-	file_heredoc = (char *) malloc(sizeof(char) * 12);
-	ft_memcpy (file_heredoc, ".heredoc_00", 12);
+	file_heredoc = malloc(sizeof(char) * 12);
+	ft_memcpy(file_heredoc, ".heredoc_00", 12);
 	return (file_heredoc);
 }
 
@@ -57,7 +57,7 @@ char	*ft_heredoc(t_list *l_token, char **args_exec)
 	char	*file_h;
 	int		fd_tmp_h;
 
-	(void) l_token;
+	(void)l_token;
 	file_h = init_hd(&fd_tmp_h);
 	size_eof = ft_strlen(args_exec[1]);
 	line = " ";
@@ -86,7 +86,7 @@ char	*init_hd(int *pt_fd)
 
 	fd_tmp_h = *pt_fd;
 	file_h = check_here_file();
-	fd_tmp_h = open (file_h, O_WRONLY | O_CREAT, 0666);
+	fd_tmp_h = open(file_h, O_WRONLY | O_CREAT, 0666);
 	if (fd_tmp_h < 0)
 		return (NULL);
 	*pt_fd = fd_tmp_h;
@@ -96,5 +96,5 @@ char	*init_hd(int *pt_fd)
 void	free_heredoc(char *file1)
 {
 	unlink(file1);
-	free (file1);
+	free(file1);
 }

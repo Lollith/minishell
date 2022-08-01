@@ -16,11 +16,9 @@
 // > file ls  = ls > file
 // ls > file1 > file2: creer les 2 files , ecrase f1 et f2 + \n fd file2
 // echo test > file test1  = exho test test1 > file
-
 // bad cmd > file  : crer file ms erreur cmd
 // si file existe recup arg[1] sinon recup sur la liste chainee
 // et le suprime de la liste
-
 int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	int		fd;
@@ -67,7 +65,6 @@ int	open_out(t_list *l_token, char **args_exec)
 //=> < (-file1) cmd < (-file2)
 //=> < (-file1) < (-file2) cmd1
 //cat << EOF => ]<<] [EOF]  + cat
-
 int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	int		fd;

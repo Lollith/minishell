@@ -12,21 +12,21 @@
 
 #include "minishell.h"
 
-int	ft_env_size(char const *str)
+int	ft_env_size(char const *token, int i)
 {
 	int		var;
 	char	name[BUFFER_NAME];
 	char	*value;
 
+	i++;
 	var = 0;
-	while (ft_isalnum(str[var]))
+	while (ft_isalnum(token[i + var]))
 		var++;
-	if (var >= BUFFER_NAME)
-	{
-		ft_msg("Your environment name is too long", 2);
+	if (var == 0)
 		return (0);
-	}
-	ft_memcpy(name, str, var);
+	if (var >= BUFFER_NAME)
+		return (ft_msg("Your environment name is too long", 2));
+	ft_memcpy(name, token + i, var);
 	name[var] = '\0';
 	value = getenv(name);
 	if (value)
@@ -44,13 +44,13 @@ int	ft_env_input_var(char const *str, char *res, int j)
 	var = 0;
 	while (ft_isalnum(str[var]))
 		var++;
-	if (var >= BUFFER_NAME)
-		return (j);
+	if (var == 0 || var >= BUFFER_NAME)
+		return (j - 1);
 	ft_memcpy(name, str, var);
 	name[var] = '\0';
 	value = getenv(name);
 	if (!value)
-		return (j);
+		return (j - 1);
 	i = -1;
 	while (value[++i])
 	{
@@ -69,17 +69,19 @@ void	ft_env_input(char *token, char *res, int pipe_ret)
 	i = -1;
 	while (token[++i])
 	{
-		if (token[i] != '$')
+		if (!ft_is_space(token[i], "$\"\'"))
 			res[j] = token[i];
-		else if (token[i + 1] == '?')
+		else if (token[i] == '$' && token[i + 1] == '?')
 			ft_env_pipe_input(res, pipe_ret, &i, &j);
-		else
+		else if (token[i] == '$')
 		{
-			i++;
-			j = ft_env_input_var(token + i, res, j);
-			while (ft_isalnum(token[i + 1]))
+			j = ft_env_input_var(token + ++i, res, j);
+			while (ft_isalnum(token[i]))
 				i++;
+			i--;
 		}
+		else
+			continue ;
 		j++;
 	}
 	res[j] = '\0';
@@ -96,14 +98,13 @@ char	*ft_env_realloc_token(char *token, int pipe_ret)
 	i = -1;
 	while (token[++i])
 	{
-		if (token[i] != '$')
+		if (!ft_is_space(token[i], "$\"\'"))
 			size++;
-		else if (token[i + 1] == '?')
+		else if (token[i] == '$' && token[i + 1] == '?')
 			size += ft_env_pipe_size(pipe_ret, &i);
-		else
+		else if (token[i] == '$')
 		{
-			i++;
-			size += ft_env_size(token + i);
+			size += ft_env_size(token, i);
 			while (ft_isalnum(token[i + 1]))
 				i++;
 		}
@@ -117,8 +118,8 @@ char	*ft_env_realloc_token(char *token, int pipe_ret)
 
 int	ft_env_var(char ***token, int pipe_ret)
 {
-	int		i;
-	int		j;
+	int	i;
+	int	j;
 
 	j = -1;
 	while (token[0][++j])
@@ -126,11 +127,12 @@ int	ft_env_var(char ***token, int pipe_ret)
 		i = -1;
 		while (token[0][j][++i])
 		{
-			if (token[0][j][i] == '$')
+			if (ft_is_space(token[0][j][i], "$\"\'"))
 			{
 				token[0][j] = ft_env_realloc_token(token[0][j], pipe_ret);
 				if (!token)
 					return (1);
+				break ;
 			}
 		}
 	}

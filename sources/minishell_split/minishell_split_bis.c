@@ -45,6 +45,7 @@ int	minishell_quote(char const *str, int i)
 
 int	minishell_len_quote_bis(char const *str, int i, int *j, char c)
 {
+	*j += 2;
 	i++;
 	while (str[i] != c)
 	{

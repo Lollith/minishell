@@ -51,15 +51,13 @@ void	ft_lstclear2(t_list **l_token)
 {
 	t_list	*tmp;
 
-	tmp = NULL;
-	if (l_token)
+	if (!l_token)
+		return ;
+	while (*l_token)
 	{
-		while (*l_token)
-		{
-			tmp = (*l_token)->next;
-			free((*l_token)->content);
-			free(*l_token);
-			*l_token = tmp;
-		}
+		tmp = (*l_token)->next;
+		free((*l_token)->content);
+		free(*l_token);
+		*l_token = tmp;
 	}
 }

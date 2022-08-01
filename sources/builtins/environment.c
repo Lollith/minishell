@@ -12,24 +12,6 @@
 
 #include "minishell.h"
 
-// Find the var to unset
-int	ft_unset_str(char **line, char **envp, int i, int *k)
-{
-	char	*str;
-
-	str = ft_str_whitout_equal(envp[i]);
-	if (!str)
-		return (2);
-	if (ft_strncmp(str, line[1], ft_strlen(str)) == 0)
-	{
-		*k = 1;
-		free(str);
-		return (1);
-	}
-	free(str);
-	return (0);
-}
-
 int	ft_strlen_equal(char *s)
 {
 	int	i;
@@ -63,6 +45,24 @@ char	*ft_str_whitout_equal(char *envp)
 	}
 	res[j] = '\0';
 	return (res);
+}
+
+// Find the var to unset
+int	ft_unset_str(char **line, char **envp, int i, int *k)
+{
+	char	*str;
+
+	str = ft_str_whitout_equal(envp[i]);
+	if (!str)
+		return (2);
+	if (ft_strncmp(str, line[1], ft_strlen(str)) == 0)
+	{
+		*k = 1;
+		free(str);
+		return (1);
+	}
+	free(str);
+	return (0);
 }
 
 char	**ft_unset_free(int i, char **res)

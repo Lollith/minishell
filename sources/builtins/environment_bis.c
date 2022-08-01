@@ -47,3 +47,26 @@ char	**ft_export_envp(char **line, char **envp)
 	res[i + 1] = NULL;
 	return (res);
 }
+
+char	**ft_export_line(char *pwd)
+{
+	char	cwd[256];
+	char	**res;
+
+	if (getcwd(cwd, sizeof(cwd)) == NULL)
+	{
+		perror("getcwd() error");
+		return (NULL);
+	}
+	res = malloc(sizeof(char *) * 3);
+	if (!res)
+		return (NULL);
+	res[0] = ft_strdup("export");
+	if (!res[0])
+		return (NULL);
+	res[1] = ft_strjoin(pwd, cwd);
+	if (!res[1])
+		return (NULL);
+	res[2] = NULL;
+	return (res);
+}

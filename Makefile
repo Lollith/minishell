@@ -17,6 +17,8 @@ SRCS		=	$(addprefix sources/, \
 					builtins/builtins.c \
 					builtins/environment_bis.c \
 					builtins/environment.c \
+					minishell_split/ft_env_pipe.c \
+					minishell_split/ft_env.c \
 					minishell_split/minishell_split_bis.c \
 					minishell_split/minishell_split.c \
 					operator/heredoc.c \
@@ -24,8 +26,6 @@ SRCS		=	$(addprefix sources/, \
 					operator/operator_bonus.c \
 					operator/operator.c \
 					execut.c \
-					ft_env_pipe.c \
-					ft_env.c \
 					initialisation.c \
 					list_token.c \
 					ft_is_str.c \
