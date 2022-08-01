@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_quoting.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:08:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/07/14 14:08:38 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/08/01 12:08:57 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,10 +37,7 @@ int	ft_quoting_quoting(char const *str, int *i)
 		if (str[*i + 1] == '<' && str[*i] == '<')
 			*i += 1;
 		if (ft_is_space(str[*i + 1], "&|><") || \
-		(str[*i - 1] != '&' && str[*i] == '&') || \
-		(str[*i - 1] != '|' && str[*i] == '|') || \
-		(str[*i - 1] != '>' && str[*i] == '>') || \
-		(str[*i - 1] != '<' && str[*i] == '<'))
+		(str[*i - 1] != '&' && str[*i] == '&'))
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
 			return (3);
