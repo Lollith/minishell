@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/27 11:41:29 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/01 13:43:33 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ int	ft_pipex_exec(char ***envp, char *cmd, char **token_exec, t_pipe *fds)
 
 int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
-	if (pipex->ctrl == 1)
+	if ((pipex->ctrl == 0 || pipex->ctrl == 1) && pipex->pipefd[0])
 		ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
 	if (pipe(pipex->pipefd) < 0)
 		return (msg_perror("pipe"));
