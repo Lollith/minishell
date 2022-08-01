@@ -53,6 +53,7 @@ void	reorga2(t_list **l_token, t_list *tmp)
 		ft_lstlast(*l_token)->next = NULL;
 	tmp->next->next = (*l_token);
 	(*l_token) = tmp;
+	free (tmp);
 }
 
 int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)

@@ -111,9 +111,7 @@ int	next_checker(t_list *l_token)
 {
 	while (l_token)
 	{
-		if (((ft_strncmp(l_token->content, "<", 1) == 0)
-				|| (ft_strncmp(l_token->content, ">", 1) == 0))
-			&& ((!l_token->next)))
+		if (is_operator(l_token) && !l_token->next)
 		{
 			printf("syntax error near unexpected token\n");
 			return (FAILURE);

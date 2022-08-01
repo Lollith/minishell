@@ -148,6 +148,7 @@ char	**ft_is_arg(t_list *l_token);
 /* ************************************************************************** */
 /*   parsing2.c                                                 2 functions   */
 /* ************************************************************************** */
+char	*ft_first_strchr(const char *s, int c);
 int		is_operator(t_list *l_token);
 int		is_cmd(t_list *l_token);
 
