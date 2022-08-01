@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/13 15:03:51 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 15:47:28 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,17 @@ char	**lexer(char *line)
 int	size_args(t_list *l_token)
 {
 	int			size;
-	t_list		*tmp_token;
 
 	size = 2;
-	tmp_token = l_token;
-	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0 || \
-	(ft_strncmp(l_token->content, ">", 1) == 0)))
-		size ++;
+	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0
+			|| (ft_strncmp(l_token->content, ">", 1) == 0)))
+		size++;
 	else
-	{	
-		while (tmp_token->next && (!is_operator(tmp_token->next)))
+	{
+		while (l_token->next && (!is_operator(l_token->next)))
 		{
 			size++;
-			tmp_token = tmp_token->next;
+			l_token = l_token->next;
 		}
 	}
 	return (size);
@@ -88,6 +86,8 @@ char	**ft_is_arg(t_list *l_token)
 
 	args_exec = NULL;
 	size = size_args(l_token);
+	if (!size)
+		return (NULL);
 	args_exec = malloc(sizeof(char *) * size);
 	if (!args_exec)
 		return (FAILURE);

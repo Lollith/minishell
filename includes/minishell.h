@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/07/13 16:43:00 by agouet           ###   ########.fr       */
+/*   Updated: 2022/07/26 16:10:39 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,9 +173,11 @@ void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 /* ************************************************************************** */
 /*   list_token.c                                               3 functions   */
 /* ************************************************************************** */
-int		list_token(t_list	**l_token, char *line);
-void	ft_lstclear2(t_list **l_token);
-void	ft_l_delete(t_list *delete);
+int		ft_redir_out(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pip);
+int		open_out(t_list *l_token, char **args_exec);
+int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pipex);
+char	*open_in(t_list *l_token, char **args_exec);
+int		next_checker(t_list *l_token);
 
 /* ************************************************************************** */
 /*   minishell.c                                                4 functions   */
@@ -188,10 +190,10 @@ char	*ft_quoting(char const *str);
 /* ************************************************************************** */
 /*   monitor.c                                                  5 functions   */
 /* ************************************************************************** */
-int		reorganize(t_list **l_token, char **args_exec);
+int		reorganize(t_list **l_token, char **args_exec, char ***file_redir);
 void	reorga2(t_list **l_token, t_list *tmp);
 int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe *pipex);
-void	ft_pipe_ret(t_pipe *pipex);
+int		one_cmd(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   parsing.c                                                  4 functions   */
@@ -218,5 +220,7 @@ int		init(int ac, char **av, char ***envp, t_pipe *pipex);
 /*   main.c                                                     3 functions   */
 /* ************************************************************************** */
 int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
+void	ft_pipe_ret(t_pipe *pipex);
+void	ft_new_prompt(int signum);
 
 #endif
