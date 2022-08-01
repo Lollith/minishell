@@ -24,6 +24,7 @@ int	ft_quoting_quote(char const *str, int *i, char c)
 	return (FALSE);
 }
 
+// | < > && || << >>
 int	ft_quoting_quoting(char const *str, int *i)
 {
 	if (ft_is_space(str[*i], "&|><"))
@@ -37,10 +38,7 @@ int	ft_quoting_quoting(char const *str, int *i)
 		if (str[*i + 1] == '<' && str[*i] == '<')
 			*i += 1;
 		if (ft_is_space(str[*i + 1], "&|><") || \
-		(str[*i - 1] != '&' && str[*i] == '&') || \
-		(str[*i - 1] != '|' && str[*i] == '|') || \
-		(str[*i - 1] != '>' && str[*i] == '>') || \
-		(str[*i - 1] != '<' && str[*i] == '<'))
+		(str[*i - 1] != '&' && str[*i] == '&'))
 		{
 			ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
 			return (3);

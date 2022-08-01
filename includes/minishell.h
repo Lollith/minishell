@@ -46,7 +46,7 @@ typedef struct s_pipe
 	int		tmp_in;
 	int		tmp_out;
 	pid_t	pid;
-}				t_pipe;
+}			t_pipe;
 
 /* ************************************************************************** */
 /*   builtins/builtins_bis.c                                    5 functions   */
@@ -62,16 +62,17 @@ int		ft_env(char **envp);
 /* ************************************************************************** */
 int		ft_exit(void);
 int		ft_echo(char **line);
-char	*get_home(char **envp);
+char	*ft_get_home(char **envp);
 int		ft_cd(char **line, char ***envp);
 int		ft_pwd(void);
 
 /* ************************************************************************** */
-/*   builtins/environment_bis.c                                 3 functions   */
+/*   builtins/environment_bis.c                                 4 functions   */
 /* ************************************************************************** */
 int		ft_export_value(char **line, char ***envp, int i);
 char	**ft_export_envp(char **line, char **envp);
 char	**ft_export_line(char *pwd);
+int		ft_echo_cheak(char *line);
 
 /* ************************************************************************** */
 /*   builtins/environment.c                                     5 functions   */
@@ -216,7 +217,7 @@ int		ft_main(int ac, char **av, char ***envp);
 int		init(int ac, char **av, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
-/*   main.c                                                     3 functions   */
+/*   main.c                                                     4 functions   */
 /* ************************************************************************** */
 int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
 void	ft_pipe_ret(t_pipe *pipex);

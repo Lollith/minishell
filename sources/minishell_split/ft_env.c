@@ -85,7 +85,6 @@ void	ft_env_input(char *token, char *res, int pipe_ret)
 		j++;
 	}
 	res[j] = '\0';
-	free(token);
 }
 
 char	*ft_env_realloc_token(char *token, int pipe_ret)

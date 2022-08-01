@@ -70,3 +70,17 @@ char	**ft_export_line(char *pwd)
 	res[2] = NULL;
 	return (res);
 }
+
+int	ft_echo_cheak(char *line)
+{
+	int	i;
+
+	if (!line || line[0] != '-')
+		return (0);
+	i = 1;
+	while (line[i] && line[i] == 'n')
+		i++;
+	if (line[i] || i == 1)
+		return (0);
+	return (1);
+}
