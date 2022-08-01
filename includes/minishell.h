@@ -148,6 +148,7 @@ int		msg_perror(char *origin);
 int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
 
+
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */
 /* ************************************************************************** */
@@ -205,7 +206,9 @@ char	**ft_is_arg(t_list *l_token);
 /* ************************************************************************** */
 /*   parsing2.c                                                 1 functions   */
 /* ************************************************************************** */
+char	*ft_first_strchr(const char *s, int c);
 int		is_operator(t_list *l_token);
+int		is_cmd(t_list *l_token);
 
 /* ************************************************************************** */
 /*   initialisation.c                                           4 functions   */

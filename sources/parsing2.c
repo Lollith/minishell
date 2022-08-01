@@ -12,6 +12,13 @@
 
 #include "minishell.h"
 
+char	*ft_first_strchr(const char *s, int c)
+{
+	if (s[0] == (char)c)
+		return ((char *)s);
+	return (NULL);
+}
+
 int	is_operator(t_list *l_token)
 {
 	char	c[4];
@@ -24,7 +31,7 @@ int	is_operator(t_list *l_token)
 	c[3] = '|';
 	while (i < 4 && l_token)
 	{
-		if (ft_strchr(l_token->content, c[i]))
+		if (ft_first_strchr(l_token->content, c[i]))
 			return (SUCCESS);
 		i++;
 	}
