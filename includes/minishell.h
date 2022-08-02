@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/07/26 16:10:39 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/02 11:38:55 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,7 +147,6 @@ int		ft_msg(char *str, int fd);
 int		msg_perror(char *origin);
 int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
-
 
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/27 15:52:57 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/02 11:38:43 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	ft_new_prompt(int signum)
 		ft_msg("\b\b  \n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
+		ft_msg("\n", 1);
 		rl_redisplay();
 	}
 	else if (signum == SIGQUIT)
