@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/07/26 15:41:19 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/02 11:23:09 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 	close(pipex->tmp_in);
 	dup2(pipex->tmp_out, STDOUT_FILENO);
 	close(pipex->tmp_out);
+	signal(SIGINT, ft_new_prompt);
 	return (SUCCESS);
 }
 

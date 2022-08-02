@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/01 17:03:03 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/02 11:38:43 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_new_prompt(int signum)
 {
 	if (signum == SIGINT)
 	{
-		ft_msg("\n", 1);
+		ft_msg("\b\b  \n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		ft_msg("\n", 1);
@@ -27,7 +27,6 @@ void	ft_new_prompt(int signum)
 	else if (signum == SIGQUIT)
 		ft_msg("\b\b  \b\b", 1);
 }
-
 
 int	check_env(char **envp)
 {

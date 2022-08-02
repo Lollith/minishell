@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/01 17:11:46 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/02 11:36:16 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,7 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 
 	if (ft_env_var(token, pipex->pipe_ret))
 		return (FAILURE);
-	if (signal(SIGINT, ft_new_prompt) != SIG_IGN)
-		signal(SIGINT, SIG_IGN);
+	signal(SIGINT, SIG_IGN);
 	child = fork();
 	pipex->pid = child;
 	if (child < 0)
