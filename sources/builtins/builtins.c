@@ -12,9 +12,15 @@
 
 #include "minishell.h"
 
-int	ft_exit(void)
+int	ft_exit(char **line)
 {
 	write(1, "exit\n", 5);
+	if (line[1])
+	{
+		if (ft_is_int(line[1]))
+			exit(ft_atoi(line[1]));
+		ft_msg("minishell: exit: abc: numeric argument required\n", 2);
+	}
 	exit(0);
 	return (2);
 }

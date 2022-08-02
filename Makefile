@@ -25,15 +25,16 @@ SRCS		=	$(addprefix sources/, \
 					operator/minishell_pipe.c \
 					operator/operator_bonus.c \
 					operator/operator.c \
+					useful/ft_is_int.c \
+					useful/ft_is_str.c \
+					useful/useful.c \
 					execut.c \
 					initialisation.c \
 					list_token.c \
-					ft_is_str.c \
 					ft_quoting.c \
 					parsing.c \
 					minishell.c \
 					main.c \
-					debug.c \
 					monitor.c \
 					parsing2.c \
 				)

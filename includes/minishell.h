@@ -60,7 +60,7 @@ int		ft_env(char **envp);
 /* ************************************************************************** */
 /*   builtins/builtins.c                                        5 functions   */
 /* ************************************************************************** */
-int		ft_exit(void);
+int		ft_exit(char **line);
 int		ft_echo(char **line);
 char	*ft_get_home(char **envp);
 int		ft_cd(char **line, char ***envp);
@@ -142,7 +142,17 @@ char	*open_in(t_list *l_token, char **args_exec);
 int		next_checker(t_list *l_token);
 
 /* ************************************************************************** */
-/*   debug.c                                                    5 functions   */
+/*   useful/ft_is_int.c                                         3 functions   */
+/* ************************************************************************** */
+int		ft_is_int(char *line);
+
+/* ************************************************************************** */
+/*   useful/ft_is_str.c                                         1 functions   */
+/* ************************************************************************** */
+int		ft_is_str(char *line, char *str);
+
+/* ************************************************************************** */
+/*   useful/useful.c                                            5 functions   */
 /* ************************************************************************** */
 int		ft_free_args_exec(char **args_exec, int ret);
 int		ft_msg(char *str, int fd);
@@ -158,11 +168,6 @@ void	ft_child_close_pipe(t_pipe *pipex);
 int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex);
 void	fd_monitor(t_pipe *pipex);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
-
-/* ************************************************************************** */
-/*   ft_is_str.c                                                1 functions   */
-/* ************************************************************************** */
-int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
 /*   ft_quoting.c                                               5 functions   */
