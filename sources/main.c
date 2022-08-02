@@ -6,11 +6,13 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/02 11:23:09 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/02 17:03:22 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int g_sig = 0;
 
 int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 {
