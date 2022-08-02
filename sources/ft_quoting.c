@@ -24,6 +24,7 @@ int	ft_quoting_quote(char const *str, int *i, char c)
 	return (FALSE);
 }
 
+// | < > && || << >>
 int	ft_quoting_quoting(char const *str, int *i)
 {
 	if (ft_is_space(str[*i], "&|><"))

@@ -21,7 +21,7 @@
 // et le suprime de la liste
 int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
-	int		fd;
+	int	fd;
 
 	fd = open_out(l_token, args_exec);
 	if (fd < 0)
@@ -61,10 +61,10 @@ int	open_out(t_list *l_token, char **args_exec)
 }
 
 // bash : cmd1 < file1 < file2 => result file2, si 1 existe pas
-//=> erreur file1 c tout
-//=> < (-file1) cmd < (-file2)
-//=> < (-file1) < (-file2) cmd1
-//cat << EOF => ]<<] [EOF]  + cat
+// => erreur file1 c tout
+// => < (-file1) cmd < (-file2)
+// => < (-file1) < (-file2) cmd1
+// cat << EOF => ]<<] [EOF]  + cat
 int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	int		fd;

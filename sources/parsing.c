@@ -61,11 +61,11 @@ char	**lexer(char *line)
 // et les sort de la liste chainee ( file, - flag et autre mots pour grep)
 int	size_args(t_list *l_token)
 {
-	int			size;
+	int	size;
 
 	size = 2;
-	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0
-			|| (ft_strncmp(l_token->content, ">", 1) == 0)))
+	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0 || \
+	(ft_strncmp(l_token->content, ">", 1) == 0)))
 		size++;
 	else
 	{

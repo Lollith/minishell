@@ -32,7 +32,6 @@ void	ft_env_pipe_input(char *res, int pipe_ret, int *i, int *j)
 	int		k;
 	char	*pipe;
 
-	i[0] += 1;
 	pipe = ft_itoa(pipe_ret);
 	k = -1;
 	while (pipe[++k])
@@ -41,5 +40,15 @@ void	ft_env_pipe_input(char *res, int pipe_ret, int *i, int *j)
 		j[0] += 1;
 	}
 	j[0] -= 1;
+	i[0] += 1;
 	free(pipe);
+}
+
+void	ft_env_free(void **tmp1, void **tmp2, t_list *l_token)
+{
+	if (*tmp1 == l_token->content)
+	{
+		free(l_token->content);
+		l_token->content = *tmp2;
+	}
 }

@@ -16,7 +16,7 @@
 // 1 is a builtins
 int	ft_builtins_fork(char **line)
 {
-	if (ft_is_str(line[0], "echo"))
+	if (ft_is_str(line[0], "echo") || ft_is_str(line[0], "say"))
 		return (1);
 	if (ft_is_str(line[0], "cd"))
 		return (1);
@@ -28,7 +28,7 @@ int	ft_builtins_fork(char **line)
 		return (1);
 	if (ft_is_str(line[0], "env"))
 		return (1);
-	if (ft_is_str(line[0], "exit"))
+	if (ft_is_str(line[0], "exit") || ft_is_str(line[0], "quit"))
 		return (1);
 	return (0);
 }
@@ -38,7 +38,7 @@ int	ft_builtins_fork(char **line)
 // 2 exit
 int	ft_builtins(char **line, char ***envp)
 {
-	if (ft_is_str(line[0], "echo"))
+	if (ft_is_str(line[0], "echo") || ft_is_str(line[0], "say"))
 		return (ft_echo(line));
 	if (ft_is_str(line[0], "cd"))
 		return (ft_cd(line, envp));
@@ -50,7 +50,7 @@ int	ft_builtins(char **line, char ***envp)
 		return (ft_unset(line, envp));
 	if (ft_is_str(line[0], "env"))
 		return (ft_env(*envp));
-	if (ft_is_str(line[0], "exit"))
+	if (ft_is_str(line[0], "exit") || ft_is_str(line[0], "quit"))
 		return (ft_exit());
 	return (0);
 }
