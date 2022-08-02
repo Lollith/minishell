@@ -115,10 +115,12 @@ char	*ft_env_realloc_token(char *token, int pipe_ret)
 	return (res);
 }
 
-int	ft_env_var(char ***token, int pipe_ret)
+int	ft_env_var(char ***token, int pipe_ret, t_list *l_token)
 {
-	int	i;
-	int	j;
+	int		i;
+	int		j;
+	void	*tmp1;
+	void	*tmp2;
 
 	j = -1;
 	while (token[0][++j])
@@ -128,9 +130,12 @@ int	ft_env_var(char ***token, int pipe_ret)
 		{
 			if (ft_is_space(token[0][j][i], "$\"\'"))
 			{
-				token[0][j] = ft_env_realloc_token(token[0][j], pipe_ret);
-				if (!token)
+				tmp1 = token[0][j];
+				tmp2 = ft_env_realloc_token(token[0][j], pipe_ret);
+				if (!tmp2)
 					return (1);
+				token[0][j] = tmp2;
+				ft_env_free(&tmp1, &tmp2, l_token);
 				break ;
 			}
 		}
