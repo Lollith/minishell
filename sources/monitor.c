@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/26 17:05:20 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/02 16:16:31 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ void	reorga2(t_list **l_token, t_list *tmp)
 		ft_lstlast(*l_token)->next = NULL;
 	tmp->next->next = (*l_token);
 	(*l_token) = tmp;
-	free (tmp);
 }
 
 int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
