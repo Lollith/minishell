@@ -66,7 +66,7 @@ int		ft_exit(char **line);
 int		ft_echo(char **line);
 char	*ft_get_home(char **envp);
 int		ft_cd(char **line, char ***envp);
-int		ft_pwd(void);
+int		ft_pwd(char **envp);
 
 /* ************************************************************************** */
 /*   builtins/environment_bis.c                                 4 functions   */
@@ -95,7 +95,7 @@ void	ft_env_free(void **tmp1, void **tmp2, t_list *l_token);
 /* ************************************************************************** */
 /*   minishell_split/ft_env.c                                   5 functions   */
 /* ************************************************************************** */
-int		ft_env_var(char ***token, int pipe_ret, t_list *l_token);
+int		ft_env_var(char ***token, int pipe_ret, t_list *l_token, char **envp);
 
 /* ************************************************************************** */
 /*   minishell_split/minishell_split_bis.c                      4 functions   */
@@ -142,6 +142,11 @@ int		open_out(t_list *l_token, char **args_exec);
 int		ft_redir_in(t_list *l_tok, char **arg_exe, char ***envp, t_pipe *pipex);
 char	*open_in(t_list *l_token, char **args_exec);
 int		next_checker(t_list *l_token);
+
+/* ************************************************************************** */
+/*   useful/ft_getenv.c                                        1 functions   */
+/* ************************************************************************** */
+char	*ft_getenv(char *env, char **envp);
 
 /* ************************************************************************** */
 /*   useful/ft_is_int.c                                         3 functions   */

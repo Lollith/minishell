@@ -26,6 +26,7 @@ SRCS		=	$(addprefix sources/, \
 					operator/minishell_pipe.c \
 					operator/operator_bonus.c \
 					operator/operator.c \
+					useful/ft_getenv.c \
 					useful/ft_is_int.c \
 					useful/ft_is_str.c \
 					useful/useful.c \
