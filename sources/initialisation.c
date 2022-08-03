@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/02 16:50:50 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/03 15:34:22 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,18 @@ void	ft_new_prompt(int signum)
 	}
 	else if (signum == SIGQUIT)
 		ft_msg("\b\b  \b\b", 1);
+}
+
+void	signal_here_doc(int signum)
+{
+	if (signum == SIGINT)
+	{
+		g_sig = 1;
+		ft_msg("\b\b  \n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		close(0);
+	}
 }
 
 int	check_env(char **envp)
@@ -62,7 +74,6 @@ int	ft_main(int ac, char **av, char ***envp)
 
 int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 {
-
 	if (ft_main(ac, av, envp))
 		return (FAILURE);
 	pipex->pid = 0;

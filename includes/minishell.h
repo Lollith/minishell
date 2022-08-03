@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/02 17:13:07 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/03 15:36:28 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,6 @@ extern int	g_sig;
 # define FALSE 0
 # define BUFFER_NAME 32
 # define MS_SPACE " \t\n\v\f\r"
-
 
 typedef struct s_pipe
 {
@@ -116,7 +115,7 @@ char	**minishell_split(char const *s, char *space);
 /* ************************************************************************** */
 char	*creat_h_file(void);
 char	*check_here_file(void);
-char	*ft_heredoc(t_list *l_token, char **args_exec);
+char	*ft_heredoc(char **args_exec);
 void	free_heredoc(char *file1);
 char	*init_hd(int *pt_fd);
 
@@ -223,6 +222,7 @@ int		is_cmd(t_list *l_token);
 /*   initialisation.c                                           4 functions   */
 /* ************************************************************************** */
 void	ft_new_prompt(int signum);
+void	signal_here_doc(int signum);
 int		check_env(char **envp);
 int		ft_main(int ac, char **av, char ***envp);
 int		init(int ac, char **av, char ***envp, t_pipe *pipex);
