@@ -6,13 +6,13 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/02 17:03:22 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/03 15:34:08 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int g_sig = 0;
+int	g_sig = 0;
 
 int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 {
@@ -38,6 +38,7 @@ int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 	dup2(pipex->tmp_out, STDOUT_FILENO);
 	close(pipex->tmp_out);
 	signal(SIGINT, ft_new_prompt);
+	signal(SIGQUIT, ft_new_prompt);
 	return (SUCCESS);
 }
 
