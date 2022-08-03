@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 13:29:11 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/13 16:59:32 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/02 17:11:29 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,12 @@ char	*check_here_file(void)
 	return (NULL);
 }
 
+//void	signal_handler_as_here_doc(int signum)
+//{
+//	if (signum == SIGINT)
+//		g_sig = 1;
+//}
+
 char	*ft_heredoc(t_list *l_token, char **args_exec)
 {
 	char	*line;
@@ -58,6 +64,7 @@ char	*ft_heredoc(t_list *l_token, char **args_exec)
 	int		fd_tmp_h;
 
 	(void)l_token;
+	//signal(SIGINT, signal_handler_as_here_doc);
 	file_h = init_hd(&fd_tmp_h);
 	size_eof = ft_strlen(args_exec[1]);
 	line = " ";
@@ -65,6 +72,14 @@ char	*ft_heredoc(t_list *l_token, char **args_exec)
 	{
 		write(1, "heredoc> ", 9);
 		line = get_next_line(STDIN_FILENO);
+		//if (g_sig == 1)
+		//{
+		//	if (close(fd_tmp_h) < 0)
+		//		return (NULL);
+	//		free(line);
+	//		return (file_h);
+//		}
+
 		if ((ft_strlen(line) - size_eof == 1)
 			&& (ft_strncmp(line, args_exec[1], size_eof) == 0))
 		{

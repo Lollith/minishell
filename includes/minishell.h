@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/02 11:38:55 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/02 17:13:07 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,15 @@
 // <unistd.h> getcwd chdir isatty ttyname ttyslot
 // <termios.h> tgoto tputs
 
+extern int	g_sig;
+
 # define FAILURE 0
 # define SUCCESS 1
 # define TRUE 1
 # define FALSE 0
 # define BUFFER_NAME 32
 # define MS_SPACE " \t\n\v\f\r"
+
 
 typedef struct s_pipe
 {
