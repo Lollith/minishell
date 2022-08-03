@@ -65,8 +65,8 @@ char	*ft_heredoc(t_list *l_token, char **args_exec)
 	{
 		write(1, "heredoc> ", 9);
 		line = get_next_line(STDIN_FILENO);
-		if ((ft_strlen(line) - size_eof == 1)
-			&& (ft_strncmp(line, args_exec[1], size_eof) == 0))
+		if ((ft_strlen(line) - size_eof == 1) && \
+		(ft_strncmp(line, args_exec[1], size_eof) == 0))
 		{
 			if (close(fd_tmp_h) < 0)
 				return (NULL);

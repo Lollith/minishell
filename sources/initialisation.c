@@ -21,21 +21,10 @@ void	ft_new_prompt(int signum)
 		ft_msg("\b\b  \n", 1);
 		rl_replace_line("", 0);
 		rl_on_new_line();
-		ft_msg("\n", 1);
 		rl_redisplay();
 	}
 	else if (signum == SIGQUIT)
 		ft_msg("\b\b  \b\b", 1);
-}
-
-int	check_env(char **envp)
-{
-	int	i;
-
-	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "PATH=", 5))
-		i++;
-	return (SUCCESS);
 }
 
 int	ft_main(int ac, char **av, char ***envp)
@@ -46,13 +35,6 @@ int	ft_main(int ac, char **av, char ***envp)
 		ft_msg("Usage : ./minishell\n", 1);
 		return (1);
 	}
-	if (!*envp)
-	{
-		ft_msg("Error : No environment found\n", 1);
-		return (1);
-	}
-	if (!check_env(*envp))
-		return (1);
 	*envp = ft_realloc_envp(*envp);
 	if (!*envp)
 		return (1);
