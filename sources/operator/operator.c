@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/01 12:06:27 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/03 15:34:55 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	char	*file;
 
 	file = open_in(l_token, args_exec);
+	if (!file)
+		return (FAILURE);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
@@ -93,14 +95,13 @@ char	*open_in(t_list *l_token, char **args_exec)
 	char	*file;
 
 	if (ft_strncmp(l_token->content, "<<", 2) == 0)
-		file = ft_heredoc(l_token, args_exec);
+	{
+		file = ft_heredoc(args_exec);
+		if (!file)
+			return (NULL);
+	}
 	else
 		file = args_exec[1];
-	if (!file)
-	{
-		file = l_token->next->content;
-		ft_l_delete(l_token);
-	}
 	return (file);
 }
 
