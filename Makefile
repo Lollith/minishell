@@ -6,7 +6,7 @@
 #    By: agouet <agouet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/20 16:34:58 by agouet            #+#    #+#              #
-#    Updated: 2022/08/03 15:00:05 by agouet           ###   ########.fr        #
+#    Updated: 2022/08/04 11:46:46 by agouet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,13 +31,13 @@ SRCS		=	$(addprefix sources/, \
 					useful/useful.c \
 					execut.c \
 					initialisation.c \
-					list_token.c \
-					ft_quoting.c \
-					parsing.c \
+					parsing/list_token.c \
+					parsing/ft_quoting.c \
+					parsing/parsing.c \
+					parsing/parsing2.c \
 					minishell.c \
 					main.c \
 					monitor.c \
-					parsing2.c \
 				)
 OBJS		=	$(SRCS:.c=.o)
 DEPS		=	$(SRCS:.c=.d)
