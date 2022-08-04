@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:44:51 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/06 10:08:44 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/03 17:16:00 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ int	ft_exit(char **line)
 		ft_msg(str, 2);
 		free(str);
 	}
+	rl_clear_history();
+	//ft_split_free(envp);
 	exit(0);
 	return (2);
 }
