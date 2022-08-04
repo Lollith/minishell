@@ -51,7 +51,7 @@ int	ft_builtins(char **line, char ***envp)
 	if (ft_is_str(line[0], "env"))
 		return (ft_env(*envp));
 	if (ft_is_str(line[0], "exit") || ft_is_str(line[0], "quit"))
-		return (ft_exit(line));
+		return (ft_exit(line, *envp));
 	return (0);
 }
 
