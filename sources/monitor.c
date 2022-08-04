@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/04 15:27:31 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/04 17:14:40 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,11 @@ int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
 	pipex->ctrl = 0;
 	return (ft_free_args_exec(args_exec, SUCCESS));
 }
+//	printf ("0 %s\n", args_exec[0]);
+	//printf ("1 %s\n", args_exec[1]);
+	//printf ("2 %s\n", args_exec[2]);
+	//printf ("l 0 %s\n", (char *)tmp_token->content);
+	//printf ("l 01 %s\n", (char *)l_token->next->content);
 
 int	one_cmd(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
