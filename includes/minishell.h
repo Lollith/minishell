@@ -201,7 +201,7 @@ void	ft_print_string_of_string(char **tab);
 /* ************************************************************************** */
 /*   execut_bis.c                                               1 functions   */
 /* ************************************************************************** */
-void	ft_child_free(char **envp);
+void	ft_child_free(char ***token, char ***envp, t_list *l_token, int ret);
 
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */
