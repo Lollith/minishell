@@ -62,11 +62,11 @@ int		ft_env(char **envp);
 /* ************************************************************************** */
 /*   builtins/builtins.c                                        5 functions   */
 /* ************************************************************************** */
-int		ft_exit(char **line);
+int		ft_exit(char **line, char **envp);
 int		ft_echo(char **line);
 char	*ft_get_home(char **envp);
 int		ft_cd(char **line, char ***envp);
-int		ft_pwd(void);
+int		ft_pwd(char **envp);
 
 /* ************************************************************************** */
 /*   builtins/environment_bis.c                                 4 functions   */
@@ -95,7 +95,7 @@ void	ft_env_free(void **tmp1, void **tmp2, t_list *l_token);
 /* ************************************************************************** */
 /*   minishell_split/ft_env.c                                   5 functions   */
 /* ************************************************************************** */
-int		ft_env_var(char ***token, int pipe_ret, t_list *l_token);
+int		ft_env_var(char ***token, int pipe_ret, t_list *l_token, char **envp);
 
 /* ************************************************************************** */
 /*   minishell_split/minishell_split_bis.c                      4 functions   */
@@ -144,6 +144,42 @@ char	*open_in(t_list *l_token, char **args_exec);
 int		next_checker(t_list *l_token);
 
 /* ************************************************************************** */
+/*   parsing/ft_quoting.c                                       5 functions   */
+/* ************************************************************************** */
+int		ft_quoting_quote(char const *str, int *i, char c);
+int		ft_quoting_quoting(char const *str, int *i);
+int		ft_d_quote(char const *str, char *res, int *i, int size);
+int		ft_s_quote(char const *str, char *res, int *i, int size);
+void	ft_quoting_res(char const *str, char *res, int *i, int *size);
+
+/* ************************************************************************** */
+/*   parsing/list_token.c                                       3 functions   */
+/* ************************************************************************** */
+int		list_token(t_list **l_token, char *line);
+void	ft_l_delete(t_list *l_token);
+void	ft_lstclear2(t_list **l_token);
+
+/* ************************************************************************** */
+/*   parsing/parsing.c                                          4 functions   */
+/* ************************************************************************** */
+int		ft_quote(char *line);
+char	**lexer(char *line);
+int		size_args(t_list *l_token);
+char	**ft_is_arg(t_list *l_token);
+
+/* ************************************************************************** */
+/*   parsing/parsing2.c                                         1 functions   */
+/* ************************************************************************** */
+char	*ft_first_strchr(const char *s, int c);
+int		is_operator(t_list *l_token);
+int		is_cmd(t_list *l_token);
+
+/* ************************************************************************** */
+/*   useful/ft_getenv.c                                        1 functions   */
+/* ************************************************************************** */
+char	*ft_getenv(char *env, char **envp);
+
+/* ************************************************************************** */
 /*   useful/ft_is_int.c                                         3 functions   */
 /* ************************************************************************** */
 int		ft_is_int(char *line);
@@ -163,6 +199,11 @@ int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
 
 /* ************************************************************************** */
+/*   execut_bis.c                                               1 functions   */
+/* ************************************************************************** */
+void	ft_child_free(char **envp);
+
+/* ************************************************************************** */
 /*   execut.c                                                   5 functions   */
 /* ************************************************************************** */
 char	**get_paths(void);
@@ -170,22 +211,6 @@ void	ft_child_close_pipe(t_pipe *pipex);
 int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex);
 void	fd_monitor(t_pipe *pipex);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
-
-/* ************************************************************************** */
-/*   ft_quoting.c                                               5 functions   */
-/* ************************************************************************** */
-int		ft_quoting_quote(char const *str, int *i, char c);
-int		ft_quoting_quoting(char const *str, int *i);
-int		ft_d_quote(char const *str, char *res, int *i, int size);
-int		ft_s_quote(char const *str, char *res, int *i, int size);
-void	ft_quoting_res(char const *str, char *res, int *i, int *size);
-
-/* ************************************************************************** */
-/*   list_token.c                                               3 functions   */
-/* ************************************************************************** */
-int		list_token(t_list **l_token, char *line);
-void	ft_l_delete(t_list *l_token);
-void	ft_lstclear2(t_list **l_token);
 
 /* ************************************************************************** */
 /*   minishell.c                                                4 functions   */
@@ -202,21 +227,6 @@ int		reorganize(t_list **l_token, char **args_exec, char ***file_redir);
 void	reorga2(t_list **l_token, t_list *tmp);
 int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe *pipex);
 int		one_cmd(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex);
-
-/* ************************************************************************** */
-/*   parsing.c                                                  4 functions   */
-/* ************************************************************************** */
-int		ft_quote(char *line);
-char	**lexer(char *line);
-int		size_args(t_list *l_token);
-char	**ft_is_arg(t_list *l_token);
-
-/* ************************************************************************** */
-/*   parsing2.c                                                 1 functions   */
-/* ************************************************************************** */
-char	*ft_first_strchr(const char *s, int c);
-int		is_operator(t_list *l_token);
-int		is_cmd(t_list *l_token);
 
 /* ************************************************************************** */
 /*   initialisation.c                                           4 functions   */

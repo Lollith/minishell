@@ -12,17 +12,22 @@
 
 #include "minishell.h"
 
-int	ft_exit(char **line)
+int	ft_exit(char **line, char **envp)
 {
+	char	*str;
+
 	write(1, "exit\n", 5);
 	if (line[1])
 	{
 		if (ft_is_int(line[1]))
 			exit(ft_atoi(line[1]));
-		ft_msg("minishell: exit: abc: numeric argument required\n", 2);
+		str = ft_strjoin("minishell: exit: ", line[1]);
+		str = ft_strjoin_free(str, ": numeric argument required\n");
+		ft_msg(str, 2);
+		free(str);
 	}
 	rl_clear_history();
-	//ft_split_free(envp);
+	ft_split_free(envp);
 	exit(0);
 	return (2);
 }
@@ -55,7 +60,7 @@ char	*ft_get_home(char **envp)
 
 	home = NULL;
 	i = 0;
-	while (envp[i] && ft_strncmp(envp[i], "HOME=", 5))
+	while (envp[i] && (ft_strncmp(envp[i], "HOME", 4) != 0))
 		i++;
 	if (envp[i])
 		home = envp[i] + 5;
@@ -75,7 +80,10 @@ int	ft_cd(char **line, char ***envp)
 	else
 		ret = chdir(ft_get_home(*envp));
 	if (ret < 0)
+	{
+		printf("minishell: cd: %s: No such file or directory\n", line[1]);
 		return (1);
+	}
 	if (ft_export(bis, envp) == 2)
 		return (2);
 	ft_split_free(bis);
@@ -86,14 +94,14 @@ int	ft_cd(char **line, char ***envp)
 	return (1);
 }
 
-int	ft_pwd(void)
+int	ft_pwd(char **envp)
 {
 	char	cwd[256];
 	char	*value;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
-		value = getenv("PWD");
+		value = ft_getenv("PWD", envp);
 		if (value)
 			printf("%s\n", value);
 		else

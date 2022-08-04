@@ -46,6 +46,8 @@ void	ft_print_string_of_string(char **tab)
 {
 	int	i;
 
+	if (!tab)
+		return ;
 	i = 0;
 	while (tab[i])
 	{

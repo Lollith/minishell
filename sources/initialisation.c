@@ -57,13 +57,6 @@ int	ft_main(int ac, char **av, char ***envp)
 		ft_msg("Usage : ./minishell\n", 1);
 		return (1);
 	}
-	if (!*envp)
-	{
-		ft_msg("Error : No environment found\n", 1);
-		return (1);
-	}
-	if (!check_env(*envp))
-		return (1);
 	*envp = ft_realloc_envp(*envp);
 	if (!*envp)
 		return (1);

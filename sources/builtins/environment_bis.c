@@ -48,6 +48,7 @@ char	**ft_export_envp(char **line, char **envp)
 	return (res);
 }
 
+// For cd
 char	**ft_export_line(char *pwd)
 {
 	char	cwd[256];

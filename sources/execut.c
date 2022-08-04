@@ -40,7 +40,7 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 {
 	pid_t	child;
 
-	if (ft_env_var(token, pipex->pipe_ret, l_token))
+	if (ft_env_var(token, pipex->pipe_ret, l_token, *envp))
 		return (FAILURE);
 	signal(SIGINT, SIG_IGN);
 	signal(SIGQUIT, SIG_IGN);
@@ -54,10 +54,7 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 		fd_monitor(pipex);
 		ft_close_tmp(pipex);
 		if (ft_builtins_fork(*token))
-		{
-			ft_split_free(*envp);
-			exit(0);
-		}
+			ft_child_free(*envp);
 		ft_pipex_exec(envp, l_token->content, *token, pipex);
 		exit(127);
 	}
