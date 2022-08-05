@@ -102,16 +102,11 @@ char	**minishell_split(char const *str, char *space)
 		while (ft_is_space(str[i], space))
 			i++;
 		if (str[i])
-		{
 			res[j] = minishell_input(str, space, i);
-			if (!res[j])
-				return (ft_split_free(res));
-		}
 		else
-		{
-			ft_split_free(res);
-			return (NULL);
-		}
+			break ;
+		if (!res[j])
+			return (ft_split_free(res));
 		i = minishell_post_input(str, space, i, res[j]);
 		j++;
 	}

@@ -64,3 +64,17 @@ void	ft_lstclear2(t_list **l_token)
 		*l_token = tmp;
 	}
 }
+
+void	ft_lstclear3(t_list **l_token)
+{
+	t_list	*tmp;
+
+	if (!l_token)
+		return ;
+	while (*l_token)
+	{
+		tmp = (*l_token)->next;
+		free(*l_token);
+		*l_token = tmp;
+	}
+}
