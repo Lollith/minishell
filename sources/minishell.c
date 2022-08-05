@@ -36,7 +36,7 @@ int	ft_builtins_fork(char **line)
 // 0 in not a builtins
 // 1 is a builtins
 // 2 exit
-int	ft_builtins(char **line, char ***envp)
+int	ft_builtins(char **line, char ***envp, t_list *l_token)
 {
 	if (ft_is_str(line[0], "echo") || ft_is_str(line[0], "say"))
 		return (ft_echo(line));
@@ -51,7 +51,7 @@ int	ft_builtins(char **line, char ***envp)
 	if (ft_is_str(line[0], "env"))
 		return (ft_env(*envp));
 	if (ft_is_str(line[0], "exit") || ft_is_str(line[0], "quit"))
-		return (ft_exit(line, *envp));
+		return (ft_exit(line, *envp, l_token));
 	return (0);
 }
 

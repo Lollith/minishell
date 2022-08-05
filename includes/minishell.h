@@ -62,7 +62,7 @@ int		ft_env(char **envp);
 /* ************************************************************************** */
 /*   builtins/builtins.c                                        5 functions   */
 /* ************************************************************************** */
-int		ft_exit(char **line, char **envp);
+int		ft_exit(char **line, char **envp, t_list *l_token);
 int		ft_echo(char **line);
 char	*ft_get_home(char **envp);
 int		ft_cd(char **line, char ***envp);
@@ -153,11 +153,12 @@ int		ft_s_quote(char const *str, char *res, int *i, int size);
 void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 
 /* ************************************************************************** */
-/*   parsing/list_token.c                                       3 functions   */
+/*   parsing/list_token.c                                       4 functions   */
 /* ************************************************************************** */
 int		list_token(t_list **l_token, char *line);
 void	ft_l_delete(t_list *l_token);
 void	ft_lstclear2(t_list **l_token);
+void	ft_lstclear3(t_list **l_token);
 
 /* ************************************************************************** */
 /*   parsing/parsing.c                                          4 functions   */
@@ -216,7 +217,7 @@ int		ft_link_fd(int pipefd0, int pipefd1, int std);
 /*   minishell.c                                                4 functions   */
 /* ************************************************************************** */
 int		ft_builtins_fork(char **line);
-int		ft_builtins(char **line, char ***envp);
+int		ft_builtins(char **line, char ***envp, t_list *l_token);
 void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str);
 

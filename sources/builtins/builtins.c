@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_exit(char **line, char **envp)
+int	ft_exit(char **line, char **envp, t_list *l_token)
 {
 	char	*str;
 
@@ -27,7 +27,9 @@ int	ft_exit(char **line, char **envp)
 		free(str);
 	}
 	rl_clear_history();
+	ft_split_free(line);
 	ft_split_free(envp);
+	ft_lstclear3(&l_token);
 	exit(0);
 	return (2);
 }

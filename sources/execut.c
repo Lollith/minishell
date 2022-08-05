@@ -58,8 +58,8 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 		ft_pipex_exec(envp, l_token->content, *token, pipex);
 		ft_child_free(token, envp, l_token, 127);
 	}
-	if (ft_builtins(*token, envp) == 2)
-		exit(EXIT_FAILURE);
+	if (ft_builtins(*token, envp, l_token) == 2)
+		ft_child_free(token, envp, l_token, 1);
 	ft_child_close_pipe(pipex);
 	return (0);
 }
