@@ -104,7 +104,7 @@ char	**minishell_split(char const *str, char *space)
 		if (str[i])
 			res[j] = minishell_input(str, space, i);
 		else
-			break;
+			break ;
 		if (!res[j])
 			return (ft_split_free(res));
 		i = minishell_post_input(str, space, i, res[j]);
