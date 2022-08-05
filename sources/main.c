@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/04 15:02:47 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/05 13:40:27 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,12 @@ int	main(int ac, char **av, char **envp)
 		{
 			if (list_token(&l_token, line))
 				parent(l_token, &envp, &pipex);
+			t_list *tmp_token = l_token;
+			while( tmp_token)
+			{
+				printf("%s\n", (char *)tmp_token->content);
+				tmp_token = tmp_token->next;
+			}
 			ft_lstclear2(&l_token);
 		}
 		free(line);

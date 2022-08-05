@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/02 16:11:50 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/05 13:55:54 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char	**ft_is_arg(t_list *l_token)
 	i = 1;
 	while (l_token && i < size - 1)
 	{
-		args_exec[i] = (l_token)->next->content;
+		args_exec[i] = ft_strdup((l_token)->next->content);
 		i++;
 		ft_l_delete(l_token);
 	}

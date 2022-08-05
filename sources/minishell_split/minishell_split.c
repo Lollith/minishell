@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_split.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 12:07:18 by frrusso           #+#    #+#             */
-/*   Updated: 2022/05/25 12:07:31 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/08/05 13:37:00 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,12 +92,12 @@ char	**minishell_split(char const *str, char *space)
 	int		j;
 	char	**res;
 
-	res = malloc(sizeof(char *) * minishell_count(str, space));
+	res = ft_calloc(sizeof(char *), minishell_count(str, space));
 	if (!res)
 		return (NULL);
 	j = 0;
 	i = 0;
-	while (str[i])
+	while (str && str[i])
 	{
 		while (ft_is_space(str[i], space))
 			i++;
@@ -110,6 +110,5 @@ char	**minishell_split(char const *str, char *space)
 		i = minishell_post_input(str, space, i, res[j]);
 		j++;
 	}
-	res[j] = NULL;
 	return (res);
 }
