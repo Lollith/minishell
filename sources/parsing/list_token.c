@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:18:51 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/05 13:53:05 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/05 14:56:56 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int	list_token(t_list **l_token, char *line)
 		return (FAILURE);
 	while (token[i])
 	{
-		l_new_token = ft_lstnew(token[i]);
+	l_new_token = ft_lstnew(token[i]);
 		if (!l_new_token)
 		{
 			ft_split_free(token);

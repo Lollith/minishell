@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/05 13:55:54 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/05 14:56:03 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ char	**ft_is_arg(t_list *l_token)
 	args_exec = malloc(sizeof(char *) * size);
 	if (!args_exec)
 		return (FAILURE);
-	args_exec[0] = (l_token)->content;
+	args_exec[0] = ft_strdup((l_token)->content);
 	i = 1;
 	while (l_token && i < size - 1)
 	{
