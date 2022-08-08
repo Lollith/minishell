@@ -14,6 +14,8 @@
 
 int	ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 {
+	int	ret;
+
 	if (ft_string_of_string_len(line) > 3)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
@@ -23,25 +25,16 @@ int	ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 	if (line[1])
 	{
 		if (ft_is_int(line[1]))
-	{
-			close(pipex->tmp_in);
-			close(pipex->tmp_out);
-			ft_split_free(envp);
-			int t = ft_atoi(line[1]);
-			ft_split_free(line);
-			exit (t);
-	}
+		{
+			ret = ft_atoi(line[1]);
+			ft_exit_free(line, envp, l_token, pipex);
+			exit (ret);
+		}
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(line[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 	}
-	close(pipex->tmp_in);
-	close(pipex->tmp_out);
-	rl_clear_history();
-	ft_split_free(line);
-	ft_split_free(envp);
-	ft_lstclear2(&l_token);
-	exit(0);
+	exit(ft_exit_free(line, envp, l_token, pipex));
 	return (2);
 }
 

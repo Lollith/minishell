@@ -72,6 +72,7 @@ char	**ft_export_line(char *pwd)
 	return (res);
 }
 
+// For echo
 int	ft_echo_cheak(char *line)
 {
 	int	i;
@@ -84,4 +85,16 @@ int	ft_echo_cheak(char *line)
 	if (line[i] || i == 1)
 		return (0);
 	return (1);
+}
+
+// For Exit
+int	ft_exit_free(char **line, char **envp, t_list *l_token, t_pipe *pipex)
+{
+	close(pipex->tmp_in);
+	close(pipex->tmp_out);
+	rl_clear_history();
+	ft_split_free(line);
+	ft_split_free(envp);
+	ft_lstclear2(&l_token);
+	return (0);
 }

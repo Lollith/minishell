@@ -69,12 +69,13 @@ int		ft_cd(char **line, char ***envp);
 int		ft_pwd(char **envp);
 
 /* ************************************************************************** */
-/*   builtins/environment_bis.c                                 4 functions   */
+/*   builtins/environment_bis.c                                 5 functions   */
 /* ************************************************************************** */
 int		ft_export_value(char **line, char ***envp, int i);
 char	**ft_export_envp(char **line, char **envp);
 char	**ft_export_line(char *pwd);
 int		ft_echo_cheak(char *line);
+int		ft_exit_free(char **line, char **envp, t_list *l_token, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   builtins/environment.c                                     5 functions   */
