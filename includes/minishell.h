@@ -153,12 +153,11 @@ int		ft_s_quote(char const *str, char *res, int *i, int size);
 void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 
 /* ************************************************************************** */
-/*   parsing/list_token.c                                       4 functions   */
+/*   parsing/list_token.c                                       3 functions   */
 /* ************************************************************************** */
 int		list_token(t_list **l_token, char *line);
 void	ft_l_delete(t_list *l_token);
 void	ft_lstclear2(t_list **l_token);
-void	ft_lstclear3(t_list **l_token);
 
 /* ************************************************************************** */
 /*   parsing/parsing.c                                          4 functions   */

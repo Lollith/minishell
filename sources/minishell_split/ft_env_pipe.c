@@ -46,9 +46,9 @@ void	ft_env_pipe_input(char *res, int pipe_ret, int *i, int *j)
 
 void	ft_env_free(void **tmp1, void **tmp2, t_list *l_token)
 {
-	if (*tmp1 == l_token->content)
+	if (ft_is_str(*tmp1, l_token->content))
 	{
 		free(l_token->content);
-		l_token->content = *tmp2;
+		l_token->content = ft_strdup(*tmp2);
 	}
 }
