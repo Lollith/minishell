@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:44:51 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/08 10:50:16 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/08 18:01:55 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,14 @@ int	ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 	if (line[1])
 	{
 		if (ft_is_int(line[1]))
-			exit(ft_atoi(line[1]));
+	{
+			close(pipex->tmp_in);
+			close(pipex->tmp_out);
+			ft_split_free(envp);
+			int t = ft_atoi(line[1]);
+			ft_split_free(line);
+			exit (t);
+	}
 		ft_putstr_fd("minishell: exit: ", 2);
 		ft_putstr_fd(line[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
