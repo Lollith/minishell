@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/26 15:46:25 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/03 15:34:55 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 // et le suprime de la liste
 int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
-	int		fd;
+	int	fd;
 
 	fd = open_out(l_token, args_exec);
 	if (fd < 0)
@@ -61,16 +61,18 @@ int	open_out(t_list *l_token, char **args_exec)
 }
 
 // bash : cmd1 < file1 < file2 => result file2, si 1 existe pas
-//=> erreur file1 c tout
-//=> < (-file1) cmd < (-file2)
-//=> < (-file1) < (-file2) cmd1
-//cat << EOF => ]<<] [EOF]  + cat
+// => erreur file1 c tout
+// => < (-file1) cmd < (-file2)
+// => < (-file1) < (-file2) cmd1
+// cat << EOF => ]<<] [EOF]  + cat
 int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	int		fd;
 	char	*file;
 
 	file = open_in(l_token, args_exec);
+	if (!file)
+		return (FAILURE);
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
 	{
@@ -93,14 +95,13 @@ char	*open_in(t_list *l_token, char **args_exec)
 	char	*file;
 
 	if (ft_strncmp(l_token->content, "<<", 2) == 0)
-		file = ft_heredoc(l_token, args_exec);
+	{
+		file = ft_heredoc(args_exec);
+		if (!file)
+			return (NULL);
+	}
 	else
 		file = args_exec[1];
-	if (!file)
-	{
-		file = l_token->next->content;
-		ft_l_delete(l_token);
-	}
 	return (file);
 }
 
@@ -108,9 +109,7 @@ int	next_checker(t_list *l_token)
 {
 	while (l_token)
 	{
-		if (((ft_strncmp(l_token->content, "<", 1) == 0)
-				|| (ft_strncmp(l_token->content, ">", 1) == 0))
-			&& ((!l_token->next)))
+		if (is_operator(l_token) && !l_token->next)
 		{
 			printf("syntax error near unexpected token\n");
 			return (FAILURE);

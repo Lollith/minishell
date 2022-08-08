@@ -6,7 +6,7 @@
 #    By: agouet <agouet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/20 16:34:58 by agouet            #+#    #+#              #
-#    Updated: 2022/07/13 15:02:09 by agouet           ###   ########.fr        #
+#    Updated: 2022/08/04 11:46:46 by agouet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,20 +22,24 @@ SRCS		=	$(addprefix sources/, \
 					minishell_split/minishell_split_bis.c \
 					minishell_split/minishell_split.c \
 					operator/heredoc.c \
+					operator/heredoc2.c \
 					operator/minishell_pipe.c \
 					operator/operator_bonus.c \
 					operator/operator.c \
+					parsing/ft_quoting.c \
+					parsing/list_token.c \
+					parsing/parsing.c \
+					parsing/parsing2.c \
+					useful/ft_getenv.c \
+					useful/ft_is_int.c \
+					useful/ft_is_str.c \
+					useful/useful.c \
+					execut_bis.c \
 					execut.c \
 					initialisation.c \
-					list_token.c \
-					ft_is_str.c \
-					ft_quoting.c \
-					parsing.c \
 					minishell.c \
 					main.c \
-					debug.c \
 					monitor.c \
-					parsing2.c \
 				)
 OBJS		=	$(SRCS:.c=.o)
 DEPS		=	$(SRCS:.c=.d)

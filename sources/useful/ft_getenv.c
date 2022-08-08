@@ -1,32 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing2.c                                         :+:      :+:    :+:   */
+/*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/13 15:04:01 by agouet           ###   ########.fr       */
+/*   Created: 2022/08/03 14:40:53 by frrusso           #+#    #+#             */
+/*   Updated: 2022/08/03 14:40:55 by frrusso          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_operator(t_list *l_token)
+char	*ft_getenv(char *env, char **envp)
 {
-	char	c[4];
-	int		i;
+	int	i;
 
+	if (!env)
+		return (NULL);
 	i = 0;
-	c[0] = '>';
-	c[1] = '<';
-	c[2] = '&';
-	c[3] = '|';
-	while (i < 4 && l_token)
-	{
-		if (ft_strchr(l_token->content, c[i]))
-			return (SUCCESS);
+	while (envp[i] && \
+	(ft_strncmp(envp[i], env, ft_strlen_equal(envp[i])) != 0))
 		i++;
-	}
-	return (FAILURE);
+	if (envp[i])
+		return (envp[i] + ft_strlen(env) + 1);
+	return (NULL);
 }

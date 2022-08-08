@@ -74,8 +74,8 @@ int	ft_export(char **line, char ***envp)
 	if (!ft_env_parsing(line, 0))
 		return (1);
 	i = 0;
-	while (envp[0][i] &&
-		ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i])))
+	while (envp[0][i] && \
+	(ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i]))) != 0)
 		i++;
 	if (envp[0][i])
 	{
@@ -101,8 +101,8 @@ int	ft_unset(char **line, char ***envp)
 	if (ft_env_parsing(line, 1))
 		return (1);
 	i = 0;
-	while (envp[0][i] &&
-		ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i])))
+	while (envp[0][i] && \
+	(ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i]))) != 0)
 		i++;
 	if (envp[0][i])
 	{

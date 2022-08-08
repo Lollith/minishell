@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/26 17:05:20 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/04 15:27:31 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,9 @@ int	reorganize(t_list **l_token, char **args_exec, char ***file_redir)
 	t_list	*new;
 
 	i = 1;
-	if ((*l_token)->next
-		&& ((ft_strncmp((*l_token)->next->content, "<", 1) == 0)
-			|| (ft_strncmp((*l_token)->next->content, ">", 1) == 0)))
+	if ((*l_token)->next && \
+	((ft_strncmp((*l_token)->next->content, "<", 1) == 0) || \
+	(ft_strncmp((*l_token)->next->content, ">", 1) == 0)))
 	{
 		tmp = (*l_token)->next;
 		(*l_token)->next = NULL;
@@ -111,7 +111,7 @@ int	one_cmd(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	{
 		pipex->ctrl = -1;
 		if (ft_child(&args_exec, envp, l_token, pipex) == 1)
-			exit (127);
+			exit(127);
 	}
 	return (SUCCESS);
 }

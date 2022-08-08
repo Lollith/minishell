@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/08 10:03:12 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/08 10:06:18 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,11 +61,11 @@ char	**lexer(char *line)
 // et les sort de la liste chainee ( file, - flag et autre mots pour grep)
 int	size_args(t_list *l_token)
 {
-	int			size;
+	int	size;
 
 	size = 2;
-	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0
-			|| (ft_strncmp(l_token->content, ">", 1) == 0)))
+	if (l_token->next && (ft_strncmp(l_token->content, "<", 1) == 0 || \
+	(ft_strncmp(l_token->content, ">", 1) == 0)))
 		size++;
 	else
 	{
@@ -91,11 +91,11 @@ char	**ft_is_arg(t_list *l_token)
 	args_exec = malloc(sizeof(char *) * size);
 	if (!args_exec)
 		return (FAILURE);
-	args_exec[0] = ft_strdup((l_token)->content);
+	args_exec[0] = (l_token)->content;
 	i = 1;
 	while (l_token && i < size - 1)
 	{
-		args_exec[i] = ft_strdup((l_token)->next->content);
+		args_exec[i] = (l_token)->next->content;
 		i++;
 		ft_l_delete(l_token);
 	}

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/27 15:52:57 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/03 17:16:04 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,18 @@ void	ft_new_prompt(int signum)
 		ft_msg("\b\b  \b\b", 1);
 }
 
+void	signal_here_doc(int signum)
+{
+	if (signum == SIGINT)
+	{
+		g_sig = 1;
+		ft_msg("\b\b  \n", 1);
+		rl_replace_line("", 0);
+		rl_on_new_line();
+		close(0);
+	}
+}
+
 int	check_env(char **envp)
 {
 	int	i;
@@ -45,13 +57,6 @@ int	ft_main(int ac, char **av, char ***envp)
 		ft_msg("Usage : ./minishell\n", 1);
 		return (1);
 	}
-	if (!*envp)
-	{
-		ft_msg("Error : No environment found\n", 1);
-		return (1);
-	}
-	if (!check_env(*envp))
-		return (1);
 	*envp = ft_realloc_envp(*envp);
 	if (!*envp)
 		return (1);

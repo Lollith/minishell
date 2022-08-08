@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/27 15:52:40 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/04 15:32:06 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,24 +40,26 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 {
 	pid_t	child;
 
-	if (ft_env_var(token, pipex->pipe_ret))
+	if (ft_env_var(token, pipex->pipe_ret, l_token, *envp))
 		return (FAILURE);
+	signal(SIGINT, SIG_IGN);
+	signal(SIGQUIT, SIG_IGN);
 	child = fork();
 	pipex->pid = child;
 	if (child < 0)
 		return (1);
 	if (!child)
 	{
+		signal(SIGINT, ft_new_prompt);
 		fd_monitor(pipex);
 		ft_close_tmp(pipex);
 		if (ft_builtins_fork(*token))
-			exit(0);
-		if (ft_pipex_exec(envp, l_token->content, *token, pipex) == 0)
-			exit (127);
-		return (0);
+			ft_child_free(token, envp, l_token, 0);
+		ft_pipex_exec(envp, l_token->content, *token, pipex);
+		ft_child_free(token, envp, l_token, 127);
 	}
-	if (ft_builtins(*token, envp) == 2)
-		exit(EXIT_FAILURE);
+	if (ft_builtins(*token, envp, l_token) == 2)
+		ft_child_free(token, envp, l_token, 1);
 	ft_child_close_pipe(pipex);
 	return (0);
 }

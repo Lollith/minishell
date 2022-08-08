@@ -6,11 +6,13 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/07/26 15:41:19 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/04 15:02:47 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	g_sig = 0;
 
 int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 {
@@ -35,6 +37,8 @@ int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 	close(pipex->tmp_in);
 	dup2(pipex->tmp_out, STDOUT_FILENO);
 	close(pipex->tmp_out);
+	signal(SIGINT, ft_new_prompt);
+	signal(SIGQUIT, ft_new_prompt);
 	return (SUCCESS);
 }
 
@@ -63,7 +67,6 @@ int	main_return(char **envp)
 int	main(int ac, char **av, char **envp)
 {
 	char	*line;
-	t_list	*tmp_token;
 	t_list	*l_token;
 	t_pipe	pipex;
 
@@ -76,10 +79,7 @@ int	main(int ac, char **av, char **envp)
 		if (line[0])
 		{
 			if (list_token(&l_token, line))
-			{
-				tmp_token = l_token;
-				parent(tmp_token, &envp, &pipex);
-			}
+				parent(l_token, &envp, &pipex);
 			ft_lstclear2(&l_token);
 		}
 		free(line);

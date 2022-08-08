@@ -48,6 +48,7 @@ char	**ft_export_envp(char **line, char **envp)
 	return (res);
 }
 
+// For cd
 char	**ft_export_line(char *pwd)
 {
 	char	cwd[256];
@@ -69,4 +70,18 @@ char	**ft_export_line(char *pwd)
 		return (NULL);
 	res[2] = NULL;
 	return (res);
+}
+
+int	ft_echo_cheak(char *line)
+{
+	int	i;
+
+	if (!line || line[0] != '-')
+		return (0);
+	i = 1;
+	while (line[i] && line[i] == 'n')
+		i++;
+	if (line[i] || i == 1)
+		return (0);
+	return (1);
 }
