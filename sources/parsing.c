@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/07/26 15:47:28 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/08 10:03:12 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char	**lexer(char *line)
 }
 
 // si < ou > : next  paxsse ds mon tab execve
-// sinon cherche si g un operateur 
+// sinon cherche si g un operateur
 // sinon met le toekn suivant ds args_ecxec pour la commande a exec,
 // et les sort de la liste chainee ( file, - flag et autre mots pour grep)
 int	size_args(t_list *l_token)
@@ -91,11 +91,11 @@ char	**ft_is_arg(t_list *l_token)
 	args_exec = malloc(sizeof(char *) * size);
 	if (!args_exec)
 		return (FAILURE);
-	args_exec[0] = (l_token)->content;
+	args_exec[0] = ft_strdup((l_token)->content);
 	i = 1;
 	while (l_token && i < size - 1)
 	{
-		args_exec[i] = (l_token)->next->content;
+		args_exec[i] = ft_strdup((l_token)->next->content);
 		i++;
 		ft_l_delete(l_token);
 	}
