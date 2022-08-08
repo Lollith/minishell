@@ -6,13 +6,13 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:44:51 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/03 17:16:00 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/08 10:50:16 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_exit(char **line, char **envp, t_list *l_token)
+int	ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 {
 	char	*str;
 
@@ -26,10 +26,12 @@ int	ft_exit(char **line, char **envp, t_list *l_token)
 		ft_msg(str, 2);
 		free(str);
 	}
+	close(pipex->tmp_in);
+	close(pipex->tmp_out);
 	rl_clear_history();
 	ft_split_free(line);
 	ft_split_free(envp);
-	ft_lstclear3(&l_token);
+	ft_lstclear2(&l_token);
 	exit(0);
 	return (2);
 }

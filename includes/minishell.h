@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/03 15:36:28 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/08 10:45:22 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int		ft_env(char **envp);
 /* ************************************************************************** */
 /*   builtins/builtins.c                                        5 functions   */
 /* ************************************************************************** */
-int		ft_exit(char **line, char **envp, t_list *l_token);
+int		ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex);
 int		ft_echo(char **line);
 char	*ft_get_home(char **envp);
 int		ft_cd(char **line, char ***envp);
@@ -217,7 +217,7 @@ int		ft_link_fd(int pipefd0, int pipefd1, int std);
 /*   minishell.c                                                4 functions   */
 /* ************************************************************************** */
 int		ft_builtins_fork(char **line);
-int		ft_builtins(char **line, char ***envp, t_list *l_token);
+int		ft_builtins(char **line, char ***envp, t_list *l_token, t_pipe *pipex);
 void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str);
 
