@@ -43,7 +43,6 @@ char	**ft_realloc_envp(char **envp)
 int	ft_env_parsing(char **line, int is_unset)
 {
 	int		i;
-	char	*str;
 
 	if (!line[1])
 		return (is_unset);
@@ -54,10 +53,9 @@ int	ft_env_parsing(char **line, int is_unset)
 		{
 			if (is_unset)
 			{
-				str = ft_strjoin("minishell: unset: \'", line[1]);
-				str = ft_strjoin_free(str, "\': not a valid identifier\n");
-				write(1, str, ft_strlen(str));
-				free(str);
+				ft_putstr_fd("minishell: unset: \'", 2);
+				ft_putstr_fd(line[1], 2);
+				ft_putstr_fd("\': not a valid identifier\n", 2);
 			}
 			return (TRUE);
 		}
