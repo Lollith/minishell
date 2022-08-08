@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/03 15:34:55 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/08 17:12:01 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ int	open_out(t_list *l_token, char **args_exec)
 		fd = open (file, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd < 0)
 		perror(file);
+	ft_split_free(args_exec);
 	return (fd);
 }
 
@@ -85,6 +86,7 @@ int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		return (msg_perror("fd "));
 	if (ft_strncmp(l_token->content, "<<", 2) == 0)
 		free_heredoc(file);
+	ft_split_free(args_exec);
 	if ((l_token)->next)
 		monitoring_line((l_token)->next, envp, pipex);
 	return (SUCCESS);
