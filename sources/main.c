@@ -66,6 +66,7 @@ int	main_return(char **envp)
 
 int	main(int ac, char **av, char **envp)
 {
+	int		i;
 	char	*line;
 	t_list	*l_token;
 	t_pipe	pipex;
@@ -76,7 +77,10 @@ int	main(int ac, char **av, char **envp)
 	line = readline("minishell> ");
 	while (line != NULL)
 	{
-		if (line[0])
+		i = 0;
+		while (ft_is_space(line[i], MS_SPACE))
+			i++;
+		if (line[i])
 		{
 			if (list_token(&l_token, line))
 				parent(l_token, &envp, &pipex);

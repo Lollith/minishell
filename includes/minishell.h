@@ -90,7 +90,7 @@ char	**ft_unset_envp(char **line, char **envp);
 /* ************************************************************************** */
 int		ft_env_pipe_size(int pipe_ret, int *i);
 void	ft_env_pipe_input(char *res, int pipe_ret, int *i, int *j);
-void	ft_env_free(void **tmp1, void **tmp2, t_list *l_token);
+void	ft_env_free(void *tmp1, void *tmp2, t_list *l_token);
 
 /* ************************************************************************** */
 /*   minishell_split/ft_env.c                                   5 functions   */
