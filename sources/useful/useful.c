@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/26 13:21:33 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/08 10:20:33 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/08 11:17:31 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	ft_free_args_exec(char **args_exec, int ret)
 	int	i;
 
 	i = 0;
-	while(args_exec[i])
+	while (args_exec[i])
 	{
 		free(args_exec[i]);
 		i++;

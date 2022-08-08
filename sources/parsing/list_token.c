@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:18:51 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/05 14:56:56 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/08 11:16:06 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	ft_l_delete(t_list *l_token)
 		l_token->next = l_token->next->next;
 	else
 		l_token->next = NULL;
+	free(tmp->content);
 	free(tmp);
 }
 
