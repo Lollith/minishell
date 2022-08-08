@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:25:45 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/04 17:19:27 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/08 10:45:41 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	ft_builtins_fork(char **line)
 // 0 in not a builtins
 // 1 is a builtins
 // 2 exit
-int	ft_builtins(char **line, char ***envp, t_list *l_token)
+int	ft_builtins(char **line, char ***envp, t_list *l_token, t_pipe *pipex)
 {
 	if (ft_is_str(line[0], "echo") || ft_is_str(line[0], "say"))
 		return (ft_echo(line));
@@ -51,7 +51,7 @@ int	ft_builtins(char **line, char ***envp, t_list *l_token)
 	if (ft_is_str(line[0], "env"))
 		return (ft_env(*envp));
 	if (ft_is_str(line[0], "exit") || ft_is_str(line[0], "quit"))
-		return (ft_exit(line, *envp, l_token));
+		return (ft_exit(line, *envp, l_token, pipex));
 	return (0);
 }
 
