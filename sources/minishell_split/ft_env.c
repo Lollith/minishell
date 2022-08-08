@@ -134,8 +134,8 @@ int	ft_env_var(char ***token, int pipe_ret, t_list *l_token, char **envp)
 				tmp2 = ft_env_realloc_token(token[0][j], pipe_ret, envp);
 				if (!tmp2)
 					return (1);
+				ft_env_free(tmp1, tmp2, l_token);
 				token[0][j] = tmp2;
-				ft_env_free(&tmp1, &tmp2, l_token);
 				break ;
 			}
 		}

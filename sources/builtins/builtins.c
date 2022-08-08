@@ -14,17 +14,19 @@
 
 int	ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 {
-	char	*str;
-
+	if (ft_string_of_string_len(line) > 3)
+	{
+		ft_putstr_fd("exit: too many arguments\n", 2);
+		return (1);
+	}
 	write(1, "exit\n", 5);
 	if (line[1])
 	{
 		if (ft_is_int(line[1]))
 			exit(ft_atoi(line[1]));
-		str = ft_strjoin("minishell: exit: ", line[1]);
-		str = ft_strjoin_free(str, ": numeric argument required\n");
-		ft_msg(str, 2);
-		free(str);
+		ft_putstr_fd("minishell: exit: ", 2);
+		ft_putstr_fd(line[1], 2);
+		ft_putstr_fd(": numeric argument required\n", 2);
 	}
 	close(pipex->tmp_in);
 	close(pipex->tmp_out);
