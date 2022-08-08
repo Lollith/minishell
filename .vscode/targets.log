@@ -1,0 +1,996 @@
+make all --print-data-base --no-builtin-variables --no-builtin-rules --question
+# GNU Make 4.2.1
+# Built for x86_64-pc-linux-gnu
+# Copyright (C) 1988-2016 Free Software Foundation, Inc.
+# License GPLv3+: GNU GPL version 3 or later <http://gnu.org/licenses/gpl.html>
+# This is free software: you are free to change and redistribute it.
+# There is NO WARRANTY, to the extent permitted by law.
+ 
+
+# Make data base, printed on Mon Aug  8 09:58:02 2022
+
+# Variables
+
+# automatic
+<D = $(patsubst %/,%,$(dir $<))
+# automatic
+?F = $(notdir $?)
+# environment
+DESKTOP_SESSION = ubuntu
+# default
+.SHELLFLAGS := -c
+# environment
+XDG_SESSION_CLASS = user
+# environment
+XDG_SESSION_TYPE = x11
+# environment
+VSCODE_LOG_NATIVE = false
+# automatic
+?D = $(patsubst %/,%,$(dir $?))
+# automatic
+@D = $(patsubst %/,%,$(dir $@))
+# environment
+XAUTHORITY = /mnt/nfs/homes/agouet/.Xauthority
+# environment
+GDMSESSION = ubuntu
+# environment
+XMODIFIERS = @im=ibus
+# makefile
+CURDIR := /mnt/nfs/homes/agouet/Desktop/minishell/minishell
+# makefile
+SHELL = /bin/sh
+# environment
+VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
+# environment
+_ = /usr/share/code/code
+# makefile (from 'Makefile', line 47)
+CFLAGS = -Wall -Wextra -Werror -MMD -g3
+# environment
+JOURNAL_STREAM = 9:1069841
+# environment
+XDG_CONFIG_DIRS = /etc/xdg/xdg-ubuntu:/etc/xdg
+# makefile (from 'sources/monitor.d', line 1)
+MAKEFILE_LIST :=  Makefile sources/builtins/builtins_bis.d sources/builtins/builtins.d sources/builtins/environment_bis.d sources/builtins/environment.d sources/minishell_split/ft_env_pipe.d sources/minishell_split/ft_env.d sources/minishell_split/minishell_split_bis.d sources/minishell_split/minishell_split.d sources/operator/heredoc.d sources/operator/heredoc2.d sources/operator/minishell_pipe.d sources/operator/operator_bonus.d sources/operator/operator.d sources/parsing/ft_quoting.d sources/parsing/list_token.d sources/parsing/parsing.d sources/parsing/parsing2.d sources/useful/ft_getenv.d sources/useful/ft_is_int.d sources/useful/ft_is_str.d sources/useful/useful.d sources/execut_bis.d sources/execut.d sources/initialisation.d sources/minishell.d sources/main.d sources/monitor.d
+# automatic
+@F = $(notdir $@)
+# environment
+GIO_LAUNCHED_DESKTOP_FILE = /usr/share/applications/code.desktop
+# 'override' directive
+GNUMAKEFLAGS := 
+# environment
+MANDATORY_PATH = /usr/share/gconf/ubuntu.mandatory.path
+# environment
+XDG_DATA_DIRS = /usr/share/gnome:/usr/share/ubuntu:/mnt/nfs/homes/agouet/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/local/share:/usr/share:/var/lib/snapd/desktop
+# environment
+DBUS_SESSION_BUS_ADDRESS = unix:path=/run/user/40580/bus
+# environment
+VSCODE_VERBOSE_LOGGING = true
+# makefile (from 'Makefile', line 44)
+OBJS = $(SRCS:.c=.o)
+# environment
+INFOPATH = /mnt/nfs/homes/agouet/.linuxbrew/share/info:/mnt/nfs/homes/agouet/.linuxbrew/share/info:
+# environment
+MANAGERPID = 205607
+# environment
+VSCODE_IPC_HOOK_EXTHOST = /run/user/40580/vscode-ipc-aed14f10-2d70-4911-9f5d-351443a9efd7.sock
+# makefile (from 'Makefile', line 48)
+READLINE = -lreadline
+# environment
+VSCODE_CWD = /mnt/nfs/homes/agouet
+# environment
+XDG_SESSION_PATH = /org/freedesktop/DisplayManager/Session2
+# environment
+KRB5CCNAME = FILE:/tmp/krb5cc_40580_hvtVjy
+# default
+MAKE_HOST := x86_64-pc-linux-gnu
+# environment
+PATH = /mnt/nfs/homes/agouet/.linuxbrew/bin:/mnt/nfs/homes/agouet/.linuxbrew/sbin:/mnt/nfs/homes/agouet/bin:/mnt/nfs/homes/agouet/.linuxbrew/bin:/mnt/nfs/homes/agouet/.linuxbrew/sbin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin
+# environment
+GPG_AGENT_INFO = /run/user/40580/gnupg/S.gpg-agent:0:1
+# environment
+LSCOLORS = Gxfxcxdxbxegedabagacad
+# environment
+SESSION_MANAGER = local/e1r7p19.clusters.42paris.fr:@/tmp/.ICE-unix/206171,unix/e1r7p19.clusters.42paris.fr:/tmp/.ICE-unix/206171
+# environment
+XDG_RUNTIME_DIR = /run/user/40580
+# environment
+XDG_MENU_PREFIX = gnome-
+# environment
+VSCODE_LOG_STACK = false
+# environment
+ELECTRON_RUN_AS_NODE = 1
+# environment
+INVOCATION_ID = 6f64e17b2f904a6b93a3ab3ccacf3ea3
+# default
+.FEATURES := target-specific order-only second-expansion else-if shortest-stem undefine oneshell archives jobserver output-sync check-symlink load
+# environment
+XDG_GREETER_DATA_DIR = /var/lib/lightdm-data/agouet
+# environment
+LS_COLORS = 
+# environment
+XDG_SESSION_DESKTOP = ubuntu
+# environment
+SSH_AUTH_SOCK = /run/user/40580/keyring/ssh
+# environment
+GIO_LAUNCHED_DESKTOP_FILE_PID = 208109
+# automatic
+%F = $(notdir $%)
+# environment
+DISPLAY = :0
+# environment
+VSCODE_PIPE_LOGGING = true
+# environment
+PWD = /mnt/nfs/homes/agouet/Desktop/minishell/minishell
+# default
+.LOADED := 
+# environment
+SSH_AGENT_PID = 206135
+# environment
+ORIGINAL_XDG_CURRENT_DESKTOP = ubuntu:GNOME
+# environment
+GTK_MODULES = gail:atk-bridge
+# environment
+MANPATH = /mnt/nfs/homes/agouet/.linuxbrew/share/man:/mnt/nfs/homes/agouet/.linuxbrew/share/man::
+# environment
+VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
+# environment
+HOME = /mnt/nfs/homes/agouet
+# environment
+HOMEBREW_CELLAR = /mnt/nfs/homes/agouet/.linuxbrew/Cellar
+# environment
+VSCODE_CODE_CACHE_PATH = /mnt/nfs/homes/agouet/.config/Code/CachedData/30d9c6cd9483b2cc586687151bcbcd635f373630
+# environment
+LOGNAME = agouet
+# environment
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
+# environment
+ZSH = /mnt/nfs/homes/agouet/.oh-my-zsh
+# environment
+VSCODE_HANDLES_UNCAUGHT_ERRORS = true
+# environment
+GNOME_DESKTOP_SESSION_ID = this-is-deprecated
+# automatic
+^D = $(patsubst %/,%,$(dir $^))
+# environment
+MAKELEVEL := 0
+# default
+MAKE = $(MAKE_COMMAND)
+# default
+MAKECMDGOALS := all
+# environment
+QT_IM_MODULE = ibus
+# makefile (from 'Makefile', line 15)
+SRCS = $(addprefix sources/, builtins/builtins_bis.c builtins/builtins.c builtins/environment_bis.c builtins/environment.c minishell_split/ft_env_pipe.c minishell_split/ft_env.c minishell_split/minishell_split_bis.c minishell_split/minishell_split.c operator/heredoc.c operator/heredoc2.c operator/minishell_pipe.c operator/operator_bonus.c operator/operator.c parsing/ft_quoting.c parsing/list_token.c parsing/parsing.c parsing/parsing2.c useful/ft_getenv.c useful/ft_is_int.c useful/ft_is_str.c useful/useful.c execut_bis.c execut.c initialisation.c minishell.c main.c monitor.c )
+# environment
+SHLVL = 1
+# makefile (from 'Makefile', line 14)
+LIBFT = libft/libft.a
+# makefile (from 'Makefile', line 46)
+CC = cc
+# environment
+IM_CONFIG_PHASE = 1
+# default
+MAKE_VERSION := 4.2.1
+# environment
+USER = agouet
+# makefile
+.DEFAULT_GOAL := minishell
+# environment
+XDG_CURRENT_DESKTOP = Unity
+# environment
+LIBVIRT_DEFAULT_URI = qemu:///system
+# environment
+LESS = -R
+# automatic
+%D = $(patsubst %/,%,$(dir $%))
+# default
+MAKE_COMMAND := make
+# makefile (from 'Makefile', line 49)
+INC = -I ./includes
+# environment
+OLDPWD = /mnt/nfs/homes/agouet
+# default
+.VARIABLES := 
+# automatic
+*F = $(notdir $*)
+# environment
+XDG_SEAT_PATH = /org/freedesktop/DisplayManager/Seat0
+# environment
+VSCODE_IPC_HOOK = /run/user/40580/vscode-f3fe54c4-1.68.1-main.sock
+# makefile
+MAKEFLAGS = pqrR
+# environment
+MFLAGS = -pqrR
+# automatic
+*D = $(patsubst %/,%,$(dir $*))
+# environment
+HOMEBREW_PREFIX = /mnt/nfs/homes/agouet/.linuxbrew
+# automatic
++D = $(patsubst %/,%,$(dir $+))
+# environment
+GDK_BACKEND = x11
+# automatic
++F = $(notdir $+)
+# environment
+HOMEBREW_REPOSITORY = /mnt/nfs/homes/agouet/.linuxbrew/Homebrew
+# environment
+QT_ACCESSIBILITY = 1
+# environment
+DEFAULTS_PATH = /usr/share/gconf/ubuntu.default.path
+# default
+MAKEFILES := 
+# automatic
+<F = $(notdir $<)
+# environment
+PAGER = less
+# environment
+LC_ALL = C
+# environment
+GJS_DEBUG_TOPICS = JS ERROR;JS LOG
+# automatic
+^F = $(notdir $^)
+# makefile (from 'Makefile', line 45)
+DEPS = $(SRCS:.c=.d)
+# default
+SUFFIXES := 
+# environment
+CHROME_DESKTOP = code-url-handler.desktop
+# default
+.INCLUDE_DIRS = /usr/include /usr/local/include /usr/include
+# environment
+GJS_DEBUG_OUTPUT = stderr
+# makefile (from 'Makefile', line 13)
+NAME = minishell
+# default
+.RECIPEPREFIX := 
+# environment
+LANG = C
+# environment
+DOCKER_HOST = unix:///run/user/40580/docker.sock
+# environment
+VSCODE_PID = 208109
+# variable set hash-table stats:
+# Load=119/1024=12%, Rehash=0, Collisions=16/204=8%
+
+# Pattern-specific Variable Values
+
+# No pattern-specific variable values.
+
+# Directories
+
+# sources/useful (device 59, inode 58630240): No files, no impossibilities so far.
+# . (device 59, inode 58628103): 13 files, no impossibilities.
+# sources (device 59, inode 58628441): No files, no impossibilities so far.
+# sources/parsing (device 59, inode 59310876): No files, no impossibilities so far.
+# sources/builtins (device 59, inode 58628442): No files, no impossibilities so far.
+# sources/minishell_split (device 59, inode 58628454): No files, no impossibilities so far.
+# sources/operator (device 59, inode 58628461): No files, no impossibilities so far.
+
+# 13 files, no impossibilities in 7 directories.
+
+# Implicit Rules
+
+%.o: %.c
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# 1 implicit rules, 0 (0.0%) terminal.
+
+# Files
+
+# Not a target:
+sources/parsing/ft_quoting.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.541567666
+#  File has been updated.
+#  Successfully updated.
+
+sources/parsing/list_token.o: sources/parsing/list_token.c sources/parsing/list_token.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/parsing/list_token'
+ 
+#  Last modified 2022-08-05 14:57:02.588956659
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/minishell.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:42.285521843
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/minishell_split/ft_env_pipe.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-02 15:29:09.210151929
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/initialisation.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-04 12:36:29.296388195
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/useful/ft_is_int.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.877569787
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/parsing/parsing.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:56:05.860600314
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/operator/heredoc.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.199565506
+#  File has been updated.
+#  Successfully updated.
+
+sources/minishell.o: sources/minishell.c sources/minishell.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/minishell'
+#  Last modified 2022-08-05 14:21:50.263572225
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/builtins/builtins.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:48.709562411
+#  File has been updated.
+#  Successfully updated.
+
+all: minishell
+#  Phony target (prerequisite of .PHONY).
+#  Command line target.
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/useful/useful.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:02:54.75440886
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/operator/heredoc2.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-03 15:35:29.277246506
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/parsing/parsing2.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-01 13:53:56.531240063
+#  File has been updated.
+#  Successfully updated.
+
+sources/useful/ft_is_str.o: sources/useful/ft_is_str.c sources/useful/ft_is_str.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/useful/ft_is_str'
+#  Last modified 2022-08-05 14:21:49.937570166
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+.PHONY: all re clean fclean
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+# Not a target:
+sources/minishell_split/minishell_split.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.134565095
+#  File has been updated.
+#  Successfully updated.
+
+sources/operator/operator.o: sources/operator/operator.c sources/operator/operator.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/operator/operator'
+#  Last modified 2022-08-05 14:21:49.469567211
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+sources/builtins/environment_bis.o: sources/builtins/environment_bis.c sources/builtins/environment_bis.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/builtins/environment_bis'
+#  Last modified 2022-08-05 14:21:48.774562822
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+sources/execut_bis.o: sources/execut_bis.c sources/execut_bis.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/execut_bis'
+#  Last modified 2022-08-05 15:31:57.377099757
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/operator/operator_bonus.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-27 16:06:37.479647263
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/main.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:50.331572654
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/monitor.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 15:28:52.984946291
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/execut.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 15:04:44.858861841
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+Makefile:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-04 12:36:29.272388043
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/builtins/builtins_bis.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:48.643561994
+#  File has been updated.
+#  Successfully updated.
+
+sources/parsing/ft_quoting.o: sources/parsing/ft_quoting.c sources/parsing/ft_quoting.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/parsing/ft_quoting'
+#  Last modified 2022-08-05 14:21:49.539567653
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/builtins/environment.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-01 11:39:41.798830909
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/useful/ft_getenv.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-04 12:36:29.305388252
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/minishell_split/minishell_split_bis.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.049564558
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/minishell_split/ft_env.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-04 12:36:29.302388233
+#  File has been updated.
+#  Successfully updated.
+
+sources/useful/ft_is_int.o: sources/useful/ft_is_int.c sources/useful/ft_is_int.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/useful/ft_is_int'
+#  Last modified 2022-08-05 14:21:49.876569781
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+sources/parsing/parsing.o: sources/parsing/parsing.c sources/parsing/parsing.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/parsing/parsing'
+#  Last modified 2022-08-05 14:56:05.859600307
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+sources/operator/heredoc.o: sources/operator/heredoc.c sources/operator/heredoc.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/operator/heredoc'
+#  Last modified 2022-08-05 14:21:49.1985655
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+sources/builtins/builtins.o: sources/builtins/builtins.c sources/builtins/builtins.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/builtins/builtins'
+#  Last modified 2022-08-05 14:21:48.708562405
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/minishell_split/ft_env_pipe.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:48.909563674
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/operator/minishell_pipe.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.336566371
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/initialisation.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:50.195571795
+#  File has been updated.
+#  Successfully updated.
+
+minishell: sources/builtins/builtins_bis.o sources/builtins/builtins.o sources/builtins/environment_bis.o sources/builtins/environment.o sources/minishell_split/ft_env_pipe.o sources/minishell_split/ft_env.o sources/minishell_split/minishell_split_bis.o sources/minishell_split/minishell_split.o sources/operator/heredoc.o sources/operator/heredoc2.o sources/operator/minishell_pipe.o sources/operator/operator_bonus.o sources/operator/operator.o sources/parsing/ft_quoting.o sources/parsing/list_token.o sources/parsing/parsing.o sources/parsing/parsing2.o sources/useful/ft_getenv.o sources/useful/ft_is_int.o sources/useful/ft_is_str.o sources/useful/useful.o sources/execut_bis.o sources/execut.o sources/initialisation.o sources/minishell.o sources/main.o sources/monitor.o
+ 
+#  Implicit rule search has not been done.
+#  Last modified 2022-08-05 15:31:57.470100339
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 55):
+	$(MAKE) -C libft
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) $(READLINE) -o $(NAME)
+
+# Not a target:
+sources/useful/ft_is_str.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.939570179
+#  File has been updated.
+#  Successfully updated.
+
+sources/minishell_split/minishell_split.o: sources/minishell_split/minishell_split.c sources/minishell_split/minishell_split.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/minishell_split/minishell_split'
+#  Last modified 2022-08-05 14:21:49.132565083
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/useful/useful.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:50.002570577
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/useful/ft_is_str.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-02 16:22:00.189103521
+#  File has been updated.
+#  Successfully updated.
+
+fclean: clean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 65):
+	$(MAKE) fclean -C libft
+	rm -f $(NAME)
+
+# Not a target:
+sources/operator/heredoc2.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.268565941
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/parsing/parsing2.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.74656896
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/operator/operator.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-03 15:34:55.420039151
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/builtins/environment_bis.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-04 12:36:29.287388138
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/execut.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 15:04:40.806836365
+#  File has been updated.
+#  Successfully updated.
+
+sources/main.o: sources/main.c sources/main.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/main'
+#  Last modified 2022-08-05 14:21:50.330572648
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/execut_bis.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 15:31:53.139073246
+#  File has been updated.
+#  Successfully updated.
+
+sources/execut.o: sources/execut.c sources/execut.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/execut'
+#  Last modified 2022-08-05 15:04:44.856861828
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+sources/builtins/builtins_bis.o: sources/builtins/builtins_bis.c sources/builtins/builtins_bis.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/builtins/builtins_bis'
+#  Last modified 2022-08-05 14:21:48.642561988
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/operator/operator_bonus.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.4045668
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/monitor.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 15:28:54.978958764
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+.DEFAULT:
+#  Implicit rule search has not been done.
+#  Modification time never checked.
+#  File has not been updated.
+
+sources/minishell_split/minishell_split_bis.o: sources/minishell_split/minishell_split_bis.c sources/minishell_split/minishell_split_bis.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/minishell_split/minishell_split_bis'
+#  Last modified 2022-08-05 14:21:49.047564546
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+re: fclean
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 69):
+	make
+
+# Not a target:
+sources/parsing/ft_quoting.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:42.292521887
+#  File has been updated.
+#  Successfully updated.
+
+clean:
+#  Phony target (prerequisite of .PHONY).
+#  Implicit rule search has not been done.
+#  File does not exist.
+#  File has not been updated.
+#  recipe to execute (from 'Makefile', line 61):
+	$(MAKE) clean -C libft
+	rm -f $(OBJS) $(DEPS)
+
+# Not a target:
+sources/parsing/list_token.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:56:56.348917462
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/operator/minishell_pipe.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 13:50:54.532813141
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/builtins/environment.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:48.842563251
+#  File has been updated.
+#  Successfully updated.
+
+sources/minishell_split/ft_env_pipe.o: sources/minishell_split/ft_env_pipe.c sources/minishell_split/ft_env_pipe.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/minishell_split/ft_env_pipe'
+#  Last modified 2022-08-05 14:21:48.908563668
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/useful/ft_getenv.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.811569371
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/useful/ft_is_int.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-02 16:22:00.18610353
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/minishell_split/ft_env.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:48.980564123
+#  File has been updated.
+#  Successfully updated.
+
+sources/initialisation.o: sources/initialisation.c sources/initialisation.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/initialisation'
+#  Last modified 2022-08-05 14:21:50.194571789
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/parsing/parsing.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:56:03.616586218
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/operator/heredoc.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-03 16:13:20.233181194
+#  File has been updated.
+#  Successfully updated.
+
+sources/operator/minishell_pipe.o: sources/operator/minishell_pipe.c sources/operator/minishell_pipe.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/operator/minishell_pipe'
+#  Last modified 2022-08-05 14:21:49.334566358
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/builtins/builtins.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:42.276521786
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/parsing/list_token.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:57:02.590956672
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/minishell.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:50.264572231
+#  File has been updated.
+#  Successfully updated.
+
+sources/useful/useful.o: sources/useful/useful.c sources/useful/useful.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/useful/useful'
+#  Last modified 2022-08-05 14:21:50.000570564
+#  File has been updated.
+ 
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+sources/operator/heredoc2.o: sources/operator/heredoc2.c sources/operator/heredoc2.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/operator/heredoc2'
+#  Last modified 2022-08-05 14:21:49.266565929
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+sources/parsing/parsing2.o: sources/parsing/parsing2.c sources/parsing/parsing2.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/parsing/parsing2'
+#  Last modified 2022-08-05 14:21:49.744568948
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/minishell_split/minishell_split.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:42.289521868
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+includes/../libft/libft.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-07-13 16:03:50.256547461
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/operator/operator.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:49.471567223
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/main.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 13:40:27.832882442
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/builtins/environment_bis.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:48.776562834
+#  File has been updated.
+#  Successfully updated.
+
+sources/operator/operator_bonus.o: sources/operator/operator_bonus.c sources/operator/operator_bonus.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/operator/operator_bonus'
+#  Last modified 2022-08-05 14:21:49.402566788
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+sources/monitor.o: sources/monitor.c sources/monitor.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/monitor'
+#  Last modified 2022-08-05 15:28:54.977958758
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# Not a target:
+sources/execut_bis.d:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 15:31:57.37909977
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+includes/minishell.h:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-05 14:21:42.273521767
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/builtins/builtins_bis.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-04 12:36:29.284388119
+#  File has been updated.
+#  Successfully updated.
+
+# Not a target:
+sources/minishell_split/minishell_split_bis.c:
+#  Implicit rule search has been done.
+#  Last modified 2022-08-01 11:39:41.821830845
+#  File has been updated.
+#  Successfully updated.
+
+sources/builtins/environment.o: sources/builtins/environment.c sources/builtins/environment.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/builtins/environment'
+#  Last modified 2022-08-05 14:21:48.840563239
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+sources/useful/ft_getenv.o: sources/useful/ft_getenv.c sources/useful/ft_getenv.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/useful/ft_getenv'
+#  Last modified 2022-08-05 14:21:49.809569358
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+sources/minishell_split/ft_env.o: sources/minishell_split/ft_env.c sources/minishell_split/ft_env.c includes/minishell.h includes/../libft/libft.h
+#  Implicit rule search has been done.
+#  Implicit/static pattern stem: 'sources/minishell_split/ft_env'
+#  Last modified 2022-08-05 14:21:48.979564116
+#  File has been updated.
+#  Successfully updated.
+#  recipe to execute (from 'Makefile', line 52):
+	$(CC) $(CFLAGS) -c $< -o $@ $(INC)
+
+# files hash-table stats:
+# Load=92/1024=9%, Rehash=0, Collisions=56/326=17%
+# VPATH Search Paths
+
+# No 'vpath' search paths.
+
+# No general ('VPATH' variable) search path.
+
+# strcache buffers: 1 (0) / strings = 139 / storage = 3350 B / avg = 24 B
+# current buf: size = 8162 B / used = 3350 B / count = 139 / avg = 24 B
+
+# strcache performance: lookups = 346 / hit rate = 59%
+# hash-table stats:
+# Load=139/8192=2%, Rehash=0, Collisions=4/346=1%
+# Finished Make data base on Mon Aug  8 09:58:02 2022
+
+ 
