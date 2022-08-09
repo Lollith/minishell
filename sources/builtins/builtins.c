@@ -21,7 +21,6 @@ int	ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 		ft_putstr_fd("exit: too many arguments\n", 2);
 		return (1);
 	}
-	write(1, "exit\n", 5);
 	if (line[1])
 	{
 		if (ft_is_int(line[1]))
@@ -34,8 +33,9 @@ int	ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 		ft_putstr_fd(line[1], 2);
 		ft_putstr_fd(": numeric argument required\n", 2);
 	}
-	exit(ft_exit_free(line, envp, l_token, pipex));
-	return (2);
+	else
+		exit(ft_exit_free(line, envp, l_token, pipex));
+	return (1);
 }
 
 int	ft_echo(char **line)

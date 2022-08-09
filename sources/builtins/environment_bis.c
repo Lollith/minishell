@@ -96,5 +96,6 @@ int	ft_exit_free(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 	ft_split_free(line);
 	ft_split_free(envp);
 	ft_lstclear2(&l_token);
+	write(1, "exit\n", 5);
 	return (0);
 }
