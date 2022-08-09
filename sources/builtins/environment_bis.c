@@ -87,7 +87,7 @@ int	ft_echo_cheak(char *line)
 	return (1);
 }
 
-// For Exit
+// For exit
 int	ft_exit_free(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 {
 	close(pipex->tmp_in);

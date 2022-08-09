@@ -88,6 +88,7 @@ int	ft_cd(char **line, char ***envp)
 	if (ret < 0)
 	{
 		printf("minishell: cd: %s: No such file or directory\n", line[1]);
+		ft_split_free(bis);
 		return (1);
 	}
 	if (ft_export(bis, envp) == 2)
