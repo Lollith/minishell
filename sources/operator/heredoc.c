@@ -25,16 +25,16 @@ int	ctrl_heredoc(char **args_exec, char *line, int fd_tmp_h, char *file_h)
 		if (close(fd_tmp_h) < 0)
 			return (FAILURE);
 		free(line);
-		return (SUCCESS);
+		return (2);
 	}
-	if (g_sig == 1)
+	if (line && g_sig == 1)
 	{
 		g_sig = 0;
 		if (close(fd_tmp_h) < 0)
 			return (FAILURE);
-		free(line);
+		//free(line);
 		free_heredoc(file_h);
-		return (FAILURE);
+		return (1);
 	}
 	return (FAILURE);
 }
@@ -49,7 +49,6 @@ int	heredoc_eof(char *line, char **args_exec, int fd_tmp_h)
 	{
 		if (close(fd_tmp_h) < 0)
 			return (FAILURE);
-		free(line);
 		return (SUCCESS);
 	}
 	return (FAILURE);
@@ -64,16 +63,28 @@ char	*ft_heredoc(char **args_exec)
 	signal(SIGINT, signal_here_doc);
 	file_h = init_hd(&fd_tmp_h);
 	line = " ";
-	while (line)
+	while (line != NULL)
 	{
-		write(1, "heredoc> ", 9);
-		line = get_next_line(STDIN_FILENO);
-		if (ctrl_heredoc(args_exec, line, fd_tmp_h, file_h))
+		if (ctrl_heredoc(args_exec, line, fd_tmp_h, file_h) == 2)
+		{
+			free(line);
 			return (file_h);
-		if (heredoc_eof(line, args_exec, fd_tmp_h))
+		}
+		else if (ctrl_heredoc(args_exec, line, fd_tmp_h, file_h) == 1)
+		{
+			printf ("here\n");
+			free(line);
+			return (NULL);
+		}
+		else if (heredoc_eof(line, args_exec, fd_tmp_h) == 1)
+		{
+			free(line);
 			return (file_h);
+		}
 		write(fd_tmp_h, line, ft_strlen(line));
 		free(line);
+		write(1, "heredoc> ", 9);
+		line = get_next_line2(STDIN_FILENO);
 	}
 	return (NULL);
 }

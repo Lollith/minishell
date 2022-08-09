@@ -38,6 +38,8 @@ extern int	g_sig;
 # define TRUE 1
 # define FALSE 0
 # define BUFFER_NAME 32
+# define BUFFER_SIZE 42
+
 # define MS_SPACE " \t\n\v\f\r"
 
 typedef struct s_pipe
@@ -246,4 +248,6 @@ int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
 void	ft_pipe_ret(t_pipe *pipex);
 void	ft_new_prompt(int signum);
 
+
+char	*get_next_line2(int fd);
 #endif

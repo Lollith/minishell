@@ -40,6 +40,7 @@ SRCS		=	$(addprefix sources/, \
 					minishell.c \
 					main.c \
 					monitor.c \
+					gnl_ag/gnl.c \
 				)
 OBJS		=	$(SRCS:.c=.o)
 DEPS		=	$(SRCS:.c=.d)

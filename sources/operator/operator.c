@@ -100,7 +100,10 @@ char	*open_in(t_list *l_token, char **args_exec)
 	{
 		file = ft_heredoc(args_exec);
 		if (!file)
+		{
+			ft_split_free(args_exec);
 			return (NULL);
+		}
 	}
 	else
 		file = args_exec[1];
