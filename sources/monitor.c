@@ -38,6 +38,7 @@ int	reorganize(t_list **l_token, char **args_exec, char ***file_redir)
 		}
 		reorga2(l_token, tmp);
 		*file_redir = ft_is_arg(*l_token);
+		ft_split_free(args_exec);
 		return (SUCCESS);
 	}
 	*file_redir = args_exec;
@@ -71,13 +72,11 @@ int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	}
 	else if (ft_strncmp(l_token->content, ">", 1) == 0)
 	{
-		ft_split_free(args_exec);
 		if (ft_redir_out(l_token, file_redir, envp, pipex) == 0)
 			return (FAILURE);
 	}
 	else if (ft_strncmp(l_token->content, "<", 1) == 0)
 	{
-		ft_split_free(args_exec);
 		if (ft_redir_in(l_token, file_redir, envp, pipex) == 0)
 			return (FAILURE);
 	}
