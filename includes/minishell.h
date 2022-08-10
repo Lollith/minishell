@@ -39,7 +39,6 @@ extern int	g_sig;
 # define FALSE 0
 # define BUFFER_NAME 32
 # define BUFFER_SIZE 42
-
 # define MS_SPACE " \t\n\v\f\r"
 
 typedef struct s_pipe
@@ -210,7 +209,7 @@ void	ft_child_free2(char ***token, char ***envp, t_list *l_token, int ret);
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */
 /* ************************************************************************** */
-char	**get_paths(void);
+char	**get_paths(char **envp);
 void	ft_child_close_pipe(t_pipe *pipex);
 int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex);
 void	fd_monitor(t_pipe *pipex);
