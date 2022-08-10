@@ -33,7 +33,6 @@ int	ft_pipex_exec_return(char **paths, t_list *list, t_pipe *pipex)
 {
 	char	*cmd;
 
-	(void) pipex;
 	cmd = list->content;
 	ft_split_free(paths);
 	ft_msg(cmd, STDERR_FILENO);
@@ -50,10 +49,11 @@ int	ft_pipex_exec(char ***envp, t_list *list, char **token_exec, t_pipe *fds)
 
 	paths = get_paths();
 	ft_close_tmp(fds);
-	if (list->content && (execve(list->content, token_exec, *envp) == -1) && paths)
+	if (list->content && (execve(list->content, token_exec, *envp) == -1) && \
+	paths)
 	{
-		i = 0;
-		while (paths[i])
+		i = -1;
+		while (paths[++i])
 		{
 			path_cmd = get_paths_cmd(paths[i], list->content);
 			if (access(path_cmd, F_OK) == 0)
@@ -63,7 +63,6 @@ int	ft_pipex_exec(char ***envp, t_list *list, char **token_exec, t_pipe *fds)
 				ft_split_free(paths);
 				exit(FAILURE);
 			}
-			i++;
 			free(path_cmd);
 		}
 	}

@@ -14,7 +14,7 @@
 
 void	ft_child_free(char ***token, char ***envp, t_list *l_token, int ret)
 {
-	(void)(l_token);
+	(void)l_token;
 	(void)token;
 	ft_split_free(*envp);
 	exit(ret);
@@ -22,7 +22,6 @@ void	ft_child_free(char ***token, char ***envp, t_list *l_token, int ret)
 
 void	ft_child_free2(char ***token, char ***envp, t_list *l_token, int ret)
 {
-	(void)(l_token);
 	ft_split_free(*token);
 	ft_split_free(*envp);
 	ft_lstclear2(&l_token);

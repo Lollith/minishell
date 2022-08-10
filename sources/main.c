@@ -56,9 +56,8 @@ void	ft_pipe_ret(t_pipe *pipex)
 		pipex->pipe_ret = 0;
 }
 
-int	main_return(char **envp, t_pipe *pipex)
+int	main_return(char **envp)
 {
-	(void) pipex;
 	rl_clear_history();
 	ft_split_free(envp);
 	write(1, "\n", 1);
@@ -90,5 +89,5 @@ int	main(int ac, char **av, char **envp)
 		free(line);
 		line = readline("minishell> ");
 	}
-	return (main_return(envp, &pipex));
+	return (main_return(envp));
 }
