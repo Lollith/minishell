@@ -6,11 +6,17 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:01:18 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/03 15:35:29 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/10 11:10:02 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_heredoc(char *file1)
+{
+	unlink(file1);
+	free(file1);
+}
 
 char	*creat_h_file(void)
 {

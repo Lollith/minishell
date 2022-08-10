@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:21:38 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/03 16:13:20 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/10 11:10:06 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,9 @@
 
 // ctrl d=> caractere non printable => gnl => return Null=> si ! line = ctrl+d
 
-int	ctrl_heredoc(char **args_exec, char *line, int fd_tmp_h, char *file_h)
+int	ctrld_heredoc(char **args_exec, char *line, int fd_tmp_h, char *file_h)
 {
+	(void) file_h;
 	if (!line && g_sig == 0)
 	{
 		write(1, "Warning: here-document delimited by end-of-file ", 49);
@@ -25,16 +26,21 @@ int	ctrl_heredoc(char **args_exec, char *line, int fd_tmp_h, char *file_h)
 		if (close(fd_tmp_h) < 0)
 			return (FAILURE);
 		free(line);
-		return (2);
+		return (SUCCESS);
 	}
-	if (line && g_sig == 1)
+	return (FAILURE);
+}
+
+int	ctrlc_heredoc(char **args_exec, int fd_tmp_h, char *file_h)
+{
+	(void) args_exec;
+	if (g_sig == 1)
 	{
 		g_sig = 0;
 		if (close(fd_tmp_h) < 0)
 			return (FAILURE);
-		//free(line);
 		free_heredoc(file_h);
-		return (1);
+		return (SUCCESS);
 	}
 	return (FAILURE);
 }
@@ -44,7 +50,7 @@ int	heredoc_eof(char *line, char **args_exec, int fd_tmp_h)
 	int		size_eof;
 
 	size_eof = ft_strlen(args_exec[1]);
-	if ((ft_strlen(line) - size_eof == 1)
+	if ((ft_strlen(line) - size_eof == 0)
 		&& (ft_strncmp(line, args_exec[1], size_eof) == 0))
 	{
 		if (close(fd_tmp_h) < 0)
@@ -65,26 +71,19 @@ char	*ft_heredoc(char **args_exec)
 	line = " ";
 	while (line != NULL)
 	{
-		if (ctrl_heredoc(args_exec, line, fd_tmp_h, file_h) == 2)
-		{
-			free(line);
+		line = readline("heredoc> ");
+		if (ctrld_heredoc(args_exec, line, fd_tmp_h, file_h))
 			return (file_h);
-		}
-		else if (ctrl_heredoc(args_exec, line, fd_tmp_h, file_h) == 1)
-		{
-			printf ("here\n");
-			free(line);
+		if (ctrlc_heredoc(args_exec, fd_tmp_h, file_h))
 			return (NULL);
-		}
 		else if (heredoc_eof(line, args_exec, fd_tmp_h) == 1)
 		{
 			free(line);
 			return (file_h);
 		}
 		write(fd_tmp_h, line, ft_strlen(line));
+		write(fd_tmp_h, "\n", 1);
 		free(line);
-		write(1, "heredoc> ", 9);
-		line = get_next_line2(STDIN_FILENO);
 	}
 	return (NULL);
 }
@@ -101,10 +100,4 @@ char	*init_hd(int *pt_fd)
 		return (NULL);
 	*pt_fd = fd_tmp_h;
 	return (file_h);
-}
-
-void	free_heredoc(char *file1)
-{
-	unlink(file1);
-	free(file1);
 }
