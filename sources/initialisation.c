@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/10 10:10:46 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/10 15:54:53 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,7 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 {
 	if (ft_main(ac, av, envp))
 		return (FAILURE);
+	pipex->l_start = NULL;
 	pipex->pid = 0;
 	pipex->pipe_ret = -1;
 	pipex->ctrl = 0;

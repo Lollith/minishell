@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/10 11:08:54 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/10 17:50:24 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_pipe
 	int		pipe_ret;
 	int		ctrl;
 	int		pipefd[2];
+	t_list	*l_start;
 	int		tmp_in;
 	int		tmp_out;
 	pid_t	pid;
@@ -127,9 +128,9 @@ char	*init_hd(int *pt_fd);
 /* ************************************************************************** */
 int		ft_close_tmp(t_pipe *pipex);
 int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipe);
-int		ft_pipex_exec(char ***envp, char *cmd, char **args_exec, t_pipe *fds);
+int		ft_pipex_exec(char ***envp, t_list *list, char **args_exe, t_pipe *fds);
 char	*get_paths_cmd(char *paths_i, char *cmd);
-int		ft_pipex_exec_return(char **paths, char *cmd);
+int		ft_pipex_exec_return(char **paths, t_list *list, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   operator/operator_bonus.c                                  2 functions   */
@@ -161,6 +162,7 @@ void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 int		list_token(t_list **l_token, char *line);
 void	ft_l_delete(t_list *l_token);
 void	ft_lstclear2(t_list **l_token);
+void	ft_lstclear3(t_list **l_token);
 
 /* ************************************************************************** */
 /*   parsing/parsing.c                                          4 functions   */
@@ -229,7 +231,7 @@ char	*ft_quoting(char const *str);
 /* ************************************************************************** */
 int		reorganize(t_list **l_token, char **args_exec, char ***file_redir);
 void	reorga2(t_list **l_token, t_list *tmp);
-int		monitoring_line(t_list *tmp_token, char ***envp, t_pipe *pipex);
+int		monitoring_line(t_list *l_st, t_list *l_to, char ***envp, t_pipe *pip);
 int		one_cmd(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */

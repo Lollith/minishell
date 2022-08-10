@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/08 17:41:44 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/10 16:48:28 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,13 +83,15 @@ int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	return (SUCCESS);
 }
 
-int	monitoring_line(t_list *l_token, char ***envp, t_pipe *pipex)
+int	monitoring_line(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex)
 {
 	char	**args_exec;
 
 	args_exec = ft_is_arg(l_token);
+	pipex->l_start = start;
 	if (args_exec == NULL)
 		return (FAILURE);
+	pipex->l_start = start;
 	if (l_token->next)
 	{
 		if (check_op(l_token, args_exec, envp, pipex) == 0)

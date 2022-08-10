@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   environment_bis.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 16:54:59 by frrusso           #+#    #+#             */
-/*   Updated: 2022/06/13 16:55:02 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/08/10 17:12:48 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,12 +90,12 @@ int	ft_echo_cheak(char *line)
 // For exit
 int	ft_exit_free(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 {
+	(void) l_token;
 	close(pipex->tmp_in);
 	close(pipex->tmp_out);
 	rl_clear_history();
 	ft_split_free(line);
 	ft_split_free(envp);
-	ft_lstclear2(&l_token);
-	write(1, "exit\n", 5);
+	ft_lstclear2(&pipex->l_start);
 	return (0);
 }

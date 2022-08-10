@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/08 17:49:18 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/10 17:49:21 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,15 +29,20 @@ char	*get_paths_cmd(char *paths_i, char *cmd)
 	return (path_cmd);
 }
 
-int	ft_pipex_exec_return(char **paths, char *cmd)
+int	ft_pipex_exec_return(char **paths, t_list *list, t_pipe *pipex)
 {
+	char	*cmd;
+
+	(void) pipex;
+	cmd = list->content;
 	ft_split_free(paths);
 	ft_msg(cmd, STDERR_FILENO);
 	ft_msg(": Command not found.\n", STDERR_FILENO);
+	ft_lstclear2(&pipex->l_start);
 	return (FAILURE);
 }
 
-int	ft_pipex_exec(char ***envp, char *cmd, char **token_exec, t_pipe *fds)
+int	ft_pipex_exec(char ***envp, t_list *list, char **token_exec, t_pipe *fds)
 {
 	int		i;
 	char	**paths;
@@ -45,12 +50,12 @@ int	ft_pipex_exec(char ***envp, char *cmd, char **token_exec, t_pipe *fds)
 
 	paths = get_paths();
 	ft_close_tmp(fds);
-	if (cmd && (execve(cmd, token_exec, *envp) == -1) && paths)
+	if (list->content && (execve(list->content, token_exec, *envp) == -1) && paths)
 	{
 		i = 0;
 		while (paths[i])
 		{
-			path_cmd = get_paths_cmd(paths[i], cmd);
+			path_cmd = get_paths_cmd(paths[i], list->content);
 			if (access(path_cmd, F_OK) == 0)
 			{
 				execve(path_cmd, token_exec, *envp);
@@ -63,7 +68,7 @@ int	ft_pipex_exec(char ***envp, char *cmd, char **token_exec, t_pipe *fds)
 		}
 	}
 	ft_free_args_exec(token_exec, 0);
-	return (ft_pipex_exec_return(paths, cmd));
+	return (ft_pipex_exec_return(paths, list, fds));
 }
 
 int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
@@ -77,7 +82,7 @@ int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		pipex->ctrl = 1;
 	else
 		pipex->ctrl = 0;
-	if (monitoring_line(l_token->next->next, envp, pipex) == 0)
+	if (monitoring_line(l_token, l_token->next->next, envp, pipex) == 0)
 		return (FAILURE);
 	ft_split_free(args_exec);
 	return (SUCCESS);

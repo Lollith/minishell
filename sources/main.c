@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/08 17:05:00 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/10 17:47:17 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	g_sig = 0;
 
-int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
+int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 {
 	int	pid;
 	int	wstatus;
@@ -22,9 +22,9 @@ int	parent(t_list *tmp_token, char ***envp, t_pipe *pipex)
 	wstatus = 0;
 	pipex->tmp_in = dup(STDIN_FILENO);
 	pipex->tmp_out = dup(STDOUT_FILENO);
-	if (!next_checker(tmp_token))
+	if (!next_checker(l_token))
 		return (FAILURE);
-	if (monitoring_line(tmp_token, envp, pipex) == 0)
+	if (monitoring_line(l_token, l_token, envp, pipex) == 0)
 		pipex->pipe_ret = 1;
 	else
 		pipex->pipe_ret = -1;
@@ -56,8 +56,9 @@ void	ft_pipe_ret(t_pipe *pipex)
 		pipex->pipe_ret = 0;
 }
 
-int	main_return(char **envp)
+int	main_return(char **envp, t_pipe *pipex)
 {
+	(void) pipex;
 	rl_clear_history();
 	ft_split_free(envp);
 	write(1, "\n", 1);
@@ -89,5 +90,5 @@ int	main(int ac, char **av, char **envp)
 		free(line);
 		line = readline("minishell> ");
 	}
-	return (main_return(envp));
+	return (main_return(envp, &pipex));
 }

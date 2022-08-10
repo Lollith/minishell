@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/08 17:12:01 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/10 15:47:44 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		if (dup2(fd, STDOUT_FILENO) == -1)
 			return (msg_perror("dup2 "));
 		close(fd);
-		if (monitoring_line(l_token->next, envp, pipex) == 0)
+		if (monitoring_line(l_token, l_token->next, envp, pipex) == 0)
 			return (FAILURE);
 	}
 	close(fd);
@@ -88,7 +88,7 @@ int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		free_heredoc(file);
 	ft_split_free(args_exec);
 	if ((l_token)->next)
-		monitoring_line((l_token)->next, envp, pipex);
+		monitoring_line(l_token, l_token->next, envp, pipex);
 	return (SUCCESS);
 }
 

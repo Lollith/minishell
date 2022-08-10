@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:18:51 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/08 11:52:59 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/10 17:47:45 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,14 +54,34 @@ void	ft_l_delete(t_list *l_token)
 void	ft_lstclear2(t_list **l_token)
 {
 	t_list	*tmp;
+	t_list	*tmp2;
 
 	if (!l_token)
 		return ;
-	while (*l_token)
+	tmp2 = *l_token;
+	while (tmp2)
 	{
-		tmp = (*l_token)->next;
-		free((*l_token)->content);
-		free(*l_token);
-		*l_token = tmp;
+		tmp = tmp2->next;
+		free (tmp2->content);
+		free (tmp2);
+		tmp2 = tmp;
 	}
+	*l_token = NULL;
+}
+
+void	ft_lstclear3(t_list **l_token)
+{
+	t_list	*tmp;
+	t_list	*tmp2;
+
+	if (!l_token)
+		return ;
+	tmp2 = *l_token;
+	while (tmp2)
+	{
+		tmp = tmp2->next;
+		free (tmp2);
+		tmp2 = tmp;
+	}
+	*l_token = NULL;
 }
