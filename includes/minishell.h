@@ -88,15 +88,23 @@ char	**ft_unset_free(int i, char **res);
 char	**ft_unset_envp(char **line, char **envp);
 
 /* ************************************************************************** */
-/*   minishell_split/ft_env_pipe.c                              2 functions   */
+/*   minishell_split/ft_env_pipe.c                              3 functions   */
 /* ************************************************************************** */
 int		ft_env_pipe_size(int pipe_ret, int *i);
 void	ft_env_pipe_input(char *res, int pipe_ret, int *i, int *j);
 void	ft_env_free(void *tmp1, void *tmp2, t_list *l_token);
 
 /* ************************************************************************** */
+/*   minishell_split/ft_env_quote.c                             3 functions   */
+/* ************************************************************************** */
+void	ft_env_input_single(char *token, char *res, int *i, int *j);
+int		ft_env_input_double(char *token, int i);
+int		ft_env_double_quote(char *token, int pipe_ret, char **envp, int *i);
+
+/* ************************************************************************** */
 /*   minishell_split/ft_env.c                                   5 functions   */
 /* ************************************************************************** */
+int		ft_env_size(char const *token, int i, char **envp);
 int		ft_env_var(char ***token, int pipe_ret, t_list *l_token, char **envp);
 
 /* ************************************************************************** */

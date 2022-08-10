@@ -60,7 +60,7 @@ int	main_return(char **envp)
 {
 	rl_clear_history();
 	ft_split_free(envp);
-	write(1, "\n", 1);
+	write(1, "exit\n", 5);
 	return (0);
 }
 
