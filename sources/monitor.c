@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/11 13:25:39 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/11 15:08:54 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	reorganize(t_list **l_token, char **args_exec, char ***file_redir, t_pipe *p
 		(*l_token)->next = NULL;
 		while (args_exec[i])
 		{
-			new = ft_lstnew (args_exec[i]);
+			new = ft_lstnew (strdup(args_exec[i]));
 			ft_lstlast(*l_token)->next = new;
 			i++;
 		}
