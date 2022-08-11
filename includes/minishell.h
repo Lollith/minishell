@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/11 13:29:22 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/11 15:13:57 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -236,7 +236,7 @@ char	*ft_quoting(char const *str);
 /* ************************************************************************** */
 /*   monitor.c                                                  5 functions   */
 /* ************************************************************************** */
-int		reorganize(t_list **l_token, char **args_exec, char ***file_redir, t_pipe *pipex);
+int		reorga(t_list **l_tok, char **arg_exe, char ***fil_redir, t_pipe *pip);
 void	reorga2(t_list **l_token, t_list *tmp);
 int		monitoring_line(t_list *l_st, t_list *l_to, char ***envp, t_pipe *pip);
 int		one_cmd(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex);

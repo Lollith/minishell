@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/11 15:08:54 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/11 15:21:43 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // logiuement la cmd va se retourvee systematiquenet a ka fin
 // cat < file1 < file2 => < file1 < file2 < cat
 // regorga en tenant compte des flags et file des arg_exec
-int	reorganize(t_list **l_token, char **args_exec, char ***file_redir, t_pipe *pipex)
+int	reorga(t_list **l_token, char **args_exec, char ***fil_redir, t_pipe *pipex)
 {
 	t_list	*tmp;
 	int		i;
@@ -37,12 +37,12 @@ int	reorganize(t_list **l_token, char **args_exec, char ***file_redir, t_pipe *p
 			i++;
 		}
 		reorga2(l_token, tmp);
-		*file_redir = ft_is_arg(*l_token);
+		*fil_redir = ft_is_arg(*l_token);
 		ft_split_free(args_exec);
 		pipex->l_start = *l_token;
 		return (SUCCESS);
 	}
-	*file_redir = args_exec;
+	*fil_redir = args_exec;
 	return (FAILURE);
 }
 
@@ -57,13 +57,19 @@ void	reorga2(t_list **l_token, t_list *tmp)
 	(*l_token) = tmp;
 }
 
+void	free_content(t_pipe *pipex)
+{
+	free(pipex->l_start->content);
+	free(pipex->l_start);
+}
+
 int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	char	**file_redir;
 	int		ctrl;
 
 	ctrl = 0;
-	if (reorganize(&l_token, args_exec, &file_redir, pipex) == 1)
+	if (reorga(&l_token, args_exec, &file_redir, pipex) == 1)
 		ctrl = 1;
 	if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
 		ft_eperluet(l_token, args_exec, envp, pipex);
@@ -85,10 +91,7 @@ int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 			return (FAILURE);
 	}
 	if (pipex->l_start && ctrl == 1)
-	{
-		free (pipex->l_start->content);
-		free (pipex->l_start);
-	}
+		free_content(pipex);
 	return (SUCCESS);
 }
 
