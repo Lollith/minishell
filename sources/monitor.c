@@ -57,17 +57,13 @@ void	reorga2(t_list **l_token, t_list *tmp)
 	(*l_token) = tmp;
 }
 
-void	free_content(t_pipe *pipex)
-{
-	free(pipex->l_start->content);
-	free(pipex->l_start);
-}
-
 int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
+	int		i;
 	char	**file_redir;
 	int		ctrl;
 
+	i = 1;
 	ctrl = 0;
 	if (reorga(&l_token, args_exec, &file_redir, pipex) == 1)
 		ctrl = 1;
@@ -76,20 +72,13 @@ int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
 		ft_ou(l_token, args_exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
-	{
-		if (ft_pipex(l_token, args_exec, envp, pipex) == 0)
-			return (FAILURE);
-	}
+		i = ft_pipex(l_token, args_exec, envp, pipex);
 	else if (ft_strncmp(l_token->content, ">", 1) == 0)
-	{
-		if (ft_redir_out(l_token, file_redir, envp, pipex) == 0)
-			return (FAILURE);
-	}
+		i = ft_redir_out(l_token, file_redir, envp, pipex);
 	else if (ft_strncmp(l_token->content, "<", 1) == 0)
-	{
-		if (ft_redir_in(l_token, file_redir, envp, pipex) == 0)
-			return (FAILURE);
-	}
+		i = ft_redir_in(l_token, file_redir, envp, pipex);
+	if (i == 0)
+		return (FAILURE);
 	if (pipex->l_start && ctrl == 1)
 		free_content(pipex);
 	return (SUCCESS);

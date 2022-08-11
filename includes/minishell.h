@@ -137,7 +137,7 @@ int		ft_close_tmp(t_pipe *pipex);
 int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipe);
 int		ft_pipex_exec(char ***envp, t_list *list, char **args_exe, t_pipe *fds);
 char	*get_paths_cmd(char *paths_i, char *cmd);
-int		ft_pipex_exec_return(char **paths, t_list *list, t_pipe *pipex);
+int		ft_pipex_return(char **paths, t_list *list, t_pipe *pipex, char **exec);
 
 /* ************************************************************************** */
 /*   operator/operator_bonus.c                                  2 functions   */
@@ -226,12 +226,13 @@ void	fd_monitor(t_pipe *pipex);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
 
 /* ************************************************************************** */
-/*   minishell.c                                                4 functions   */
+/*   minishell.c                                                5 functions   */
 /* ************************************************************************** */
 int		ft_builtins_fork(char **line);
 int		ft_builtins(char **line, char ***envp, t_list *l_token, t_pipe *pipex);
 void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str);
+void	free_content(t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   monitor.c                                                  5 functions   */

@@ -95,3 +95,9 @@ char	*ft_quoting(char const *str)
 	ft_quoting_input(str, res);
 	return (res);
 }
+
+void	free_content(t_pipe *pipex)
+{
+	free(pipex->l_start->content);
+	free(pipex->l_start);
+}
