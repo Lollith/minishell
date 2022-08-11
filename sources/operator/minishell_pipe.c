@@ -47,7 +47,7 @@ int	ft_pipex_exec(char ***envp, t_list *list, char **token_exec, t_pipe *fds)
 	char	**paths;
 	char	*path_cmd;
 
-	paths = get_paths();
+	paths = get_paths(*envp);
 	ft_close_tmp(fds);
 	if (list->content && (execve(list->content, token_exec, *envp) == -1) && \
 	paths)
