@@ -56,10 +56,10 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 		if (ft_builtins_fork(*token))
 			ft_child_free2(token, envp, l_token, 0);
 		ft_pipex_exec(envp, l_token, *token, pipex);
-		ft_child_free(token, envp, l_token, 127);
+		ft_child_free1(envp, 127);
 	}
-	if (ft_builtins(*token, envp, l_token, pipex) == 2)
-		ft_child_free(token, envp, l_token, 1);
+	if (ft_builtins(*token, envp, pipex) == 2)
+		ft_child_free1(envp, 1);
 	ft_child_close_pipe(pipex);
 	return (0);
 }

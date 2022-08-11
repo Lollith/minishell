@@ -13,10 +13,8 @@
 #include "minishell.h"
 
 // ctrl d=> caractere non printable => gnl => return Null=> si ! line = ctrl+d
-
-int	ctrld_heredoc(char **args_exec, char *line, int fd_tmp_h, char *file_h)
+int	ctrld_heredoc(char **args_exec, char *line, int fd_tmp_h)
 {
-	(void) file_h;
 	if (!line && g_sig == 0)
 	{
 		write(1, "Warning: here-document delimited by end-of-file ", 49);
@@ -31,9 +29,8 @@ int	ctrld_heredoc(char **args_exec, char *line, int fd_tmp_h, char *file_h)
 	return (FAILURE);
 }
 
-int	ctrlc_heredoc(char **args_exec, int fd_tmp_h, char *file_h)
+int	ctrlc_heredoc(int fd_tmp_h, char *file_h)
 {
-	(void) args_exec;
 	if (g_sig == 1)
 	{
 		g_sig = 0;
@@ -72,9 +69,9 @@ char	*ft_heredoc(char **args_exec)
 	while (line != NULL)
 	{
 		line = readline("heredoc> ");
-		if (ctrld_heredoc(args_exec, line, fd_tmp_h, file_h))
+		if (ctrld_heredoc(args_exec, line, fd_tmp_h))
 			return (file_h);
-		if (ctrlc_heredoc(args_exec, fd_tmp_h, file_h))
+		if (ctrlc_heredoc(fd_tmp_h, file_h))
 			return (NULL);
 		else if (heredoc_eof(line, args_exec, fd_tmp_h) == 1)
 		{

@@ -31,7 +31,7 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		if (dup2(fd, STDOUT_FILENO) == -1)
 			return (msg_perror("dup2 "));
 		close(fd);
-		if (monitoring_line(l_token, l_token->next, envp, pipex) == 0)
+		if (monitoring(l_token, l_token->next, envp, pipex) == 0)
 			return (FAILURE);
 	}
 	close(fd);
@@ -88,7 +88,7 @@ int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		free_heredoc(file);
 	ft_split_free(args_exec);
 	if ((l_token)->next)
-		monitoring_line(l_token, l_token->next, envp, pipex);
+		monitoring(l_token, l_token->next, envp, pipex);
 	return (SUCCESS);
 }
 

@@ -24,7 +24,7 @@ int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 	pipex->tmp_out = dup(STDOUT_FILENO);
 	if (!next_checker(l_token))
 		return (FAILURE);
-	if (monitoring_line(l_token, l_token, envp, pipex) == 0)
+	if (monitoring(l_token, l_token, envp, pipex) == 0)
 		pipex->pipe_ret = 1;
 	else
 		pipex->pipe_ret = -1;

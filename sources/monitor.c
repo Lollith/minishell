@@ -17,7 +17,7 @@
 // logiuement la cmd va se retourvee systematiquenet a ka fin
 // cat < file1 < file2 => < file1 < file2 < cat
 // regorga en tenant compte des flags et file des arg_exec
-int	reorga(t_list **l_token, char **args_exec, char ***fil_redir, t_pipe *pipex)
+int	reorga(t_list **l_token, char **exec, char ***fil_redir, t_pipe *pipex)
 {
 	t_list	*tmp;
 	int		i;
@@ -30,19 +30,19 @@ int	reorga(t_list **l_token, char **args_exec, char ***fil_redir, t_pipe *pipex)
 	{
 		tmp = (*l_token)->next;
 		(*l_token)->next = NULL;
-		while (args_exec[i])
+		while (exec[i])
 		{
-			new = ft_lstnew (strdup(args_exec[i]));
+			new = ft_lstnew (strdup(exec[i]));
 			ft_lstlast(*l_token)->next = new;
 			i++;
 		}
 		reorga2(l_token, tmp);
 		*fil_redir = ft_is_arg(*l_token);
-		ft_split_free(args_exec);
+		ft_split_free(exec);
 		pipex->l_start = *l_token;
 		return (SUCCESS);
 	}
-	*fil_redir = args_exec;
+	*fil_redir = exec;
 	return (FAILURE);
 }
 
@@ -57,7 +57,7 @@ void	reorga2(t_list **l_token, t_list *tmp)
 	(*l_token) = tmp;
 }
 
-int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
+int	check_op(t_list *l_token, char **exec, char ***envp, t_pipe *pipex)
 {
 	int		i;
 	char	**file_redir;
@@ -65,14 +65,14 @@ int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 
 	i = 1;
 	ctrl = 0;
-	if (reorga(&l_token, args_exec, &file_redir, pipex) == 1)
+	if (reorga(&l_token, exec, &file_redir, pipex) == 1)
 		ctrl = 1;
 	if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
-		ft_eperluet(l_token, args_exec, envp, pipex);
+		ft_eperluet(l_token, exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
-		ft_ou(l_token, args_exec, envp, pipex);
+		ft_ou(l_token, exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "|", 1) == 0)
-		i = ft_pipex(l_token, args_exec, envp, pipex);
+		i = ft_pipex(l_token, exec, envp, pipex);
 	else if (ft_strncmp(l_token->content, ">", 1) == 0)
 		i = ft_redir_out(l_token, file_redir, envp, pipex);
 	else if (ft_strncmp(l_token->content, "<", 1) == 0)
@@ -84,7 +84,7 @@ int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	return (SUCCESS);
 }
 
-int	monitoring_line(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex)
+int	monitoring(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex)
 {
 	char	**args_exec;
 

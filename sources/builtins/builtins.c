@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex)
+int	ft_exit(char **line, char **envp, t_pipe *pipex)
 {
 	int	ret;
 
@@ -26,7 +26,7 @@ int	ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 		if (ft_is_int(line[1]))
 		{
 			ret = ft_atoi(line[1]);
-			ft_exit_free(line, envp, l_token, pipex);
+			ft_exit_free(line, envp, pipex);
 			exit (ret);
 		}
 		ft_putstr_fd("minishell: exit: ", 2);
@@ -34,7 +34,7 @@ int	ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 		ft_putstr_fd(": numeric argument required\n", 2);
 	}
 	else
-		exit(ft_exit_free(line, envp, l_token, pipex));
+		exit(ft_exit_free(line, envp, pipex));
 	return (1);
 }
 

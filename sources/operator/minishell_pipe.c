@@ -83,7 +83,7 @@ int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		pipex->ctrl = 1;
 	else
 		pipex->ctrl = 0;
-	if (monitoring_line(l_token, l_token->next->next, envp, pipex) == 0)
+	if (monitoring(l_token, l_token->next->next, envp, pipex) == 0)
 		return (FAILURE);
 	ft_split_free(args_exec);
 	return (SUCCESS);

@@ -64,7 +64,7 @@ int		ft_env(char **envp);
 /* ************************************************************************** */
 /*   builtins/builtins.c                                        5 functions   */
 /* ************************************************************************** */
-int		ft_exit(char **line, char **envp, t_list *l_token, t_pipe *pipex);
+int		ft_exit(char **line, char **envpft_exit, t_pipe *pipex);
 int		ft_echo(char **line);
 char	*ft_get_home(char **envp);
 int		ft_cd(char **line, char ***envp);
@@ -77,7 +77,7 @@ int		ft_export_value(char **line, char ***envp, int i);
 char	**ft_export_envp(char **line, char **envp);
 char	**ft_export_line(char *pwd);
 int		ft_echo_cheak(char *line);
-int		ft_exit_free(char **line, char **envp, t_list *l_token, t_pipe *pipex);
+int		ft_exit_free(char **line, char **envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   builtins/environment.c                                     5 functions   */
@@ -124,11 +124,18 @@ char	**minishell_split(char const *s, char *space);
 /* ************************************************************************** */
 /*   operator/heredoc.c                                         5 functions   */
 /* ************************************************************************** */
+int		ctrld_heredoc(char **args_exec, char *line, int fd_tmp_h);
+int		ctrlc_heredoc(int fd_tmp_h, char *file_h);
+int		heredoc_eof(char *line, char **args_exec, int fd_tmp_h);
+char	*ft_heredoc(char **args_exec);
+char	*init_hd(int *pt_fd);
+
+/* ************************************************************************** */
+/*   operator/heredoc2.c                                        3 functions   */
+/* ************************************************************************** */
+void	free_heredoc(char *file1);
 char	*creat_h_file(void);
 char	*check_here_file(void);
-char	*ft_heredoc(char **args_exec);
-void	free_heredoc(char *file1);
-char	*init_hd(int *pt_fd);
 
 /* ************************************************************************** */
 /*   operator/minishell_pipe.c                                  5 functions   */
@@ -164,7 +171,7 @@ int		ft_s_quote(char const *str, char *res, int *i, int size);
 void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 
 /* ************************************************************************** */
-/*   parsing/list_token.c                                       3 functions   */
+/*   parsing/list_token.c                                       4 functions   */
 /* ************************************************************************** */
 int		list_token(t_list **l_token, char *line);
 void	ft_l_delete(t_list *l_token);
@@ -180,14 +187,13 @@ int		size_args(t_list *l_token);
 char	**ft_is_arg(t_list *l_token);
 
 /* ************************************************************************** */
-/*   parsing/parsing2.c                                         1 functions   */
+/*   parsing/parsing2.c                                         2 functions   */
 /* ************************************************************************** */
 char	*ft_first_strchr(const char *s, int c);
 int		is_operator(t_list *l_token);
-int		is_cmd(t_list *l_token);
 
 /* ************************************************************************** */
-/*   useful/ft_getenv.c                                        1 functions   */
+/*   useful/ft_getenv.c                                         1 functions   */
 /* ************************************************************************** */
 char	*ft_getenv(char *env, char **envp);
 
@@ -211,9 +217,9 @@ int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
 
 /* ************************************************************************** */
-/*   execut_bis.c                                               1 functions   */
+/*   execut_bis.c                                               2 functions   */
 /* ************************************************************************** */
-void	ft_child_free(char ***token, char ***envp, t_list *l_token, int ret);
+void	ft_child_free1(char ***envp, int ret);
 void	ft_child_free2(char ***token, char ***envp, t_list *l_token, int ret);
 
 /* ************************************************************************** */
@@ -229,7 +235,7 @@ int		ft_link_fd(int pipefd0, int pipefd1, int std);
 /*   minishell.c                                                5 functions   */
 /* ************************************************************************** */
 int		ft_builtins_fork(char **line);
-int		ft_builtins(char **line, char ***envp, t_list *l_token, t_pipe *pipex);
+int		ft_builtins(char **line, char ***envp, t_pipe *pipex);
 void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str);
 void	free_content(t_pipe *pipex);
@@ -237,13 +243,14 @@ void	free_content(t_pipe *pipex);
 /* ************************************************************************** */
 /*   monitor.c                                                  5 functions   */
 /* ************************************************************************** */
-int		reorga(t_list **l_tok, char **arg_exe, char ***fil_redir, t_pipe *pip);
+int		reorga(t_list **l_token, char **exec, char ***fil_redir, t_pipe *pipex);
 void	reorga2(t_list **l_token, t_list *tmp);
-int		monitoring_line(t_list *l_st, t_list *l_to, char ***envp, t_pipe *pip);
+int		check_op(t_list *l_token, char **exec, char ***envp, t_pipe *pipex);
+int		monitoring(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex);
 int		one_cmd(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
-/*   initialisation.c                                           4 functions   */
+/*   initialisation.c                                           5 functions   */
 /* ************************************************************************** */
 void	ft_new_prompt(int signum);
 void	signal_here_doc(int signum);
@@ -256,6 +263,5 @@ int		init(int ac, char **av, char ***envp, t_pipe *pipex);
 /* ************************************************************************** */
 int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
 void	ft_pipe_ret(t_pipe *pipex);
-void	ft_new_prompt(int signum);
 
 #endif

@@ -88,9 +88,8 @@ int	ft_echo_cheak(char *line)
 }
 
 // For exit
-int	ft_exit_free(char **line, char **envp, t_list *l_token, t_pipe *pipex)
+int	ft_exit_free(char **line, char **envp, t_pipe *pipex)
 {
-	(void)l_token;
 	close(pipex->tmp_in);
 	close(pipex->tmp_out);
 	rl_clear_history();
@@ -98,5 +97,5 @@ int	ft_exit_free(char **line, char **envp, t_list *l_token, t_pipe *pipex)
 	ft_split_free(envp);
 	ft_lstclear2(&pipex->l_start);
 	write(1, "exit\n", 5);
-	return (0);
+	return (pipex->pipe_ret);
 }
