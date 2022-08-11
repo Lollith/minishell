@@ -18,11 +18,17 @@ void	ft_env_input_single(char *token, char *res, int *i, int *j)
 
 	if (token[*i] == '\"')
 		x = 1 - x;
-	if (x == 1)
-		return ;
-	while (token[++(*i)] != '\'')
+	else if (x == 0)
 	{
-		res[*j] = token[*i];
+		while (token[++(*i)] != '\'')
+		{
+			res[*j] = token[*i];
+			(*j)++;
+		}
+	}
+	else
+	{
+		res[*j] = '\'';
 		(*j)++;
 	}
 }
@@ -57,7 +63,7 @@ int	ft_env_double_quote(char *token, int pipe_ret, char **envp, int *i)
 		size += ft_env_pipe_size(pipe_ret, i);
 	else if (token[*i] == '$')
 		size += ft_env_double_quote_bis(token, envp, i);
-	else if (token[*i] == '\"')
+	else
 	{
 		while (token[++(*i)] != '\"')
 		{
@@ -65,7 +71,7 @@ int	ft_env_double_quote(char *token, int pipe_ret, char **envp, int *i)
 				size++;
 			else if (token[*i] == '$' && token[(*i) + 1] == '?')
 				size += ft_env_pipe_size(pipe_ret, i);
-			else if (token[*i] == '$')
+			else
 				size += ft_env_double_quote_bis(token, envp, i);
 		}
 	}
