@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/10 16:48:28 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/11 13:25:39 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 // logiuement la cmd va se retourvee systematiquenet a ka fin
 // cat < file1 < file2 => < file1 < file2 < cat
 // regorga en tenant compte des flags et file des arg_exec
-int	reorganize(t_list **l_token, char **args_exec, char ***file_redir)
+int	reorganize(t_list **l_token, char **args_exec, char ***file_redir, t_pipe *pipex)
 {
 	t_list	*tmp;
 	int		i;
@@ -39,6 +39,7 @@ int	reorganize(t_list **l_token, char **args_exec, char ***file_redir)
 		reorga2(l_token, tmp);
 		*file_redir = ft_is_arg(*l_token);
 		ft_split_free(args_exec);
+		pipex->l_start = *l_token;
 		return (SUCCESS);
 	}
 	*file_redir = args_exec;
@@ -59,8 +60,11 @@ void	reorga2(t_list **l_token, t_list *tmp)
 int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	char	**file_redir;
+	int		ctrl;
 
-	reorganize(&l_token, args_exec, &file_redir);
+	ctrl = 0;
+	if (reorganize(&l_token, args_exec, &file_redir, pipex) == 1)
+		ctrl = 1;
 	if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
 		ft_eperluet(l_token, args_exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
@@ -80,6 +84,11 @@ int	check_op(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		if (ft_redir_in(l_token, file_redir, envp, pipex) == 0)
 			return (FAILURE);
 	}
+	if (pipex->l_start && ctrl == 1)
+	{
+		free (pipex->l_start->content);
+		free (pipex->l_start);
+	}
 	return (SUCCESS);
 }
 
@@ -91,7 +100,6 @@ int	monitoring_line(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex)
 	pipex->l_start = start;
 	if (args_exec == NULL)
 		return (FAILURE);
-	pipex->l_start = start;
 	if (l_token->next)
 	{
 		if (check_op(l_token, args_exec, envp, pipex) == 0)

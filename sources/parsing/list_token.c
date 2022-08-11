@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:18:51 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/10 17:47:45 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/11 10:26:59 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,10 @@ void	ft_lstclear3(t_list **l_token)
 	while (tmp2)
 	{
 		tmp = tmp2->next;
-		free (tmp2);
+		if (tmp2 && tmp2->content)
+			free (tmp2->content);
+		if (tmp2)
+			free (tmp2);
 		tmp2 = tmp;
 	}
 	*l_token = NULL;
