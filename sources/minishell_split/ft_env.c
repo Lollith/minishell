@@ -69,22 +69,22 @@ void	ft_env_input(char *token, char *res, int pipe_ret, char **envp)
 	i = -1;
 	while (token[++i])
 	{
-		if (!ft_is_space(token[i], "$\"\'"))
-			res[j] = token[i];
-		else if (token[i] == '$' && token[i + 1] == '?')
-			ft_env_pipe_input(res, pipe_ret, &i, &j);
-		else if (token[i] == '$')
-		{
-			j = ft_env_input_var(token + ++i, res, j, envp);
-			while (ft_isalnum(token[i]))
-				i++;
-			i--;
-		}
+		if (token[i] == '\'' || token[i] == '\"')
+			ft_env_input_single(token, res, &i, &j);
 		else
-			continue ;
-		j++;
+		{
+			if (token[i] != '$')
+				res[j] = token[i];
+			else if (token[i] == '$' && token[i + 1] == '?')
+				ft_env_pipe_input(res, pipe_ret, &i, &j);
+			else
+			{
+				j = ft_env_input_var(token + ++i, res, j, envp);
+				i = ft_env_input_double(token, i);
+			}
+			j++;
+		}
 	}
-	res[j] = '\0';
 }
 
 char	*ft_env_realloc_token(char *token, int pipe_ret, char **envp)
@@ -97,21 +97,19 @@ char	*ft_env_realloc_token(char *token, int pipe_ret, char **envp)
 	i = -1;
 	while (token[++i])
 	{
-		if (!ft_is_space(token[i], "$\"\'"))
-			size++;
-		else if (token[i] == '$' && token[i + 1] == '?')
-			size += ft_env_pipe_size(pipe_ret, &i);
-		else if (token[i] == '$')
+		if (token[i] == '\'')
 		{
-			size += ft_env_size(token, i, envp);
-			while (ft_isalnum(token[i + 1]))
-				i++;
+			while (token[++i] != '\'')
+				size++;
 		}
+		else
+			size += ft_env_double_quote(token, pipe_ret, envp, &i);
 	}
 	res = malloc(sizeof(char) * size);
 	if (!res)
 		return (NULL);
 	ft_env_input(token, res, pipe_ret, envp);
+	res[size - 1] = '\0';
 	return (res);
 }
 

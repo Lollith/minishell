@@ -12,12 +12,12 @@
 
 #include "minishell.h"
 
-char	**get_paths(void)
+char	**get_paths(char **envp)
 {
 	char	*path;
 	char	**res;
 
-	path = getenv("PATH");
+	path = ft_getenv("PATH", envp);
 	if (!path)
 		return (NULL);
 	res = ft_split(path, ':');

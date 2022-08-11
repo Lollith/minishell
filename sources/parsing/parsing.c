@@ -15,11 +15,13 @@
 int	ft_quote(char *line)
 {
 	int	i;
+	int	n;
 	int	two;
 	int	one;
 
 	if (!line)
 		return (FALSE);
+	n = 0;
 	two = 0;
 	one = 0;
 	i = 0;
@@ -27,11 +29,13 @@ int	ft_quote(char *line)
 	{
 		if (line[i] == '\"')
 			two++;
-		if (line[i] == '\'')
+		else if (line[i] == '\'')
 			one++;
+		else if (!ft_is_space(line[i], MS_SPACE))
+			n = 1;
 		i++;
 	}
-	if (two % 2 == 1 || one % 2 == 1)
+	if (two % 2 == 1 || one % 2 == 1 || n == 0)
 		return (FALSE);
 	return (TRUE);
 }

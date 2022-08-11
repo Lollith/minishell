@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/11 11:34:20 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/11 13:29:22 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ extern int	g_sig;
 # define TRUE 1
 # define FALSE 0
 # define BUFFER_NAME 32
-
+# define BUFFER_SIZE 42
 # define MS_SPACE " \t\n\v\f\r"
 
 typedef struct s_pipe
@@ -89,15 +89,23 @@ char	**ft_unset_free(int i, char **res);
 char	**ft_unset_envp(char **line, char **envp);
 
 /* ************************************************************************** */
-/*   minishell_split/ft_env_pipe.c                              2 functions   */
+/*   minishell_split/ft_env_pipe.c                              3 functions   */
 /* ************************************************************************** */
 int		ft_env_pipe_size(int pipe_ret, int *i);
 void	ft_env_pipe_input(char *res, int pipe_ret, int *i, int *j);
 void	ft_env_free(void *tmp1, void *tmp2, t_list *l_token);
 
 /* ************************************************************************** */
+/*   minishell_split/ft_env_quote.c                             3 functions   */
+/* ************************************************************************** */
+void	ft_env_input_single(char *token, char *res, int *i, int *j);
+int		ft_env_input_double(char *token, int i);
+int		ft_env_double_quote(char *token, int pipe_ret, char **envp, int *i);
+
+/* ************************************************************************** */
 /*   minishell_split/ft_env.c                                   5 functions   */
 /* ************************************************************************** */
+int		ft_env_size(char const *token, int i, char **envp);
 int		ft_env_var(char ***token, int pipe_ret, t_list *l_token, char **envp);
 
 /* ************************************************************************** */
@@ -211,7 +219,7 @@ void	ft_child_free2(char ***token, char ***envp, t_list *l_token, int ret);
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */
 /* ************************************************************************** */
-char	**get_paths(void);
+char	**get_paths(char **envp);
 void	ft_child_close_pipe(t_pipe *pipex);
 int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex);
 void	fd_monitor(t_pipe *pipex);
