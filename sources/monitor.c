@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/12 13:32:01 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/12 14:51:00 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ int	check_op(t_list *l_token, char **exec, char ***envp, t_pipe *pipex)
 	ctrl = 0;
 	if (reorga(&l_token, exec, &file_redir, pipex) == 1)
 		ctrl = 1;
+	//while(pipex->l_start)
+	//{
+	//	printf("%s\n", (char*)pipex->l_start->content);
+	//	pipex->l_start=pipex->l_start->next;
+	//}
 	if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
 		ft_eperluet(l_token, exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
