@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 15:01:18 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/10 11:10:02 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/12 10:41:30 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	free_heredoc(char *file1)
 {
 	unlink(file1);
-	free(file1);
+	free_null(file1);
 }
 
 char	*creat_h_file(void)

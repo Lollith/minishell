@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:21:38 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/10 11:10:06 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/12 10:43:09 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,12 +75,12 @@ char	*ft_heredoc(char **args_exec)
 			return (NULL);
 		else if (heredoc_eof(line, args_exec, fd_tmp_h) == 1)
 		{
-			free(line);
+			free_null(line);
 			return (file_h);
 		}
 		write(fd_tmp_h, line, ft_strlen(line));
 		write(fd_tmp_h, "\n", 1);
-		free(line);
+		free_null(line);
 	}
 	return (NULL);
 }

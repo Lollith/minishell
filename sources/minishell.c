@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:25:45 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/08 10:45:41 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/12 12:08:48 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,10 +94,4 @@ char	*ft_quoting(char const *str)
 		return (NULL);
 	ft_quoting_input(str, res);
 	return (res);
-}
-
-void	free_content(t_pipe *pipex)
-{
-	free(pipex->l_start->content);
-	free(pipex->l_start);
 }

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/11 15:21:43 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/12 12:11:20 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	reorga(t_list **l_token, char **exec, char ***fil_redir, t_pipe *pipex)
 	t_list	*new;
 
 	i = 1;
-	if ((*l_token)->next && \
+	if ((*l_token)->next && (ft_strncmp((*l_token)->content, "<", 1) != 0) && \
 	((ft_strncmp((*l_token)->next->content, "<", 1) == 0) || \
 	(ft_strncmp((*l_token)->next->content, ">", 1) == 0)))
 	{
