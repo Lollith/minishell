@@ -6,7 +6,7 @@
 #    By: agouet <agouet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/20 16:34:58 by agouet            #+#    #+#              #
-#    Updated: 2022/08/10 11:04:38 by agouet           ###   ########.fr        #
+#    Updated: 2022/08/12 10:35:15 by agouet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS		=	$(addprefix sources/, \
 					useful/ft_is_int.c \
 					useful/ft_is_str.c \
 					useful/useful.c \
+					useful/free.c \
 					execut_bis.c \
 					execut.c \
 					initialisation.c \

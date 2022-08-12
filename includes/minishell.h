@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/11 15:13:57 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/12 13:57:45 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -208,6 +208,12 @@ int		ft_is_int(char *line);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
+/*   useful/free.c                                         1 functions   */
+/* ************************************************************************** */
+void	free_null(void **ptr);
+void	free_content(t_pipe *pipex);
+
+/* ************************************************************************** */
 /*   useful/useful.c                                            5 functions   */
 /* ************************************************************************** */
 int		ft_free_args_exec(char **args_exec, int ret);
@@ -238,7 +244,6 @@ int		ft_builtins_fork(char **line);
 int		ft_builtins(char **line, char ***envp, t_pipe *pipex);
 void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str);
-void	free_content(t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   monitor.c                                                  5 functions   */
