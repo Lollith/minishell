@@ -97,5 +97,7 @@ int	ft_exit_free(char **line, char **envp, t_pipe *pipex)
 	ft_split_free(envp);
 	ft_lstclear2(&pipex->l_start);
 	write(1, "exit\n", 5);
+	if (g_sig == 1)
+		return (130);
 	return (pipex->pipe_ret);
 }

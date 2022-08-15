@@ -56,12 +56,14 @@ void	ft_pipe_ret(t_pipe *pipex)
 		pipex->pipe_ret = 0;
 }
 
-int	main_return(char **envp)
+int	main_return(char **envp, t_pipe *pipex)
 {
 	rl_clear_history();
 	ft_split_free(envp);
 	write(1, "exit\n", 5);
-	return (0);
+	if (g_sig == 1)
+		return (130);
+	return (pipex->pipe_ret);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -87,9 +89,10 @@ int	main(int ac, char **av, char **envp)
 			ft_lstclear2(&l_token);
 		}
 		free(line);
+		g_sig = 0;
 		line = readline("minishell> ");
 	}
-	return (main_return(envp));
+	return (main_return(envp, &pipex));
 }
 
 //affichage liste chainee
