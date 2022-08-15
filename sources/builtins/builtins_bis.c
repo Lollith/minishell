@@ -46,6 +46,11 @@ int	ft_env_parsing(char **line, int is_unset)
 
 	if (!line[1])
 		return (is_unset);
+	if (!is_unset && line[1][0] == '=')
+	{
+		printf("minishell: export: \'%s\': not a valid identifier\n", line[1]);
+		return (FALSE);
+	}
 	i = 0;
 	while (line[1][i])
 	{

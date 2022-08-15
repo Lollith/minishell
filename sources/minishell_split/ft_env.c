@@ -73,7 +73,8 @@ void	ft_env_input(char *token, char *res, int pipe_ret, char **envp)
 			ft_env_input_single(token, res, &i, &j);
 		else
 		{
-			if (token[i] != '$')
+			if (token[i] != '$' || \
+			(token[i] == '$' && !ft_isalnum(token[i + 1])))
 				res[j] = token[i];
 			else if (token[i] == '$' && token[i + 1] == '?')
 				ft_env_pipe_input(res, pipe_ret, &i, &j);
