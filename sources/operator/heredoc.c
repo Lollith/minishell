@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:21:38 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/12 15:13:14 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/15 12:33:07 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ char	*ft_heredoc(char **args_exec)
 	fd_tmp_h = -1 ;
 	signal(SIGINT, signal_here_doc);
 	file_h = init_hd(&fd_tmp_h);
-	printf ("%s\n", file_h);
 	line = " ";
 	while (line != NULL)
 	{
@@ -76,7 +75,6 @@ char	*ft_heredoc(char **args_exec)
 		if (heredoc_eof(line, args_exec, fd_tmp_h) == 1)
 		{
 			free(line);
-			g_sig = -1;//ici
 			return (file_h);
 		}
 		if (ctrld_heredoc(args_exec, line, fd_tmp_h))
@@ -95,7 +93,7 @@ char	*init_hd(int *pt_fd)
 
 	fd_tmp_h = *pt_fd;
 	file_h = check_here_file();
-	fd_tmp_h = open(file_h, O_WRONLY | O_CREAT, 0666);
+	fd_tmp_h = open(file_h, O_WRONLY | O_TRUNC, 0666);
 	if (fd_tmp_h < 0)
 		return (NULL);
 	*pt_fd = fd_tmp_h;
