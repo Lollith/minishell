@@ -101,10 +101,3 @@ int	main(int ac, char **av, char **envp)
 	}
 	return (main_return(envp, &pipex));
 }
-
-//affichage liste chainee
-	//while(pipex->l_start)
-	//{
-	//	printf("%s\n", (char*)pipex->l_start->content);
-	//	pipex->l_start=pipex->l_start->next;
-	//}
