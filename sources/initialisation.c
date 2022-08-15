@@ -22,6 +22,7 @@ void	ft_new_prompt(int signum)
 		rl_replace_line("", 0);
 		rl_on_new_line();
 		rl_redisplay();
+		g_sig = 1;
 	}
 	else if (signum == SIGQUIT)
 		ft_msg("\b\b  \b\b", 1);
