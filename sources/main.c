@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/12 10:38:06 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/15 12:29:59 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,3 +91,10 @@ int	main(int ac, char **av, char **envp)
 	}
 	return (main_return(envp));
 }
+
+//affichage liste chainee
+	//while(pipex->l_start)
+	//{
+	//	printf("%s\n", (char*)pipex->l_start->content);
+	//	pipex->l_start=pipex->l_start->next;
+	//}

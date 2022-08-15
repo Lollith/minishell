@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/12 11:54:39 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/15 12:31:27 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	int		fd;
 	char	*file;
 
+	dup2(pipex->tmp_in, STDIN_FILENO);
 	file = open_in(l_token, args_exec);
 	if (!file)
 		return (FAILURE);
