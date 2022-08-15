@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:21:38 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/15 12:33:07 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/15 16:00:16 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	ctrlc_heredoc(int fd_tmp_h, char *file_h)
 {
 	if (g_sig == 1)
 	{
-		g_sig = 0;
 		if (close(fd_tmp_h) < 0)
 			return (FAILURE);
 		free_heredoc(file_h);
@@ -63,7 +62,7 @@ char	*ft_heredoc(char **args_exec)
 	char	*file_h;
 	int		fd_tmp_h;
 
-	fd_tmp_h = -1 ;
+	g_sig = 0;
 	signal(SIGINT, signal_here_doc);
 	file_h = init_hd(&fd_tmp_h);
 	line = " ";
