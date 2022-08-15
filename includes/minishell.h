@@ -64,7 +64,7 @@ int		ft_env(char **envp);
 /* ************************************************************************** */
 /*   builtins/builtins.c                                        5 functions   */
 /* ************************************************************************** */
-int		ft_exit(char **line, char **envpft_exit, t_pipe *pipex);
+int		ft_exit(char **line, char **envp, t_pipe *pipex);
 int		ft_echo(char **line);
 char	*ft_get_home(char **envp);
 int		ft_cd(char **line, char ***envp);
@@ -208,7 +208,7 @@ int		ft_is_int(char *line);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
-/*   useful/free.c                                         1 functions   */
+/*   useful/free.c                                              2 functions   */
 /* ************************************************************************** */
 void	free_null(void **ptr);
 void	free_content(t_pipe *pipex);
@@ -238,7 +238,7 @@ void	fd_monitor(t_pipe *pipex);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
 
 /* ************************************************************************** */
-/*   minishell.c                                                5 functions   */
+/*   minishell.c                                                4 functions   */
 /* ************************************************************************** */
 int		ft_builtins_fork(char **line);
 int		ft_builtins(char **line, char ***envp, t_pipe *pipex);
