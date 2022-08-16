@@ -74,7 +74,8 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	pipex->pid = 0;
 	pipex->pipe_ret = -1;
 	pipex->ctrl = 0;
-	pipex->pipefd[0] = 0;
+	pipex->pipefd[0] = -1;
+	pipex->pipefd[1] = -1;
 	return (SUCCESS);
 }
 

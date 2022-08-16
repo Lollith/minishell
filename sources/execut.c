@@ -28,7 +28,7 @@ char	**get_paths(char **envp)
 
 void	ft_child_close_pipe(t_pipe *pipex)
 {
-	if (pipex->pipefd[0] && pipex->ctrl == -1)
+	if (pipex->pipefd[0] && pipex->ctrl == -1 )
 	{
 		close(pipex->pipefd[0]);
 		close(pipex->pipefd[1]);
@@ -66,9 +66,17 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 
 void	fd_monitor(t_pipe *pipex)
 {
-	if ((pipex->ctrl == 0 || pipex->ctrl == 1) && pipex->pipefd[0])
+	if (pipex->pipefd[0] && pipex->ctrl == 1)
+	{
 		ft_link_fd(pipex->pipefd[0], pipex->pipefd[1], STDOUT_FILENO);
-	if (pipex->pipefd[0] && pipex->ctrl == -1)
+		//ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
+	}
+	if (pipex->ctrl == 0 && pipex->pipefd[0])
+	{
+		ft_link_fd(pipex->pipefd[0], pipex->pipefd[1], STDOUT_FILENO);
+		//ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
+	}
+	if (pipex->ctrl == -1)
 		ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
 }
 

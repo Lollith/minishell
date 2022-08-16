@@ -74,8 +74,12 @@ int	ft_pipex_exec(char ***envp, t_list *list, char **token_exec, t_pipe *fds)
 
 int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
-	if ((pipex->ctrl == 0 || pipex->ctrl == 1) && pipex->pipefd[0])
-		ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
+	if ((pipex->ctrl == 1 || pipex->ctrl == 0) && pipex->pipefd[1])
+		{ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
+		//dup2(pipex->pipefd[0], STDIN_FILENO);
+		//close(pipex->pipefd[1]);
+		//close (pipex->pipefd[0]);
+		}
 	if (pipe(pipex->pipefd) < 0)
 		return (msg_perror("pipe"));
 	ft_child(&args_exec, envp, l_token, pipex);

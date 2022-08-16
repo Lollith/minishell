@@ -266,6 +266,7 @@ int		init(int ac, char **av, char ***envp, t_pipe *pipex);
 /* ************************************************************************** */
 /*   main.c                                                     4 functions   */
 /* ************************************************************************** */
+void	clean_std(t_pipe *pipex);
 int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
 void	ft_pipe_ret(t_pipe *pipex);
 
