@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/11 13:26:00 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/16 15:33:44 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 	if (!child)
 	{
 		signal(SIGINT, ft_new_prompt);
+		signal(SIGQUIT, SIG_DFL);
 		fd_monitor(pipex);
 		ft_close_tmp(pipex);
 		if (ft_builtins_fork(*token))
@@ -58,9 +59,7 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 		ft_pipex_exec(envp, l_token, *token, pipex);
 		ft_child_free1(envp, 127);
 	}
-	if (ft_builtins(*token, envp, pipex) == 2)
-		ft_child_free1(envp, 1);
-	ft_child_close_pipe(pipex);
+	parent2(token, envp, pipex);
 	return (0);
 }
 

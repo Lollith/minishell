@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/15 15:58:49 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/16 15:33:34 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,11 @@ char	*get_paths_cmd(char *paths_i, char *cmd);
 int		ft_pipex_return(char **paths, t_list *list, t_pipe *pipex, char **exec);
 
 /* ************************************************************************** */
+/*   operator/minishell_pipe2.c                                 1 functions   */
+/* ************************************************************************** */
+int		ft_count_pipes(t_pipe *pipex);
+void	parent2(char ***token, char ***envp, t_pipe *pipex);
+/* ************************************************************************** */
 /*   operator/operator_bonus.c                                  2 functions   */
 /* ************************************************************************** */
 int		ft_eperluet(t_list *l_tok, char **arg_exec, char ***envp, t_pipe *pip);
@@ -266,6 +271,7 @@ int		init(int ac, char **av, char ***envp, t_pipe *pipex);
 /* ************************************************************************** */
 /*   main.c                                                     4 functions   */
 /* ************************************************************************** */
+void	clean_std(t_pipe *pipex);
 int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
 void	ft_pipe_ret(t_pipe *pipex);
 
