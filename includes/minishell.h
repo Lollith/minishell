@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/15 15:58:49 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/16 15:33:34 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,6 +146,11 @@ int		ft_pipex_exec(char ***envp, t_list *list, char **args_exe, t_pipe *fds);
 char	*get_paths_cmd(char *paths_i, char *cmd);
 int		ft_pipex_return(char **paths, t_list *list, t_pipe *pipex, char **exec);
 
+/* ************************************************************************** */
+/*   operator/minishell_pipe2.c                                 1 functions   */
+/* ************************************************************************** */
+int		ft_count_pipes(t_pipe *pipex);
+void	parent2(char ***token, char ***envp, t_pipe *pipex);
 /* ************************************************************************** */
 /*   operator/operator_bonus.c                                  2 functions   */
 /* ************************************************************************** */

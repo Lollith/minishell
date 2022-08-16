@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/16 13:25:55 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/16 15:33:44 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	**get_paths(char **envp)
 
 void	ft_child_close_pipe(t_pipe *pipex)
 {
-	if (pipex->pipefd[0] && pipex->ctrl == -1 )
+	if (pipex->pipefd[0] && pipex->ctrl == -1)
 	{
 		close(pipex->pipefd[0]);
 		close(pipex->pipefd[1]);
@@ -51,6 +51,7 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 	if (!child)
 	{
 		signal(SIGINT, ft_new_prompt);
+		signal(SIGQUIT, SIG_DFL);
 		fd_monitor(pipex);
 		ft_close_tmp(pipex);
 		if (ft_builtins_fork(*token))
@@ -58,27 +59,15 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 		ft_pipex_exec(envp, l_token, *token, pipex);
 		ft_child_free1(envp, 127);
 	}
-	if (ft_builtins(*token, envp, pipex) == 2)
-		ft_child_free1(envp, 1);
-
-	if ((pipex->ctrl == 1) && pipex->pipefd[1] != -1)
-		ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
-	ft_child_close_pipe(pipex);
+	parent2(token, envp, pipex);
 	return (0);
 }
 
 void	fd_monitor(t_pipe *pipex)
 {
-	if (pipex->pipefd[0] && pipex->ctrl == 1)
-	{
+	if ((pipex->ctrl == 0 || pipex->ctrl == 1) && pipex->pipefd[0])
 		ft_link_fd(pipex->pipefd[0], pipex->pipefd[1], STDOUT_FILENO);
-		//ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
-	}
-	if (pipex->ctrl == 0 && pipex->pipefd[0])
-	{
-		ft_link_fd(pipex->pipefd[0], pipex->pipefd[1], STDOUT_FILENO);
-	}
-	if (pipex->ctrl == -1)
+	if (pipex->pipefd[0] && pipex->ctrl == -1)
 		ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
 }
 

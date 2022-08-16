@@ -6,7 +6,7 @@
 #    By: agouet <agouet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/20 16:34:58 by agouet            #+#    #+#              #
-#    Updated: 2022/08/12 10:35:15 by agouet           ###   ########.fr        #
+#    Updated: 2022/08/16 15:09:25 by agouet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS		=	$(addprefix sources/, \
 					operator/heredoc.c \
 					operator/heredoc2.c \
 					operator/minishell_pipe.c \
+					operator/minishell_pipe2.c \
 					operator/operator_bonus.c \
 					operator/operator.c \
 					parsing/ft_quoting.c \
