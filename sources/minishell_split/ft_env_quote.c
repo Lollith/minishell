@@ -57,8 +57,8 @@ int	ft_env_double_quote(char *token, int pipe_ret, char **envp, int *i)
 	int		size;
 
 	size = 0;
-	if (!ft_is_space(token[*i], "$\"") || \
-	(token[*i] == '$' && !ft_isalnum(token[(*i) + 1])))
+	if (!ft_is_space(token[*i], "$\"") || (token[*i] == '$' && \
+	!ft_isalnum(token[(*i) + 1]) && token[(*i) + 1] != '?'))
 		size++;
 	else if (token[*i] == '$' && token[(*i) + 1] == '?')
 		size += ft_env_pipe_size(pipe_ret, i);
@@ -68,8 +68,8 @@ int	ft_env_double_quote(char *token, int pipe_ret, char **envp, int *i)
 	{
 		while (token[++(*i)] != '\"')
 		{
-			if (token[*i] != '$' || \
-			(token[*i] == '$' && !ft_isalnum(token[(*i) + 1])))
+			if (token[*i] != '$' || (token[*i] == '$' && \
+			!ft_isalnum(token[(*i) + 1]) && token[(*i) + 1] != '?'))
 				size++;
 			else if (token[*i] == '$' && token[(*i) + 1] == '?')
 				size += ft_env_pipe_size(pipe_ret, i);

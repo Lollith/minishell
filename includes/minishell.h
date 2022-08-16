@@ -55,7 +55,7 @@ typedef struct s_pipe
 /* ************************************************************************** */
 /*   builtins/builtins_bis.c                                    5 functions   */
 /* ************************************************************************** */
-char	**ft_realloc_envp(char **envp);
+int		ft_env_parsing_empty(int is_unset);
 int		ft_env_parsing(char **line, int is_unset);
 int		ft_export(char **line, char ***envp);
 int		ft_unset(char **line, char ***envp);
@@ -208,17 +208,18 @@ int		ft_is_int(char *line);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
-/*   useful/free.c                                              2 functions   */
+/*   useful/free.c                                              3 functions   */
 /* ************************************************************************** */
+int		ft_free_args_exec(char **args_exec, int ret);
 void	free_null(void **ptr);
 void	free_content(t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   useful/useful.c                                            5 functions   */
 /* ************************************************************************** */
-int		ft_free_args_exec(char **args_exec, int ret);
+char	**ft_realloc_envp(char **envp);
 int		ft_msg(char *str, int fd);
-int		msg_perror(char *origin);
+int		ft_msg_perror(char *origin);
 int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
 

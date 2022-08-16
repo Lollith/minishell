@@ -12,59 +12,36 @@
 
 #include "minishell.h"
 
-char	**ft_realloc_envp(char **envp)
+int	ft_env_parsing_empty(int is_unset)
 {
-	int		i;
-	int		j;
-	char	**res;
-
-	res = malloc(sizeof(char *) * ft_string_of_string_len(envp));
-	if (!res)
-		return (NULL);
-	i = 0;
-	while (envp[i])
-	{
-		res[i] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
-		if (!res[i])
-			return (NULL);
-		j = 0;
-		while (envp[i][j])
-		{
-			res[i][j] = envp[i][j];
-			j++;
-		}
-		res[i][j] = '\0';
-		i++;
-	}
-	res[i] = NULL;
-	return (res);
+	if (is_unset)
+		printf("minishell: unset: \'\': not a valid identifier\n");
+	else
+		printf("minishell: export: \'\': not a valid identifier\n");
+	return (is_unset);
 }
 
 int	ft_env_parsing(char **line, int is_unset)
 {
-	int		i;
+	int	i;
 
 	if (!line[1])
 		return (is_unset);
+	if (!line[1][0])
+		return (ft_env_parsing_empty(is_unset));
 	if (!is_unset && line[1][0] == '=')
 	{
 		printf("minishell: export: \'%s\': not a valid identifier\n", line[1]);
 		return (FALSE);
 	}
 	i = 0;
-	while (line[1][i])
-	{
-		if (line[1][i] == '=')
-		{
-			if (is_unset)
-			{
-				ft_putstr_fd("minishell: unset: \'", 2);
-				ft_putstr_fd(line[1], 2);
-				ft_putstr_fd("\': not a valid identifier\n", 2);
-			}
-			return (TRUE);
-		}
+	while (line[1][i] && line[1][i] != '=')
 		i++;
+	if (line[1][i] == '=')
+	{
+		if (is_unset)
+			printf("minishell: unset: \'%s\': not a valid identifier\n", line[1]);
+		return (TRUE);
 	}
 	return (FALSE);
 }

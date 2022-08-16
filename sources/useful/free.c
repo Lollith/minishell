@@ -12,6 +12,20 @@
 
 #include "minishell.h"
 
+int	ft_free_args_exec(char **args_exec, int ret)
+{
+	int	i;
+
+	i = 0;
+	while (args_exec[i])
+	{
+		free(args_exec[i]);
+		i++;
+	}
+	free(args_exec);
+	return (ret);
+}
+
 void	free_null(void **ptr)
 {
 	free(*ptr);

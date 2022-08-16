@@ -77,7 +77,7 @@ int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	if ((pipex->ctrl == 0 || pipex->ctrl == 1) && pipex->pipefd[0])
 		ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
 	if (pipe(pipex->pipefd) < 0)
-		return (msg_perror("pipe"));
+		return (ft_msg_perror("pipe"));
 	ft_child(&args_exec, envp, l_token, pipex);
 	if (pipex->ctrl == 0)
 		pipex->ctrl = 1;
