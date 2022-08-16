@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/11 13:26:00 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/16 13:25:55 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,9 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 	}
 	if (ft_builtins(*token, envp, pipex) == 2)
 		ft_child_free1(envp, 1);
+
+	if ((pipex->ctrl == 1) && pipex->pipefd[1] != -1)
+		ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
 	ft_child_close_pipe(pipex);
 	return (0);
 }
@@ -74,7 +77,6 @@ void	fd_monitor(t_pipe *pipex)
 	if (pipex->ctrl == 0 && pipex->pipefd[0])
 	{
 		ft_link_fd(pipex->pipefd[0], pipex->pipefd[1], STDOUT_FILENO);
-		//ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
 	}
 	if (pipex->ctrl == -1)
 		ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
