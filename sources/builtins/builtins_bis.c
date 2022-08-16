@@ -12,54 +12,36 @@
 
 #include "minishell.h"
 
-char	**ft_realloc_envp(char **envp)
+int	ft_env_parsing_empty(int is_unset)
 {
-	int		i;
-	int		j;
-	char	**res;
-
-	res = malloc(sizeof(char *) * ft_string_of_string_len(envp));
-	if (!res)
-		return (NULL);
-	i = 0;
-	while (envp[i])
-	{
-		res[i] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
-		if (!res[i])
-			return (NULL);
-		j = 0;
-		while (envp[i][j])
-		{
-			res[i][j] = envp[i][j];
-			j++;
-		}
-		res[i][j] = '\0';
-		i++;
-	}
-	res[i] = NULL;
-	return (res);
+	if (is_unset)
+		printf("minishell: unset: \'\': not a valid identifier\n");
+	else
+		printf("minishell: export: \'\': not a valid identifier\n");
+	return (is_unset);
 }
 
 int	ft_env_parsing(char **line, int is_unset)
 {
-	int		i;
+	int	i;
 
 	if (!line[1])
 		return (is_unset);
-	i = 0;
-	while (line[1][i])
+	if (!line[1][0])
+		return (ft_env_parsing_empty(is_unset));
+	if (!is_unset && line[1][0] == '=')
 	{
-		if (line[1][i] == '=')
-		{
-			if (is_unset)
-			{
-				ft_putstr_fd("minishell: unset: \'", 2);
-				ft_putstr_fd(line[1], 2);
-				ft_putstr_fd("\': not a valid identifier\n", 2);
-			}
-			return (TRUE);
-		}
+		printf("minishell: export: \'%s\': not a valid identifier\n", line[1]);
+		return (FALSE);
+	}
+	i = 0;
+	while (line[1][i] && line[1][i] != '=')
 		i++;
+	if (line[1][i] == '=')
+	{
+		if (is_unset)
+			printf("minishell: unset: \'%s\': not a valid identifier\n", line[1]);
+		return (TRUE);
 	}
 	return (FALSE);
 }
@@ -69,6 +51,8 @@ int	ft_export(char **line, char ***envp)
 	int		i;
 	char	**res;
 
+	if (!line[1])
+		ft_print_string_of_string(*envp);
 	if (!ft_env_parsing(line, 0))
 		return (1);
 	i = 0;
@@ -94,21 +78,28 @@ int	ft_export(char **line, char ***envp)
 int	ft_unset(char **line, char ***envp)
 {
 	int		i;
+	int		j;
 	char	**res;
 
-	if (ft_env_parsing(line, 1))
-		return (1);
-	i = 0;
-	while (envp[0][i] && \
-	(ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i]))) != 0)
-		i++;
-	if (envp[0][i])
+	j = 1;
+	while (line[1])
 	{
-		res = ft_unset_envp(line, envp[0]);
-		if (!res)
-			return (2);
-		ft_split_free(envp[0]);
-		envp[0] = res;
+		if (!ft_env_parsing(line, 1))
+		{
+			i = 0;
+			while (envp[0][i] && \
+			(ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i]))) != 0)
+				i++;
+			if (envp[0][i])
+			{
+				res = ft_unset_envp(line, envp[0]);
+				if (!res)
+					return (2);
+				ft_split_free(envp[0]);
+				envp[0] = res;
+			}
+		}
+		line[1] = line[++j];
 	}
 	return (1);
 }

@@ -86,6 +86,7 @@ int	main(int ac, char **av, char **envp)
 	line = readline("minishell> ");
 	while (line != NULL)
 	{
+		g_sig = 0;
 		i = 0;
 		while (ft_is_space(line[i], MS_SPACE))
 			i++;
@@ -96,7 +97,6 @@ int	main(int ac, char **av, char **envp)
 			ft_lstclear2(&l_token);
 		}
 		free(line);
-		g_sig = 0;
 		line = readline("minishell> ");
 	}
 	return (main_return(envp, &pipex));
