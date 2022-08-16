@@ -51,6 +51,7 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 	if (!child)
 	{
 		signal(SIGINT, ft_new_prompt);
+		signal(SIGQUIT, SIG_DFL);
 		fd_monitor(pipex);
 		ft_close_tmp(pipex);
 		if (ft_builtins_fork(*token))

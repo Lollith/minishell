@@ -51,6 +51,8 @@ int	ft_export(char **line, char ***envp)
 	int		i;
 	char	**res;
 
+	if (!line[1])
+		ft_print_string_of_string(*envp);
 	if (!ft_env_parsing(line, 0))
 		return (1);
 	i = 0;
@@ -76,21 +78,28 @@ int	ft_export(char **line, char ***envp)
 int	ft_unset(char **line, char ***envp)
 {
 	int		i;
+	int		j;
 	char	**res;
 
-	if (ft_env_parsing(line, 1))
-		return (1);
-	i = 0;
-	while (envp[0][i] && \
-	(ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i]))) != 0)
-		i++;
-	if (envp[0][i])
+	j = 1;
+	while (line[1])
 	{
-		res = ft_unset_envp(line, envp[0]);
-		if (!res)
-			return (2);
-		ft_split_free(envp[0]);
-		envp[0] = res;
+		if (!ft_env_parsing(line, 1))
+		{
+			i = 0;
+			while (envp[0][i] && \
+			(ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i]))) != 0)
+				i++;
+			if (envp[0][i])
+			{
+				res = ft_unset_envp(line, envp[0]);
+				if (!res)
+					return (2);
+				ft_split_free(envp[0]);
+				envp[0] = res;
+			}
+		}
+		line[1] = line[++j];
 	}
 	return (1);
 }

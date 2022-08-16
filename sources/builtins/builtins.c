@@ -77,23 +77,18 @@ char	*ft_get_home(char **envp)
 
 int	ft_cd(char **line, char ***envp)
 {
-	int		ret;
 	char	**bis;
 
+	if (ft_string_of_string_len(line) >= 4)
+	{
+		ft_putstr_fd("minishell: cd: too many arguments\n", 1);
+		return (1);
+	}
 	bis = ft_export_line("OLDPWD=");
 	if (!bis)
 		return (2);
-	if (line[1])
-		ret = chdir(line[1]);
-	else
-		ret = chdir(ft_get_home(*envp));
-	if (ret < 0)
-	{
-		if (line[1])
-			printf("minishell: cd: %s: No such file or directory\n", line[1]);
-		ft_split_free(bis);
+	if (ft_cd_exec(line, envp, bis))
 		return (1);
-	}
 	if (ft_export(bis, envp) == 2)
 		return (2);
 	ft_split_free(bis);

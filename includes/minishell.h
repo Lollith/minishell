@@ -193,8 +193,9 @@ char	*ft_first_strchr(const char *s, int c);
 int		is_operator(t_list *l_token);
 
 /* ************************************************************************** */
-/*   useful/ft_getenv.c                                         1 functions   */
+/*   useful/ft_getenv.c                                         2 functions   */
 /* ************************************************************************** */
+int		ft_cd_exec(char **line, char ***envp, char **bis);
 char	*ft_getenv(char *env, char **envp);
 
 /* ************************************************************************** */
