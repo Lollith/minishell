@@ -70,6 +70,8 @@ char	*ft_get_home(char **envp)
 		i++;
 	if (envp[i])
 		home = envp[i] + 5;
+	else
+		ft_putstr_fd("minishell: cd: HOME not set\n", 1);
 	return (home);
 }
 
@@ -87,7 +89,8 @@ int	ft_cd(char **line, char ***envp)
 		ret = chdir(ft_get_home(*envp));
 	if (ret < 0)
 	{
-		printf("minishell: cd: %s: No such file or directory\n", line[1]);
+		if (line[1])
+			printf("minishell: cd: %s: No such file or directory\n", line[1]);
 		ft_split_free(bis);
 		return (1);
 	}

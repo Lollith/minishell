@@ -6,13 +6,21 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/11 13:19:06 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/15 16:08:25 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_sig = 0;
+
+void	clean_std(t_pipe *pipex)
+{
+	dup2(pipex->tmp_in, STDIN_FILENO);
+	close(pipex->tmp_in);
+	dup2(pipex->tmp_out, STDOUT_FILENO);
+	close(pipex->tmp_out);
+}
 
 int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 {
@@ -33,10 +41,9 @@ int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 	pid = wait(&wstatus);
 	while (pid > 0)
 		pid = wait(&wstatus);
-	dup2(pipex->tmp_in, STDIN_FILENO);
-	close(pipex->tmp_in);
-	dup2(pipex->tmp_out, STDOUT_FILENO);
-	close(pipex->tmp_out);
+	if (g_sig == 1)
+		pipex->pipe_ret = 130;
+	clean_std (pipex);
 	signal(SIGINT, ft_new_prompt);
 	signal(SIGQUIT, ft_new_prompt);
 	return (SUCCESS);
@@ -56,12 +63,14 @@ void	ft_pipe_ret(t_pipe *pipex)
 		pipex->pipe_ret = 0;
 }
 
-int	main_return(char **envp)
+int	main_return(char **envp, t_pipe *pipex)
 {
 	rl_clear_history();
 	ft_split_free(envp);
 	write(1, "exit\n", 5);
-	return (0);
+	if (g_sig == 1)
+		return (130);
+	return (pipex->pipe_ret);
 }
 
 int	main(int ac, char **av, char **envp)
@@ -87,7 +96,8 @@ int	main(int ac, char **av, char **envp)
 			ft_lstclear2(&l_token);
 		}
 		free(line);
+		g_sig = 0;
 		line = readline("minishell> ");
 	}
-	return (main_return(envp));
+	return (main_return(envp, &pipex));
 }
