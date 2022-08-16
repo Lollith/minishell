@@ -12,6 +12,24 @@
 
 #include "minishell.h"
 
+int	ft_cd_exec(char **line, char ***envp, char **bis)
+{
+	int	ret;
+
+	if (line[1])
+		ret = chdir(line[1]);
+	else
+		ret = chdir(ft_get_home(*envp));
+	if (ret < 0)
+	{
+		if (line[1] && line[1][0])
+			printf("minishell: cd: %s: No such file or directory\n", line[1]);
+		ft_split_free(bis);
+		return (1);
+	}
+	return (0);
+}
+
 char	*ft_getenv(char *env, char **envp)
 {
 	int	i;

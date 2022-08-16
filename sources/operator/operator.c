@@ -29,7 +29,7 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	if (l_token->next)
 	{
 		if (dup2(fd, STDOUT_FILENO) == -1)
-			return (msg_perror("dup2 "));
+			return (ft_msg_perror("dup2 "));
 		close(fd);
 		if (monitoring(l_token, l_token->next, envp, pipex) == 0)
 			return (FAILURE);
@@ -82,9 +82,9 @@ int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		return (FAILURE);
 	}
 	if (dup2(fd, STDIN_FILENO) == -1)
-		return (msg_perror("dup2 "));
+		return (ft_msg_perror("dup2 "));
 	if (close(fd) < 0)
-		return (msg_perror("fd "));
+		return (ft_msg_perror("fd "));
 	if (ft_strncmp(l_token->content, "<<", 2) == 0)
 		free_heredoc(file);
 	ft_split_free(args_exec);

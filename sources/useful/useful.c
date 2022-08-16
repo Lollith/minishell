@@ -12,18 +12,32 @@
 
 #include "minishell.h"
 
-int	ft_free_args_exec(char **args_exec, int ret)
+char	**ft_realloc_envp(char **envp)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	**res;
 
+	res = malloc(sizeof(char *) * ft_string_of_string_len(envp));
+	if (!res)
+		return (NULL);
 	i = 0;
-	while (args_exec[i])
+	while (envp[i])
 	{
-		free(args_exec[i]);
+		res[i] = malloc(sizeof(char) * (ft_strlen(envp[i]) + 1));
+		if (!res[i])
+			return (NULL);
+		j = 0;
+		while (envp[i][j])
+		{
+			res[i][j] = envp[i][j];
+			j++;
+		}
+		res[i][j] = '\0';
 		i++;
 	}
-	free(args_exec);
-	return (ret);
+	res[i] = NULL;
+	return (res);
 }
 
 int	ft_msg(char *str, int fd)
@@ -32,7 +46,7 @@ int	ft_msg(char *str, int fd)
 	return (FAILURE);
 }
 
-int	msg_perror(char *origin)
+int	ft_msg_perror(char *origin)
 {
 	perror(origin);
 	exit(FAILURE);
