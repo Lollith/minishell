@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/16 17:08:14 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/17 09:56:07 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,6 +234,7 @@ void	ft_print_string_of_string(char **tab);
 /* ************************************************************************** */
 void	ft_child_free1(char ***envp, int ret);
 void	ft_child_free2(char ***token, char ***envp, t_list *l_token, int ret);
+void	ft_child_free3(char ***token, char ***envp, t_pipe *pipex, int ret);
 
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */
