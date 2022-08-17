@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/17 16:33:23 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/17 18:14:52 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_pipe
 {
 	int		pipe_ret;
 	int		ctrl;
+	int		ctrl_redir;
 	int		pipefd[2];
 	t_list	*l_start;
 	int		tmp_in;
