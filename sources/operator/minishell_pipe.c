@@ -35,8 +35,11 @@ int	ft_pipex_return(char **paths, t_list *list)
 
 	cmd = list->content;
 	ft_split_free(paths);
-	ft_msg(cmd, STDERR_FILENO);
-	ft_msg(": Command not found.\n", STDERR_FILENO);
+	if (!ft_is_str(cmd, "<") && !ft_is_str(cmd, ">"))
+	{
+		ft_msg(cmd, STDERR_FILENO);
+		ft_msg(": Command not found.\n", STDERR_FILENO);
+	}
 	return (FAILURE);
 }
 
