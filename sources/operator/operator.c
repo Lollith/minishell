@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/16 17:26:03 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/17 16:32:44 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,14 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		if (dup2(fd, STDOUT_FILENO) == -1)
 			return (ft_msg_perror("dup2 "));
 		close(fd);
+	if (pipex->l_start )
+		{
+			t_list *tmp ;
+			tmp = pipex->l_start->next;
+			free(pipex->l_start->content);
+			free(pipex->l_start);
+			pipex->l_start = tmp;
+		}
 		if (monitoring(l_token, l_token->next, envp, pipex) == 0)
 			return (FAILURE);
 	}
