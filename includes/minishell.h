@@ -144,7 +144,7 @@ int		ft_close_tmp(t_pipe *pipex);
 int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipe);
 int		ft_pipex_exec(char ***envp, t_list *list, char **args_exe, t_pipe *fds);
 char	*get_paths_cmd(char *paths_i, char *cmd);
-int		ft_pipex_return(char **paths, t_list *list, char **exec);
+int		ft_pipex_return(char **paths, t_list *list);
 
 /* ************************************************************************** */
 /*   operator/minishell_pipe2.c                                 2 functions   */
