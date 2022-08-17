@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/17 15:38:04 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/17 16:37:33 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ char	*get_paths_cmd(char *paths_i, char *cmd)
 int	ft_pipex_return(char **paths, t_list *list, char **exec)
 {
 	char	*cmd;
+
 	(void) exec;
 	cmd = list->content;
-	//ft_free_args_exec(exec, 0);
 	ft_split_free(paths);
 	ft_msg(cmd, STDERR_FILENO);
 	ft_msg(": Command not found.\n", STDERR_FILENO);

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/17 16:32:44 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/17 16:38:53 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@
 // et le suprime de la liste
 int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
-	int	fd;
+	int		fd;
+	t_list	*tmp ;
 
 	fd = open_out(l_token, args_exec);
 	if (fd < 0)
@@ -31,9 +32,8 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		if (dup2(fd, STDOUT_FILENO) == -1)
 			return (ft_msg_perror("dup2 "));
 		close(fd);
-	if (pipex->l_start )
+		if (pipex->l_start)
 		{
-			t_list *tmp ;
 			tmp = pipex->l_start->next;
 			free(pipex->l_start->content);
 			free(pipex->l_start);
