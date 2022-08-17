@@ -147,10 +147,11 @@ char	*get_paths_cmd(char *paths_i, char *cmd);
 int		ft_pipex_return(char **paths, t_list *list, char **exec);
 
 /* ************************************************************************** */
-/*   operator/minishell_pipe2.c                                 1 functions   */
+/*   operator/minishell_pipe2.c                                 2 functions   */
 /* ************************************************************************** */
 int		ft_count_pipes(t_pipe *pipex);
 void	parent2(char ***token, char ***envp, t_pipe *pipex);
+
 /* ************************************************************************** */
 /*   operator/operator_bonus.c                                  2 functions   */
 /* ************************************************************************** */
