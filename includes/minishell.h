@@ -144,7 +144,7 @@ int		ft_close_tmp(t_pipe *pipex);
 int		ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipe);
 int		ft_pipex_exec(char ***envp, t_list *list, char **args_exe, t_pipe *fds);
 char	*get_paths_cmd(char *paths_i, char *cmd);
-int		ft_pipex_return(char **paths, t_list *list, t_pipe *pipex, char **exec);
+int		ft_pipex_return(char **paths, t_list *list, char **exec);
 
 /* ************************************************************************** */
 /*   operator/minishell_pipe2.c                                 1 functions   */
@@ -230,11 +230,9 @@ int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
 
 /* ************************************************************************** */
-/*   execut_bis.c                                               2 functions   */
+/*   execut_bis.c                                               1 functions   */
 /* ************************************************************************** */
-void	ft_child_free1(char ***envp, int ret);
-void	ft_child_free2(char ***token, char ***envp, t_list *l_token, int ret);
-void	ft_child_free3(char ***token, char ***envp, t_pipe *pipex, int ret);
+void	ft_child_free(char ***token, char ***envp, t_pipe *pipex, int ret);
 
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */
