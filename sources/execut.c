@@ -55,10 +55,9 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 		fd_monitor(pipex);
 		ft_close_tmp(pipex);
 		if (ft_builtins_fork(*token))
-			ft_child_free3(token, envp, pipex, 0);
+			ft_child_free(token, envp, pipex, 0);
 		ft_pipex_exec(envp, l_token, *token, pipex);
-		ft_child_free1(envp, 127);
-		ft_split_free(*token);
+		ft_child_free(token, envp, pipex, 127);
 	}
 	parent2(token, envp, pipex);
 	return (0);
