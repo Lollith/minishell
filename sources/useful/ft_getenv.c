@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:40:53 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/03 14:40:55 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/08/18 17:47:04 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_cd_exec(char **line, char ***envp, char **bis)
+int	ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex)
 {
 	int	ret;
 
@@ -25,6 +25,7 @@ int	ft_cd_exec(char **line, char ***envp, char **bis)
 		if (line[1] && line[1][0])
 			printf("minishell: cd: %s: No such file or directory\n", line[1]);
 		ft_split_free(bis);
+		pipex->pipe_ret = 1;
 		return (1);
 	}
 	return (0);

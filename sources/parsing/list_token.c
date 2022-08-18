@@ -6,13 +6,13 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:18:51 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/17 14:20:06 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/18 17:36:53 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	list_token(t_list **l_token, char *line)
+int	list_token(t_list **l_token, char *line, t_pipe *pipex)
 {
 	t_list	*l_new_token;
 	char	**token;
@@ -20,7 +20,7 @@ int	list_token(t_list **l_token, char *line)
 
 	add_history(line);
 	i = 0;
-	token = lexer(line);
+	token = lexer(line, pipex);
 	if (!token)
 		return (FAILURE);
 	while (token[i])

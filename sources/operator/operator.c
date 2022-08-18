@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/18 14:25:41 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/18 17:30:27 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	next_checker(t_list *l_token)
 	{
 		if (is_operator(l_token) && !l_token->next)
 		{
-			printf("syntax error near unexpected token\n");
+			printf("syntax errorOIJHIO near unexpected token\n");
 			return (FAILURE);
 		}
 		l_token = l_token->next;

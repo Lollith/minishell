@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/17 14:19:10 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/18 17:35:36 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,14 @@ int	ft_quote(char *line)
 
 // fonction qui cree les "mots" en fonction des espaces
 // token est free dans minishell par ft_free_split
-char	**lexer(char *line)
+char	**lexer(char *line, t_pipe *pipex)
 {
 	char	**token;
 	char	*str;
 
 	if (!ft_quote(line))
 		return (NULL);
-	str = ft_quoting(line);
+	str = ft_quoting(line, pipex);
 	if (!str)
 		return (NULL);
 	token = minishell_split(str, MS_SPACE);

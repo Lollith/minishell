@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/18 15:54:10 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/18 17:47:24 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int		ft_env(char **envp);
 int		ft_exit(char **line, char **envp, t_pipe *pipex);
 int		ft_echo(char **line);
 char	*ft_get_home(char **envp);
-int		ft_cd(char **line, char ***envp);
+int		ft_cd(char **line, char ***envp, t_pipe *pipex);
 int		ft_pwd(char **envp);
 
 /* ************************************************************************** */
@@ -172,7 +172,7 @@ int		next_checker(t_list *l_token);
 /*   parsing/ft_quoting.c                                       5 functions   */
 /* ************************************************************************** */
 int		ft_quoting_quote(char const *str, int *i, char c);
-int		ft_quoting_quoting(char const *str, int *i);
+int		ft_quoting_quoting(char const *str, int *i, t_pipe *pipex);
 int		ft_d_quote(char const *str, char *res, int *i, int size);
 int		ft_s_quote(char const *str, char *res, int *i, int size);
 void	ft_quoting_res(char const *str, char *res, int *i, int *size);
@@ -180,7 +180,7 @@ void	ft_quoting_res(char const *str, char *res, int *i, int *size);
 /* ************************************************************************** */
 /*   parsing/list_token.c                                       4 functions   */
 /* ************************************************************************** */
-int		list_token(t_list **l_token, char *line);
+int		list_token(t_list **l_token, char *line, t_pipe *pipex);
 void	ft_l_delete(t_list *l_token);
 void	ft_lstclear2(t_list **l_token);
 void	ft_lstclear3(t_list **l_token);
@@ -189,7 +189,7 @@ void	ft_lstclear3(t_list **l_token);
 /*   parsing/parsing.c                                          4 functions   */
 /* ************************************************************************** */
 int		ft_quote(char *line);
-char	**lexer(char *line);
+char	**lexer(char *line, t_pipe *pipex);
 int		size_args(t_list *l_token);
 char	**ft_is_arg(t_list *l_token);
 
@@ -203,7 +203,7 @@ int		reorga_pipe_to_redir(t_list **l_token, char **exec);
 /* ************************************************************************** */
 /*   useful/ft_getenv.c                                         2 functions   */
 /* ************************************************************************** */
-int		ft_cd_exec(char **line, char ***envp, char **bis);
+int		ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex);
 char	*ft_getenv(char *env, char **envp);
 
 /* ************************************************************************** */
@@ -251,7 +251,7 @@ int		ft_link_fd(int pipefd0, int pipefd1, int std);
 int		ft_builtins_fork(char **line);
 int		ft_builtins(char **line, char ***envp, t_pipe *pipex);
 void	ft_quoting_input(char const *str, char *res);
-char	*ft_quoting(char const *str);
+char	*ft_quoting(char const *str, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   monitor.c                                                  5 functions   */
