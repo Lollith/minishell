@@ -29,15 +29,17 @@ char	*get_paths_cmd(char *paths_i, char *cmd)
 	return (path_cmd);
 }
 
-int	ft_pipex_return(char **paths, t_list *list, char **exec)
+int	ft_pipex_return(char **paths, t_list *list)
 {
 	char	*cmd;
 
-	(void) exec;
 	cmd = list->content;
 	ft_split_free(paths);
-	ft_msg(cmd, STDERR_FILENO);
-	ft_msg(": Command not found.\n", STDERR_FILENO);
+	if (!ft_is_str(cmd, "<") && !ft_is_str(cmd, ">"))
+	{
+		ft_msg(cmd, STDERR_FILENO);
+		ft_msg(": Command not found.\n", STDERR_FILENO);
+	}
 	return (FAILURE);
 }
 
@@ -67,7 +69,7 @@ int	ft_pipex_exec(char ***envp, t_list *list, char **token_exec, t_pipe *fds)
 			free(path_cmd);
 		}
 	}
-	return (ft_pipex_return(paths, list, token_exec));
+	return (ft_pipex_return(paths, list));
 }
 
 int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
