@@ -38,7 +38,7 @@ int	ft_exit(char **line, char **envp, t_pipe *pipex)
 	return (1);
 }
 
-int	ft_echo(char **line)
+int	ft_echo(char **line, char **envp)
 {
 	int	i;
 
@@ -49,7 +49,13 @@ int	ft_echo(char **line)
 	{
 		if (!line[i][0])
 			write(1, " ", 1);
-		ft_putstr_fd(line[i], 1);
+		if (line[i][0] == '~')
+		{
+			ft_putstr_fd(ft_get_home(envp), 1);
+			ft_putstr_fd(line[i] + 1, 1);
+		}
+		else
+			ft_putstr_fd(line[i], 1);
 		if (line[i + 1] && line[i][0] != '\0')
 			write(1, " ", 1);
 		i++;
@@ -85,7 +91,7 @@ int	ft_cd(char **line, char ***envp, t_pipe *pipex)
 		pipex->pipe_ret = 1;
 		return (1);
 	}
-	bis = ft_export_line("OLDPWD=");
+	bis = ft_export_line("OLDPWD=", line[1]);
 	if (!bis)
 		return (2);
 	if (ft_cd_exec(line, envp, bis, pipex))
@@ -93,7 +99,7 @@ int	ft_cd(char **line, char ***envp, t_pipe *pipex)
 	if (ft_export(bis, envp) == 2)
 		return (2);
 	ft_split_free(bis);
-	bis = ft_export_line("PWD=");
+	bis = ft_export_line("PWD=", NULL);
 	if (!bis || ft_export(bis, envp) == 2)
 		return (2);
 	ft_split_free(bis);

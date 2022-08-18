@@ -66,7 +66,7 @@ int		ft_env(char **envp);
 /*   builtins/builtins.c                                        5 functions   */
 /* ************************************************************************** */
 int		ft_exit(char **line, char **envp, t_pipe *pipex);
-int		ft_echo(char **line);
+int		ft_echo(char **line, char **envp);
 char	*ft_get_home(char **envp);
 int		ft_cd(char **line, char ***envp, t_pipe *pipex);
 int		ft_pwd(char **envp);
@@ -76,7 +76,7 @@ int		ft_pwd(char **envp);
 /* ************************************************************************** */
 int		ft_export_value(char **line, char ***envp, int i);
 char	**ft_export_envp(char **line, char **envp);
-char	**ft_export_line(char *pwd);
+char	**ft_export_line(char *pwd, char *line);
 int		ft_echo_cheak(char *line);
 int		ft_exit_free(char **line, char **envp, t_pipe *pipex);
 

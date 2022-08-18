@@ -33,7 +33,7 @@ int	ft_builtins_fork(char **line)
 int	ft_builtins(char **line, char ***envp, t_pipe *pipex)
 {
 	if (ft_is_str(line[0], "echo") || ft_is_str(line[0], "say"))
-		return (ft_echo(line));
+		return (ft_echo(line, *envp));
 	if (ft_is_str(line[0], "cd"))
 		return (ft_cd(line, envp, pipex));
 	if (ft_is_str(line[0], "pwd"))

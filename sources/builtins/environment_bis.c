@@ -49,15 +49,15 @@ char	**ft_export_envp(char **line, char **envp)
 }
 
 // For cd
-char	**ft_export_line(char *pwd)
+char	**ft_export_line(char *pwd, char *line)
 {
 	char	cwd[256];
 	char	**res;
 
 	if (getcwd(cwd, sizeof(cwd)) == NULL)
 	{
-		perror("getcwd() error");
-		return (NULL);
+		printf("minishell: cd: %s: No such file or directory\n", line);
+		cwd[0] = '\0';
 	}
 	res = malloc(sizeof(char *) * 3);
 	if (!res)
@@ -65,9 +65,14 @@ char	**ft_export_line(char *pwd)
 	res[0] = ft_strdup("export");
 	if (!res[0])
 		return (NULL);
-	res[1] = ft_strjoin(pwd, cwd);
-	if (!res[1])
-		return (NULL);
+	if (cwd[0])
+	{
+		res[1] = ft_strjoin(pwd, cwd);
+		if (!res[1])
+			return (NULL);
+	}
+	else
+		res[1] = NULL;
 	res[2] = NULL;
 	return (res);
 }
