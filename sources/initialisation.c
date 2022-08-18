@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/10 15:54:53 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/18 10:15:02 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	pipex->ctrl = 0;
 	pipex->pipefd[0] = -1;
 	pipex->pipefd[1] = -1;
+	pipex->ctrl_redir = 0;
 	return (SUCCESS);
 }
 
