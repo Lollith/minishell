@@ -14,12 +14,23 @@
 
 int	ft_cd_exec(char **line, char ***envp, char **bis)
 {
-	int	ret;
+	int		ret;
+	char	*str;
 
-	if (line[1])
-		ret = chdir(line[1]);
-	else
+	if (!line[1] || ft_is_str(line[1], "~"))
 		ret = chdir(ft_get_home(*envp));
+	else if (line[1][0] == '~')
+	{
+		str = ft_strjoin(ft_get_home(*envp), line[1] + 1);
+		if (!str)
+			return (2);
+		ret = chdir(str);
+		free(str);
+	}
+	else if (ft_is_str(line[1], "-"))
+		ret = chdir(ft_getenv("OLDPWD", *envp));
+	else
+		ret = chdir(line[1]);
 	if (ret < 0)
 	{
 		if (line[1] && line[1][0])
