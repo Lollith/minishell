@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/04 12:25:11 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/18 10:30:20 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/18 15:01:14 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,5 @@ void	ft_child_free(char ***token, char ***envp, t_pipe *pipex, int ret)
 	ft_split_free(*token);
 	ft_split_free(*envp);
 	exit(ret);
+
 }

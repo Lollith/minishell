@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/18 10:18:40 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/18 15:32:45 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,6 @@ int	monitoring(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex)
 	}
 	else
 		one_cmd(l_token, args_exec, envp, pipex);
-	pipex->ctrl = 0;
 	return (SUCCESS);
 }
 

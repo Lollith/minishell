@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/18 09:59:02 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/18 15:54:10 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,6 +198,7 @@ char	**ft_is_arg(t_list *l_token);
 /* ************************************************************************** */
 char	*ft_first_strchr(const char *s, int c);
 int		is_operator(t_list *l_token);
+int		reorga_pipe_to_redir(t_list **l_token, char **exec);
 
 /* ************************************************************************** */
 /*   useful/ft_getenv.c                                         2 functions   */
