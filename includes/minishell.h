@@ -75,7 +75,7 @@ int		ft_pwd(char **envp);
 /* ************************************************************************** */
 int		ft_export_value(char **line, char ***envp, int i);
 char	**ft_export_envp(char **line, char **envp);
-char	**ft_export_line(char *pwd);
+char	**ft_export_line(char *pwd, char *line);
 int		ft_echo_cheak(char *line);
 int		ft_exit_free(char **line, char **envp, t_pipe *pipex);
 

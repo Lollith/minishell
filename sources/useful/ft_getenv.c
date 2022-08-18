@@ -31,9 +31,9 @@ int	ft_cd_exec(char **line, char ***envp, char **bis)
 		ret = chdir(ft_getenv("OLDPWD", *envp));
 	else
 		ret = chdir(line[1]);
-	if (ret < 0)
+	if (ret < 0 || bis[1] == NULL)
 	{
-		if (line[1] && line[1][0])
+		if (line[1] && line[1][0] && bis[1] != NULL)
 			printf("minishell: cd: %s: No such file or directory\n", line[1]);
 		ft_split_free(bis);
 		return (1);

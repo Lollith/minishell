@@ -90,7 +90,7 @@ int	ft_cd(char **line, char ***envp)
 		ft_putstr_fd("minishell: cd: too many arguments\n", 1);
 		return (1);
 	}
-	bis = ft_export_line("OLDPWD=");
+	bis = ft_export_line("OLDPWD=", line[1]);
 	if (!bis)
 		return (2);
 	if (ft_cd_exec(line, envp, bis))
@@ -98,7 +98,7 @@ int	ft_cd(char **line, char ***envp)
 	if (ft_export(bis, envp) == 2)
 		return (2);
 	ft_split_free(bis);
-	bis = ft_export_line("PWD=");
+	bis = ft_export_line("PWD=", NULL);
 	if (!bis || ft_export(bis, envp) == 2)
 		return (2);
 	ft_split_free(bis);
