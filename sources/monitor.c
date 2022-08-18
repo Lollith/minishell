@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/17 18:16:14 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/18 09:38:23 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,15 +86,14 @@ int	monitoring(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex)
 	char	**args_exec;
 	t_list	*tmp ;
 
-	if (pipex->l_start && ft_strncmp(pipex->l_start->content, ">", 1) == 0 && pipex->ctrl_redir == 1)// ici pas de p?
+	if (pipex->l_start && ft_strncmp(pipex->l_start->content, ">", 1) == 0
+		&& pipex->ctrl_redir == 1)
 	{
 		tmp = pipex->l_start->next;
 		free(pipex->l_start->content);
 		free(pipex->l_start);
 		pipex->l_start = tmp;
-		}
-
-
+	}
 	args_exec = ft_is_arg(l_token);
 	if (args_exec == NULL)
 		return (FAILURE);
