@@ -75,7 +75,7 @@ void	fd_monitor(t_pipe *pipex)
 
 int	ft_link_fd(int pipefd0, int pipefd1, int std)
 {
-	if (pipefd1 > 0)
+	if (pipefd0 > 0)
 		close(pipefd0);
 	dup2(pipefd1, std);
 	if (pipefd1 > -1)
