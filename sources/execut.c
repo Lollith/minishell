@@ -30,8 +30,10 @@ void	ft_child_close_pipe(t_pipe *pipex)
 {
 	if (pipex->pipefd[0] && pipex->ctrl == -1)
 	{
-		close(pipex->pipefd[0]);
-		close(pipex->pipefd[1]);
+		if (pipex->pipefd[0] > -1)
+			close(pipex->pipefd[0]);
+		if (pipex->pipefd[1] > -1)
+			close(pipex->pipefd[1]);
 		pipex->ctrl = 0;
 	}
 }
@@ -73,9 +75,10 @@ void	fd_monitor(t_pipe *pipex)
 
 int	ft_link_fd(int pipefd0, int pipefd1, int std)
 {
-	if (pipefd0)
+	if (pipefd0 > 0)
 		close(pipefd0);
 	dup2(pipefd1, std);
-	close(pipefd1);
+	if (pipefd1 > -1)
+		close(pipefd1);
 	return (SUCCESS);
 }
