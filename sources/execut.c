@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/19 08:21:02 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 10:58:53 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,20 @@ void	ft_child_close_pipe(t_pipe *pipex)
 	}
 }
 
+//child built or cmd
+void	b_o_c(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
+{
+	if (ft_builtins_fork(*token))
+		ft_child_free2(token, envp, l_token, 0);
+	if (!ft_builtins(*token, envp, pipex))
+	{
+		ft_pipex_exec(envp, l_token, *token, pipex);
+		ft_child_free(token, envp, pipex, 127);
+	}
+	else
+		ft_child_free2(token, envp, l_token, 1);
+}
+
 int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 {
 	pid_t	child;
@@ -56,29 +70,8 @@ int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 		signal(SIGQUIT, SIG_DFL);
 		fd_monitor(pipex);
 		ft_close_tmp(pipex);
-		if (ft_builtins_fork(*token))
-			ft_child_free2(token, envp, l_token, 0);
-		ft_pipex_exec(envp, l_token, *token, pipex);
-		ft_child_free(token, envp, pipex, 127);
+		b_o_c(token, envp, l_token, pipex);
 	}
 	parent2(token, envp, pipex);
 	return (0);
-}
-
-void	fd_monitor(t_pipe *pipex)
-{
-	if ((pipex->ctrl == 0 || pipex->ctrl == 1) && pipex->pipefd[0])
-		ft_link_fd(pipex->pipefd[0], pipex->pipefd[1], STDOUT_FILENO);
-	if (pipex->pipefd[0] && pipex->ctrl == -1)
-		ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
-}
-
-int	ft_link_fd(int pipefd0, int pipefd1, int std)
-{
-	if (pipefd0 > 0)
-		close(pipefd0);
-	dup2(pipefd1, std);
-	if (pipefd1 > -1)
-		close(pipefd1);
-	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/19 08:57:45 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 09:37:12 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,13 @@ int	is_operator(t_list *l_token)
 void	putsr_ret(t_pipe *pipex, char *str)
 {
 	ft_putstr_fd(str, 2);
+	pipex->pipe_ret = 2;
+}
+
+void	putstr_exit(char **line, t_pipe *pipex)
+{
+	ft_putstr_fd("minishell: exit: ", 2);
+	ft_putstr_fd(line[1], 2);
+	ft_putstr_fd(": numeric argument required\n", 2);
 	pipex->pipe_ret = 2;
 }

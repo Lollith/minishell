@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:27:24 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/19 08:17:03 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 09:20:40 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void	parent2(char ***token, char ***envp, t_pipe *pipex)
 {
 	int	i;
 
-	i = ft_builtins(*token, envp, pipex);
+	i = ft_builtins2(*token, envp, pipex);
 	if (i == 2)
 		ft_child_free(token, envp, pipex, 1);
 	ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
