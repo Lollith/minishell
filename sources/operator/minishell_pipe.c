@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/19 08:12:24 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 10:33:45 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,17 @@ int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex)
 		ft_msg(cmd, STDERR_FILENO);
 		ft_msg(": Command not found.\n", STDERR_FILENO);
 	}
-	if (list)
-		ft_lstclear2(&list);
+	if (pipex->ctrl_redir == 1)
+	{
+		pipex->ctrl_redir = 0;
+		if (list)
+			ft_lstclear2(&list);
+	}
+	else
+	{
+		if (pipex->l_start)
+			ft_lstclear2(&pipex->l_start);
+	}
 	return (FAILURE);
 }
 
