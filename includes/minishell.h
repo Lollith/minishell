@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/18 17:47:24 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 08:57:16 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ extern int	g_sig;
 typedef struct s_pipe
 {
 	int		pipe_ret;
+	int		pipe_ret_b;
 	int		ctrl;
 	int		ctrl_redir;
 	int		pipefd[2];
@@ -194,11 +195,11 @@ int		size_args(t_list *l_token);
 char	**ft_is_arg(t_list *l_token);
 
 /* ************************************************************************** */
-/*   parsing/parsing2.c                                         2 functions   */
+/*   parsing/parsing2.c                                         3 functions   */
 /* ************************************************************************** */
 char	*ft_first_strchr(const char *s, int c);
 int		is_operator(t_list *l_token);
-int		reorga_pipe_to_redir(t_list **l_token, char **exec);
+void	putsr_ret(t_pipe *pipex, char *str);
 
 /* ************************************************************************** */
 /*   useful/ft_getenv.c                                         2 functions   */
@@ -235,6 +236,7 @@ void	ft_print_string_of_string(char **tab);
 /*   execut_bis.c                                               1 functions   */
 /* ************************************************************************** */
 void	ft_child_free(char ***token, char ***envp, t_pipe *pipex, int ret);
+void	ft_child_free2(char ***token, char ***envp, t_list *l_token, int ret);
 
 /* ************************************************************************** */
 /*   execut.c                                                   5 functions   */

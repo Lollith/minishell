@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/18 17:38:07 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 08:37:48 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 	pid = wait(&wstatus);
 	while (pid > 0)
 		pid = wait(&wstatus);
+	if (pipex->pipe_ret_b == 1)
+		pipex->pipe_ret = 1;
 	if (g_sig == 1)
 		pipex->pipe_ret = 130;
 	clean_std (pipex);

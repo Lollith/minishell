@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/18 17:08:23 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 08:12:24 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ char	*get_paths_cmd(char *paths_i, char *cmd)
 int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex)
 {
 	char	*cmd;
+
 	(void) pipex;
 	cmd = list->content;
 	ft_split_free(paths);
@@ -40,10 +41,8 @@ int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex)
 		ft_msg(cmd, STDERR_FILENO);
 		ft_msg(": Command not found.\n", STDERR_FILENO);
 	}
-	// a laisser pour cmd not found leak:
 	if (list)
 		ft_lstclear2(&list);
-
 	return (FAILURE);
 }
 
@@ -78,7 +77,7 @@ int	ft_pipex_exec(char ***envp, t_list *list, char **token_exec, t_pipe *fds)
 int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	if (pipe(pipex->pipefd) < 0)
-			return (ft_msg_perror("pipe"));
+		return (ft_msg_perror("pipe"));
 	ft_child(&args_exec, envp, l_token, pipex);
 	if (pipex->ctrl == 0)
 		pipex->ctrl = 1;

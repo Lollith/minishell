@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/14 14:08:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/18 17:32:52 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 08:57:23 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,7 @@ int	ft_quoting_quoting(char const *str, int *i, t_pipe *pipex)
 	{
 		if (str[*i] == '&' && str[*i + 1] != '&')
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
-			pipex->pipe_ret = 2;
+			putsr_ret (pipex, "minishell: syntax error near unexpected token\n");
 			return (3);
 		}
 		if ((str[*i] == '&' && str[*i + 1] == '&') || \
@@ -46,8 +45,7 @@ int	ft_quoting_quoting(char const *str, int *i, t_pipe *pipex)
 			j++;
 		if (!str[j] || ft_is_space(str[*i + 1], "&|><"))
 		{
-			ft_putstr_fd("minishell: syntax error near unexpected token\n", 2);
-			pipex->pipe_ret = 2;
+			putsr_ret (pipex, "minishell: syntax error near unexpected token\n");
 			return (3);
 		}
 		return (2);

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:44:51 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/18 17:47:44 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 08:32:48 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,7 @@ int	ft_cd(char **line, char ***envp, t_pipe *pipex)
 	if (ft_string_of_string_len(line) >= 4)
 	{
 		ft_putstr_fd("minishell: cd: too many arguments\n", 1);
-		pipex->pipe_ret = 1;
+		pipex->pipe_ret_b = 1;
 		return (1);
 	}
 	bis = ft_export_line("OLDPWD=", line[1]);
@@ -103,8 +103,6 @@ int	ft_cd(char **line, char ***envp, t_pipe *pipex)
 	if (!bis || ft_export(bis, envp) == 2)
 		return (2);
 	ft_split_free(bis);
-	ft_putstr_fd("minishell: BAD\n", 1);
-
 	return (1);
 }
 

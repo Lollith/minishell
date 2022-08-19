@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:25:45 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/18 17:43:54 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 08:38:04 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,17 @@
 // 1 is a builtins
 int	ft_builtins_fork(char **line)
 {
+	if (ft_is_str(line[0], "echo") || ft_is_str(line[0], "say"))
+		return (1);
 	if (ft_is_str(line[0], "cd"))
+		return (1);
+	if (ft_is_str(line[0], "pwd"))
 		return (1);
 	if (ft_is_str(line[0], "export"))
 		return (1);
 	if (ft_is_str(line[0], "unset"))
+		return (1);
+	if (ft_is_str(line[0], "env"))
 		return (1);
 	if (ft_is_str(line[0], "exit") || ft_is_str(line[0], "quit"))
 		return (1);

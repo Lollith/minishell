@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:08:20 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/18 14:26:29 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 08:57:45 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,4 +36,10 @@ int	is_operator(t_list *l_token)
 		i++;
 	}
 	return (FAILURE);
+}
+
+void	putsr_ret(t_pipe *pipex, char *str)
+{
+	ft_putstr_fd(str, 2);
+	pipex->pipe_ret = 2;
 }
