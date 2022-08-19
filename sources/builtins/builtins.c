@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 13:44:51 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/19 08:32:48 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 09:37:29 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ int	ft_exit(char **line, char **envp, t_pipe *pipex)
 	if (ft_string_of_string_len(line) > 3)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
+		pipex->pipe_ret_b = 1;
 		return (1);
 	}
 	if (line[1])
@@ -29,12 +30,14 @@ int	ft_exit(char **line, char **envp, t_pipe *pipex)
 			ft_exit_free(line, envp, pipex);
 			exit (ret);
 		}
-		ft_putstr_fd("minishell: exit: ", 2);
-		ft_putstr_fd(line[1], 2);
-		ft_putstr_fd(": numeric argument required\n", 2);
+		putstr_exit(line, pipex);
+		exit(ft_exit_free(line, envp, pipex));
 	}
 	else
+	{
+		pipex->pipe_ret = 0;
 		exit(ft_exit_free(line, envp, pipex));
+	}
 	return (1);
 }
 

@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/19 08:57:16 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 09:38:21 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ char	**ft_is_arg(t_list *l_token);
 char	*ft_first_strchr(const char *s, int c);
 int		is_operator(t_list *l_token);
 void	putsr_ret(t_pipe *pipex, char *str);
+void	putstr_exit(char **line, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   useful/ft_getenv.c                                         2 functions   */
@@ -254,6 +255,7 @@ int		ft_builtins_fork(char **line);
 int		ft_builtins(char **line, char ***envp, t_pipe *pipex);
 void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str, t_pipe *pipex);
+int		ft_builtins2(char **line, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   monitor.c                                                  5 functions   */
