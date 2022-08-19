@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/19 10:33:45 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 10:55:09 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex)
 {
 	char	*cmd;
 
-	(void) pipex;
 	cmd = list->content;
 	ft_split_free(paths);
 	if (!ft_is_str(cmd, "<") && !ft_is_str(cmd, ">"))
