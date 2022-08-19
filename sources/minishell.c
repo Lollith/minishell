@@ -16,18 +16,10 @@
 // 1 is a builtins
 int	ft_builtins_fork(char **line)
 {
-	//if (ft_is_str(line[0], "echo") || ft_is_str(line[0], "say"))
-	//	return (1);
-//	if (ft_is_str(line[0], "cd"))
-//		return (1);
-//	if (ft_is_str(line[0], "pwd"))
-	//	return (1);
 	if (ft_is_str(line[0], "export"))
 		return (1);
 	if (ft_is_str(line[0], "unset"))
 		return (1);
-//	if (ft_is_str(line[0], "env"))
-//		return (1);
 	if (ft_is_str(line[0], "exit") || ft_is_str(line[0], "quit"))
 		return (1);
 	return (0);
@@ -44,31 +36,17 @@ int	ft_builtins(char **line, char ***envp, t_pipe *pipex)
 		return (ft_cd(line, envp, pipex));
 	if (ft_is_str(line[0], "pwd"))
 		return (ft_pwd(*envp));
-	//if (ft_is_str(line[0], "export"))
-		//return (ft_export(line, envp));
-	//if (ft_is_str(line[0], "unset"))
-	//	return (ft_unset(line, envp));
 	if (ft_is_str(line[0], "env"))
 		return (ft_env(*envp));
-	//if (ft_is_str(line[0], "exit") || ft_is_str(line[0], "quit"))
-	//	return (ft_exit(line, *envp, pipex));
 	return (0);
 }
 
 int	ft_builtins2(char **line, char ***envp, t_pipe *pipex)
 {
-	//if (ft_iis_str(line[0], "echo") || ft_is_str(line[0], "say"))
-	//	return (ft_echo(line, *envp));
-	//if (ft_is_str(line[0], "cd"))
-//		return (ft_cd(line, envp, pipex));
-//	if (ft_is_str(line[0], "pwd"))
-//		return (ft_pwd(*envp));
 	if (ft_is_str(line[0], "export"))
 		return (ft_export(line, envp));
 	if (ft_is_str(line[0], "unset"))
 		return (ft_unset(line, envp));
-	//if (ft_is_str(line[0], "env"))
-	//	return (ft_env(*envp));
 	if (ft_is_str(line[0], "exit") || ft_is_str(line[0], "quit"))
 		return (ft_exit(line, *envp, pipex));
 	return (0);

@@ -234,9 +234,9 @@ int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
 
 /* ************************************************************************** */
-/*   execut_bis.c                                               1 functions   */
+/*   execut_bis.c                                               2 functions   */
 /* ************************************************************************** */
-void	ft_child_free(char ***token, char ***envp, t_pipe *pipex, int ret);
+void	ft_child_free(char ***token, char ***envp, int ret);
 void	ft_child_free2(char ***token, char ***envp, t_list *l_token, int ret);
 
 /* ************************************************************************** */

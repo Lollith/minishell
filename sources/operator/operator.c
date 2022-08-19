@@ -19,7 +19,7 @@
 // bad cmd > file  : crer file ms erreur cmd
 // si file existe recup arg[1] sinon recup sur la liste chainee
 // et le suprime de la liste
-	int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
+int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	int		fd;
 
@@ -117,7 +117,7 @@ int	next_checker(t_list *l_token)
 	{
 		if (is_operator(l_token) && !l_token->next)
 		{
-			printf("syntax errorOIJHIO near unexpected token\n");
+			printf("syntax error near unexpected token\n");
 			return (FAILURE);
 		}
 		l_token = l_token->next;

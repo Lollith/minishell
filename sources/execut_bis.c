@@ -12,9 +12,8 @@
 
 #include "minishell.h"
 
-void	ft_child_free(char ***token, char ***envp, t_pipe *pipex, int ret)
+void	ft_child_free(char ***token, char ***envp, int ret)
 {
-	(void)pipex;
 	ft_split_free(*token);
 	ft_split_free(*envp);
 	exit(ret);

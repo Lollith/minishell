@@ -46,7 +46,7 @@ void	b_o_c(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 	if (!ft_builtins(*token, envp, pipex))
 	{
 		ft_pipex_exec(envp, l_token, *token, pipex);
-		ft_child_free(token, envp, pipex, 127);
+		ft_child_free(token, envp, 127);
 	}
 	else
 		ft_child_free2(token, envp, l_token, 1);

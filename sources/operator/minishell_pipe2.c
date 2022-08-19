@@ -35,7 +35,7 @@ void	parent2(char ***token, char ***envp, t_pipe *pipex)
 
 	i = ft_builtins2(*token, envp, pipex);
 	if (i == 2)
-		ft_child_free(token, envp, pipex, 1);
+		ft_child_free(token, envp, 1);
 	ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
 	ft_child_close_pipe(pipex);
 }
