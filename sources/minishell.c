@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/23 13:25:45 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/12 12:08:48 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 08:38:04 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ int	ft_builtins(char **line, char ***envp, t_pipe *pipex)
 	if (ft_is_str(line[0], "echo") || ft_is_str(line[0], "say"))
 		return (ft_echo(line, *envp));
 	if (ft_is_str(line[0], "cd"))
-		return (ft_cd(line, envp));
+		return (ft_cd(line, envp, pipex));
 	if (ft_is_str(line[0], "pwd"))
 		return (ft_pwd(*envp));
 	if (ft_is_str(line[0], "export"))
@@ -71,7 +71,7 @@ void	ft_quoting_input(char const *str, char *res)
 	res[i + size] = '\0';
 }
 
-char	*ft_quoting(char const *str)
+char	*ft_quoting(char const *str, t_pipe *pipex)
 {
 	int		i;
 	int		size;
@@ -84,7 +84,7 @@ char	*ft_quoting(char const *str)
 	{
 		if (ft_quoting_quote(str, &i, '\"') || ft_quoting_quote(str, &i, '\''))
 			continue ;
-		agouet = ft_quoting_quoting(str, &i);
+		agouet = ft_quoting_quoting(str, &i, pipex);
 		if (agouet == 3)
 			return (NULL);
 		size += agouet;

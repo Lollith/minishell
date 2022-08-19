@@ -3,16 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   ft_getenv.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: frrusso <marvin@42.fr>                     +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/03 14:40:53 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/03 14:40:55 by frrusso          ###   ########.fr       */
+/*   Updated: 2022/08/19 08:47:04 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_cd_exec(char **line, char ***envp, char **bis)
+void	cd_no_file(char **line, char **bis, t_pipe *pipex)
+{
+	if (line[1] && line[1][0] && bis[1] != NULL)
+	{
+		printf("minishell: cd: %s: No such file or directory\n", line[1]);
+		pipex->pipe_ret_b = 1;
+	}
+}
+
+int	ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex)
 {
 	int		ret;
 	char	*str;
@@ -33,8 +42,7 @@ int	ft_cd_exec(char **line, char ***envp, char **bis)
 		ret = chdir(line[1]);
 	if (ret < 0 || bis[1] == NULL)
 	{
-		if (line[1] && line[1][0] && bis[1] != NULL)
-			printf("minishell: cd: %s: No such file or directory\n", line[1]);
+		cd_no_file (line, bis, pipex);
 		ft_split_free(bis);
 		return (1);
 	}

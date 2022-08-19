@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/17 16:38:53 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/18 17:30:27 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@
 int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
 	int		fd;
-	t_list	*tmp ;
 
 	fd = open_out(l_token, args_exec);
 	if (fd < 0)
@@ -32,13 +31,6 @@ int	ft_redir_out(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		if (dup2(fd, STDOUT_FILENO) == -1)
 			return (ft_msg_perror("dup2 "));
 		close(fd);
-		if (pipex->l_start)
-		{
-			tmp = pipex->l_start->next;
-			free(pipex->l_start->content);
-			free(pipex->l_start);
-			pipex->l_start = tmp;
-		}
 		if (monitoring(l_token, l_token->next, envp, pipex) == 0)
 			return (FAILURE);
 	}
@@ -125,7 +117,7 @@ int	next_checker(t_list *l_token)
 	{
 		if (is_operator(l_token) && !l_token->next)
 		{
-			printf("syntax error near unexpected token\n");
+			printf("syntax errorOIJHIO near unexpected token\n");
 			return (FAILURE);
 		}
 		l_token = l_token->next;

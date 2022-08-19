@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/17 16:27:50 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/19 08:10:13 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,11 @@ int	check_op(t_list *l_token, char **exec, char ***envp, t_pipe *pipex)
 {
 	int		i;
 	char	**file_redir;
-	int		ctrl;
 
 	i = 1;
-	ctrl = 0;
+	pipex->ctrl_redir = 0;
 	if (reorga(&l_token, exec, &file_redir, pipex) == 1)
-		ctrl = 1;
+		pipex->ctrl_redir = 1;
 	if (ft_strncmp(l_token->next->content, "&&", 2) == 0)
 		ft_eperluet(l_token, exec, envp, pipex);
 	else if (ft_strncmp(l_token->next->content, "||", 2) == 0)
@@ -85,7 +84,16 @@ int	check_op(t_list *l_token, char **exec, char ***envp, t_pipe *pipex)
 int	monitoring(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex)
 {
 	char	**args_exec;
+	t_list	*tmp ;
 
+	if (pipex->l_start != NULL && pipex->ctrl_redir == 1)
+	{
+		tmp = pipex->l_start->next;
+		free(pipex->l_start->content);
+		free(pipex->l_start);
+		pipex->l_start = tmp;
+		pipex->ctrl_redir = 0;
+	}
 	args_exec = ft_is_arg(l_token);
 	if (args_exec == NULL)
 		return (FAILURE);
@@ -97,7 +105,6 @@ int	monitoring(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex)
 	}
 	else
 		one_cmd(l_token, args_exec, envp, pipex);
-	pipex->ctrl = 0;
 	return (SUCCESS);
 }
 
@@ -106,10 +113,7 @@ int	one_cmd(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	if (ft_strncmp(l_token->content, ">", 1) == 0)
 	{
 		if (ft_redir_out(l_token, args_exec, envp, pipex) == 0)
-		{
-			ft_split_free(args_exec);
 			return (FAILURE);
-		}
 	}
 	else
 	{
