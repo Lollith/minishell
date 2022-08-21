@@ -6,7 +6,7 @@
 /*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 10:47:34 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/21 16:10:51 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/21 17:47:43 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	ft_free_args_exec(char **args_exec, int ret)
 	return (ret);
 }
 
+//a utiliser avec free_null((void **))
 void	free_null(void **ptr)
 {
 	free(*ptr);

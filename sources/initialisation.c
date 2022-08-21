@@ -6,7 +6,7 @@
 /*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/21 16:10:50 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/21 16:25:59 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	pipex->pipefd[1] = -1;
 	pipex->ctrl_redir = 0;
 	pipex->ctrl_redir2 = 0;
-	pipex->save_arg = NULL;
 	return (SUCCESS);
 }
 

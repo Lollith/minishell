@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_pipe2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:27:24 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/19 09:20:40 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/21 17:47:36 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,7 @@ void	parent2(char ***token, char ***envp, t_pipe *pipex)
 		ft_child_free(token, envp, 1);
 	ft_link_fd(pipex->pipefd[1], pipex->pipefd[0], STDIN_FILENO);
 	ft_child_close_pipe(pipex);
+
+		if (*token != NULL)
+			split_free_null(*token);
 }
