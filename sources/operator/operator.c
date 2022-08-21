@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   operator.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/19 11:11:40 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/21 12:28:31 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	open_out(t_list *l_token, char **args_exec)
 		fd = open (file, O_WRONLY | O_TRUNC | O_CREAT, 0666);
 	if (fd < 0)
 		perror(file);
-	ft_split_free(args_exec);
+	split_free_null(args_exec);
 	return (fd);
 }
 
@@ -87,7 +87,7 @@ int	ft_redir_in(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		return (ft_msg_perror("fd "));
 	if (ft_strncmp(l_token->content, "<<", 2) == 0)
 		free_heredoc(file);
-	ft_split_free(args_exec);
+	split_free_null(args_exec);
 	if ((l_token)->next)
 		monitoring(l_token, l_token->next, envp, pipex);
 	return (SUCCESS);

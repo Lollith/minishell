@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 10:47:34 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/17 16:33:09 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/21 12:28:06 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ void	free_null(void **ptr)
 {
 	free(*ptr);
 	*ptr = NULL;
+}
+
+void	split_free_null(char **args_exec)
+{
+	if (args_exec != NULL)
+		ft_split_free(args_exec);
 }
 
 //affichage liste chainee

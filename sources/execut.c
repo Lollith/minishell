@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   execut.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/19 10:58:53 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/21 13:53:48 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	b_o_c(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 		ft_child_free(token, envp, 127);
 	}
 	else
-		ft_child_free2(token, envp, l_token, 1);
+		ft_child_free2(token, envp, l_token, 0);
 }
 
 int	ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)

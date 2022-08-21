@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/19 09:38:21 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/21 12:27:51 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -223,6 +223,7 @@ int		ft_is_str(char *line, char *str);
 /* ************************************************************************** */
 int		ft_free_args_exec(char **args_exec, int ret);
 void	free_null(void **ptr);
+void	split_free_null(char **args_exec);
 
 /* ************************************************************************** */
 /*   useful/useful.c                                            5 functions   */

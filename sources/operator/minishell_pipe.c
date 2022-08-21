@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_pipe.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/19 10:55:09 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/21 13:03:37 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,16 +40,13 @@ int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex)
 		ft_msg(cmd, STDERR_FILENO);
 		ft_msg(": Command not found.\n", STDERR_FILENO);
 	}
-	if (pipex->ctrl_redir == 1)
-	{
-		pipex->ctrl_redir = 0;
-		if (list)
-			ft_lstclear2(&list);
-	}
-	else
+	if (list)
+		ft_lstclear3(&list);
+	
+		else
 	{
 		if (pipex->l_start)
-			ft_lstclear2(&pipex->l_start);
+			ft_lstclear3(&pipex->l_start);
 	}
 	return (FAILURE);
 }
