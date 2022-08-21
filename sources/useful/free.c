@@ -6,7 +6,7 @@
 /*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 10:47:34 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/21 17:47:43 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/21 18:35:15 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,23 @@ void	split_free_null(char **args_exec)
 {
 	if (args_exec != NULL)
 		ft_split_free2(args_exec);
+}
+
+void	ft_clean_redir(t_pipe *pipex)
+{
+	t_list	*tmp ;
+
+	if (pipex->l_start != NULL && pipex->ctrl_redir == 1)
+	{
+		tmp = pipex->l_start->next;
+		if (pipex->l_start->content != NULL)
+			free(pipex->l_start->content);
+		if (pipex->l_start != NULL)
+			free(pipex->l_start);
+		pipex->l_start = tmp;
+		pipex->ctrl_redir2 = 1;
+		pipex->ctrl_redir = 0;
+	}
 }
 
 //affichage liste chainee

@@ -6,7 +6,7 @@
 /*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/21 16:26:11 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/21 19:08:14 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -225,6 +225,7 @@ int		ft_is_str(char *line, char *str);
 int		ft_free_args_exec(char **args_exec, int ret);
 void	free_null(void **ptr);
 void	split_free_null(char **args_exec);
+void	ft_clean_redir(t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   useful/useful.c                                            5 functions   */
