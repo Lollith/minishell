@@ -6,7 +6,7 @@
 /*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/21 19:22:55 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/21 19:33:47 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ char	*get_paths_cmd(char *paths_i, char *cmd)
 	return (path_cmd);
 }
 
-int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex, char **args_exec)
+int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex)
 {
 	char	*cmd;
-	(void) args_exec;
+
 	cmd = list->content;
 	ft_split_free(paths);
 	if (!ft_is_str(cmd, "<") && !ft_is_str(cmd, ">"))
@@ -45,21 +45,12 @@ int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex, char **args_exec)
 		pipex->ctrl_redir2 = 0;
 		if (list != NULL)
 			ft_lstclear3(&list);
-		//if (pipex->l_start != NULL)
-		//	ft_lstclear3(&pipex->l_start);
 	}
 	else
 	{
 		if (pipex->l_start != NULL)
 			ft_lstclear3(&pipex->l_start);
 	}
-	// if (list != NULL)
-	// 	ft_lstclear3(&list);
-	// else
-	// {
-	// 	if (pipex->l_start != NULL)
-	// 		ft_lstclear3(&pipex->l_start);
-	// }
 	return (FAILURE);
 }
 
@@ -88,7 +79,7 @@ int	ft_pipex_exec(char ***envp, t_list *list, char **token_exec, t_pipe *fds)
 			free(path_cmd);
 		}
 	}
-	return (ft_pipex_return(paths, list, fds, token_exec));
+	return (ft_pipex_return(paths, list, fds));
 }
 
 int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
@@ -96,18 +87,11 @@ int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	if (pipe(pipex->pipefd) < 0)
 		return (ft_msg_perror("pipe"));
 	ft_child(&args_exec, envp, l_token, pipex);
-
-//	if (args_exec != NULL)
-//		free_null((void **)args_exec);
 	if (pipex->ctrl == 0)
 		pipex->ctrl = 1;
 	else
 		pipex->ctrl = 0;
-
-
-
 	if (monitoring(l_token, l_token->next->next, envp, pipex) == 0)
 		return (FAILURE);
-//	split_free_null(args_exec);
 	return (SUCCESS);
 }
