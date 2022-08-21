@@ -6,7 +6,7 @@
 /*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/21 12:52:59 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/21 16:10:43 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,6 +86,8 @@ int	monitoring(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex)
 	char	**args_exec;
 	t_list	*tmp ;
 
+	//if(pipex->save_arg != NULL)	
+	//	split_free_null(pipex->save_arg);
 	if (pipex->l_start != NULL && pipex->ctrl_redir == 1)
 	{
 		tmp = pipex->l_start->next;
@@ -94,11 +96,13 @@ int	monitoring(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex)
 		if (pipex->l_start != NULL)
 		free(pipex->l_start);
 		pipex->l_start = tmp;
+		pipex->ctrl_redir2 = 1;
 		pipex->ctrl_redir = 0;
 	}
 	args_exec = ft_is_arg(l_token);
 	if (args_exec == NULL)
 		return (FAILURE);
+	pipex->save_arg = args_exec;
 	pipex->l_start = start;
 	if (l_token->next)
 	{

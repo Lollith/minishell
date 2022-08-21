@@ -6,7 +6,7 @@
 /*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/21 13:03:37 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/21 16:10:46 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ char	*get_paths_cmd(char *paths_i, char *cmd)
 	return (path_cmd);
 }
 
-int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex)
+int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex, char **args_exec)
 {
 	char	*cmd;
-
+	(void) args_exec;
 	cmd = list->content;
 	ft_split_free(paths);
 	if (!ft_is_str(cmd, "<") && !ft_is_str(cmd, ">"))
@@ -40,14 +40,27 @@ int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex)
 		ft_msg(cmd, STDERR_FILENO);
 		ft_msg(": Command not found.\n", STDERR_FILENO);
 	}
-	if (list)
-		ft_lstclear3(&list);
-	
-		else
+	if (pipex->ctrl_redir2 == 1)
 	{
-		if (pipex->l_start)
-			ft_lstclear3(&pipex->l_start);
+		pipex->ctrl_redir2 = 0;
+		if (list != NULL)
+			ft_lstclear2(&list);
+		if (pipex->l_start!= NULL)
+			ft_lstclear2(&pipex->l_start);
 	}
+	else
+	{
+		if (pipex->l_start != NULL)
+			ft_lstclear2(&pipex->l_start);
+	}
+
+	// if (list != NULL)
+	// 	ft_lstclear3(&list);
+	// else
+	// {
+	// 	if (pipex->l_start != NULL)
+	// 		ft_lstclear3(&pipex->l_start);
+	// }
 	return (FAILURE);
 }
 
@@ -69,14 +82,14 @@ int	ft_pipex_exec(char ***envp, t_list *list, char **token_exec, t_pipe *fds)
 			if (access(path_cmd, F_OK) == 0)
 			{
 				execve(path_cmd, token_exec, *envp);
-				ft_split_free(token_exec);
+				split_free_null(token_exec);
 				ft_split_free(paths);
 				exit(FAILURE);
 			}
 			free(path_cmd);
 		}
 	}
-	return (ft_pipex_return(paths, list, fds));
+	return (ft_pipex_return(paths, list, fds, token_exec));
 }
 
 int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
@@ -90,6 +103,6 @@ int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 		pipex->ctrl = 0;
 	if (monitoring(l_token, l_token->next->next, envp, pipex) == 0)
 		return (FAILURE);
-	ft_split_free(args_exec);
+	split_free_null(args_exec);
 	return (SUCCESS);
 }

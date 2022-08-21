@@ -6,7 +6,7 @@
 /*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/30 10:15:29 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/21 12:28:31 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/21 14:49:17 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*open_in(t_list *l_token, char **args_exec)
 		file = ft_heredoc(args_exec);
 		if (!file)
 		{
-			ft_split_free(args_exec);
+			split_free_null(args_exec);
 			return (NULL);
 		}
 	}

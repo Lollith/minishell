@@ -6,7 +6,7 @@
 /*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 10:47:34 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/21 12:28:06 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/21 16:10:51 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,28 @@ void	free_null(void **ptr)
 	*ptr = NULL;
 }
 
+char	**ft_split_free2(char **str)
+{
+	int	i;
+
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (str[i])
+	{
+		free(str[i]);
+		str[i] = NULL;
+		i++;
+	}
+	free(str);
+	str = NULL;
+	return (NULL);
+}
+
 void	split_free_null(char **args_exec)
 {
 	if (args_exec != NULL)
-		ft_split_free(args_exec);
+		ft_split_free2(args_exec);
 }
 
 //affichage liste chainee
