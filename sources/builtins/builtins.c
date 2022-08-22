@@ -33,11 +33,8 @@ int	ft_exit(char **line, char **envp, t_pipe *pipex)
 		putstr_exit(line, pipex);
 		exit(ft_exit_free(line, envp, pipex));
 	}
-	else
-	{
-		pipex->pipe_ret = 0;
-		exit(ft_exit_free(line, envp, pipex));
-	}
+	pipex->pipe_ret = 0;
+	exit(ft_exit_free(line, envp, pipex));
 	return (1);
 }
 

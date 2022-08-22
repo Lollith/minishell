@@ -45,7 +45,7 @@ int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 		pipex->pipe_ret = pipex->pipe_ret_b;
 	if (g_sig == 1)
 		pipex->pipe_ret = 130;
-	clean_std (pipex);
+	clean_std(pipex);
 	signal(SIGINT, ft_new_prompt);
 	signal(SIGQUIT, ft_new_prompt);
 	return (SUCCESS);

@@ -21,6 +21,7 @@ int	ft_env_parsing_empty(int is_unset)
 	return (is_unset);
 }
 
+// pipex not working
 int	ft_env_parsing(char **line, int is_unset, t_pipe *pipex)
 {
 	int	i;

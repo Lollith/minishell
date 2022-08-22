@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	ft_quote(char *line)
+int	ft_quote(char *line, t_pipe *pipex)
 {
 	int	i;
 	int	n;
@@ -24,8 +24,8 @@ int	ft_quote(char *line)
 	n = 0;
 	two = 0;
 	one = 0;
-	i = 0;
-	while (line[i])
+	i = -1;
+	while (line[++i])
 	{
 		if (line[i] == '\"')
 			two++;
@@ -33,9 +33,10 @@ int	ft_quote(char *line)
 			one++;
 		else if (!ft_is_space(line[i], MS_SPACE))
 			n = 1;
-		i++;
 	}
-	if (two % 2 == 1 || one % 2 == 1 || n == 0)
+	if (n == 0 || ft_is_str(line, ".."))
+		pipex->pipe_ret = 127;
+	if (two % 2 == 1 || one % 2 == 1 || n == 0 || ft_is_str(line, ".."))
 		return (FALSE);
 	return (TRUE);
 }
@@ -47,7 +48,7 @@ char	**lexer(char *line, t_pipe *pipex)
 	char	**token;
 	char	*str;
 
-	if (!ft_quote(line))
+	if (!ft_quote(line, pipex))
 		return (NULL);
 	str = ft_quoting(line, pipex);
 	if (!str)

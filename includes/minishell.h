@@ -55,6 +55,17 @@ typedef struct s_pipe
 	pid_t	pid;
 }			t_pipe;
 
+// pipe_ret		=	return
+// pipe_ret_b	=	return in builtins
+// ctrl			=
+// ctrl_redir	=
+// ctrl_redir2	=
+// pipefd[2]	=	pipe folder
+// *l_start		=	first lst
+// tmp_in		=	for dup2
+// tmp_out		=	for dup2
+// pid			=	pid of child
+
 /* ************************************************************************** */
 /*   builtins/builtins_bis.c                                    5 functions   */
 /* ************************************************************************** */
@@ -190,7 +201,7 @@ void	ft_lstclear3(t_list **l_token);
 /* ************************************************************************** */
 /*   parsing/parsing.c                                          4 functions   */
 /* ************************************************************************** */
-int		ft_quote(char *line);
+int		ft_quote(char *line, t_pipe *pipex);
 char	**lexer(char *line, t_pipe *pipex);
 int		size_args(t_list *l_token);
 char	**ft_is_arg(t_list *l_token);

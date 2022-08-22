@@ -38,11 +38,11 @@ void	ft_child_close_pipe(t_pipe *pipex)
 	}
 }
 
-//child built or cmd
+// Child built or cmd
 void	b_o_c(char ***token, char ***envp, t_list *l_token, t_pipe *pipex)
 {
 	if (ft_builtins_fork(*token))
-		ft_child_free2(token, envp, l_token, 0);
+		ft_child_free2(token, envp, l_token, 1);
 	if (!ft_builtins(*token, envp, pipex))
 	{
 		ft_pipex_exec(envp, l_token, *token, pipex);
