@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/19 09:38:21 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/22 10:22:21 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_pipe
 	int		pipe_ret_b;
 	int		ctrl;
 	int		ctrl_redir;
+	int		ctrl_redir2;
 	int		pipefd[2];
 	t_list	*l_start;
 	int		tmp_in;
@@ -223,6 +224,8 @@ int		ft_is_str(char *line, char *str);
 /* ************************************************************************** */
 int		ft_free_args_exec(char **args_exec, int ret);
 void	free_null(void **ptr);
+void	split_free_null(char **args_exec);
+void	ft_clean_redir(t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   useful/useful.c                                            5 functions   */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialisation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/19 08:33:21 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/21 19:08:05 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	pipex->pipefd[0] = -1;
 	pipex->pipefd[1] = -1;
 	pipex->ctrl_redir = 0;
+	pipex->ctrl_redir2 = 0;
 	return (SUCCESS);
 }
 

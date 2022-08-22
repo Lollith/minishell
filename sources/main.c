@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/19 08:37:48 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/21 17:47:41 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 	pid = wait(&wstatus);
 	while (pid > 0)
 		pid = wait(&wstatus);
-	if (pipex->pipe_ret_b == 1)
-		pipex->pipe_ret = 1;
+	if (pipex->pipe_ret_b != -1)
+		pipex->pipe_ret = pipex->pipe_ret_b;
 	if (g_sig == 1)
 		pipex->pipe_ret = 130;
 	clean_std (pipex);
@@ -96,7 +96,7 @@ int	main(int ac, char **av, char **envp)
 		{
 			if (list_token(&l_token, line, &pipex))
 				parent(l_token, &envp, &pipex);
-			ft_lstclear2(&l_token);
+			ft_lstclear3(&l_token);
 		}
 		free(line);
 		line = readline("minishell> ");

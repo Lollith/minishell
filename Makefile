@@ -6,7 +6,7 @@
 #    By: agouet <agouet@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/20 16:34:58 by agouet            #+#    #+#              #
-#    Updated: 2022/08/16 15:09:25 by agouet           ###   ########.fr        #
+#    Updated: 2022/08/22 10:36:52 by agouet           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -70,6 +70,11 @@ fclean: clean
 
 re: fclean
 	make
+
+vtest:				$(NAME)
+					valgrind --leak-check=full --track-fds=yes\
+					--show-leak-kinds=all\
+					--suppressions=.ignore_readline ./$(NAME)
 
 .PHONY:	all re clean fclean
 

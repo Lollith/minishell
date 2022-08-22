@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   monitor.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/19 11:10:59 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/21 19:31:40 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	reorga(t_list **l_token, char **exec, char ***fil_redir, t_pipe *pipex)
 		}
 		reorga2(l_token, tmp);
 		*fil_redir = ft_is_arg(*l_token);
-		ft_split_free(exec);
+		split_free_null(exec);
 		pipex->l_start = *l_token;
 		return (SUCCESS);
 	}
@@ -84,15 +84,8 @@ int	check_op(t_list *l_token, char **exec, char ***envp, t_pipe *pipex)
 int	monitoring(t_list *start, t_list *l_token, char ***envp, t_pipe *pipex)
 {
 	char	**args_exec;
-	t_list	*tmp ;
 
-	if (pipex->l_start != NULL && pipex->ctrl_redir == 1)
-	{
-		tmp = pipex->l_start->next;
-		free(pipex->l_start->content);
-		free(pipex->l_start);
-		pipex->l_start = tmp;
-	}
+	ft_clean_redir(pipex);
 	args_exec = ft_is_arg(l_token);
 	if (args_exec == NULL)
 		return (FAILURE);
@@ -118,7 +111,6 @@ int	one_cmd(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	{
 		pipex->ctrl = -1;
 		ft_child(&args_exec, envp, l_token, pipex);
-		ft_split_free(args_exec);
 	}
 	return (SUCCESS);
 }
