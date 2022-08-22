@@ -80,16 +80,15 @@ int	ft_unset(char **line, char ***envp)
 	int		i;
 	int		j;
 	char	**res;
+	char	*tmp;
 
+	tmp = line[1];
 	j = 1;
 	while (line[1])
 	{
 		if (!ft_env_parsing(line, 1))
 		{
-			i = 0;
-			while (envp[0][i] && \
-			(ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i]))) != 0)
-				i++;
+			i = ft_unset_i(line, envp);
 			if (envp[0][i])
 			{
 				res = ft_unset_envp(line, envp[0]);
@@ -101,6 +100,7 @@ int	ft_unset(char **line, char ***envp)
 		}
 		line[1] = line[++j];
 	}
+	line[1] = tmp;
 	return (1);
 }
 

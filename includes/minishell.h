@@ -196,7 +196,7 @@ int		size_args(t_list *l_token);
 char	**ft_is_arg(t_list *l_token);
 
 /* ************************************************************************** */
-/*   parsing/parsing2.c                                         3 functions   */
+/*   parsing/parsing2.c                                         4 functions   */
 /* ************************************************************************** */
 char	*ft_first_strchr(const char *s, int c);
 int		is_operator(t_list *l_token);
@@ -204,9 +204,11 @@ void	putsr_ret(t_pipe *pipex, char *str);
 void	putstr_exit(char **line, t_pipe *pipex);
 
 /* ************************************************************************** */
-/*   useful/ft_getenv.c                                         2 functions   */
+/*   useful/ft_getenv.c                                         4 functions   */
 /* ************************************************************************** */
+void	cd_no_file(char **line, char **bis, t_pipe *pipex);
 int		ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex);
+int		ft_unset_i(char **line, char ***envp);
 char	*ft_getenv(char *env, char **envp);
 
 /* ************************************************************************** */
@@ -220,7 +222,7 @@ int		ft_is_int(char *line);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
-/*   useful/free.c                                              3 functions   */
+/*   useful/free.c                                              4 functions   */
 /* ************************************************************************** */
 int		ft_free_args_exec(char **args_exec, int ret);
 void	free_null(void **ptr);
@@ -252,10 +254,10 @@ void	fd_monitor(t_pipe *pipex);
 int		ft_link_fd(int pipefd0, int pipefd1, int std);
 
 /* ************************************************************************** */
-/*   minishell.c                                                4 functions   */
+/*   minishell.c                                                5 functions   */
 /* ************************************************************************** */
 int		ft_builtins_fork(char **line);
-int		ft_builtins(char **line, char ***envp, t_pipe *pipex);
+int		ft_builtins(char **line, char ***envp);
 void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str, t_pipe *pipex);
 int		ft_builtins2(char **line, char ***envp, t_pipe *pipex);

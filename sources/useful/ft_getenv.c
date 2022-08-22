@@ -49,6 +49,17 @@ int	ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex)
 	return (0);
 }
 
+int	ft_unset_i(char **line, char ***envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[0][i] && \
+	(ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i]))) != 0)
+		i++;
+	return (i);
+}
+
 char	*ft_getenv(char *env, char **envp)
 {
 	int	i;
