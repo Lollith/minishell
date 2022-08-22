@@ -59,17 +59,17 @@ typedef struct s_pipe
 /*   builtins/builtins_bis.c                                    5 functions   */
 /* ************************************************************************** */
 int		ft_env_parsing_empty(int is_unset);
-int		ft_env_parsing(char **line, int is_unset);
-int		ft_export(char **line, char ***envp);
-int		ft_unset(char **line, char ***envp);
+int		ft_env_parsing(char **line, int is_unset, t_pipe *pipex);
+int		ft_export(char **line, char ***envp, t_pipe *pipex);
+int		ft_unset(char **line, char ***envp, t_pipe *pipex);
 int		ft_env(char **envp);
 
 /* ************************************************************************** */
 /*   builtins/builtins.c                                        5 functions   */
 /* ************************************************************************** */
 int		ft_exit(char **line, char **envp, t_pipe *pipex);
-int		ft_echo(char **line, char **envp);
-char	*ft_get_home(char **envp);
+int		ft_echo(char **line, char **envp, t_pipe *pipex);
+char	*ft_get_home(char **envp, int is_cd);
 int		ft_cd(char **line, char ***envp, t_pipe *pipex);
 int		ft_pwd(char **envp);
 
@@ -204,10 +204,11 @@ void	putsr_ret(t_pipe *pipex, char *str);
 void	putstr_exit(char **line, t_pipe *pipex);
 
 /* ************************************************************************** */
-/*   useful/ft_getenv.c                                         4 functions   */
+/*   useful/ft_getenv.c                                         5 functions   */
 /* ************************************************************************** */
 void	cd_no_file(char **line, char **bis, t_pipe *pipex);
 int		ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex);
+int		ft_export_init(char **line, char ***envp, char **tmp);
 int		ft_unset_i(char **line, char ***envp);
 char	*ft_getenv(char *env, char **envp);
 
@@ -257,7 +258,7 @@ int		ft_link_fd(int pipefd0, int pipefd1, int std);
 /*   minishell.c                                                5 functions   */
 /* ************************************************************************** */
 int		ft_builtins_fork(char **line);
-int		ft_builtins(char **line, char ***envp);
+int		ft_builtins(char **line, char ***envp, t_pipe *pipex);
 void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str, t_pipe *pipex);
 int		ft_builtins2(char **line, char ***envp, t_pipe *pipex);

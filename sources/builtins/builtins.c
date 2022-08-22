@@ -41,7 +41,7 @@ int	ft_exit(char **line, char **envp, t_pipe *pipex)
 	return (1);
 }
 
-int	ft_echo(char **line, char **envp)
+int	ft_echo(char **line, char **envp, t_pipe *pipex)
 {
 	int	i;
 
@@ -54,7 +54,7 @@ int	ft_echo(char **line, char **envp)
 			write(1, " ", 1);
 		if (line[i][0] == '~')
 		{
-			ft_putstr_fd(ft_get_home(envp), 1);
+			ft_putstr_fd(ft_get_home(envp, 0), 1);
 			ft_putstr_fd(line[i] + 1, 1);
 		}
 		else
@@ -65,10 +65,11 @@ int	ft_echo(char **line, char **envp)
 	}
 	if (!ft_echo_cheak(line[1]))
 		write(1, "\n", 1);
+	pipex->pipe_ret = 0;
 	return (1);
 }
 
-char	*ft_get_home(char **envp)
+char	*ft_get_home(char **envp, int is_cd)
 {
 	int		i;
 	char	*home;
@@ -79,7 +80,7 @@ char	*ft_get_home(char **envp)
 		i++;
 	if (envp[i])
 		home = envp[i] + 5;
-	else
+	else if (is_cd)
 		ft_putstr_fd("minishell: cd: HOME not set\n", 1);
 	return (home);
 }
@@ -99,13 +100,14 @@ int	ft_cd(char **line, char ***envp, t_pipe *pipex)
 		return (2);
 	if (ft_cd_exec(line, envp, bis, pipex))
 		return (1);
-	if (ft_export(bis, envp) == 2)
+	if (ft_export(bis, envp, pipex) == 2)
 		return (2);
 	ft_split_free(bis);
 	bis = ft_export_line("PWD=", NULL);
-	if (!bis || ft_export(bis, envp) == 2)
+	if (!bis || ft_export(bis, envp, pipex) == 2)
 		return (2);
 	ft_split_free(bis);
+	pipex->pipe_ret = 0;
 	return (1);
 }
 

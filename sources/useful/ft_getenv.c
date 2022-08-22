@@ -19,6 +19,7 @@ void	cd_no_file(char **line, char **bis, t_pipe *pipex)
 		printf("minishell: cd: %s: No such file or directory\n", line[1]);
 		pipex->pipe_ret_b = 1;
 	}
+	ft_split_free(bis);
 }
 
 int	ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex)
@@ -26,11 +27,13 @@ int	ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex)
 	int		ret;
 	char	*str;
 
+	if (!ft_get_home(*envp, 1))
+		pipex->pipe_ret_b = 1;
 	if (!line[1] || ft_is_str(line[1], "~"))
-		ret = chdir(ft_get_home(*envp));
+		ret = chdir(ft_get_home(*envp, 0));
 	else if (line[1][0] == '~')
 	{
-		str = ft_strjoin(ft_get_home(*envp), line[1] + 1);
+		str = ft_strjoin(ft_get_home(*envp, 0), line[1] + 1);
 		if (!str)
 			return (2);
 		ret = chdir(str);
@@ -42,10 +45,17 @@ int	ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex)
 		ret = chdir(line[1]);
 	if (ret < 0 || bis[1] == NULL)
 	{
-		cd_no_file (line, bis, pipex);
-		ft_split_free(bis);
+		cd_no_file(line, bis, pipex);
 		return (1);
 	}
+	return (0);
+}
+
+int	ft_export_init(char **line, char ***envp, char **tmp)
+{
+	if (!line[1])
+		ft_print_string_of_string(*envp);
+	*tmp = line[1];
 	return (0);
 }
 
