@@ -81,9 +81,9 @@ void	ft_lstclear3(t_list **l_token)
 	{
 		tmp = tmp2->next;
 		if (tmp2 && tmp2->content)
-			free (tmp2->content);
+			free(tmp2->content);
 		if (tmp2)
-			free (tmp2);
+			free(tmp2);
 		tmp2 = tmp;
 	}
 	*l_token = NULL;

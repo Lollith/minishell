@@ -65,16 +65,16 @@ int	ft_export(char **line, char ***envp, t_pipe *pipex)
 		if (!ft_env_parsing(line, 0, pipex))
 			continue ;
 		i = ft_unset_i(line, envp);
-		if (envp[0][i] && ft_export_value(line, envp, i))
-			return (2);
-		else
+		if (envp[0][i])
 		{
-			res = ft_export_envp(line, envp[0]);
-			if (!res)
+			if (ft_export_value(line, envp, i))
 				return (2);
-			ft_split_free(envp[0]);
-			envp[0] = res;
+			continue ;
 		}
+		res = ft_export_envp(line, envp[0]);
+		if (!res)
+			return (2);
+		ft_export_norm(&res, envp);
 	}
 	line[1] = tmp;
 	return (1);

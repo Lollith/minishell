@@ -84,6 +84,7 @@ char	*ft_get_home(char **envp, int is_cd)
 
 int	ft_cd(char **line, char ***envp, t_pipe *pipex)
 {
+	int		i;
 	char	**bis;
 
 	if (ft_string_of_string_len(line) >= 4)
@@ -95,8 +96,9 @@ int	ft_cd(char **line, char ***envp, t_pipe *pipex)
 	bis = ft_export_line("OLDPWD=", line[1]);
 	if (!bis)
 		return (2);
-	if (ft_cd_exec(line, envp, bis, pipex))
-		return (1);
+	i = ft_cd_exec(line, envp, bis, pipex);
+	if (i > 0)
+		return (i);
 	if (ft_export(bis, envp, pipex) == 2)
 		return (2);
 	ft_split_free(bis);

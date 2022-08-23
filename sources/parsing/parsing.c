@@ -12,6 +12,15 @@
 
 #include "minishell.h"
 
+void	ft_quote_norm(int n, t_pipe *pipex)
+{
+	if (n == 0)
+		ft_msg("minishell: \'\': Command not found.\n", STDERR_FILENO);
+	else
+		ft_msg("minishell: \'..\': Command not found.\n", STDERR_FILENO);
+	pipex->pipe_ret = 127;
+}
+
 int	ft_quote(char *line, t_pipe *pipex)
 {
 	int	i;
@@ -32,10 +41,10 @@ int	ft_quote(char *line, t_pipe *pipex)
 		else if (line[i] == '\'')
 			one++;
 		else if (!ft_is_space(line[i], MS_SPACE))
-			n = 1;
+			n++;
 	}
 	if (n == 0 || ft_is_str(line, ".."))
-		pipex->pipe_ret = 127;
+		ft_quote_norm(n, pipex);
 	if (two % 2 == 1 || one % 2 == 1 || n == 0 || ft_is_str(line, ".."))
 		return (FALSE);
 	return (TRUE);

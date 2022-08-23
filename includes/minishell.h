@@ -55,17 +55,6 @@ typedef struct s_pipe
 	pid_t	pid;
 }			t_pipe;
 
-// pipe_ret		=	return
-// pipe_ret_b	=	return in builtins
-// ctrl			=
-// ctrl_redir	=
-// ctrl_redir2	=
-// pipefd[2]	=	pipe folder
-// *l_start		=	first lst
-// tmp_in		=	for dup2
-// tmp_out		=	for dup2
-// pid			=	pid of child
-
 /* ************************************************************************** */
 /*   builtins/builtins_bis.c                                    5 functions   */
 /* ************************************************************************** */
@@ -199,8 +188,9 @@ void	ft_lstclear2(t_list **l_token);
 void	ft_lstclear3(t_list **l_token);
 
 /* ************************************************************************** */
-/*   parsing/parsing.c                                          4 functions   */
+/*   parsing/parsing.c                                          5 functions   */
 /* ************************************************************************** */
+void	ft_quote_norm(int n, t_pipe *pipex);
 int		ft_quote(char *line, t_pipe *pipex);
 char	**lexer(char *line, t_pipe *pipex);
 int		size_args(t_list *l_token);
@@ -217,7 +207,7 @@ void	putstr_exit(char **line, t_pipe *pipex);
 /* ************************************************************************** */
 /*   useful/ft_getenv.c                                         5 functions   */
 /* ************************************************************************** */
-void	cd_no_file(char **line, char **bis, t_pipe *pipex);
+int		cd_no_file(char **line, char **bis, t_pipe *pipex);
 int		ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex);
 int		ft_export_init(char **line, char ***envp, char **tmp);
 int		ft_unset_i(char **line, char ***envp);
@@ -229,15 +219,17 @@ char	*ft_getenv(char *env, char **envp);
 int		ft_is_int(char *line);
 
 /* ************************************************************************** */
-/*   useful/ft_is_str.c                                         1 functions   */
+/*   useful/ft_is_str.c                                         2 functions   */
 /* ************************************************************************** */
+void	ft_export_norm(char ***res, char ***envp);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
-/*   useful/free.c                                              4 functions   */
+/*   useful/free.c                                              5 functions   */
 /* ************************************************************************** */
 int		ft_free_args_exec(char **args_exec, int ret);
 void	free_null(void **ptr);
+char	**ft_split_free2(char **str);
 void	split_free_null(char **args_exec);
 void	ft_clean_redir(t_pipe *pipex);
 

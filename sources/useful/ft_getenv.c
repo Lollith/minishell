@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-void	cd_no_file(char **line, char **bis, t_pipe *pipex)
+int	cd_no_file(char **line, char **bis, t_pipe *pipex)
 {
 	if (line[1] && line[1][0] && bis[1] != NULL)
 	{
@@ -20,6 +20,7 @@ void	cd_no_file(char **line, char **bis, t_pipe *pipex)
 		pipex->pipe_ret_b = 1;
 	}
 	ft_split_free(bis);
+	return (1);
 }
 
 int	ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex)
@@ -27,7 +28,8 @@ int	ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex)
 	int		ret;
 	char	*str;
 
-	if (!ft_get_home(*envp, 1))
+	pipex->pipe_ret_b = 0;
+	if (ft_get_home(*envp, 1) == NULL)
 		pipex->pipe_ret_b = 1;
 	if (!line[1] || ft_is_str(line[1], "~"))
 		ret = chdir(ft_get_home(*envp, 0));
@@ -44,10 +46,7 @@ int	ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex)
 	else
 		ret = chdir(line[1]);
 	if (ret < 0 || bis[1] == NULL)
-	{
-		cd_no_file(line, bis, pipex);
-		return (1);
-	}
+		return (cd_no_file(line, bis, pipex));
 	return (0);
 }
 
