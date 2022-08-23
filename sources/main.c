@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/21 17:47:41 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/23 16:51:46 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,12 @@
 
 int	g_sig = 0;
 
-void	clean_std(t_pipe *pipex)
+void	ft_ret1(t_pipe *pipex)
 {
-	dup2(pipex->tmp_in, STDIN_FILENO);
-	close(pipex->tmp_in);
-	dup2(pipex->tmp_out, STDOUT_FILENO);
-	close(pipex->tmp_out);
+	if (pipex->pipe_ret != 1)
+		ft_pipe_ret(pipex);
+	if (pipex->pipe_ret_b != -1)
+		pipex->pipe_ret = pipex->pipe_ret_b;
 }
 
 int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
@@ -32,17 +32,15 @@ int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 	pipex->tmp_out = dup(STDOUT_FILENO);
 	if (!next_checker(l_token))
 		return (FAILURE);
+	count_pipes(l_token, pipex);
 	if (monitoring(l_token, l_token, envp, pipex) == 0)
 		pipex->pipe_ret = 1;
 	else
 		pipex->pipe_ret = -1;
-	if (pipex->pipe_ret != 1)
-		ft_pipe_ret(pipex);
+	ft_ret1(pipex);
 	pid = wait(&wstatus);
 	while (pid > 0)
 		pid = wait(&wstatus);
-	if (pipex->pipe_ret_b != -1)
-		pipex->pipe_ret = pipex->pipe_ret_b;
 	if (g_sig == 1)
 		pipex->pipe_ret = 130;
 	clean_std (pipex);

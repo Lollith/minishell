@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell_pipe.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/06 10:07:23 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/21 19:33:47 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/23 16:07:37 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,13 +84,12 @@ int	ft_pipex_exec(char ***envp, t_list *list, char **token_exec, t_pipe *fds)
 
 int	ft_pipex(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 {
-	if (pipe(pipex->pipefd) < 0)
+	pipex->act_p = --pipex->nb_pipes;
+	if (pipe(pipex->pipefd[pipex->act_p]) < 0)
 		return (ft_msg_perror("pipe"));
 	ft_child(&args_exec, envp, l_token, pipex);
 	if (pipex->ctrl == 0)
 		pipex->ctrl = 1;
-	else
-		pipex->ctrl = 0;
 	if (monitoring(l_token, l_token->next->next, envp, pipex) == 0)
 		return (FAILURE);
 	return (SUCCESS);
