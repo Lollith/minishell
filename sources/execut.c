@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/23 16:09:05 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/23 16:42:05 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	**get_paths(char **envp)
 		return (NULL);
 	return (res);
 }
+
 //act_p =actual pipe
 void	ft_child_close_pipe(t_pipe *pipex)
 {

@@ -6,11 +6,19 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:27:24 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/23 16:08:37 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/23 16:50:31 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	clean_std(t_pipe *pipex)
+{
+	dup2(pipex->tmp_in, STDIN_FILENO);
+	close(pipex->tmp_in);
+	dup2(pipex->tmp_out, STDOUT_FILENO);
+	close(pipex->tmp_out);
+}
 
 void	count_pipes(t_list *l_token, t_pipe *pipex)
 {

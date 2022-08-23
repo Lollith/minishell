@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/23 16:04:58 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/23 16:50:52 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -156,6 +156,7 @@ int		ft_pipex_return(char **paths, t_list *list, t_pipe *pipex);
 /* ************************************************************************** */
 void	count_pipes(t_list *l_token, t_pipe *pipex);
 void	parent2(char ***token, char ***envp, t_pipe *pipex);
+void	clean_std(t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   operator/operator_bonus.c                                  2 functions   */
@@ -283,7 +284,6 @@ int		init(int ac, char **av, char ***envp, t_pipe *pipex);
 /* ************************************************************************** */
 /*   main.c                                                     4 functions   */
 /* ************************************************************************** */
-void	clean_std(t_pipe *pipex);
 int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
 void	ft_pipe_ret(t_pipe *pipex);
 
