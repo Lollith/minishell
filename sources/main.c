@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/21 17:47:41 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/23 16:05:39 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 	pipex->tmp_out = dup(STDOUT_FILENO);
 	if (!next_checker(l_token))
 		return (FAILURE);
+	count_pipes(l_token, pipex);
 	if (monitoring(l_token, l_token, envp, pipex) == 0)
 		pipex->pipe_ret = 1;
 	else

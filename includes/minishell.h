@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 14:29:36 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/22 10:22:21 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/23 16:04:58 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,13 @@ typedef struct s_pipe
 	int		ctrl;
 	int		ctrl_redir;
 	int		ctrl_redir2;
-	int		pipefd[2];
+	int		pipefd[20][2];
 	t_list	*l_start;
 	int		tmp_in;
 	int		tmp_out;
 	pid_t	pid;
+	int		nb_pipes;
+	int		act_p;
 }			t_pipe;
 
 /* ************************************************************************** */
@@ -152,7 +154,7 @@ int		ft_pipex_return(char **paths, t_list *list, t_pipe *pipex);
 /* ************************************************************************** */
 /*   operator/minishell_pipe2.c                                 2 functions   */
 /* ************************************************************************** */
-int		ft_count_pipes(t_pipe *pipex);
+void	count_pipes(t_list *l_token, t_pipe *pipex);
 void	parent2(char ***token, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialisation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
+/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/21 19:08:05 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/23 16:03:34 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,9 @@ int	ft_main(int ac, char **av, char ***envp)
 
 int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 {
+	int	i;
+
+	i = 0;
 	if (ft_main(ac, av, envp))
 		return (FAILURE);
 	pipex->l_start = NULL;
@@ -76,10 +79,15 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	pipex->pipe_ret_b = -1;
 	pipex->ctrl = 0;
 	pipex->ctrl = 0;
-	pipex->pipefd[0] = -1;
-	pipex->pipefd[1] = -1;
+	while (i < 20)
+	{
+		pipex->pipefd[i][0] = -1;
+		pipex->pipefd[i][1] = -1;
+		i++;
+	}
 	pipex->ctrl_redir = 0;
 	pipex->ctrl_redir2 = 0;
+	pipex->act_p = 0;
 	return (SUCCESS);
 }
 

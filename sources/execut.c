@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/25 10:07:01 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/22 10:26:27 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/23 16:09:05 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,15 +25,15 @@ char	**get_paths(char **envp)
 		return (NULL);
 	return (res);
 }
-
+//act_p =actual pipe
 void	ft_child_close_pipe(t_pipe *pipex)
 {
-	if (pipex->pipefd[0] && pipex->ctrl == -1)
+	if (pipex->pipefd[pipex->act_p][0] && pipex->ctrl == -1)
 	{
-		if (pipex->pipefd[0] > -1)
-			close(pipex->pipefd[0]);
-		if (pipex->pipefd[1] > -1)
-			close(pipex->pipefd[1]);
+		if (pipex->pipefd[pipex->act_p][0] > -1)
+			close(pipex->pipefd[pipex->act_p][0]);
+		if (pipex->pipefd[pipex->act_p][1] > -1)
+			close(pipex->pipefd[pipex->act_p][1]);
 		pipex->ctrl = 0;
 	}
 }
