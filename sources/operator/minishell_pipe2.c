@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:27:24 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/23 16:50:31 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/24 10:19:00 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,5 @@ void	parent2(char ***token, char ***envp, t_pipe *pipex)
 	ft_child_close_pipe(pipex);
 	if (*token != NULL)
 		split_free_null(*token);
+	pipex->ctrl_redir2 = 0;
 }
