@@ -14,8 +14,10 @@
 
 int	ft_close_tmp(t_pipe *pipex)
 {
-	close(pipex->tmp_in);
-	close(pipex->tmp_out);
+	if (pipex->tmp_in > -1)
+		close(pipex->tmp_in);
+	if (pipex->tmp_out > -1)
+		close(pipex->tmp_out);
 	return (SUCCESS);
 }
 

@@ -15,16 +15,19 @@
 void	clean_std(t_pipe *pipex)
 {
 	dup2(pipex->tmp_in, STDIN_FILENO);
-	close(pipex->tmp_in);
+	if (pipex->tmp_in > -1)
+		close(pipex->tmp_in);
 	dup2(pipex->tmp_out, STDOUT_FILENO);
-	close(pipex->tmp_out);
+	if (pipex->tmp_out > -1)
+		close(pipex->tmp_out);
 }
 
 void	count_pipes(t_list *l_token, t_pipe *pipex)
 {
-	int		count_p;
+	int	count_p;
 
 	pipex->nb_pipes = 0;
+	pipex->nb_pipes_const = 0;
 	count_p = 0;
 	if (l_token != NULL)
 	{
@@ -36,6 +39,7 @@ void	count_pipes(t_list *l_token, t_pipe *pipex)
 		}
 	}
 	pipex->nb_pipes = count_p;
+	pipex->nb_pipes_const = count_p;
 }
 
 void	parent2(char ***token, char ***envp, t_pipe *pipex)
@@ -45,8 +49,10 @@ void	parent2(char ***token, char ***envp, t_pipe *pipex)
 	i = ft_builtins2(*token, envp, pipex);
 	if (i == 2)
 		ft_child_free(token, envp, 1);
-	close(pipex->pipefd[pipex->act_p + 1][0]);
-	close(pipex->pipefd[pipex->act_p + 1][1]);
+	if (pipex->pipefd[pipex->act_p + 1][0] > -1)
+		close(pipex->pipefd[pipex->act_p + 1][0]);
+	if (pipex->pipefd[pipex->act_p + 1][1] > -1)
+		close(pipex->pipefd[pipex->act_p + 1][1]);
 	ft_child_close_pipe(pipex);
 	if (*token != NULL)
 		split_free_null(*token);

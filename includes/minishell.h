@@ -54,6 +54,7 @@ typedef struct s_pipe
 	int		tmp_out;
 	pid_t	pid;
 	int		nb_pipes;
+	int		nb_pipes_const;
 	int		act_p;
 }			t_pipe;
 

@@ -16,6 +16,8 @@ int	ft_exit(char **line, char **envp, t_pipe *pipex)
 {
 	int	ret;
 
+	if (pipex->nb_pipes_const != 0)
+		return (1);
 	if (ft_string_of_string_len(line) > 3)
 	{
 		ft_putstr_fd("exit: too many arguments\n", 2);
