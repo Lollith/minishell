@@ -18,14 +18,14 @@ int	list_token(t_list **l_token, char *line, t_pipe *pipex)
 	char	**token;
 	int		i;
 
-	add_history(line);
-	i = 0;
 	token = lexer(line, pipex);
 	if (!token)
 		return (FAILURE);
+	add_history(line);
+	i = 0;
 	while (token[i])
 	{
-	l_new_token = ft_lstnew(token[i]);
+		l_new_token = ft_lstnew(token[i]);
 		if (!l_new_token)
 		{
 			ft_split_free(token);
@@ -81,9 +81,9 @@ void	ft_lstclear3(t_list **l_token)
 	{
 		tmp = tmp2->next;
 		if (tmp2 && tmp2->content)
-			free (tmp2->content);
+			free(tmp2->content);
 		if (tmp2)
-			free (tmp2);
+			free(tmp2);
 		tmp2 = tmp;
 	}
 	*l_token = NULL;

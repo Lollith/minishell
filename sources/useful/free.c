@@ -26,7 +26,7 @@ int	ft_free_args_exec(char **args_exec, int ret)
 	return (ret);
 }
 
-//a utiliser avec free_null((void **))
+// A utiliser avec free_null((void **))
 void	free_null(void **ptr)
 {
 	free(*ptr);
@@ -73,10 +73,3 @@ void	ft_clean_redir(t_pipe *pipex)
 		pipex->ctrl_redir = 0;
 	}
 }
-
-//affichage liste chainee
-	//while(pipex->l_start)
-	//{
-	//	printf("%s\n", (char*)pipex->l_start->content);
-	//	pipex->l_start=pipex->l_start->next;
-	//}

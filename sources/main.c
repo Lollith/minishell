@@ -43,7 +43,7 @@ int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 		pid = wait(&wstatus);
 	if (g_sig == 1)
 		pipex->pipe_ret = 130;
-	clean_std (pipex);
+	clean_std(pipex);
 	signal(SIGINT, ft_new_prompt);
 	signal(SIGQUIT, ft_new_prompt);
 	return (SUCCESS);

@@ -12,7 +12,16 @@
 
 #include "minishell.h"
 
-int	ft_quote(char *line)
+void	ft_quote_norm(int n, t_pipe *pipex)
+{
+	if (n == 0)
+		ft_msg("minishell: \'\': Command not found.\n", STDERR_FILENO);
+	else
+		ft_msg("minishell: \'..\': Command not found.\n", STDERR_FILENO);
+	pipex->pipe_ret = 127;
+}
+
+int	ft_quote(char *line, t_pipe *pipex)
 {
 	int	i;
 	int	n;
@@ -24,18 +33,19 @@ int	ft_quote(char *line)
 	n = 0;
 	two = 0;
 	one = 0;
-	i = 0;
-	while (line[i])
+	i = -1;
+	while (line[++i])
 	{
 		if (line[i] == '\"')
 			two++;
 		else if (line[i] == '\'')
 			one++;
 		else if (!ft_is_space(line[i], MS_SPACE))
-			n = 1;
-		i++;
+			n++;
 	}
-	if (two % 2 == 1 || one % 2 == 1 || n == 0)
+	if (n == 0 || ft_is_str(line, ".."))
+		ft_quote_norm(n, pipex);
+	if (two % 2 == 1 || one % 2 == 1 || n == 0 || ft_is_str(line, ".."))
 		return (FALSE);
 	return (TRUE);
 }
@@ -47,7 +57,7 @@ char	**lexer(char *line, t_pipe *pipex)
 	char	**token;
 	char	*str;
 
-	if (!ft_quote(line))
+	if (!ft_quote(line, pipex))
 		return (NULL);
 	str = ft_quoting(line, pipex);
 	if (!str)

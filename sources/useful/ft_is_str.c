@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void	ft_export_norm(char ***res, char ***envp)
+{
+	ft_split_free(envp[0]);
+	envp[0] = res[0];
+}
+
 int	ft_is_str(char *line, char *str)
 {
 	int		i;

@@ -37,8 +37,9 @@ int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex)
 	ft_split_free(paths);
 	if (!ft_is_str(cmd, "<") && !ft_is_str(cmd, ">"))
 	{
+		ft_msg("minishell: \'", STDERR_FILENO);
 		ft_msg(cmd, STDERR_FILENO);
-		ft_msg(": Command not found.\n", STDERR_FILENO);
+		ft_msg("\': Command not found.\n", STDERR_FILENO);
 	}
 	if (pipex->ctrl_redir2 == 1)
 	{

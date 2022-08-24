@@ -21,7 +21,8 @@ int	ft_env_parsing_empty(int is_unset)
 	return (is_unset);
 }
 
-int	ft_env_parsing(char **line, int is_unset)
+// pipex not working
+int	ft_env_parsing(char **line, int is_unset, t_pipe *pipex)
 {
 	int	i;
 
@@ -32,6 +33,7 @@ int	ft_env_parsing(char **line, int is_unset)
 	if (!is_unset && line[1][0] == '=')
 	{
 		printf("minishell: export: \'%s\': not a valid identifier\n", line[1]);
+		pipex->pipe_ret = 1;
 		return (FALSE);
 	}
 	i = 0;
@@ -40,56 +42,58 @@ int	ft_env_parsing(char **line, int is_unset)
 	if (line[1][i] == '=')
 	{
 		if (is_unset)
+		{
 			printf("minishell: unset: \'%s\': not a valid identifier\n", line[1]);
+			pipex->pipe_ret = 1;
+		}
 		return (TRUE);
 	}
 	return (FALSE);
 }
 
-int	ft_export(char **line, char ***envp)
-{
-	int		i;
-	char	**res;
-
-	if (!line[1])
-		ft_print_string_of_string(*envp);
-	if (!ft_env_parsing(line, 0))
-		return (1);
-	i = 0;
-	while (envp[0][i] && \
-	(ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i]))) != 0)
-		i++;
-	if (envp[0][i])
-	{
-		if (ft_export_value(line, envp, i))
-			return (2);
-	}
-	else
-	{
-		res = ft_export_envp(line, envp[0]);
-		if (!res)
-			return (2);
-		ft_split_free(envp[0]);
-		envp[0] = res;
-	}
-	return (1);
-}
-
-int	ft_unset(char **line, char ***envp)
+int	ft_export(char **line, char ***envp, t_pipe *pipex)
 {
 	int		i;
 	int		j;
 	char	**res;
+	char	*tmp;
 
+	j = ft_export_init(line, envp, &tmp);
+	while (line[1])
+	{
+		line[1] = line[++j];
+		if (!ft_env_parsing(line, 0, pipex))
+			continue ;
+		i = ft_unset_i(line, envp);
+		if (envp[0][i])
+		{
+			if (ft_export_value(line, envp, i))
+				return (2);
+			continue ;
+		}
+		res = ft_export_envp(line, envp[0]);
+		if (!res)
+			return (2);
+		ft_export_norm(&res, envp);
+	}
+	line[1] = tmp;
+	return (1);
+}
+
+int	ft_unset(char **line, char ***envp, t_pipe *pipex)
+{
+	int		i;
+	int		j;
+	char	**res;
+	char	*tmp;
+
+	tmp = line[1];
 	j = 1;
 	while (line[1])
 	{
-		if (!ft_env_parsing(line, 1))
+		if (!ft_env_parsing(line, 1, pipex))
 		{
-			i = 0;
-			while (envp[0][i] && \
-			(ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i]))) != 0)
-				i++;
+			i = ft_unset_i(line, envp);
 			if (envp[0][i])
 			{
 				res = ft_unset_envp(line, envp[0]);
@@ -101,6 +105,7 @@ int	ft_unset(char **line, char ***envp)
 		}
 		line[1] = line[++j];
 	}
+	line[1] = tmp;
 	return (1);
 }
 

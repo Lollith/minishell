@@ -32,9 +32,8 @@ int	ft_builtins_fork(char **line)
 // 2 exit
 int	ft_builtins(char **line, char ***envp, t_pipe *pipex)
 {
-	(void)pipex;
 	if (ft_is_str(line[0], "echo") || ft_is_str(line[0], "say"))
-		return (ft_echo(line, *envp));
+		return (ft_echo(line, *envp, pipex));
 	if (ft_is_str(line[0], "pwd"))
 		return (ft_pwd(*envp));
 	if (ft_is_str(line[0], "env"))
@@ -47,9 +46,9 @@ int	ft_builtins2(char **line, char ***envp, t_pipe *pipex)
 	if (ft_is_str(line[0], "cd"))
 		return (ft_cd(line, envp, pipex));
 	if (ft_is_str(line[0], "export"))
-		return (ft_export(line, envp));
+		return (ft_export(line, envp, pipex));
 	if (ft_is_str(line[0], "unset"))
-		return (ft_unset(line, envp));
+		return (ft_unset(line, envp, pipex));
 	if (ft_is_str(line[0], "exit") || ft_is_str(line[0], "quit"))
 		return (ft_exit(line, *envp, pipex));
 	return (0);
