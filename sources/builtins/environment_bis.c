@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 16:54:59 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/10 17:12:48 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/24 11:18:18 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	ft_exit_free(char **line, char **envp, t_pipe *pipex)
 	rl_clear_history();
 	ft_split_free(line);
 	ft_split_free(envp);
+	ft_child_close_pipe(pipex);
 	ft_lstclear2(&pipex->l_start);
 	write(1, "exit\n", 5);
 	if (g_sig == 1)
