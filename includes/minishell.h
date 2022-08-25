@@ -31,8 +31,6 @@
 // <unistd.h> getcwd chdir isatty ttyname ttyslot
 // <termios.h> tgoto tputs
 
-extern int	g_sig;
-
 # define FAILURE 0
 # define SUCCESS 1
 # define TRUE 1
@@ -40,6 +38,8 @@ extern int	g_sig;
 # define BUFFER_NAME 32
 # define BUFFER_SIZE 42
 # define MS_SPACE " \t\n\v\f\r"
+
+extern int	g_sig;
 
 typedef struct s_pipe
 {
@@ -61,7 +61,7 @@ typedef struct s_pipe
 /* ************************************************************************** */
 /*   builtins/builtins_bis.c                                    5 functions   */
 /* ************************************************************************** */
-int		ft_env_parsing_empty(int is_unset);
+int		ft_env_parsing_empty(int is_unset, t_pipe *pipex);
 int		ft_env_parsing(char **line, int is_unset, t_pipe *pipex);
 int		ft_export(char **line, char ***envp, t_pipe *pipex);
 int		ft_unset(char **line, char ***envp, t_pipe *pipex);
@@ -72,16 +72,16 @@ int		ft_env(char **envp);
 /* ************************************************************************** */
 int		ft_exit(char **line, char **envp, t_pipe *pipex);
 int		ft_echo(char **line, char **envp, t_pipe *pipex);
-char	*ft_get_home(char **envp, int is_cd);
-int		ft_cd(char **line, char ***envp, t_pipe *pipex);
 int		ft_pwd(char **envp);
+int		ft_export_init(char **line, char ***envp, char **tmp);
+int		ft_unset_i(char **line, char ***envp);
 
 /* ************************************************************************** */
 /*   builtins/environment_bis.c                                 5 functions   */
 /* ************************************************************************** */
+void	ft_export_norm(char ***res, char ***envp);
 int		ft_export_value(char **line, char ***envp, int i);
 char	**ft_export_envp(char **line, char **envp);
-char	**ft_export_line(char *pwd, char *line);
 int		ft_echo_cheak(char *line);
 int		ft_exit_free(char **line, char **envp, t_pipe *pipex);
 
@@ -95,6 +95,15 @@ char	**ft_unset_free(int i, char **res);
 char	**ft_unset_envp(char **line, char **envp);
 
 /* ************************************************************************** */
+/*   builtins/ft_cd.c                                           5 functions   */
+/* ************************************************************************** */
+int		ft_cd_no_file(char **line, char **bis, t_pipe *pipex);
+char	*ft_cd_get_home(char **envp, int is_cd);
+int		ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex);
+char	**ft_cd_export_line(char *pwd, char *line);
+int		ft_cd(char **line, char ***envp, t_pipe *pipex);
+
+/* ************************************************************************** */
 /*   minishell_split/ft_env_pipe.c                              3 functions   */
 /* ************************************************************************** */
 int		ft_env_pipe_size(int pipe_ret, int *i);
@@ -102,16 +111,20 @@ void	ft_env_pipe_input(char *res, int pipe_ret, int *i, int *j);
 void	ft_env_free(void *tmp1, void *tmp2, t_list *l_token);
 
 /* ************************************************************************** */
-/*   minishell_split/ft_env_quote.c                             3 functions   */
+/*   minishell_split/ft_env_quote.c                             4 functions   */
 /* ************************************************************************** */
 void	ft_env_input_single(char *token, char *res, int *i, int *j);
 int		ft_env_input_double(char *token, int i);
+int		ft_env_double_quote_bis(char *token, char **envp, int *i);
 int		ft_env_double_quote(char *token, int pipe_ret, char **envp, int *i);
 
 /* ************************************************************************** */
 /*   minishell_split/ft_env.c                                   5 functions   */
 /* ************************************************************************** */
 int		ft_env_size(char const *token, int i, char **envp);
+int		ft_env_input_var(char const *str, char *res, int j, char **envp);
+void	ft_env_input(char *token, char *res, int pipe_ret, char **envp);
+char	*ft_env_realloc_token(char *token, int pipe_ret, char **envp);
 int		ft_env_var(char ***token, int pipe_ret, t_list *l_token, char **envp);
 
 /* ************************************************************************** */
@@ -125,6 +138,10 @@ int		minishell_len_quote(char const *str, int i, int *j);
 /* ************************************************************************** */
 /*   minishell_split/minishell_split.c                          5 functions   */
 /* ************************************************************************** */
+int		minishell_count(char const *str, char *space);
+int		minishell_len(char const *str, char *space, int i);
+char	*minishell_input(char const *str, char *space, int i);
+int		minishell_post_input(char const *str, char *space, int i, char *res);
 char	**minishell_split(char const *s, char *space);
 
 /* ************************************************************************** */
@@ -153,7 +170,7 @@ char	*get_paths_cmd(char *paths_i, char *cmd);
 int		ft_pipex_return(char **paths, t_list *list, t_pipe *pipex);
 
 /* ************************************************************************** */
-/*   operator/minishell_pipe2.c                                 2 functions   */
+/*   operator/minishell_pipe2.c                                 3 functions   */
 /* ************************************************************************** */
 void	count_pipes(t_list *l_token, t_pipe *pipex);
 void	parent2(char ***token, char ***envp, t_pipe *pipex);
@@ -209,12 +226,8 @@ void	putsr_ret(t_pipe *pipex, char *str);
 void	putstr_exit(char **line, t_pipe *pipex);
 
 /* ************************************************************************** */
-/*   useful/ft_getenv.c                                         5 functions   */
+/*   useful/ft_getenv.c                                         1 functions   */
 /* ************************************************************************** */
-int		cd_no_file(char **line, char **bis, t_pipe *pipex);
-int		ft_cd_exec(char **line, char ***envp, char **bis, t_pipe *pipex);
-int		ft_export_init(char **line, char ***envp, char **tmp);
-int		ft_unset_i(char **line, char ***envp);
 char	*ft_getenv(char *env, char **envp);
 
 /* ************************************************************************** */
@@ -223,9 +236,8 @@ char	*ft_getenv(char *env, char **envp);
 int		ft_is_int(char *line);
 
 /* ************************************************************************** */
-/*   useful/ft_is_str.c                                         2 functions   */
+/*   useful/ft_is_str.c                                         1 functions   */
 /* ************************************************************************** */
-void	ft_export_norm(char ***res, char ***envp);
 int		ft_is_str(char *line, char *str);
 
 /* ************************************************************************** */
@@ -247,28 +259,29 @@ int		ft_string_of_string_len(char **tab);
 void	ft_print_string_of_string(char **tab);
 
 /* ************************************************************************** */
-/*   execut_bis.c                                               2 functions   */
+/*   execut_bis.c                                               4 functions   */
 /* ************************************************************************** */
 void	ft_child_free(char ***token, char ***envp, int ret);
 void	ft_child_free2(char ***token, char ***envp, t_list *l_token, int ret);
+void	fd_monitor(t_pipe *pipex);
+int		ft_link_fd(int pipefd0, int pipefd1, int std);
 
 /* ************************************************************************** */
-/*   execut.c                                                   5 functions   */
+/*   execut.c                                                   4 functions   */
 /* ************************************************************************** */
 char	**get_paths(char **envp);
 void	ft_child_close_pipe(t_pipe *pipex);
+void	b_o_c(char ***token, char ***envp, t_list *l_token, t_pipe *pipex);
 int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex);
-void	fd_monitor(t_pipe *pipex);
-int		ft_link_fd(int pipefd0, int pipefd1, int std);
 
 /* ************************************************************************** */
 /*   minishell.c                                                5 functions   */
 /* ************************************************************************** */
 int		ft_builtins_fork(char **line);
 int		ft_builtins(char **line, char ***envp, t_pipe *pipex);
+int		ft_builtins2(char **line, char ***envp, t_pipe *pipex);
 void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str, t_pipe *pipex);
-int		ft_builtins2(char **line, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
 /*   monitor.c                                                  5 functions   */
@@ -289,9 +302,10 @@ int		ft_main(int ac, char **av, char ***envp);
 int		init(int ac, char **av, char ***envp, t_pipe *pipex);
 
 /* ************************************************************************** */
-/*   main.c                                                     4 functions   */
+/*   main.c                                                     5 functions   */
 /* ************************************************************************** */
-int		parent(t_list *tmp_token, char ***envp, t_pipe *pipex);
+void	ft_ret1(t_pipe *pipex);
+int		parent(t_list *l_token, char ***envp, t_pipe *pipex);
 void	ft_pipe_ret(t_pipe *pipex);
 
 #endif
