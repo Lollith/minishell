@@ -71,7 +71,7 @@ int		ft_env(char **envp);
 /*   builtins/builtins.c                                        5 functions   */
 /* ************************************************************************** */
 int		ft_exit(char **line, char **envp, t_pipe *pipex);
-int		ft_echo(char **line, char **envp, t_pipe *pipex);
+int		ft_echo(char **line, char **envp);
 int		ft_pwd(char **envp);
 int		ft_export_init(char **line, char ***envp, char **tmp);
 int		ft_unset_i(char **line, char ***envp);
@@ -278,7 +278,7 @@ int		ft_child(char ***token, char ***envp, t_list *l_token, t_pipe *pipex);
 /*   minishell.c                                                5 functions   */
 /* ************************************************************************** */
 int		ft_builtins_fork(char **line);
-int		ft_builtins(char **line, char ***envp, t_pipe *pipex);
+int		ft_builtins(char **line, char ***envp);
 int		ft_builtins2(char **line, char ***envp, t_pipe *pipex);
 void	ft_quoting_input(char const *str, char *res);
 char	*ft_quoting(char const *str, t_pipe *pipex);

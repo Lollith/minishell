@@ -75,8 +75,8 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 		return (FAILURE);
 	pipex->l_start = NULL;
 	pipex->pid = 0;
-	pipex->pipe_ret = -1;
-	pipex->pipe_ret_b = -1;
+	pipex->pipe_ret = 0;
+	pipex->pipe_ret_b = 0;
 	pipex->ctrl = 0;
 	pipex->ctrl = 0;
 	while (i < 20)

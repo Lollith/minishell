@@ -15,11 +15,9 @@
 int	ft_cd_no_file(char **line, char **bis, t_pipe *pipex)
 {
 	if (line[1] && line[1][0] && bis[1] != NULL)
-	{
 		printf("minishell: cd: %s: No such file or directory\n", line[1]);
-		pipex->pipe_ret_b = 1;
-	}
 	ft_split_free(bis);
+	pipex->pipe_ret_b = 1;
 	return (1);
 }
 

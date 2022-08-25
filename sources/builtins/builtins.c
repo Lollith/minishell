@@ -40,7 +40,7 @@ int	ft_exit(char **line, char **envp, t_pipe *pipex)
 	return (1);
 }
 
-int	ft_echo(char **line, char **envp, t_pipe *pipex)
+int	ft_echo(char **line, char **envp)
 {
 	int	i;
 
@@ -64,7 +64,6 @@ int	ft_echo(char **line, char **envp, t_pipe *pipex)
 	}
 	if (!ft_echo_cheak(line[1]))
 		write(1, "\n", 1);
-	pipex->pipe_ret = 0;
 	return (1);
 }
 
