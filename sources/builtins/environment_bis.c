@@ -12,6 +12,12 @@
 
 #include "minishell.h"
 
+void	ft_export_norm(char ***res, char ***envp)
+{
+	ft_split_free(envp[0]);
+	envp[0] = res[0];
+}
+
 // Change variable
 int	ft_export_value(char **line, char ***envp, int i)
 {
@@ -48,36 +54,6 @@ char	**ft_export_envp(char **line, char **envp)
 	return (res);
 }
 
-// For cd
-char	**ft_export_line(char *pwd, char *line)
-{
-	char	cwd[256];
-	char	**res;
-
-	if (getcwd(cwd, sizeof(cwd)) == NULL)
-	{
-		printf("minishell: cd: %s: No such file or directory\n", line);
-		cwd[0] = '\0';
-	}
-	res = malloc(sizeof(char *) * 3);
-	if (!res)
-		return (NULL);
-	res[0] = ft_strdup("export");
-	if (!res[0])
-		return (NULL);
-	if (cwd[0])
-	{
-		res[1] = ft_strjoin(pwd, cwd);
-		if (!res[1])
-			return (NULL);
-	}
-	else
-		res[1] = NULL;
-	res[2] = NULL;
-	return (res);
-}
-
-// For echo
 int	ft_echo_cheak(char *line)
 {
 	int	i;
@@ -92,7 +68,6 @@ int	ft_echo_cheak(char *line)
 	return (1);
 }
 
-// For exit
 int	ft_exit_free(char **line, char **envp, t_pipe *pipex)
 {
 	close(pipex->tmp_in);
