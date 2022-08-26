@@ -42,6 +42,7 @@ int	ft_pipex_return(char **paths, t_list *list, t_pipe *pipex)
 		ft_msg("minishell: \'", STDERR_FILENO);
 		ft_msg(cmd, STDERR_FILENO);
 		ft_msg("\': Command not found.\n", STDERR_FILENO);
+		pipex->pipe_ret = 127;
 	}
 	if (pipex->ctrl_redir2 == 1)
 	{

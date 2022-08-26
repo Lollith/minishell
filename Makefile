@@ -17,6 +17,7 @@ SRCS		=	$(addprefix sources/, \
 					builtins/builtins.c \
 					builtins/environment_bis.c \
 					builtins/environment.c \
+					builtins/ft_cd.c \
 					minishell_split/ft_env_pipe.c \
 					minishell_split/ft_env_quote.c \
 					minishell_split/ft_env.c \

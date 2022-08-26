@@ -40,7 +40,7 @@ int	ft_exit(char **line, char **envp, t_pipe *pipex)
 	return (1);
 }
 
-int	ft_echo(char **line, char **envp, t_pipe *pipex)
+int	ft_echo(char **line, char **envp)
 {
 	int	i;
 
@@ -53,7 +53,7 @@ int	ft_echo(char **line, char **envp, t_pipe *pipex)
 			write(1, " ", 1);
 		if (line[i][0] == '~')
 		{
-			ft_putstr_fd(ft_get_home(envp, 0), 1);
+			ft_putstr_fd(ft_cd_get_home(envp, 0), 1);
 			ft_putstr_fd(line[i] + 1, 1);
 		}
 		else
@@ -64,51 +64,6 @@ int	ft_echo(char **line, char **envp, t_pipe *pipex)
 	}
 	if (!ft_echo_cheak(line[1]))
 		write(1, "\n", 1);
-	pipex->pipe_ret = 0;
-	return (1);
-}
-
-char	*ft_get_home(char **envp, int is_cd)
-{
-	int		i;
-	char	*home;
-
-	home = NULL;
-	i = 0;
-	while (envp[i] && (ft_strncmp(envp[i], "HOME", 4) != 0))
-		i++;
-	if (envp[i])
-		home = envp[i] + 5;
-	else if (is_cd)
-		ft_putstr_fd("minishell: cd: HOME not set\n", 1);
-	return (home);
-}
-
-int	ft_cd(char **line, char ***envp, t_pipe *pipex)
-{
-	int		i;
-	char	**bis;
-
-	if (ft_string_of_string_len(line) >= 4)
-	{
-		ft_putstr_fd("minishell: cd: too many arguments\n", 1);
-		pipex->pipe_ret_b = 1;
-		return (1);
-	}
-	bis = ft_export_line("OLDPWD=", line[1]);
-	if (!bis)
-		return (2);
-	i = ft_cd_exec(line, envp, bis, pipex);
-	if (i > 0)
-		return (i);
-	if (ft_export(bis, envp, pipex) == 2)
-		return (2);
-	ft_split_free(bis);
-	bis = ft_export_line("PWD=", NULL);
-	if (!bis || ft_export(bis, envp, pipex) == 2)
-		return (2);
-	ft_split_free(bis);
-	pipex->pipe_ret = 0;
 	return (1);
 }
 
@@ -128,4 +83,23 @@ int	ft_pwd(char **envp)
 	else
 		printf("%s\n", cwd);
 	return (1);
+}
+
+int	ft_export_init(char **line, char ***envp, char **tmp)
+{
+	if (!line[1])
+		ft_print_string_of_string(*envp);
+	*tmp = line[1];
+	return (0);
+}
+
+int	ft_unset_i(char **line, char ***envp)
+{
+	int	i;
+
+	i = 0;
+	while (envp[0][i] && \
+	(ft_strncmp(envp[0][i], line[1], ft_strlen_equal(envp[0][i]))) != 0)
+		i++;
+	return (i);
 }

@@ -12,12 +12,18 @@
 
 #include "minishell.h"
 
-int	ft_env_parsing_empty(int is_unset)
+int	ft_env_parsing_empty(int is_unset, t_pipe *pipex)
 {
 	if (is_unset)
+	{
 		printf("minishell: unset: \'\': not a valid identifier\n");
+		pipex->pipe_ret_b = 1;
+	}
 	else
+	{
 		printf("minishell: export: \'\': not a valid identifier\n");
+		pipex->pipe_ret_b = 1;
+	}
 	return (is_unset);
 }
 
@@ -29,11 +35,11 @@ int	ft_env_parsing(char **line, int is_unset, t_pipe *pipex)
 	if (!line[1])
 		return (is_unset);
 	if (!line[1][0])
-		return (ft_env_parsing_empty(is_unset));
+		return (ft_env_parsing_empty(is_unset, pipex));
 	if (!is_unset && line[1][0] == '=')
 	{
 		printf("minishell: export: \'%s\': not a valid identifier\n", line[1]);
-		pipex->pipe_ret = 1;
+		pipex->pipe_ret_b = 1;
 		return (FALSE);
 	}
 	i = 0;
@@ -44,7 +50,7 @@ int	ft_env_parsing(char **line, int is_unset, t_pipe *pipex)
 		if (is_unset)
 		{
 			printf("minishell: unset: \'%s\': not a valid identifier\n", line[1]);
-			pipex->pipe_ret = 1;
+			pipex->pipe_ret_b = 1;
 		}
 		return (TRUE);
 	}

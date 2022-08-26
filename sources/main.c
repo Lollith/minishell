@@ -37,7 +37,7 @@ int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 	if (monitoring(l_token, l_token, envp, pipex) == 0)
 		pipex->pipe_ret = 1;
 	else
-		pipex->pipe_ret = -1;
+		pipex->pipe_ret = 0;
 	ft_ret1(pipex);
 	pid = wait(&wstatus);
 	while (pid > 0)

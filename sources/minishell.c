@@ -30,10 +30,10 @@ int	ft_builtins_fork(char **line)
 // 0 in not a builtins
 // 1 is a builtins
 // 2 exit
-int	ft_builtins(char **line, char ***envp, t_pipe *pipex)
+int	ft_builtins(char **line, char ***envp)
 {
 	if (ft_is_str(line[0], "echo") || ft_is_str(line[0], "say"))
-		return (ft_echo(line, *envp, pipex));
+		return (ft_echo(line, *envp));
 	if (ft_is_str(line[0], "pwd"))
 		return (ft_pwd(*envp));
 	if (ft_is_str(line[0], "env"))
