@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/16 15:27:24 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/24 11:16:34 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/26 13:03:21 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,13 @@ void	parent2(char ***token, char ***envp, t_pipe *pipex)
 	i = ft_builtins2(*token, envp, pipex);
 	if (i == 2)
 		ft_child_free(token, envp, 1);
-	if (pipex->pipefd[pipex->act_p + 1][0] > -1)
-		close(pipex->pipefd[pipex->act_p + 1][0]);
-	if (pipex->pipefd[pipex->act_p + 1][1] > -1)
-		close(pipex->pipefd[pipex->act_p + 1][1]);
+	if (pipex->nb_pipes_const > 1)
+	{
+		if (pipex->pipefd[pipex->act_p + 1][0] > -1)
+			close(pipex->pipefd[pipex->act_p + 1][0]);
+		if (pipex->pipefd[pipex->act_p + 1][1] > -1)
+			close(pipex->pipefd[pipex->act_p + 1][1]);
+	}
 	ft_child_close_pipe(pipex);
 	if (*token != NULL)
 		split_free_null(*token);
