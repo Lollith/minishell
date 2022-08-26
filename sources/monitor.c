@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/11 14:11:16 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/26 12:13:24 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/26 13:24:57 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ int	one_cmd(t_list *l_token, char **args_exec, char ***envp, t_pipe *pipex)
 	else
 	{
 		if (pipex->ctrl_redir_out == 0)
-			dup2(pipex->tmp_out, STDOUT_FILENO);// ici
+			dup2(pipex->tmp_out, STDOUT_FILENO);
 		pipex->ctrl = -1;
 		ft_child(&args_exec, envp, l_token, pipex);
 		pipex->nb_pipes = 0;
