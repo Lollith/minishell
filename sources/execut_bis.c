@@ -29,7 +29,7 @@ void	ft_child_free2(char ***token, char ***envp, t_list *l_token, int ret)
 
 void	fd_monitor(t_pipe *pipex)
 {
-	if (pipex->pipefd[pipex->act_p][0] && (pipex->ctrl == 0))
+	if (pipex->ctrl_redir_out == 0 && pipex->pipefd[pipex->act_p][0] && (pipex->ctrl == 0))
 		ft_link_fd(pipex->pipefd[pipex->act_p][0],
 			pipex->pipefd[pipex->act_p][1], STDOUT_FILENO);
 	if (pipex->pipefd[pipex->act_p][0] && pipex->ctrl == 1)
@@ -41,8 +41,11 @@ void	fd_monitor(t_pipe *pipex)
 	}
 	if (pipex->nb_pipes > 1 && pipex->pipefd[pipex->act_p][0]
 		&& pipex->ctrl == -1)
+	{
 		ft_link_fd(pipex->pipefd[pipex->act_p + 1][1],
 			pipex->pipefd[pipex->act_p + 1][0], STDIN_FILENO);
+
+	}
 	else
 		ft_link_fd(pipex->pipefd[pipex->act_p][1],
 			pipex->pipefd[pipex->act_p][0], STDIN_FILENO);

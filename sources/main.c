@@ -6,7 +6,7 @@
 /*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/24 11:06:22 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/26 12:16:33 by agouet           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 	int	wstatus;
 
 	wstatus = 0;
+	pipex->ctrl_redir_out = 0;
 	pipex->tmp_in = dup(STDIN_FILENO);
 	pipex->tmp_out = dup(STDOUT_FILENO);
 	if (!next_checker(l_token))
