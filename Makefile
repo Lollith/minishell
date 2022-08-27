@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: agouet <agouet@student.42.fr>              +#+  +:+       +#+         #
+#    By: lollith <lollith@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/04/20 16:34:58 by agouet            #+#    #+#              #
-#    Updated: 2022/08/22 10:36:52 by agouet           ###   ########.fr        #
+#    Updated: 2022/08/27 14:52:07 by lollith          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -42,6 +42,7 @@ SRCS		=	$(addprefix sources/, \
 					execut.c \
 					initialisation.c \
 					minishell.c \
+					parent.c \
 					main.c \
 					monitor.c \
 				)
