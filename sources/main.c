@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 15:14:21 by frrusso           #+#    #+#             */
-/*   Updated: 2022/08/26 12:16:33 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/27 11:47:16 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
 	if (monitoring(l_token, l_token, envp, pipex) == 0)
 		pipex->pipe_ret = 1;
 	else
-		pipex->pipe_ret = 0;
+		pipex->pipe_ret = -1;
 	ft_ret1(pipex);
 	pid = wait(&wstatus);
 	while (pid > 0)

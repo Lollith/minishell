@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   initialisation.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: agouet <agouet@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/17 15:57:26 by agouet            #+#    #+#             */
-/*   Updated: 2022/08/26 10:09:52 by agouet           ###   ########.fr       */
+/*   Updated: 2022/08/27 11:49:19 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	init(int ac, char **av, char ***envp, t_pipe *pipex)
 	pipex->l_start = NULL;
 	pipex->pid = 0;
 	pipex->pipe_ret = 0;
-	pipex->pipe_ret_b = 0;
+	pipex->pipe_ret_b = -1;
 	pipex->ctrl = 0;
 	pipex->ctrl = 0;
 	while (i < 20)
