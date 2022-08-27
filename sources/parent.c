@@ -6,7 +6,7 @@
 /*   By: lollith <lollith@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/27 14:51:35 by lollith           #+#    #+#             */
-/*   Updated: 2022/08/27 14:57:03 by lollith          ###   ########.fr       */
+/*   Updated: 2022/08/27 15:27:34 by lollith          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ void	ft_ret1(t_pipe *pipex)
 	if (pipex->pipe_ret != 1)
 		ft_pipe_ret(pipex);
 	if (pipex->pipe_ret_b != -1)
+	{
 		pipex->pipe_ret = pipex->pipe_ret_b;
+		pipex->pipe_ret_b = -1;
+	}
 }
 
 int	parent(t_list *l_token, char ***envp, t_pipe *pipex)
