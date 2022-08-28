@@ -20,7 +20,7 @@ char	*ft_getenv(char *env, char **envp)
 		return (NULL);
 	i = 0;
 	while (envp[i] && \
-	(ft_strncmp(envp[i], env, ft_strlen_equal(envp[i])) != 0))
+	(ft_strncmp(envp[i], env, ft_strlen_equal(env)) != 0))
 		i++;
 	if (envp[i])
 		return (envp[i] + ft_strlen(env) + 1);
